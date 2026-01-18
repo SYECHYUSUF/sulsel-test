@@ -1,9 +1,15 @@
-<section class="relative h-[600px] sm:h-[650px] md:h-[750px] flex items-center justify-center overflow-hidden font-['Plus_Jakarta_Sans']">
-    {{-- 1. GAMBAR LATAR BELAKANG --}}
+<section 
+    x-data="{ scroll: 0 }" 
+    @scroll.window="scroll = window.pageYOffset"
+    class="relative h-[600px] sm:h-[650px] md:h-[750px] flex items-center justify-center overflow-hidden font-['Plus_Jakarta_Sans']">
+    
+    {{-- 1. GAMBAR LATAR BELAKANG DENGAN EFEK PARALLAX --}}
+    {{-- Kita gunakan h-[120%] agar ada ruang lebih saat gambar bergeser ke atas/bawah --}}
     <img
         src="{{ asset('images/20230807143338_Welcome Banner.png') }}"
-        class="absolute inset-0 w-full h-full object-cover scale-105"
+        class="absolute inset-0 w-full h-[120%] object-cover transition-transform duration-75 ease-out"
         alt="Welcome Banner PPID Utama Sulsel"
+        :style="`transform: translateY(${scroll * 0.3}px)`"
     >
 
     {{-- 2. OVERLAY GELAP & GRADASI --}}
@@ -11,16 +17,23 @@
 
     {{-- 3. KONTEN UTAMA --}}
     <div class="relative z-10 container mx-auto px-6 text-center text-white">
-        {{-- Judul Besar --}}
-        <h2 class="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 md:mb-6 leading-tight drop-shadow-2xl tracking-tight">
+        {{-- Judul Besar - Animasi: Fade Down --}}
+        <h2 
+            data-aos="fade-down" 
+            data-aos-duration="1000"
+            class="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 md:mb-6 leading-tight drop-shadow-2xl tracking-tight">
             Selamat Datang di Portal Resmi<br class="hidden md:block">
             <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-100 to-gray-300">
                 PPID Utama Provinsi Sulawesi Selatan
             </span>
         </h2>
 
-        {{-- 4. INPUT PENCARIAN (MODERN SEARCH BAR) --}}
-        <div class="max-w-2xl mx-auto mb-10 md:mb-14 px-2 relative group mt-8">
+        {{-- 4. INPUT PENCARIAN - Animasi: Zoom In --}}
+        <div 
+            data-aos="zoom-in" 
+            data-aos-delay="400"
+            data-aos-duration="800"
+            class="max-w-2xl mx-auto mb-10 md:mb-14 px-2 relative group mt-8">
             <form action="/search" method="GET" class="relative">
                 <input 
                     type="text" 
@@ -34,19 +47,17 @@
                     </svg>
                 </button>
             </form>
-            {{-- Hint Pencarian Populer --}}
-            <div class="mt-3 flex flex-wrap justify-center gap-2 text-[10px] md:text-xs text-white/60">
+            
+            {{-- Hint Pencarian Populer - Animasi: Fade Up --}}
+            <div 
+                data-aos="fade-up" 
+                data-aos-delay="800"
+                class="mt-3 flex flex-wrap justify-center gap-2 text-[10px] md:text-xs text-white/60">
                 <span>Populer:</span>
                 <a href="#" class="hover:text-white transition-colors underline decoration-white/20">Laporan Keuangan</a>
                 <a href="#" class="hover:text-white transition-colors underline decoration-white/20">Daftar Aset</a>
                 <a href="#" class="hover:text-white transition-colors underline decoration-white/20">RKA-SKPD</a>
             </div>
-        </div>
-
-        {{-- 5. FLOATING INFO BAR --}}
-            
-            
-            
         </div>
     </div>
 

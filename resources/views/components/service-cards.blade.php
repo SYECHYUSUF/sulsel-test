@@ -1,11 +1,18 @@
-<section id="layanan" class="py-12 md:py-24 bg-white relative overflow-hidden font-['Plus_Jakarta_Sans']">
-    {{-- Decorative Background - Diperkecil ukurannya di mobile agar tidak menutupi konten --}}
-    <div class="absolute top-0 left-0 w-64 h-64 md:w-96 md:h-96 bg-violet-100 rounded-full blur-3xl opacity-30 -translate-x-1/2 -translate-y-1/2"></div>
-    <div class="absolute bottom-0 right-0 w-64 h-64 md:w-96 md:h-96 bg-purple-100 rounded-full blur-3xl opacity-30 translate-x-1/2 translate-y-1/2"></div>
+<section id="layanan" 
+    x-data="{ scroll: 0 }" 
+    @scroll.window="scroll = window.pageYOffset"
+    class="py-12 md:py-24 bg-white relative overflow-hidden font-['Plus_Jakarta_Sans']">
+    
+    {{-- Decorative Background dengan Efek Parallax --}}
+    <div class="absolute top-0 left-0 w-64 h-64 md:w-96 md:h-96 bg-violet-100 rounded-full blur-3xl opacity-30 transition-transform duration-75 ease-out" 
+         :style="{ transform: 'translate(' + (-50 + (scroll * -0.05)) + '%, ' + (-50 + (scroll * -0.05)) + '%)' }"></div>
+    
+    <div class="absolute bottom-0 right-0 w-64 h-64 md:w-96 md:h-96 bg-purple-100 rounded-full blur-3xl opacity-30 transition-transform duration-75 ease-out" 
+         :style="{ transform: 'translate(' + (50 + (scroll * 0.05)) + '%, ' + (50 + (scroll * 0.05)) + '%)' }"></div>
 
     <div class="container mx-auto px-4 relative z-10">
-        {{-- Section Header - Ukuran font adaptif --}}
-        <div class="text-center mb-10 md:mb-16 max-w-3xl mx-auto">
+        {{-- Section Header - Animasi Fade Down --}}
+        <div class="text-center mb-10 md:mb-16 max-w-3xl mx-auto" data-aos="fade-down">
             <div class="inline-flex items-center gap-2 mb-4 px-4 py-2 md:px-5 md:py-2.5 bg-violet-100 border border-violet-200 rounded-full">
                 <div class="w-2 h-2 bg-violet-600 rounded-full"></div>
                 <span class="text-violet-700 text-xs md:text-sm font-bold tracking-wide uppercase">Layanan Kami</span>
@@ -14,8 +21,7 @@
             <p class="text-base md:text-xl text-gray-600 leading-relaxed">Akses mudah untuk berbagai layanan informasi publik yang tersedia di PPID Provinsi Sulawesi Selatan</p>
         </div>
 
-        {{-- Cards Grid - Adaptasi kolom: 1 (Mobile) -> 2 (Tablet) -> 3 (Desktop) --}}
-        
+        {{-- Cards Grid - Animasi Fade Up dengan Staggered Delay --}}
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto">
             @php
                 $services = [
@@ -25,8 +31,10 @@
                 ];
             @endphp
 
-            @foreach($services as $s)
-            <div class="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 hover:border-violet-200 {{ $s['hover'] }} hover:-translate-y-2 flex flex-col">
+            @foreach($services as $index => $s)
+            <div class="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 hover:border-violet-200 {{ $s['hover'] }} hover:-translate-y-2 flex flex-col"
+                 data-aos="fade-up" 
+                 data-aos-delay="{{ $index * 150 }}">
                 <div class="p-6 md:p-8 flex-grow">
                     <div class="relative w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br {{ $s['bg'] }} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
                         <div class="absolute inset-0 bg-gradient-to-br {{ $s['bg'] }} rounded-2xl translate-x-1 translate-y-1 -z-10 opacity-50"></div>
@@ -46,8 +54,8 @@
             @endforeach
         </div>
 
-        {{-- Bottom Banner - Penyesuaian Flex dan Padding --}}
-        <div class="mt-12 md:mt-16 max-w-4xl mx-auto">
+        {{-- Bottom Banner - Animasi Zoom In --}}
+        <div class="mt-12 md:mt-16 max-w-4xl mx-auto" data-aos="zoom-in">
             <div class="bg-gradient-to-r from-violet-600 to-purple-600 rounded-3xl p-6 md:p-8 shadow-xl text-white text-center">
                 <h4 class="text-xl md:text-2xl font-bold mb-3">Butuh Bantuan?</h4>
                 <p class="text-base md:text-lg text-white/90 mb-6">Tim kami siap membantu Anda dengan senang hati</p>

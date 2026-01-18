@@ -1,11 +1,14 @@
-<section class="py-12 md:py-24 bg-gradient-to-br from-violet-50 via-purple-50/50 to-white relative overflow-hidden font-['Plus_Jakarta_Sans']">
+<section 
+    x-data="{ scroll: 0 }" 
+    @scroll.window="scroll = window.pageYOffset"
+    class="py-12 md:py-24 bg-gradient-to-br from-violet-50 via-purple-50/50 to-white relative overflow-hidden font-['Plus_Jakarta_Sans']">
     {{-- Decorative Blur - Responsif (Dikecilkan di mobile) --}}
-    <div class="absolute top-0 right-0 w-64 h-64 bg-violet-200 rounded-full blur-3xl opacity-20 -translate-y-1/2 translate-x-1/2"></div>
-    <div class="absolute bottom-0 left-0 w-64 h-64 bg-purple-200 rounded-full blur-3xl opacity-20 translate-y-1/2 -translate-x-1/2"></div>
+    <div class="absolute top-0 right-0 w-64 h-64 bg-violet-200 rounded-full blur-3xl opacity-20 -translate-y-1/2 translate-x-1/2" :style="`transform: translate(${50 + (scroll * 0.05)}%, ${-50 + (scroll * 0.05)}%)`"></div>
+    <div class="absolute bottom-0 left-0 w-64 h-64 bg-purple-200 rounded-full blur-3xl opacity-20 translate-y-1/2 -translate-x-1/2" :style="`transform: translate(${-50 - (scroll * 0.05)}%, ${50 - (scroll * 0.05)}%)`"></div>
 
     <div class="container mx-auto px-4 relative z-10">
         {{-- Section Header - Tipografi Adaptif --}}
-        <div class="text-center mb-12 md:mb-16">
+        <div class="text-center mb-12 md:mb-16" data-aos="fade-down">
             <h2 class="text-3xl md:text-5xl font-bold text-gray-900 mb-4 tracking-tight leading-tight">
                 Gubernur & Wakil Gubernur
             </h2>
@@ -15,7 +18,6 @@
         </div>
 
         {{-- Grid: 1 Kolom (Mobile) -> 2 Kolom (Tablet/Desktop) --}}
-        
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
             @php
                 $leaders = [
@@ -36,8 +38,8 @@
                 ];
             @endphp
 
-            @foreach($leaders as $l)
-            <div class="group bg-white rounded-[2rem] shadow-xl border border-gray-100 p-6 md:p-8 transition-all duration-500 hover:border-violet-300 hover:shadow-violet-100 flex flex-col items-center">
+            @foreach($leaders as $index => $l)
+            <div data-aos="fade-up" data-aos-delay="{{ $index * 200 }}" class="group bg-white rounded-[2rem] shadow-xl border border-gray-100 p-6 md:p-8 transition-all duration-500 hover:border-violet-300 hover:shadow-violet-100 flex flex-col items-center">
                 {{-- Top Accent Line --}}
                 <div class="h-2 w-full bg-gradient-to-r from-violet-600 to-purple-600 rounded-t-full absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 

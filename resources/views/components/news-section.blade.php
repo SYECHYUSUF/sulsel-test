@@ -1,20 +1,19 @@
 <section class="py-12 md:py-[89px] bg-gray-50 font-['Plus_Jakarta_Sans'] transition-all">
     <div class="container mx-auto px-4">
         
-        {{-- Section Header - Tipografi Adaptif --}}
-        <div class="text-center mb-10 md:mb-[55px] max-w-3xl mx-auto">
+        {{-- Section Header --}}
+        <div class="text-center mb-10 md:mb-[55px] max-w-3xl mx-auto" data-aos="fade-down">
             <div class="inline-flex items-center gap-2 mb-[13px] px-4 py-1.5 md:px-5 md:py-2 bg-violet-100 border border-violet-200 rounded-full">
                 <span class="w-2 h-2 bg-violet-600 rounded-full animate-pulse"></span>
                 <span class="text-violet-700 text-[9px] md:text-[10px] font-black uppercase tracking-widest">Berita Terkini</span>
             </div>
-            {{-- Ukuran Font: 2xl di HP, 42px di Desktop --}}
             <h2 class="text-2xl md:text-[42px] font-extrabold text-gray-900 mb-4 md:mb-[21px] leading-tight tracking-tight">
                 Informasi & Berita Terbaru
             </h2>
             <p class="text-base md:text-lg text-gray-600">Update terbaru seputar layanan informasi publik di Sulawesi Selatan</p>
         </div>
 
-        {{-- News Grid: 1 Kolom (Mobile) -> 2 Kolom (Tablet) -> 3 Kolom (Desktop) --}}
+        {{-- News Grid --}}
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-[34px] max-w-7xl mx-auto">
             @php
                 $news = [
@@ -24,9 +23,8 @@
                 ];
             @endphp
 
-            @foreach($news as $item)
-            <div class="group bg-white rounded-[21px] overflow-hidden border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col">
-                {{-- Image - Aspect Ratio Tetap Dijaga --}}
+            @foreach($news as $index => $item)
+            <div data-aos="fade-up" data-aos-delay="{{ $index * 150 }}" class="group bg-white rounded-[21px] overflow-hidden border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col">
                 <div class="relative aspect-[1.618/1] overflow-hidden">
                     <img src="{{ $item['img'] }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="{{ $item['title'] }}">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
@@ -38,7 +36,6 @@
                     </div>
                 </div>
 
-                {{-- Content - Padding mengecil di Mobile agar teks lebih luas --}}
                 <div class="p-6 md:p-[34px] flex-grow flex flex-col">
                     <div class="flex items-center gap-2 text-gray-400 text-xs mb-3 md:mb-[13px] font-semibold">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>

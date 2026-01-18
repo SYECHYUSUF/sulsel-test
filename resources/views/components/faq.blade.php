@@ -1,7 +1,7 @@
 <section class="py-12 md:py-24 bg-white font-['Plus_Jakarta_Sans']" x-data="{ active: null }">
     <div class="container mx-auto px-4">
-        {{-- Section Header - Tipografi Adaptif --}}
-        <div class="text-center mb-12 md:mb-16 max-w-3xl mx-auto">
+        {{-- Section Header --}}
+        <div class="text-center mb-12 md:mb-16 max-w-3xl mx-auto" data-aos="fade-down">
             <div class="inline-flex items-center gap-2 mb-4 px-5 py-2.5 bg-violet-100 border border-violet-200 rounded-full">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-violet-600">
                     <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" x2="12" y1="17" y2="17"/>
@@ -40,6 +40,7 @@
 
             @foreach($faqs as $index => $faq)
             <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden transition-all duration-300"
+                 data-aos="fade-up" data-aos-delay="{{ $index * 50 }}"
                  :class="active === {{ $index }} ? 'ring-2 ring-violet-500/20 border-violet-200 shadow-lg' : 'hover:border-violet-300'">
                 
                 <button @click="active = (active === {{ $index }} ? null : {{ $index }})" 

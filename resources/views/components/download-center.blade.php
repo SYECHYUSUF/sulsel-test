@@ -1,7 +1,7 @@
 <section id="download" class="py-12 md:py-24 bg-white font-['Plus_Jakarta_Sans']">
     <div class="container mx-auto px-4">
         {{-- Section Header - Tipografi Adaptif --}}
-        <div class="text-center mb-12 md:mb-16 max-w-3xl mx-auto">
+        <div class="text-center mb-12 md:mb-16 max-w-3xl mx-auto" data-aos="fade-down">
             <div class="inline-flex items-center gap-2 mb-4 px-5 py-2.5 bg-violet-100 border border-violet-200 rounded-full">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-violet-600">
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/>
@@ -47,8 +47,8 @@
                 ];
             @endphp
 
-            @foreach($docs as $doc)
-            <div class="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-violet-200 overflow-hidden hover:-translate-y-2 flex flex-col">
+            @foreach($docs as $index => $doc)
+            <div data-aos="fade-up" data-aos-delay="{{ $index * 100 }}" class="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-violet-200 overflow-hidden hover:-translate-y-2 flex flex-col">
                 <div class="bg-gradient-to-br {{ $doc['color'] }} p-6 relative overflow-hidden text-white">
                     <div class="relative w-12 h-12 md:w-14 md:h-14 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-4 transition-transform group-hover:scale-110">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" md:width="28" md:height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

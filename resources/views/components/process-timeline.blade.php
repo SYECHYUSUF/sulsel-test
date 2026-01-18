@@ -1,11 +1,14 @@
-<section class="py-12 md:py-24 bg-gradient-to-br from-gray-50 via-violet-50/30 to-gray-50 relative overflow-hidden font-['Plus_Jakarta_Sans']">
-    {{-- Decorative Elements - Ukuran adaptif agar tidak memenuhi layar HP --}}
-    <div class="absolute top-10 left-0 w-48 h-48 md:top-20 md:left-10 md:w-72 md:h-72 bg-violet-200 rounded-full blur-3xl opacity-20"></div>
-    <div class="absolute bottom-10 right-0 w-48 h-48 md:bottom-20 md:right-10 md:w-72 md:h-72 bg-purple-200 rounded-full blur-3xl opacity-20"></div>
+<section 
+    x-data="{ scroll: 0 }" 
+    @scroll.window="scroll = window.pageYOffset"
+    class="py-12 md:py-24 bg-gradient-to-br from-gray-50 via-violet-50/30 to-gray-50 relative overflow-hidden font-['Plus_Jakarta_Sans']">
+    {{-- Decorative Elements dangan Parallax --}}
+    <div class="absolute top-10 left-0 w-48 h-48 md:top-20 md:left-10 md:w-72 md:h-72 bg-violet-200 rounded-full blur-3xl opacity-20 transition-transform duration-75" :style="`transform: translateY(${scroll * 0.1}px)`"></div>
+    <div class="absolute bottom-10 right-0 w-48 h-48 md:bottom-20 md:right-10 md:w-72 md:h-72 bg-purple-200 rounded-full blur-3xl opacity-20 transition-transform duration-75" :style="`transform: translateY(${scroll * -0.1}px)`"></div>
 
     <div class="container mx-auto px-6 md:px-4 relative z-10">
-        {{-- Section Header - Tipografi Responsif --}}
-        <div class="text-center mb-12 md:mb-16 max-w-3xl mx-auto">
+        {{-- Section Header --}}
+        <div class="text-center mb-12 md:mb-16 max-w-3xl mx-auto" data-aos="fade-down">
             <div class="inline-flex items-center gap-2 mb-4 px-4 py-2 md:px-5 md:py-2.5 bg-white border border-violet-200 rounded-full shadow-sm">
                 <div class="w-2 h-2 bg-violet-600 rounded-full animate-pulse"></div>
                 <span class="text-violet-700 text-xs md:text-sm font-bold tracking-wide uppercase">Cara Mengajukan</span>
@@ -15,10 +18,9 @@
         </div>
 
         <div class="max-w-6xl mx-auto">
-            {{-- Grid: 1 Kolom di HP, 4 Kolom di Desktop. Gap diperbesar di mobile untuk ruang badge --}}
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 relative">
                 
-                {{-- Connecting Line - Hanya muncul di Desktop (md:) --}}
+                {{-- Connecting Line --}}
                 <div class="hidden md:block absolute top-16 left-0 right-0 h-1 bg-gradient-to-r from-violet-200 via-purple-200 to-green-200" style="width: calc(100% - 8rem); left: 4rem;"></div>
 
                 @php
@@ -58,15 +60,15 @@
                     ];
                 @endphp
 
-                @foreach($steps as $s)
-                <div class="relative">
+                @foreach($steps as $index => $s)
+                <div class="relative" data-aos="fade-up" data-aos-delay="{{ $index * 200 }}">
                     <div class="bg-white rounded-3xl p-6 md:p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-violet-200 group hover:-translate-y-2">
-                        {{-- Number Badge - Disesuaikan posisinya di layar kecil --}}
+                        {{-- Number Badge --}}
                         <div class="absolute -top-3 -left-3 md:-top-4 md:-left-4 w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br {{ $s['col'] }} rounded-2xl flex items-center justify-center shadow-lg z-10 text-white font-bold text-lg md:text-xl">
                             {{ $s['n'] }}
                         </div>
                         
-                        {{-- Icon Placeholder --}}
+                        {{-- Icon --}}
                         <div class="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br {{ $s['col'] }} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-md text-white">
                             <div class="w-7 h-7 md:w-8 md:h-8">
                                 {!! $s['icon'] !!}
@@ -85,8 +87,8 @@
                 @endforeach
             </div>
 
-            {{-- Total Duration - Responsif Stack --}}
-            <div class="mt-12 text-center">
+            {{-- Total Duration --}}
+            <div class="mt-12 text-center" data-aos="zoom-in">
                 <div class="inline-flex flex-col sm:flex-row items-center gap-3 px-6 py-4 md:px-8 bg-white rounded-2xl shadow-lg border border-violet-200">
                     <div class="flex items-center gap-3">
                         <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
