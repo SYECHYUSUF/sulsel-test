@@ -54,25 +54,6 @@
             @endforeach
         </div>
 
-        {{-- Bottom Banner - Animasi Zoom In --}}
-        <div class="mt-12 md:mt-16 max-w-4xl mx-auto" data-aos="zoom-in">
-            <div class="bg-gradient-to-r from-violet-600 to-purple-600 rounded-3xl p-6 md:p-8 shadow-xl text-white text-center">
-                <h4 class="text-xl md:text-2xl font-bold mb-3">Butuh Bantuan?</h4>
-                <p class="text-base md:text-lg text-white/90 mb-6">Tim kami siap membantu Anda dengan senang hati</p>
-                <div class="flex flex-col md:flex-row items-center justify-center gap-4 text-sm md:text-base">
-                    <div class="flex items-center gap-2">
-                        <div class="w-2 h-2 bg-white rounded-full"></div>
-                        <span class="font-semibold">Senin - Jumat:</span>
-                        <span>08:00 - 16:00 WITA</span>
-                    </div>
-                    <div class="hidden md:block w-px h-6 bg-white/30"></div>
-                    <div class="flex items-center gap-2">
-                        <div class="w-2 h-2 bg-white rounded-full"></div>
-                        <span class="font-semibold">Telepon:</span>
-                        <span>(0411) 123-4567</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+       
     </div>
 </section>

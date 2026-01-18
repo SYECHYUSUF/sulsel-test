@@ -7,6 +7,9 @@
         <div class="container mx-auto">
             <x-service-cards />
         </div>
+        <x-aid-banner />
+
+            <x-narasi-tunggal-slider />
 
         <x-process-timeline />
         <x-download-center />
