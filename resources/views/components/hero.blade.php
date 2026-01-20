@@ -1,7 +1,9 @@
 <section 
     x-data="{ 
+        scroll: 0, 
         activeSlide: 0,
         slides: [
+            '{{ asset('images/99kubah.png') }}',
             '{{ asset('images/20230807143353_Alur Umum Permohonan Informasi (1).png') }}',
             '{{ asset('images/20230807143405_Tata Cara Pengajuan Informasi Publik Bagi Penyandang Disabilitas.png') }}',
             '{{ asset('images/20230915142948_Tata Cara Memperoleh Informasi Publik Revisi.png') }}',
@@ -28,12 +30,13 @@
             this.activeSlide = (this.activeSlide === 0) ? (this.slides.length - 1) : (this.activeSlide - 1);
         }
     }" 
-    class="relative min-h-screen w-full overflow-hidden font-['Plus_Jakarta_Sans'] group"
+    @scroll.window="scroll = window.pageYOffset"
+    class="relative min-h-[76vh] md:min-h-[73vh] w-full overflow-hidden font-['Plus_Jakarta_Sans'] group"
     @mouseenter="stopTimer"
     @mouseleave="startTimer"
 >
     
-    {{-- 1. CAROUSEL SLIDES --}}
+    {{-- 1. CAROUSEL SLIDES DENGAN PARALLAX --}}
     <template x-for="(slide, index) in slides" :key="index">
         <div 
             x-show="activeSlide === index"
@@ -45,10 +48,16 @@
             x-transition:leave-end="-translate-x-full"
             class="absolute inset-0 w-full h-full"
         >
+            {{-- 
+                PERUBAHAN PARALLAX DI SINI:
+                1. Class: h-[120%] dan -top-[10%] (Agar gambar lebih tinggi & tidak putus saat scroll)
+                2. Style: transform translateY (Logika pergerakan parallax)
+            --}}
             <img 
                 :src="slide" 
-                class="w-full h-full object-cover object-center"
+                class="absolute left-0 w-full h-auto -top-[10%] mt-18 object-cover object-center"
                 alt="Slider Image"
+                :style="`transform: translateY(${scroll * 0.5}px)`"
             >
              {{-- Overlay Gradient for Text Contrast --}}
              <div class="absolute inset-0 bg-gradient-to-t from-[#1A305E]/90 via-[#1A305E]/40 to-transparent"></div>
@@ -59,18 +68,7 @@
     <div class="absolute inset-0 z-20 flex items-center justify-center">
         <div class="container mx-auto px-6 text-center text-white mt-16 md:mt-0">
             {{-- Judul Besar --}}
-            <h2 
-                data-aos="fade-down" 
-                data-aos-duration="1000"
-                class="text-3xl sm:text-5xl md:text-6xl font-extrabold mb-6 md:mb-8 leading-tight drop-shadow-lg tracking-tight">
-                Selamat Datang di Portal Resmi<br>
-                <span class="text-[#D4AF37] relative inline-block">
-                    PPID Utama
-                    <svg class="absolute w-full h-3 -bottom-1 left-0 text-[#D4AF37] opacity-60" viewBox="0 0 200 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.00025 6.9997C2.00025 6.9997 18.0007 20.0002 77.5 5.5002C137 -9.0001 198.5 7.5003 198.5 7.5003" stroke="currentColor" stroke-width="3"/></svg>
-                </span>
-                Provinsi Sulawesi Selatan
-            </h2>
-
+            
              {{-- 4. INPUT PENCARIAN PREMIUM --}}
              <div 
                 data-aos="zoom-in" 
@@ -78,7 +76,7 @@
                 data-aos-duration="800"
                 class="max-w-3xl mx-auto mb-10 md:mb-14 relative group mt-8">
                 <form action="/search" method="GET" class="relative">
-                    <div class="relative flex items-center bg-white/10 backdrop-blur-md border border-white/20 rounded-full p-2 shadow-2xl transition-all duration-300 focus-within:bg-white/20 focus-within:ring-4 focus-within:ring-[#D4AF37]/30">
+                    <div class="relative flex items-center bg-white backdrop-blur-md border border-white/20 rounded-full p-2 shadow-2xl transition-all duration-300 focus-within:bg-white/20 focus-within:ring-4 focus-within:ring-[#D4AF37]/30">
                         <div class="pl-4 text-white/70">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                         </div>
@@ -86,7 +84,7 @@
                             type="text" 
                             name="query"
                             placeholder="Cari dokumen, berita, atau informasi publik..." 
-                            class="w-full bg-transparent border-none text-white placeholder-white/70 px-4 py-3 md:py-4 focus:ring-0 focus:outline-none text-base md:text-lg font-medium"
+                            class="w-full  border-none text-[#1A305E] placeholder-[#1A305E] px-4 py-3 md:py-4 focus:ring-0 focus:outline-none text-base md:text-lg font-medium"
                         >
                         <button type="submit" class="bg-[#D4AF37] hover:bg-[#b08d26] text-[#1A305E] font-bold py-3 px-8 rounded-full transition-all duration-300 shadow-lg transform hover:scale-105">
                             CARI

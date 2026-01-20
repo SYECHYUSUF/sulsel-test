@@ -15,14 +15,25 @@
         }">
 
     {{-- 1. TOP BAR: LOGO & BAHASA --}}
-    <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+    <div class="container mx-auto px-4 py-4 md:py-6 flex items-center justify-between">
         <a href="/" class="flex items-center gap-3 group">
-            <img src="{{ asset('images/Logo.png') }}" alt="Logo Sulawesi Selatan" class="h-10 md:h-12 w-auto transition-transform group-hover:scale-105" />
+            {{-- Logo Image --}}
+            <img src="{{ asset('images/logo-ppid.png') }}" alt="Logo PPID Sulawesi Selatan" class="h-10 md:h-14 w-auto transition-transform group-hover:scale-105" />
+            
+            {{-- TEKS SAMPING LOGO --}}
+            <div class="flex flex-col justify-center">
+                <span class="font-extrabold text-[#1A305E] text-xs md:text-base leading-tight group-hover:text-[#D4AF37] transition-colors font-['Plus_Jakarta_Sans']">
+                    Pejabat Pengelola Informasi dan Dokumentasi
+                </span>
+                <span class="font-bold text-[#D4AF37] text-[10px] md:text-xs tracking-[0.15em] uppercase mt-0.5">
+                    Sulawesi Selatan
+                </span>
+            </div>
         </a>
 
         <div class="flex items-center gap-3 md:gap-4">
             {{-- Contact Desktop --}}
-            <a href="/contact" class="hidden lg:block text-sm font-medium text-[#4A5568] hover:text-[#D4AF37] transition-colors">Contact</a>
+            <a href="/contact" class="hidden lg:block text-sm font-medium text-[#4A5568] hover:text-[#D4AF37] transition-colors">Kontak</a>
             
             {{-- Dark Mode Toggle --}}
             <button @click="darkMode = !darkMode; localStorage.setItem('theme', darkMode ? 'dark' : 'light'); if(darkMode) document.documentElement.classList.add('dark'); else document.documentElement.classList.remove('dark');" 
@@ -61,7 +72,7 @@
         {{-- Gold Line Accent --}}
         <div class="absolute top-0 left-0 w-full h-[2px] bg-[#D4AF37]"></div>
 
-        <div class="container mx-auto px-0 lg:px-4">
+        <div class="container mx-auto px-0 lg:px-4 py-4">
             <ul class="flex flex-col lg:flex-row items-stretch lg:items-center text-xs lg:text-sm font-medium text-white/90">
                 
                 {{-- BERANDA --}}
@@ -176,18 +187,35 @@
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform text-[#D4AF37]" :class="openLayanan ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="m6 9 6 6 6-6"/></svg>
                         <span class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block"></span>
                     </div>
-                    <ul x-show="openLayanan" 
-                        x-transition:enter="transition ease-out duration-300 transform origin-top"
-                        x-transition:enter-start="opacity-0 -translate-y-2 scale-95"
-                        x-transition:enter-end="opacity-100 translate-y-0 scale-100"
-                        x-transition:leave="transition ease-in duration-200 transform origin-top"
-                        x-transition:leave-start="opacity-100 translate-y-0 scale-100"
-                        x-transition:leave-end="opacity-0 -translate-y-2 scale-95"
-                        class="lg:absolute lg:left-0 lg:top-full w-full lg:w-64 bg-white lg:shadow-xl text-[#1A305E] py-2 lg:rounded-b-lg lg:border-t-4 lg:border-[#D4AF37] z-50">
-                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Permohonan Informasi</a></li>
-                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Pengajuan Keberatan</a></li>
-                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">SOP</a></li>
-                    </ul>
+                    {{-- Kode Baru (Perbaikan) --}}
+<ul x-show="openLayanan" 
+    x-transition:enter="transition ease-out duration-300 transform origin-top"
+    x-transition:enter-start="opacity-0 -translate-y-2 scale-95"
+    x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+    x-transition:leave="transition ease-in duration-200 transform origin-top"
+    x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+    x-transition:leave-end="opacity-0 -translate-y-2 scale-95"
+    class="lg:absolute lg:left-0 lg:top-full w-full lg:w-64 bg-white lg:shadow-xl text-[#1A305E] py-2 lg:rounded-b-lg lg:border-t-4 lg:border-[#D4AF37] z-50">
+    
+    <li>
+        <a href="/layanan/permohonan-informasi" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">
+            Permohonan Informasi
+        </a>
+    </li>
+    
+    <li>
+        <a href="/layanan/pengajuan-keberatan" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">
+            Pengajuan Keberatan
+        </a>
+    </li>
+    
+    <li>
+        <a href="/layanan/sop" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">
+            SOP
+        </a>
+    </li>
+
+</ul>
                 </li>
 
                 {{-- Dropdown Survey --}}
@@ -215,7 +243,7 @@
 
                 {{-- Contact Mobile Only --}}
                 <li class="lg:hidden border-b border-white/10">
-                    <a href="/contact" class="block px-6 py-4 hover:bg-white/10 hover:text-white">CONTACT</a>
+                    <a href="/contact" class="block px-6 py-4 hover:bg-white/10 hover:text-white">Kontak</a>
                 </li>
             </ul>
         </div>

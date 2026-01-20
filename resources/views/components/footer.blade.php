@@ -18,7 +18,9 @@
             {{-- Brand Section --}}
             <div class="sm:col-span-2 text-center sm:text-left">
                 <div class="flex flex-col sm:flex-row items-center gap-3 mb-6">
-                    <img src="{{ asset('images/logo-1.png') }}" class="h-10 md:h-12 w-auto" alt="Logo PPID">
+                    <a href="">
+                        <img src="{{ asset('images/ppid-putih.png') }}" class="h-10 md:h-12 w-auto" alt="Logo PPID">
+                    </a>
                     <div class="text-center sm:text-left">
                         <h3 class="text-lg md:text-2 font-bold uppercase tracking-tight text-white">PPID Sulawesi Selatan</h3>
                         <p class="text-xs md:text-sm text-[#D4AF37]">Pejabat Pengelola Informasi dan Dokumentasi</p>
