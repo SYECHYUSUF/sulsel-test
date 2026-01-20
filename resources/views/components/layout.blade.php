@@ -55,7 +55,6 @@
 
     {{-- Komponen Tambahan --}}
     <x-accessibility-menu />
-    <x-floating-whatsapp />
 
     {{-- 4. AOS JS & INISIALISASI --}}
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>

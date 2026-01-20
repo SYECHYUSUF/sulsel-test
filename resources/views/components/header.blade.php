@@ -83,21 +83,24 @@
                         <span class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block"></span>
                     </div>
                     <ul x-show="openProfil" 
-                        x-transition:enter="transition ease-out duration-200"
-                        x-transition:enter-start="opacity-0 translate-y-2"
-                        x-transition:enter-end="opacity-100 translate-y-0"
-                        x-transition:leave="transition ease-in duration-150"
-                        x-transition:leave-start="opacity-100 translate-y-0"
-                        x-transition:leave-end="opacity-0 translate-y-2"
+                        x-transition:enter="transition ease-out duration-300 transform origin-top"
+                        x-transition:enter-start="opacity-0 -translate-y-2 scale-95"
+                        x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                        x-transition:leave="transition ease-in duration-200 transform origin-top"
+                        x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+                        x-transition:leave-end="opacity-0 -translate-y-2 scale-95"
                         class="lg:absolute lg:left-0 lg:top-full w-full lg:w-64 bg-white lg:shadow-xl text-[#1A305E] py-2 lg:rounded-b-lg lg:border-t-4 lg:border-[#D4AF37] z-50">
-                        <li><a href="/profil-ppid" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#1A305E] transition-colors border-l-4 border-transparent hover:border-[#D4AF37]">Profil PPID</a></li>
-                        <li><a href="/visi-misi" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#1A305E] transition-colors border-l-4 border-transparent hover:border-[#D4AF37]">Visi & Misi</a></li>
-                        <li><a href="/struktur-organisasi" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#1A305E] transition-colors border-l-4 border-transparent hover:border-[#D4AF37]">Struktur Organisasi</a></li>
-                        <li><a href="/tupoksi" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#1A305E] transition-colors border-l-4 border-transparent hover:border-[#D4AF37]">Tugas & Fungsi</a></li>
-                        <li><a href="/maklumat-pelayanan" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#1A305E] transition-colors border-l-4 border-transparent hover:border-[#D4AF37]">Maklumat Pelayanan</a></li>
+                        <li><a href="/profil-ppid" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] transition-colors border-l-4 border-transparent hover:border-[#D4AF37]">Profil PPID</a></li>
+                        <li><a href="/sambutan" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] transition-colors border-l-4 border-transparent hover:border-[#D4AF37]">Sambutan</a></li>
+                        <li><a href="/struktur-organisasi" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] transition-colors border-l-4 border-transparent hover:border-[#D4AF37]">Struktur Organisasi</a></li>
+                        <li><a href="/visi-misi" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] transition-colors border-l-4 border-transparent hover:border-[#D4AF37]">Visi Misi</a></li>
+                        <li><a href="/tupoksi" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] transition-colors border-l-4 border-transparent hover:border-[#D4AF37]">Tupoksi</a></li>
+                        <li><a href="/maklumat-pelayanan" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] transition-colors border-l-4 border-transparent hover:border-[#D4AF37]">Maklumat</a></li>
+                        <li><a href="/profil-pemprov" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] transition-colors border-l-4 border-transparent hover:border-[#D4AF37]">Profil Pemerintah Sulsel</a></li>
                     </ul>
                 </li>
 
+                {{-- BERITA --}}
                 <li class="border-b lg:border-none border-white/10">
                     <a href="/berita" class="block px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all relative group">
                         BERITA
@@ -105,23 +108,28 @@
                     </a>
                 </li>
 
-                {{-- Dropdown Daftar Informasi Publik --}}
+                {{-- Dropdown Data Informasi Publik (Formerly Daftar) --}}
                 <li class="relative border-b lg:border-none border-white/10 group"
                     @mouseenter="if(window.innerWidth >= 1024) openDaftar = true" 
                     @mouseleave="if(window.innerWidth >= 1024) openDaftar = false">
                     <div @click="if(window.innerWidth < 1024) openDaftar = !openDaftar" 
                          class="flex items-center justify-between px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all cursor-pointer relative">
-                        <span>DAFTAR INFORMASI PUBLIK</span>
+                        <span>DATA INFORMASI PUBLIK</span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform text-[#D4AF37]" :class="openDaftar ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="m6 9 6 6 6-6"/></svg>
                         <span class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block"></span>
                     </div>
                     <ul x-show="openDaftar" 
-                        x-transition:enter="transition ease-out duration-200"
-                        x-transition:enter-start="opacity-0 translate-y-2"
-                        x-transition:enter-end="opacity-100 translate-y-0"
+                        x-transition:enter="transition ease-out duration-300 transform origin-top"
+                        x-transition:enter-start="opacity-0 -translate-y-2 scale-95"
+                        x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                        x-transition:leave="transition ease-in duration-200 transform origin-top"
+                        x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+                        x-transition:leave-end="opacity-0 -translate-y-2 scale-95"
                         class="lg:absolute lg:left-0 lg:top-full w-full lg:w-64 bg-white lg:shadow-xl text-[#1A305E] py-2 lg:rounded-b-lg lg:border-t-4 lg:border-[#D4AF37] z-50">
-                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#1A305E] border-l-4 border-transparent hover:border-[#D4AF37]">Informasi Publik Tahun 2024</a></li>
-                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#1A305E] border-l-4 border-transparent hover:border-[#D4AF37]">Informasi Publik Tahun 2023</a></li>
+                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Informasi Publik</a></li>
+                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Tahun 2023</a></li>
+                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Tahun 2024</a></li>
+                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Tahun 2025</a></li>
                     </ul>
                 </li>
 
@@ -136,14 +144,19 @@
                         <span class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block"></span>
                     </div>
                     <ul x-show="openInformasi" 
-                        x-transition:enter="transition ease-out duration-200"
-                        x-transition:enter-start="opacity-0 translate-y-2"
-                        x-transition:enter-end="opacity-100 translate-y-0"
-                        class="lg:absolute lg:left-0 lg:top-full w-full lg:w-64 bg-white lg:shadow-xl text-[#1A305E] py-2 lg:rounded-b-lg lg:border-t-4 lg:border-[#D4AF37] z-50">
-                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#1A305E] border-l-4 border-transparent hover:border-[#D4AF37]">Berkala</a></li>
-                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#1A305E] border-l-4 border-transparent hover:border-[#D4AF37]">Serta Merta</a></li>
-                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#1A305E] border-l-4 border-transparent hover:border-[#D4AF37]">Setiap Saat</a></li>
-                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#1A305E] border-l-4 border-transparent hover:border-[#D4AF37]">Informasi Dikecualikan</a></li>
+                        x-transition:enter="transition ease-out duration-300 transform origin-top"
+                        x-transition:enter-start="opacity-0 -translate-y-2 scale-95"
+                        x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                        x-transition:leave="transition ease-in duration-200 transform origin-top"
+                        x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+                        x-transition:leave-end="opacity-0 -translate-y-2 scale-95"
+                        class="lg:absolute lg:left-0 lg:top-full w-full lg:w-72 bg-white lg:shadow-xl text-[#1A305E] py-2 lg:rounded-b-lg lg:border-t-4 lg:border-[#D4AF37] z-50">
+                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Serta Merta</a></li>
+                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Setiap Saat</a></li>
+                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Daftar Informasi Dikecualikan</a></li>
+                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Daftar Informasi Publik</a></li>
+                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Berkala</a></li>
+                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Informasi Pengadaan Barang Dan Jasa</a></li>
                     </ul>
                 </li>
 
@@ -165,13 +178,16 @@
                         <span class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block"></span>
                     </div>
                     <ul x-show="openLayanan" 
-                        x-transition:enter="transition ease-out duration-200"
-                        x-transition:enter-start="opacity-0 translate-y-2"
-                        x-transition:enter-end="opacity-100 translate-y-0"
+                        x-transition:enter="transition ease-out duration-300 transform origin-top"
+                        x-transition:enter-start="opacity-0 -translate-y-2 scale-95"
+                        x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                        x-transition:leave="transition ease-in duration-200 transform origin-top"
+                        x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+                        x-transition:leave-end="opacity-0 -translate-y-2 scale-95"
                         class="lg:absolute lg:left-0 lg:top-full w-full lg:w-64 bg-white lg:shadow-xl text-[#1A305E] py-2 lg:rounded-b-lg lg:border-t-4 lg:border-[#D4AF37] z-50">
-                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#1A305E] border-l-4 border-transparent hover:border-[#D4AF37]">Permohonan Informasi Online</a></li>
-                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#1A305E] border-l-4 border-transparent hover:border-[#D4AF37]">Pengajuan Keberatan Online</a></li>
-                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#1A305E] border-l-4 border-transparent hover:border-[#D4AF37]">Cek Status Permohonan</a></li>
+                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Permohonan Informasi</a></li>
+                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Pengajuan Keberatan</a></li>
+                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">SOP</a></li>
                     </ul>
                 </li>
 
@@ -186,12 +202,15 @@
                          <span class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block"></span>
                     </div>
                     <ul x-show="openService" 
-                        x-transition:enter="transition ease-out duration-200"
-                        x-transition:enter-start="opacity-0 translate-y-2"
-                        x-transition:enter-end="opacity-100 translate-y-0"
+                        x-transition:enter="transition ease-out duration-300 transform origin-top"
+                        x-transition:enter-start="opacity-0 -translate-y-2 scale-95"
+                        x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                        x-transition:leave="transition ease-in duration-200 transform origin-top"
+                        x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+                        x-transition:leave-end="opacity-0 -translate-y-2 scale-95"
                         class="lg:absolute lg:left-0 lg:top-full w-full lg:w-56 bg-white lg:shadow-xl text-[#1A305E] py-2 lg:rounded-b-lg lg:border-t-4 lg:border-[#D4AF37] z-50">
-                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#1A305E] border-l-4 border-transparent hover:border-[#D4AF37]">Isi Survey</a></li>
-                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#1A305E] border-l-4 border-transparent hover:border-[#D4AF37]">Hasil Survey</a></li>
+                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Isi Survey</a></li>
+                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Hasil Survey</a></li>
                     </ul>
                 </li>
 
