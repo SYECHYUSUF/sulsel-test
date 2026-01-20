@@ -126,10 +126,10 @@
                         x-transition:leave-start="opacity-100 translate-y-0 scale-100"
                         x-transition:leave-end="opacity-0 -translate-y-2 scale-95"
                         class="lg:absolute lg:left-0 lg:top-full w-full lg:w-64 bg-white lg:shadow-xl text-[#1A305E] py-2 lg:rounded-b-lg lg:border-t-4 lg:border-[#D4AF37] z-50">
-                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Informasi Publik</a></li>
-                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Tahun 2023</a></li>
-                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Tahun 2024</a></li>
-                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Tahun 2025</a></li>
+                        <li><a href="/informasi-publik/2023" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Informasi Publik Tahun 2023</a></li>
+                        <li><a href="/informasi-publik/2024" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Informasi Publik Tahun 2024</a></li>
+                        <li><a href="/informasi-publik/2025" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Informasi Publik Tahun 2025</a></li>
+                        <li><a href="/informasi-publik/pengadaan" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Informasi Pengadaan Barang Dan Jasa</a></li>
                     </ul>
                 </li>
 
@@ -151,12 +151,11 @@
                         x-transition:leave-start="opacity-100 translate-y-0 scale-100"
                         x-transition:leave-end="opacity-0 -translate-y-2 scale-95"
                         class="lg:absolute lg:left-0 lg:top-full w-full lg:w-72 bg-white lg:shadow-xl text-[#1A305E] py-2 lg:rounded-b-lg lg:border-t-4 lg:border-[#D4AF37] z-50">
-                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Serta Merta</a></li>
-                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Setiap Saat</a></li>
-                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Daftar Informasi Dikecualikan</a></li>
-                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Daftar Informasi Publik</a></li>
-                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Berkala</a></li>
-                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Informasi Pengadaan Barang Dan Jasa</a></li>
+                        <li><a href="/informasi-publik/serta-merta" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Informasi Serta Merta</a></li>
+                        <li><a href="/informasi-publik/setiap-saat" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Informasi Setiap Saat</a></li>
+                        <li><a href="/informasi-publik/dikecualikan" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Daftar Informasi Dikecualikan</a></li>
+                        <li><a href="/informasi-publik" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Daftar Informasi Publik</a></li>
+                        <li><a href="/informasi-publik/berkala" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Informasi Berkala</a></li>
                     </ul>
                 </li>
 
@@ -209,8 +208,8 @@
                         x-transition:leave-start="opacity-100 translate-y-0 scale-100"
                         x-transition:leave-end="opacity-0 -translate-y-2 scale-95"
                         class="lg:absolute lg:left-0 lg:top-full w-full lg:w-56 bg-white lg:shadow-xl text-[#1A305E] py-2 lg:rounded-b-lg lg:border-t-4 lg:border-[#D4AF37] z-50">
-                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Isi Survey</a></li>
-                        <li><a href="#" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Hasil Survey</a></li>
+                        <li><a href="/survey/isi-survey" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Isi Survey</a></li>
+                        <li><a href="/survey/hasil-survey" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Hasil Survey</a></li>
                     </ul>
                 </li>
 
