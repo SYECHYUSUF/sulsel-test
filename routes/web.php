@@ -14,6 +14,11 @@ Route::get('/visi-misi', function () { return view('pages.profil.visi-misi'); })
 Route::get('/tupoksi', function () { return view('pages.profil.tupoksi'); });
 Route::get('/maklumat-pelayanan', function () { return view('pages.profil.maklumat'); });
 Route::get('/profil-pemprov', function () { return view('pages.profil.pemerintah'); });
+Route::get('/ppid-pelaksana', function () { return view('pages.profil.ppid-pelaksana'); });
+
+// Berita Pages
+Route::get('/berita', function () { return view('pages.berita.index'); });
+Route::get('/berita/detail', function () { return view('pages.berita.show'); });
 
 // Informasi Publik Pages
 Route::get('/informasi-publik', function () { return view('pages.informasi-publik.index'); });

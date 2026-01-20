@@ -160,7 +160,7 @@
                 </li>
 
                 <li class="border-b lg:border-none border-white/10">
-                    <a href="#" class="block px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all relative group">
+                    <a href="/ppid-pelaksana" class="block px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all relative group">
                         PPID PELAKSANA
                         <span class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block"></span>
                     </a>
