@@ -55,7 +55,7 @@
             --}}
             <img 
                 :src="slide" 
-                class="absolute left-0 w-full h-auto -top-[10%] mt-18 object-cover object-center"
+                class="absolute left-0 w-full h-auto -top-[10%] mt-16 object-cover object-center"
                 alt="Slider Image"
                 :style="`transform: translateY(${scroll * 0.5}px)`"
             >
