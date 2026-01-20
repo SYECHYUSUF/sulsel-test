@@ -7,18 +7,18 @@
         <div class="container mx-auto">
             <x-service-cards />
         </div>
-        <x-aid-banner />
-
-            <x-narasi-tunggal-slider />
-
+        
+        <x-narasi-tunggal-slider />
+        
         <x-process-timeline />
         <x-download-center />
         
+        <x-aid-banner />
         <x-news-section />
         
         <x-leadership />
-        <x-faq />
         <x-legal-banner />
+        <x-faq />
         
     </main>
 

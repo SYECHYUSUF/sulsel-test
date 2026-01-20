@@ -1,59 +1,63 @@
 <section id="layanan" 
     x-data="{ scroll: 0 }" 
     @scroll.window="scroll = window.pageYOffset"
-    class="py-12 md:py-24 bg-white relative overflow-hidden font-['Plus_Jakarta_Sans']">
+    class="py-12 md:py-24 bg-[#fafafa] relative overflow-hidden font-['Plus_Jakarta_Sans']">
     
-    {{-- Decorative Background dengan Efek Parallax --}}
-    <div class="absolute top-0 left-0 w-64 h-64 md:w-96 md:h-96 bg-violet-100 rounded-full blur-3xl opacity-30 transition-transform duration-75 ease-out" 
-         :style="{ transform: 'translate(' + (-50 + (scroll * -0.05)) + '%, ' + (-50 + (scroll * -0.05)) + '%)' }"></div>
-    
-    <div class="absolute bottom-0 right-0 w-64 h-64 md:w-96 md:h-96 bg-purple-100 rounded-full blur-3xl opacity-30 transition-transform duration-75 ease-out" 
-         :style="{ transform: 'translate(' + (50 + (scroll * 0.05)) + '%, ' + (50 + (scroll * 0.05)) + '%)' }"></div>
+    {{-- Decorative Background (Subtle) --}}
+    <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-[#1A305E]/5 rounded-full blur-3xl opacity-50 pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#D4AF37]/10 rounded-full blur-3xl opacity-40 pointer-events-none"></div>
 
     <div class="container mx-auto px-4 relative z-10">
         {{-- Section Header - Animasi Fade Down --}}
-        <div class="text-center mb-10 md:mb-16 max-w-3xl mx-auto" data-aos="fade-down">
-            <div class="inline-flex items-center gap-2 mb-4 px-4 py-2 md:px-5 md:py-2.5 bg-violet-100 border border-violet-200 rounded-full">
-                <div class="w-2 h-2 bg-violet-600 rounded-full"></div>
-                <span class="text-violet-700 text-xs md:text-sm font-bold tracking-wide uppercase">Layanan Kami</span>
+        <div class="text-center mb-12 md:mb-20 max-w-3xl mx-auto" data-aos="fade-down">
+            <div class="inline-flex items-center gap-2 mb-4 px-4 py-2 bg-white border border-[#D4AF37]/30 rounded-full shadow-sm">
+                <div class="w-2 h-2 bg-[#D4AF37] rounded-full"></div>
+                <span class="text-[#1A305E] text-xs md:text-sm font-bold tracking-wide uppercase">Layanan Kami</span>
             </div>
-            <h2 class="text-2xl sm:text-3xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">Layanan Informasi Publik</h2>
-            <p class="text-base md:text-xl text-gray-600 leading-relaxed">Akses mudah untuk berbagai layanan informasi publik yang tersedia di PPID Provinsi Sulawesi Selatan</p>
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#1A305E] mb-6 leading-tight">Layanan Informasi Publik</h2>
+            <p class="text-base md:text-lg text-[#4A5568] leading-relaxed">Akses mudah dan transparan untuk berbagai layanan informasi publik di Provinsi Sulawesi Selatan.</p>
         </div>
 
         {{-- Cards Grid - Animasi Fade Up dengan Staggered Delay --}}
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
             @php
                 $services = [
-                    ['title' => 'Informasi Publik', 'desc' => 'Akses berbagai informasi publik yang tersedia secara berkala, serta merta, dan setiap saat sesuai UU KIP', 'bg' => 'from-violet-100 to-purple-100', 'text' => 'text-violet-600', 'hover' => 'hover:shadow-violet-200'],
-                    ['title' => 'Permohonan Informasi', 'desc' => 'Ajukan permohonan untuk mendapatkan informasi publik yang Anda butuhkan dengan proses yang mudah dan cepat', 'bg' => 'from-blue-100 to-cyan-100', 'text' => 'text-blue-600', 'hover' => 'hover:shadow-blue-200'],
-                    ['title' => 'Keberatan', 'desc' => 'Sampaikan keberatan atas permohonan informasi yang ditolak atau tidak dilayani sesuai ketentuan yang berlaku', 'bg' => 'from-fuchsia-100 to-pink-100', 'text' => 'text-fuchsia-600', 'hover' => 'hover:shadow-fuchsia-200'],
+                    ['title' => 'Informasi Publik', 'desc' => 'Akses berbagai informasi publik secara berkala, serta merta, dan setiap saat.', 'icon' => 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10'],
+                    ['title' => 'Permohonan Informasi', 'desc' => 'Ajukan permohonan informasi publik dengan proses yang mudah dan terintegrasi.', 'icon' => 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'],
+                    ['title' => 'Pengajuan Keberatan', 'desc' => 'Layanan pengajuan keberatan jika permohonan informasi tidak sesuai ketentuan.', 'icon' => 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z'],
                 ];
             @endphp
 
             @foreach($services as $index => $s)
-            <div class="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 hover:border-violet-200 {{ $s['hover'] }} hover:-translate-y-2 flex flex-col"
+            <div class="group h-full"
                  data-aos="fade-up" 
                  data-aos-delay="{{ $index * 150 }}">
-                <div class="p-6 md:p-8 flex-grow">
-                    <div class="relative w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br {{ $s['bg'] }} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                        <div class="absolute inset-0 bg-gradient-to-br {{ $s['bg'] }} rounded-2xl translate-x-1 translate-y-1 -z-10 opacity-50"></div>
-                        <div class="w-8 h-8 md:w-10 md:h-10 {{ $s['text'] }}">
-                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                        </div>
+                <div class="relative bg-white rounded-2xl p-8 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_-10px_rgba(26,48,94,0.1)] transition-all duration-700 ease-out group-hover:-translate-y-1 border border-gray-100/80 overflow-hidden h-full flex flex-col">
+                
+                {{-- Hover Accent Line --}}
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                
+                <div class="relative z-10 flex flex-col h-full">
+                    <div class="w-14 h-14 rounded-xl bg-[#1A305E]/5 text-[#1A305E] group-hover:bg-[#1A305E] group-hover:text-[#D4AF37] flex items-center justify-center mb-6 transition-colors duration-300">
+                        <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="{{ $s['icon'] }}"/>
+                        </svg>
                     </div>
-                    <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 leading-tight">{{ $s['title'] }}</h3>
-                    <p class="text-sm md:text-base text-gray-600 leading-relaxed mb-6">{{ $s['desc'] }}</p>
-                    <button class="inline-flex items-center gap-2 text-violet-600 hover:text-violet-700 font-bold text-sm md:text-base group/link">
-                        <span>Akses Layanan</span>
-                        <svg class="w-4 h-4 md:w-5 md:h-5 group-hover/link:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                    </button>
+                    
+                    <h3 class="text-xl font-bold text-[#1A305E] mb-3 group-hover:text-[#D4AF37] transition-colors">{{ $s['title'] }}</h3>
+                    <p class="text-[#4A5568] leading-relaxed mb-8 flex-grow">{{ $s['desc'] }}</p>
+                    
+                    <a href="#" class="inline-flex items-center gap-2 text-sm font-bold text-[#1A305E] group-hover:translate-x-1 transition-transform uppercase tracking-wider">
+                        Akses Layanan
+                        <svg class="w-4 h-4 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                    </a>
                 </div>
-                <div class="h-2 bg-gradient-to-r {{ $s['bg'] }}"></div>
+
+                {{-- Decorative Circle on Hover --}}
+                <div class="absolute -bottom-10 -right-10 w-32 h-32 bg-[#D4AF37]/5 rounded-full group-hover:scale-150 transition-transform duration-700 ease-out"></div>
+                </div>
             </div>
             @endforeach
         </div>
-
-       
     </div>
 </section>

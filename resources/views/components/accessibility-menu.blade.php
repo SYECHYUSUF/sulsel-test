@@ -12,6 +12,11 @@
         bold: localStorage.getItem('acc-bold') === 'true',
         links: localStorage.getItem('acc-links') === 'true',
         titles: localStorage.getItem('acc-titles') === 'true',
+        speech: localStorage.getItem('acc-speech') === 'true',
+        pause: localStorage.getItem('acc-pause') === 'true',
+        cursor: localStorage.getItem('acc-cursor') === 'true',
+        mask: localStorage.getItem('acc-mask') === 'true',
+        guide: localStorage.getItem('acc-guide') === 'true',
         fontSize: parseInt(localStorage.getItem('acc-font-size')) || 16
     },
     
@@ -62,6 +67,23 @@
         body.classList.toggle('bold-text', this.settings.bold);
         body.classList.toggle('highlight-links', this.settings.links);
         body.classList.toggle('highlight-titles', this.settings.titles);
+        body.classList.toggle('acc-cursor-big', this.settings.cursor);
+        body.classList.toggle('acc-mask-mode', this.settings.mask);
+        body.classList.toggle('acc-reading-guide', this.settings.guide);
+        
+        if (this.settings.pause) {
+            body.classList.add('reduce-motion');
+        } else {
+            body.classList.remove('reduce-motion');
+        }
+
+        // Simple Speech (Just a placeholder for now as full TTS is complex)
+        if (this.settings.speech) {
+            body.classList.add('speech-mode');
+        } else {
+            body.classList.remove('speech-mode');
+        }
+
         body.style.fontSize = this.settings.fontSize + 'px';
     },
     reset() {
@@ -126,7 +148,12 @@
             ['id' => 'dyslexic', 'label' => 'Disleksia', 'icon' => 'M4 7V4h16v3M9 20h6M12 4v16'],
             ['id' => 'bold', 'label' => 'Teks Tebal', 'icon' => 'M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z'],
             ['id' => 'links', 'label' => 'Garis Link', 'icon' => 'M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'],
-            ['id' => 'titles', 'label' => 'Sorot Judul', 'icon' => 'M6 12h12M6 20h12M6 4h12']
+            ['id' => 'titles', 'label' => 'Sorot Judul', 'icon' => 'M6 12h12M6 20h12M6 4h12'],
+            ['id' => 'speech', 'label' => 'Mode Suara', 'icon' => 'M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z M19 10v2a7 7 0 0 1-14 0v-2 M12 19v4 M8 23h8'],
+            ['id' => 'pause', 'label' => 'Jeda Animasi', 'icon' => 'M10 15v-6 M14 15v-6 M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z'],
+            ['id' => 'cursor', 'label' => 'Kursor Besar', 'icon' => 'M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z'],
+            ['id' => 'mask', 'label' => 'Masker Baca', 'icon' => 'M2 12h20 M4 6h16 M4 18h16'],
+            ['id' => 'guide', 'label' => 'Panduan', 'icon' => 'M12 20h9 M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z']
         ];
     @endphp
 

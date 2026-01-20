@@ -1,4 +1,4 @@
-<footer class="relative bg-gradient-to-br from-gray-900 via-violet-950/30 to-gray-900 text-white overflow-hidden font-['Plus_Jakarta_Sans']">
+<footer class="relative bg-[#1A305E] text-white overflow-hidden font-['Plus_Jakarta_Sans']">
     {{-- 1. Background Image Overlay --}}
     <div class="absolute inset-0 pointer-events-none">
         <img 
@@ -6,13 +6,12 @@
             class="w-full h-full object-cover opacity-10" 
             alt="Sulsel Background"
         >
-        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/95 to-gray-900/90"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-[#1A305E] via-[#1A305E]/95 to-[#1A305E]/90"></div>
     </div>
 
     {{-- 2. Dot & Cultural Pattern Overlay --}}
-    <div class="absolute inset-0 opacity-20 pointer-events-none" style="background-image: radial-gradient(circle, rgba(139, 92, 246, 0.3) 1px, transparent 1px); background-size: 20px 20px;"></div>
-    <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E'); background-size: 30px 30px;"></div>
-
+    <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(circle, rgba(212, 175, 55, 0.3) 1px, transparent 1px); background-size: 20px 20px;"></div>
+    
     <div class="container mx-auto px-6 md:px-4 py-12 md:py-16 relative z-10" data-aos="fade-up">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-12">
             
@@ -21,8 +20,8 @@
                 <div class="flex flex-col sm:flex-row items-center gap-3 mb-6">
                     <img src="{{ asset('images/logo-1.png') }}" class="h-10 md:h-12 w-auto" alt="Logo PPID">
                     <div class="text-center sm:text-left">
-                        <h3 class="text-lg md:text-2 font-bold uppercase tracking-tight">PPID Sulawesi Selatan</h3>
-                        <p class="text-xs md:text-sm text-gray-400">Pejabat Pengelola Informasi dan Dokumentasi</p>
+                        <h3 class="text-lg md:text-2 font-bold uppercase tracking-tight text-white">PPID Sulawesi Selatan</h3>
+                        <p class="text-xs md:text-sm text-[#D4AF37]">Pejabat Pengelola Informasi dan Dokumentasi</p>
                     </div>
                 </div>
                 <p class="text-gray-300 mb-8 leading-relaxed max-w-md mx-auto sm:mx-0 text-sm md:text-base">
@@ -41,9 +40,8 @@
                     @endphp
 
                     @foreach($socials as $soc)
-                        <a href="{{ $soc['link'] }}" title="{{ $soc['name'] }}" class="group relative w-11 h-11 bg-white/5 hover:bg-violet-600 border border-white/10 hover:border-violet-400 rounded-2xl flex items-center justify-center transition-all duration-500 hover:shadow-[0_0_20px_rgba(139,92,246,0.5)] hover:-translate-y-1">
-                            <div class="absolute inset-0 bg-violet-600 rounded-2xl blur-lg opacity-0 group-hover:opacity-40 transition-opacity duration-500"></div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="relative z-10 text-white/70 group-hover:text-white group-hover:scale-125 group-hover:rotate-12 transition-all duration-500">
+                        <a href="{{ $soc['link'] }}" title="{{ $soc['name'] }}" class="group relative w-11 h-11 bg-white/5 hover:bg-[#D4AF37] border border-white/10 hover:border-[#D4AF37] rounded-2xl flex items-center justify-center transition-all duration-500 hover:shadow-[0_0_20px_rgba(212,175,55,0.5)] hover:-translate-y-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="relative z-10 text-white/70 group-hover:text-[#1A305E] group-hover:scale-125 group-hover:rotate-12 transition-all duration-500">
                                 {!! $soc['icon'] !!}
                             </svg>
                         </a>
@@ -62,15 +60,15 @@
 
             @foreach($sections as $title => $links)
             <div class="text-center sm:text-left">
-                <h4 class="text-base md:text-lg font-bold mb-6 relative inline-block sm:block">
+                <h4 class="text-base md:text-lg font-bold mb-6 relative inline-block sm:block text-white">
                     {{ $title }}
-                    <span class="absolute -bottom-2 left-1/2 -translate-x-1/2 sm:translate-x-0 sm:left-0 w-8 h-1 bg-violet-600 rounded-full"></span>
+                    <span class="absolute -bottom-2 left-1/2 -translate-x-1/2 sm:translate-x-0 sm:left-0 w-8 h-1 bg-[#D4AF37] rounded-full"></span>
                 </h4>
                 <ul class="space-y-3 mt-4">
                     @foreach($links as $link)
                     <li>
-                        <a href="#" class="text-gray-400 hover:text-violet-400 transition-colors duration-300 flex items-center justify-center sm:justify-start gap-2 group text-sm md:text-base">
-                            <span class="w-1.5 h-1.5 bg-violet-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity hidden sm:block"></span>
+                        <a href="#" class="text-gray-400 hover:text-[#D4AF37] transition-colors duration-300 flex items-center justify-center sm:justify-start gap-2 group text-sm md:text-base">
+                            <span class="w-1.5 h-1.5 bg-[#D4AF37] rounded-full opacity-0 group-hover:opacity-100 transition-opacity hidden sm:block"></span>
                             {{ $link }}
                         </a>
                     </li>
@@ -84,8 +82,8 @@
         <div class="mt-12 md:mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] md:text-sm text-gray-500 text-center md:text-left">
             <p>© 2026 Pemerintah Provinsi Sulawesi Selatan. <br class="md:hidden"> All rights reserved.</p>
             <div class="flex gap-4 md:gap-6">
-                <a href="#" class="hover:text-white transition-colors">Kebijakan Privasi</a>
-                <a href="#" class="hover:text-white transition-colors">Syarat & Ketentuan</a>
+                <a href="#" class="hover:text-[#D4AF37] transition-colors">Kebijakan Privasi</a>
+                <a href="#" class="hover:text-[#D4AF37] transition-colors">Syarat & Ketentuan</a>
             </div>
         </div>
     </div>
