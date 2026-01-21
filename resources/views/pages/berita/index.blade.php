@@ -2,25 +2,25 @@
     <x-header />
 
     {{-- Breadcrumb + Title Section --}}
-    <div class="bg-white border-b border-gray-200 font-['Plus_Jakarta_Sans']">
+    <div class="bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700 font-['Plus_Jakarta_Sans']">
         <div class="container mx-auto px-4 py-8">
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
                 <div>
-                    <div class="flex items-center gap-2 text-sm text-gray-600 mb-3">
-                        <a href="/" class="hover:text-[#1A305E] transition-colors">Beranda</a>
+                    <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mb-3">
+                        <a href="/" class="hover:text-[#1A305E] dark:text-white transition-colors">{{ __('messages.common.home') }}</a>
                         <span class="text-gray-300">/</span>
-                        <span class="text-[#1A305E] font-medium">Berita</span>
+                        <span class="text-[#1A305E] dark:text-white font-medium">{{ __('messages.common.news') }}</span>
                     </div>
-                    <h1 class="text-3xl md:text-4xl font-bold text-[#1A305E]">
-                        Berita & Artikel
+                    <h1 class="text-3xl md:text-4xl font-bold text-[#1A305E] dark:text-white">
+                        {{ __('messages.news.title') }}
                     </h1>
                 </div>
                 <div class="hidden md:block">
                      <div class="flex gap-2">
-                        <button class="p-2 text-[#1A305E] bg-gray-100 rounded hover:bg-[#1A305E] hover:text-white transition-colors">
+                        <button class="p-2 text-[#1A305E] dark:text-white bg-gray-100 dark:bg-slate-700 rounded hover:bg-[#1A305E] hover:text-white transition-colors">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
                         </button>
-                        <button class="p-2 text-gray-400 hover:bg-gray-100 rounded transition-colors">
+                        <button class="p-2 text-gray-400 hover:bg-gray-100 dark:bg-slate-700 rounded transition-colors">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
                         </button>
                     </div>
@@ -30,7 +30,7 @@
     </div>
 
     {{-- Main Content --}}
-    <main class="py-12 bg-gray-50 font-['Plus_Jakarta_Sans']">
+    <main class="py-12 bg-gray-50 dark:bg-slate-900 font-['Plus_Jakarta_Sans']">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 lg:grid-cols-4 gap-10">
                 
@@ -40,10 +40,10 @@
                     {{-- Section: Topik Pilihanku (Featured) --}}
                     <div>
                         <div class="flex items-center justify-between mb-6">
-                            <h2 class="text-2xl font-bold text-[#1A305E]">TOPIK PILIHANKU</h2>
+                            <h2 class="text-2xl font-bold text-[#1A305E] dark:text-white">{{ __('messages.news.featured_topic') }}</h2>
                             <div class="flex gap-4 text-sm font-medium">
-                                <a href="#" class="text-[#D4AF37] hover:underline">Siaran Pers</a>
-                                <a href="#" class="text-gray-500 hover:text-[#1A305E]">Berita Pemerintahan</a>
+                                <a href="#" class="text-[#D4AF37] hover:underline">{{ __('messages.common.press_release') }}</a>
+                                <a href="#" class="text-gray-500 hover:text-[#1A305E] dark:text-white">{{ __('messages.common.official_news') }}</a>
                             </div>
                         </div>
 
@@ -96,7 +96,7 @@
                             @endphp
 
                             @foreach($newsItems as $news)
-                                <article class="group flex flex-col h-full bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                                <article class="group flex flex-col h-full bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                                     {{-- Image --}}
                                     <div class="relative overflow-hidden h-48">
                                         <img src="{{ $news['image'] }}" alt="{{ $news['title'] }}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
@@ -117,16 +117,16 @@
                                             <span>{{ $news['time'] }}</span>
                                         </div>
                                         <a href="/berita/detail" class="block mb-3">
-                                            <h3 class="text-lg font-bold text-gray-900 group-hover:text-[#1A305E] transition-colors line-clamp-2 leading-tight">
+                                            <h3 class="text-lg font-bold text-gray-900 dark:text-white group-hover:text-[#1A305E] transition-colors line-clamp-2 leading-tight">
                                                 {{ $news['title'] }}
                                             </h3>
                                         </a>
-                                        <p class="text-gray-600 text-sm line-clamp-3 mb-4 flex-1">
+                                        <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-3 mb-4 flex-1">
                                             {{ $news['desc'] }}
                                         </p>
                                         
                                         <a href="/berita/detail" class="inline-flex items-center text-sm font-semibold text-[#D4AF37] hover:tracking-wide transition-all mt-auto group/link">
-                                            Baca Selengkapnya
+                                            {{ __('messages.common.read_more') }}
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1 w-4 h-4 transform group-hover/link:translate-x-1 transition-transform"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                                         </a>
                                     </div>
@@ -138,14 +138,14 @@
                     {{-- Pagination --}}
                     <div class="flex justify-center pt-8">
                         <nav class="flex items-center gap-2">
-                            <button class="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 hover:bg-gray-50 text-gray-600 transition-colors">
+                            <button class="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 dark:border-slate-700 hover:bg-gray-50 dark:bg-slate-900 text-gray-600 dark:text-gray-300 transition-colors">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
                             </button>
                             <button class="w-10 h-10 flex items-center justify-center rounded-lg bg-[#1A305E] text-white font-medium shadow-md">1</button>
-                            <button class="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 hover:bg-gray-50 text-gray-600 font-medium transition-colors">2</button>
-                             <button class="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 hover:bg-gray-50 text-gray-600 font-medium transition-colors">3</button>
+                            <button class="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 dark:border-slate-700 hover:bg-gray-50 dark:bg-slate-900 text-gray-600 dark:text-gray-300 font-medium transition-colors">2</button>
+                             <button class="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 dark:border-slate-700 hover:bg-gray-50 dark:bg-slate-900 text-gray-600 dark:text-gray-300 font-medium transition-colors">3</button>
                              <span class="px-2 text-gray-400">...</span>
-                            <button class="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 hover:bg-gray-50 text-gray-600 transition-colors">
+                            <button class="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 dark:border-slate-700 hover:bg-gray-50 dark:bg-slate-900 text-gray-600 dark:text-gray-300 transition-colors">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
                             </button>
                         </nav>
@@ -163,7 +163,7 @@
                         <div class="p-6 text-center z-10 relative">
                             <div class="mb-4">
                                 <h3 class="text-lg font-bold tracking-widest mb-1 text-[#D4AF37]">WARTA SULSEL</h3>
-                                <p class="text-[10px] uppercase text-gray-300 tracking-wider">Sumber Informasi Terpercaya</p>
+                                <p class="text-[10px] uppercase text-gray-300 tracking-wider">{{ __('messages.news.source_info') }}</p>
                             </div>
                             
                             <!-- Featured Image -->
@@ -174,20 +174,20 @@
                                 </div>
                             </div>
                             
-                            <a href="#" class="inline-block px-4 py-2 border border-[#D4AF37] text-[#D4AF37] text-xs font-bold rounded-full hover:bg-[#D4AF37] hover:text-[#1A305E] transition-all uppercase tracking-wider">Baca Edisi Digital</a>
+                            <a href="#" class="inline-block px-4 py-2 border border-[#D4AF37] text-[#D4AF37] text-xs font-bold rounded-full hover:bg-[#D4AF37] hover:text-[#1A305E] dark:text-white transition-all uppercase tracking-wider">{{ __('messages.news.digital_edition') }}</a>
                         </div>
                     </div>
 
                     {{-- Popular News Widget --}}
-                    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
-                        <h3 class="font-bold text-[#1A305E] mb-4 border-l-4 border-[#D4AF37] pl-3">Terpopuler</h3>
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-200 dark:border-slate-700 p-6">
+                        <h3 class="font-bold text-[#1A305E] dark:text-white mb-4 border-l-4 border-[#D4AF37] pl-3">{{ __('messages.common.popular') }}</h3>
                          <div class="space-y-4">
                             @for($i=1; $i<=3; $i++)
                             <div class="flex gap-3 items-start group cursor-pointer">
                                 <div class="text-2xl font-black text-gray-200 group-hover:text-[#D4AF37] transition-colors leading-none -mt-1">0{{ $i }}</div>
                                 <div>
-                                    <span class="text-[10px] text-gray-500 block mb-1">Berita Pemerintahan</span>
-                                    <a href="#" class="text-sm font-semibold text-gray-900 group-hover:text-[#1A305E] leading-snug line-clamp-2 transition-colors">
+                                    <span class="text-[10px] text-gray-500 block mb-1">{{ __('messages.common.official_news') }}</span>
+                                    <a href="#" class="text-sm font-semibold text-gray-900 dark:text-white group-hover:text-[#1A305E] leading-snug line-clamp-2 transition-colors">
                                         Pj Gubernur Sulsel Tinjau Proyek Strategis Nasional di Mamminasata
                                     </a>
                                 </div>
@@ -198,22 +198,22 @@
                     </div>
 
                     {{-- Categories Widget --}}
-                    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
-                         <h3 class="font-bold text-[#1A305E] mb-4 border-l-4 border-[#D4AF37] pl-3">Kategori</h3>
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-200 dark:border-slate-700 p-6">
+                         <h3 class="font-bold text-[#1A305E] dark:text-white mb-4 border-l-4 border-[#D4AF37] pl-3">{{ __('messages.common.categories') }}</h3>
                         <div class="space-y-2">
                              @php
                                 $categories = [
-                                    ['name' => 'Siaran Pers', 'count' => 124],
-                                    ['name' => 'Berita Pemerintahan', 'count' => 85],
-                                    ['name' => 'Artikel Opini', 'count' => 42],
-                                    ['name' => 'Pengumuman', 'count' => 16],
-                                    ['name' => 'Info Layanan', 'count' => 28],
+                                    ['name' => 'messages.common.press_release', 'count' => 124],
+                                    ['name' => 'messages.common.official_news', 'count' => 85],
+                                    ['name' => 'messages.common.opinion', 'count' => 42],
+                                    ['name' => 'messages.common.announcement', 'count' => 16],
+                                    ['name' => 'messages.common.service_info', 'count' => 28],
                                 ];
                             @endphp
                             @foreach($categories as $cat)
-                                <a href="#" class="flex items-center justify-between p-2.5 rounded-lg hover:bg-gray-50 transition-colors group">
-                                    <span class="text-gray-700 font-medium text-sm group-hover:text-[#1A305E]">{{ $cat['name'] }}</span>
-                                    <span class="bg-[#1A305E]/5 text-[#1A305E] text-xs font-bold px-2 py-0.5 rounded-full group-hover:bg-[#1A305E] group-hover:text-white transition-colors">{{ $cat['count'] }}</span>
+                                <a href="#" class="flex items-center justify-between p-2.5 rounded-lg hover:bg-gray-50 dark:bg-slate-900 transition-colors group">
+                                    <span class="text-gray-700 font-medium text-sm group-hover:text-[#1A305E] dark:text-white">{{ __($cat['name']) }}</span>
+                                    <span class="bg-[#1A305E]/5 text-[#1A305E] dark:text-white text-xs font-bold px-2 py-0.5 rounded-full group-hover:bg-[#1A305E] group-hover:text-white transition-colors">{{ $cat['count'] }}</span>
                                 </a>
                             @endforeach
                         </div>
@@ -223,7 +223,7 @@
                     <div class="relative rounded-2xl overflow-hidden h-40 group shadow-md">
                         <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2670&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                         <div class="absolute inset-0 bg-[#1A305E]/80 flex flex-col items-center justify-center p-4 text-center">
-                            <span class="text-[#D4AF37] text-xs font-bold tracking-widest uppercase mb-1">Campaign</span>
+                            <span class="text-[#D4AF37] text-xs font-bold tracking-widest uppercase mb-1">{{ __('messages.common.campaign') }}</span>
                             <h3 class="text-white font-bold text-lg leading-tight uppercase tracking-wider">#SulselMelayani<br>SepenuhHati</h3>
                         </div>
                     </div>

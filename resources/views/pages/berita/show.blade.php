@@ -2,25 +2,25 @@
     <x-header />
 
     {{-- Breadcrumb Section --}}
-    <div class="bg-gray-50 pt-8 pb-4 font-['Plus_Jakarta_Sans']">
+    <div class="bg-gray-50 dark:bg-slate-900 pt-8 pb-4 font-['Plus_Jakarta_Sans']">
         <div class="container mx-auto px-4">
-            <div class="flex flex-wrap items-center gap-2 text-sm text-gray-600">
-                <a href="/" class="hover:text-[#1A305E] transition-colors">Beranda</a>
+            <div class="flex flex-wrap items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+                <a href="/" class="hover:text-[#1A305E] dark:text-white transition-colors">Beranda</a>
                 <span class="text-gray-300">/</span>
-                <a href="/berita" class="hover:text-[#1A305E] transition-colors">Berita</a>
+                <a href="/berita" class="hover:text-[#1A305E] dark:text-white transition-colors">Berita</a>
                 <span class="text-gray-300">/</span>
-                <span class="text-[#1A305E] font-medium truncate max-w-[200px] md:max-w-none">Menkomdigi: Tanpa Keterampilan Inklusif, Transformasi Digital Bisa...</span>
+                <span class="text-[#1A305E] dark:text-white font-medium truncate max-w-[200px] md:max-w-none">Menkomdigi: Tanpa Keterampilan Inklusif, Transformasi Digital Bisa...</span>
             </div>
         </div>
     </div>
 
     {{-- Main Content --}}
-    <main class="pb-16 bg-gray-50 font-['Plus_Jakarta_Sans']">
+    <main class="pb-16 bg-gray-50 dark:bg-slate-900 font-['Plus_Jakarta_Sans']">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
                 
                 {{-- Article Content --}}
-                <div class="lg:col-span-8 bg-white rounded-2xl p-6 md:p-10 shadow-sm border border-gray-100">
+                <div class="lg:col-span-8 bg-white dark:bg-slate-800 rounded-2xl p-6 md:p-10 shadow-sm border border-gray-100">
                     
                     {{-- Article Header --}}
                     <div class="mb-8">
@@ -35,7 +35,7 @@
                                 1.2K Views
                             </span>
                         </div>
-                        <h1 class="text-3xl md:text-4xl font-bold text-[#1A305E] leading-tight mb-6">
+                        <h1 class="text-3xl md:text-4xl font-bold text-[#1A305E] dark:text-white leading-tight mb-6">
                             Menkomdigi: Tanpa Keterampilan Inklusif, Transformasi Digital Bisa Memperlebar Kesenjangan
                         </h1>
                         
@@ -47,7 +47,7 @@
 
                     {{-- Article Body --}}
                     <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
-                        <p class="lead font-medium text-gray-900 text-xl mb-6">
+                        <p class="lead font-medium text-gray-900 dark:text-white text-xl mb-6">
                             Jakarta (20/01) - Menteri Komunikasi dan Digital (Menkomdigi) menegaskan bahwa transformasi digital nasional bukan hanya soal teknologi, tetapi juga tentang manusia.
                         </p>
                         
@@ -59,13 +59,13 @@
                             "Kita tidak bisa membiarkan ada warga negara yang tertinggal hanya karena mereka tidak memiliki akses atau kemampuan untuk memanfaatkan teknologi digital. Inklusivitas adalah kunci keberhasilan transformasi digital Indonesia," ujar Menkomdigi.
                         </p>
 
-                         <h3 class="text-2xl font-bold text-[#1A305E] mt-8 mb-4">Fokus pada Literasi Digital</h3>
+                         <h3 class="text-2xl font-bold text-[#1A305E] dark:text-white mt-8 mb-4">Fokus pada Literasi Digital</h3>
                         
                         <p class="mb-5">
                             Kementerian Komunikasi dan Digital (Kemkomdigi) telah meluncurkan berbagai program literasi digital yang menyasar berbagai lapisan masyarakat, mulai dari pelajar, UMKM, hingga penyandang disabilitas. Tujuannya adalah memastikan setiap individu memiliki kesempatan yang sama untuk berkembang di era ekonomi digital.
                         </p>
 
-                        <blockquote class="border-l-4 border-[#D4AF37] pl-6 italic text-gray-800 my-8 py-2 bg-gray-50 rounded-r-lg">
+                        <blockquote class="border-l-4 border-[#D4AF37] pl-6 italic text-gray-800 my-8 py-2 bg-gray-50 dark:bg-slate-900 rounded-r-lg">
                             "Teknologi harus menjadi enabler, bukan barrier. Tugas pemerintah adalah memastikan infrastruktur merata dan literasi digital menjangkau seluruh pelosok negeri."
                         </blockquote>
 
@@ -83,9 +83,9 @@
                         <div class="flex flex-wrap items-center justify-between gap-6">
                             <div class="flex flex-wrap gap-2">
                                 <span class="text-sm font-semibold text-gray-700 mr-2">Tags:</span>
-                                <a href="#" class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm hover:bg-[#1A305E] hover:text-white transition-colors">#TransformasiDigital</a>
-                                <a href="#" class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm hover:bg-[#1A305E] hover:text-white transition-colors">#Inklusif</a>
-                                <a href="#" class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm hover:bg-[#1A305E] hover:text-white transition-colors">#Menkomdigi</a>
+                                <a href="#" class="px-3 py-1 bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-300 rounded-full text-sm hover:bg-[#1A305E] hover:text-white transition-colors">#TransformasiDigital</a>
+                                <a href="#" class="px-3 py-1 bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-300 rounded-full text-sm hover:bg-[#1A305E] hover:text-white transition-colors">#Inklusif</a>
+                                <a href="#" class="px-3 py-1 bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-300 rounded-full text-sm hover:bg-[#1A305E] hover:text-white transition-colors">#Menkomdigi</a>
                             </div>
                             <div class="flex items-center gap-3">
                                 <span class="text-sm font-semibold text-gray-700">Bagikan:</span>
@@ -108,8 +108,8 @@
                 <div class="lg:col-span-4 space-y-8">
                      
                     {{-- Popular News --}}
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-                        <h3 class="font-bold text-[#1A305E] mb-6 flex items-center gap-2">
+                    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-100 p-6">
+                        <h3 class="font-bold text-[#1A305E] dark:text-white mb-6 flex items-center gap-2">
                             <span class="w-1 h-6 bg-[#D4AF37] rounded-full"></span>
                             Terpopuler
                         </h3>
@@ -119,7 +119,7 @@
                                     <span class="text-4xl font-bold text-gray-200 group-hover:text-[#D4AF37] transition-colors -mt-2">0{{$i+1}}</span>
                                     <div>
                                         <div class="text-xs text-gray-500 mb-1">Siaran Pers • 12 Jan 2026</div>
-                                        <h4 class="text-sm font-bold text-gray-900 leading-snug group-hover:text-[#1A305E] transition-colors">
+                                        <h4 class="text-sm font-bold text-gray-900 dark:text-white leading-snug group-hover:text-[#1A305E] dark:text-white transition-colors">
                                             Kementerian Komdigi Luncurkan Program 1000 Startup Digital 2026
                                         </h4>
                                     </div>
@@ -129,27 +129,27 @@
                     </div>
 
                     {{-- Categories --}}
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-                        <h3 class="font-bold text-[#1A305E] mb-4 flex items-center gap-2">
+                    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-100 p-6">
+                        <h3 class="font-bold text-[#1A305E] dark:text-white mb-4 flex items-center gap-2">
                              <span class="w-1 h-6 bg-[#D4AF37] rounded-full"></span>
                             Kategori
                         </h3>
                         <div class="space-y-2">
-                            <a href="#" class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors group">
-                                <span class="text-gray-700 font-medium group-hover:text-[#1A305E]">Siaran Pers</span>
-                                <span class="bg-gray-100 text-gray-500 text-xs px-2 py-1 rounded-full group-hover:bg-[#1A305E] group-hover:text-white transition-colors">124</span>
+                            <a href="#" class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 dark:bg-slate-900 transition-colors group">
+                                <span class="text-gray-700 font-medium group-hover:text-[#1A305E] dark:text-white">Siaran Pers</span>
+                                <span class="bg-gray-100 dark:bg-slate-700 text-gray-500 text-xs px-2 py-1 rounded-full group-hover:bg-[#1A305E] group-hover:text-white transition-colors">124</span>
                             </a>
-                            <a href="#" class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors group">
-                                <span class="text-gray-700 font-medium group-hover:text-[#1A305E]">Berita Pemerintahan</span>
-                                <span class="bg-gray-100 text-gray-500 text-xs px-2 py-1 rounded-full group-hover:bg-[#1A305E] group-hover:text-white transition-colors">85</span>
+                            <a href="#" class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 dark:bg-slate-900 transition-colors group">
+                                <span class="text-gray-700 font-medium group-hover:text-[#1A305E] dark:text-white">Berita Pemerintahan</span>
+                                <span class="bg-gray-100 dark:bg-slate-700 text-gray-500 text-xs px-2 py-1 rounded-full group-hover:bg-[#1A305E] group-hover:text-white transition-colors">85</span>
                             </a>
-                            <a href="#" class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors group">
-                                <span class="text-gray-700 font-medium group-hover:text-[#1A305E]">Artikel Digital</span>
-                                <span class="bg-gray-100 text-gray-500 text-xs px-2 py-1 rounded-full group-hover:bg-[#1A305E] group-hover:text-white transition-colors">42</span>
+                            <a href="#" class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 dark:bg-slate-900 transition-colors group">
+                                <span class="text-gray-700 font-medium group-hover:text-[#1A305E] dark:text-white">Artikel Digital</span>
+                                <span class="bg-gray-100 dark:bg-slate-700 text-gray-500 text-xs px-2 py-1 rounded-full group-hover:bg-[#1A305E] group-hover:text-white transition-colors">42</span>
                             </a>
-                            <a href="#" class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors group">
-                                <span class="text-gray-700 font-medium group-hover:text-[#1A305E]">Pengumuman</span>
-                                <span class="bg-gray-100 text-gray-500 text-xs px-2 py-1 rounded-full group-hover:bg-[#1A305E] group-hover:text-white transition-colors">16</span>
+                            <a href="#" class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 dark:bg-slate-900 transition-colors group">
+                                <span class="text-gray-700 font-medium group-hover:text-[#1A305E] dark:text-white">Pengumuman</span>
+                                <span class="bg-gray-100 dark:bg-slate-700 text-gray-500 text-xs px-2 py-1 rounded-full group-hover:bg-[#1A305E] group-hover:text-white transition-colors">16</span>
                             </a>
                         </div>
                     </div>

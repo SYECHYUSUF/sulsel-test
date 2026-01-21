@@ -12,8 +12,8 @@
     <div class="container mx-auto px-6 relative z-10">
         {{-- Section Header --}}
         <div class="text-center mb-16 md:mb-20" data-aos="fade-down">
-            <span class="text-[#D4AF37] font-bold tracking-[0.2em] text-[10px] uppercase mb-3 block">Pimpinan Daerah</span>
-            <h2 class="text-3xl md:text-4xl font-extrabold text-[#1A305E] mb-4 tracking-tight">Gubernur & Wakil Gubernur</h2>
+            <span class="text-[#D4AF37] font-bold tracking-[0.2em] text-[10px] uppercase mb-3 block">{{ __('messages.leadership.badge') }}</span>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-[#1A305E] mb-4 tracking-tight">{{ __('messages.leadership.title') }}</h2>
             <div class="w-12 h-1 bg-[#D4AF37] mx-auto rounded-full"></div>
         </div>
 
@@ -22,16 +22,16 @@
             @php
                 $leaders = [
                     [
-                        'name' => 'Andi Sudirman Sulaiman',
-                        'pos' => 'Gubernur Sulawesi Selatan',
+                        'name' => 'messages.leadership.gov_name',
+                        'pos' => 'messages.leadership.gov_pos',
                         'img' => 'gubernur.jpg',
-                        'badge' => 'GUBERNUR'
+                        'badge' => 'messages.leadership.gov_badge'
                     ],
                     [
-                        'name' => 'Fatmawati Rusdi',
-                        'pos' => 'Wakil Gubernur Sulawesi Selatan',
+                        'name' => 'messages.leadership.vice_gov_name',
+                        'pos' => 'messages.leadership.vice_gov_pos',
                         'img' => 'wakil-gubernur.jpg',
-                        'badge' => 'WAKIL GUBERNUR'
+                        'badge' => 'messages.leadership.vice_gov_badge'
                     ]
                 ];
             @endphp
@@ -51,7 +51,7 @@
                          alt="{{ $l['name'] }}">
 
                     {{-- KHUSUS WAGUB: Overlay Gelap Halus --}}
-                    @if($l['badge'] == 'WAKIL GUBERNUR')
+                    @if($l['badge'] == 'messages.leadership.vice_gov_badge')
                         <div class="absolute inset-0 bg-black/20 z-10 transition-opacity group-hover:opacity-30"></div>
                     @endif
 
@@ -72,10 +72,10 @@
                 {{-- 3. Bio Area --}}
                 <div class="mt-5 text-center md:text-left md:pl-2">
                     <h3 class="text-lg md:text-xl font-bold text-[#1A305E] mb-0.5 tracking-tight group-hover:text-[#D4AF37] transition-colors">
-                        {{ $l['name'] }}
+                        {{ __($l['name']) }}
                     </h3>
                     <p class="text-[10px] md:text-xs text-[#D4AF37] font-bold uppercase tracking-[0.15em]">
-                        {{ $l['pos'] }}
+                        {{ __($l['pos']) }}
                     </p>
                 </div>
 

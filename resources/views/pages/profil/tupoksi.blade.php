@@ -2,26 +2,26 @@
     <x-header />
 
     {{-- Breadcrumb + Title Section --}}
-    <div class="bg-white border-b border-gray-200 font-['Plus_Jakarta_Sans']">
+    <div class="bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700 font-['Plus_Jakarta_Sans']">
         <div class="container mx-auto px-4 py-6">
             {{-- Breadcrumb --}}
-            <div class="flex items-center gap-2 text-sm text-gray-600 mb-4">
-                <a href="/" class="hover:text-[#1A305E] transition-colors">
+            <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mb-4">
+                <a href="/" class="hover:text-[#1A305E] dark:text-white transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
                 </a>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-gray-400"><path d="m9 18 6-6-6-6"/></svg>
-                <a href="#" class="hover:text-[#1A305E] transition-colors">Profil</a>
+                <a href="#" class="hover:text-[#1A305E] dark:text-white transition-colors">Profil</a>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-gray-400"><path d="m9 18 6-6-6-6"/></svg>
-                <span class="text-[#1A305E] font-medium">Tupoksi</span>
+                <span class="text-[#1A305E] dark:text-white font-medium">Tupoksi</span>
             </div>
           
             {{-- Title --}}
             <div class="flex items-end justify-between">
                 <div>
-                    <h1 class="text-3xl md:text-4xl font-bold text-[#1A305E] mb-2">
+                    <h1 class="text-3xl md:text-4xl font-bold text-[#1A305E] dark:text-white mb-2">
                         Tupoksi
                     </h1>
-                    <p class="text-gray-600">
+                    <p class="text-gray-600 dark:text-gray-300">
                         Tugas Pokok dan Fungsi PPID Provinsi Sulawesi Selatan
                     </p>
                 </div>
@@ -33,7 +33,7 @@
     </div>
 
     {{-- Main Content --}}
-    <main class="py-10 md:py-16 bg-gray-50 font-['Plus_Jakarta_Sans']">
+    <main class="py-10 md:py-16 bg-gray-50 dark:bg-slate-900 font-['Plus_Jakarta_Sans']">
         <div class="container mx-auto px-4">
             <div class="max-w-5xl mx-auto space-y-8">
             
@@ -46,9 +46,9 @@
                 </div>
 
                 {{-- PPID Utama --}}
-                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 md:p-10">
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-6 md:p-10">
                     <div class="mb-6">
-                        <h2 class="text-2xl font-bold text-[#1A305E] mb-2">Tugas PPID Utama</h2>
+                        <h2 class="text-2xl font-bold text-[#1A305E] dark:text-white mb-2">Tugas PPID Utama</h2>
                         <div class="w-20 h-1 bg-[#1A305E] rounded-full"></div>
                     </div>
               
@@ -85,9 +85,9 @@
                 </div>
 
                 {{-- PPID Pelaksana --}}
-                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 md:p-10">
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-6 md:p-10">
                     <div class="mb-6">
-                        <h2 class="text-2xl font-bold text-[#1A305E] mb-2">Tugas PPID Pelaksana</h2>
+                        <h2 class="text-2xl font-bold text-[#1A305E] dark:text-white mb-2">Tugas PPID Pelaksana</h2>
                         <div class="w-20 h-1 bg-[#D4AF37] rounded-full"></div>
                     </div>
               
@@ -120,17 +120,17 @@
 
                 {{-- Prinsip --}}
                 <div class="grid md:grid-cols-2 gap-6">
-                    <div class="bg-white border border-[#1A305E]/20 rounded-lg p-6 hover:shadow-md transition-shadow">
-                        <h3 class="font-bold text-[#1A305E] mb-4">Prinsip Pelayanan</h3>
+                    <div class="bg-white dark:bg-slate-800 border border-[#1A305E]/20 rounded-lg p-6 hover:shadow-md transition-shadow">
+                        <h3 class="font-bold text-[#1A305E] dark:text-white mb-4">Prinsip Pelayanan</h3>
                         <div class="space-y-2 text-sm text-gray-700">
-                            <div class="flex gap-2"><span class="text-[#1A305E] font-bold">✓</span> Transparan dan akuntabel</div>
-                            <div class="flex gap-2"><span class="text-[#1A305E] font-bold">✓</span> Cepat dan tepat waktu</div>
-                            <div class="flex gap-2"><span class="text-[#1A305E] font-bold">✓</span> Mudah diakses</div>
-                            <div class="flex gap-2"><span class="text-[#1A305E] font-bold">✓</span> Profesional dan berintegritas</div>
+                            <div class="flex gap-2"><span class="text-[#1A305E] dark:text-white font-bold">✓</span> Transparan dan akuntabel</div>
+                            <div class="flex gap-2"><span class="text-[#1A305E] dark:text-white font-bold">✓</span> Cepat dan tepat waktu</div>
+                            <div class="flex gap-2"><span class="text-[#1A305E] dark:text-white font-bold">✓</span> Mudah diakses</div>
+                            <div class="flex gap-2"><span class="text-[#1A305E] dark:text-white font-bold">✓</span> Profesional dan berintegritas</div>
                         </div>
                     </div>
 
-                    <div class="bg-white border border-[#D4AF37]/40 rounded-lg p-6 hover:shadow-md transition-shadow">
+                    <div class="bg-white dark:bg-slate-800 border border-[#D4AF37]/40 rounded-lg p-6 hover:shadow-md transition-shadow">
                         <h3 class="font-bold text-[#B08D26] mb-4">Standar Layanan</h3>
                         <div class="space-y-2 text-sm text-gray-700">
                             <div class="flex gap-2"><span class="text-[#D4AF37] font-bold">✓</span> Informasi akurat dan benar</div>

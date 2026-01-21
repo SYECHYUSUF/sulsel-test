@@ -11,10 +11,10 @@
         <div class="text-center mb-12 md:mb-16 max-w-3xl mx-auto" data-aos="fade-down">
             <div class="inline-flex items-center gap-2 mb-4 px-4 py-2 md:px-5 md:py-2.5 bg-white border border-[#D4AF37]/30 rounded-full shadow-sm">
                 <div class="w-2 h-2 bg-[#D4AF37] rounded-full animate-pulse"></div>
-                <span class="text-[#1A305E] text-xs md:text-sm font-bold tracking-wide uppercase">Cara Mengajukan</span>
+                <span class="text-[#1A305E] text-xs md:text-sm font-bold tracking-wide uppercase">{{ __('messages.timeline.badge') }}</span>
             </div>
-            <h2 class="text-2xl sm:text-3xl md:text-5xl font-bold text-[#1A305E] mb-4 leading-tight">Proses Permohonan Informasi</h2>
-            <p class="text-base md:text-xl text-[#4A5568] leading-relaxed">4 langkah mudah untuk mendapatkan informasi publik yang Anda butuhkan</p>
+            <h2 class="text-2xl sm:text-3xl md:text-5xl font-bold text-[#1A305E] mb-4 leading-tight">{{ __('messages.timeline.title') }}</h2>
+            <p class="text-base md:text-xl text-[#4A5568] leading-relaxed">{{ __('messages.timeline.subtitle') }}</p>
         </div>
 
         <div class="max-w-6xl mx-auto">
@@ -27,33 +27,33 @@
                     $steps = [
                         [
                             'n' => '1', 
-                            'title' => 'Isi Formulir', 
-                            'desc' => 'Lengkapi formulir permohonan informasi dengan data yang valid', 
+                            'title' => 'messages.timeline.step_1_title', 
+                            'desc' => 'messages.timeline.step_1_desc', 
                             'dur' => 'Instant', 
                             'col' => 'from-[#1A305E] to-[#2a4a8b]',
                             'icon' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" /></svg>'
                         ],
                         [
                             'n' => '2', 
-                            'title' => 'Verifikasi', 
-                            'desc' => 'Tim kami akan memverifikasi kelengkapan dokumen Anda', 
+                            'title' => 'messages.timeline.step_2_title', 
+                            'desc' => 'messages.timeline.step_2_desc', 
                             'dur' => '1-2 Hari', 
                             'col' => 'from-[#D4AF37] to-[#eac548]',
                             'icon' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751A11.959 11.959 0 0 1 12 2.714Z" /></svg>'
                         ],
                         [
                             'n' => '3', 
-                            'title' => 'Proses', 
-                            'desc' => 'Permohonan diproses sesuai kategori informasi yang diminta', 
+                            'title' => 'messages.timeline.step_3_title', 
+                            'desc' => 'messages.timeline.step_3_desc', 
                             'dur' => '3-7 Hari', 
                             'col' => 'from-[#1A305E] to-[#2a4a8b]',
                             'icon' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12a7.5 7.5 0 1 1 15 0 7.5 7.5 0 0 1-15 0Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9" /></svg>'
                         ],
                         [
                             'n' => '4', 
-                            'title' => 'Terima Informasi', 
-                            'desc' => 'Informasi siap diunduh atau diambil sesuai pilihan Anda', 
-                            'dur' => 'Instant', 
+                            'title' => 'messages.timeline.step_4_title', 
+                            'desc' => 'messages.timeline.step_4_desc', 
+                            'dur' => 'messages.timeline.step_4_duration', 
                             'col' => 'from-[#D4AF37] to-[#eac548]',
                             'icon' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" /></svg>'
                         ],
@@ -75,8 +75,8 @@
                             </div>
                         </div>
 
-                        <h3 class="text-lg md:text-xl font-bold text-[#1A305E] mb-3">{{ $s['title'] }}</h3>
-                        <p class="text-sm md:text-base text-[#4A5568] leading-relaxed mb-4">{{ $s['desc'] }}</p>
+                        <h3 class="text-lg md:text-xl font-bold text-[#1A305E] mb-3">{{ __($s['title']) }}</h3>
+                        <p class="text-sm md:text-base text-[#4A5568] leading-relaxed mb-4">{{ __($s['desc']) }}</p>
                         
                         <div class="inline-flex items-center gap-2 px-4 py-2 bg-gray-50 rounded-full border border-gray-100">
                             <svg class="w-4 h-4 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -93,8 +93,8 @@
                     <div class="flex items-center gap-3">
                         <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
                         <p class="text-sm md:text-base text-[#4A5568]">
-                            <strong class="text-[#1A305E]">Total Waktu Proses:</strong> 
-                            Maksimal 10 Hari Kerja
+                            <strong class="text-[#1A305E]">{{ __('messages.timeline.total_time') }}</strong> 
+                            {{ __('messages.timeline.max_days') }}
                         </p>
                     </div>
                 </div>

@@ -2,26 +2,26 @@
     <x-header />
 
     {{-- Breadcrumb + Title Section --}}
-    <div class="bg-white border-b border-gray-200 font-['Plus_Jakarta_Sans']">
+    <div class="bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700 font-['Plus_Jakarta_Sans']">
         <div class="container mx-auto px-4 py-6">
             {{-- Breadcrumb --}}
-            <div class="flex items-center gap-2 text-sm text-gray-600 mb-4">
-                <a href="/" class="hover:text-[#1A305E] transition-colors">
+            <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mb-4">
+                <a href="/" class="hover:text-[#1A305E] dark:text-white transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
                 </a>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-gray-400"><path d="m9 18 6-6-6-6"/></svg>
-                <a href="/informasi-publik" class="hover:text-[#1A305E] transition-colors">Daftar Informasi Publik</a>
+                <a href="/informasi-publik" class="hover:text-[#1A305E] dark:text-white transition-colors">Daftar Informasi Publik</a>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-gray-400"><path d="m9 18 6-6-6-6"/></svg>
-                <span class="text-[#1A305E] font-medium">Tahun 2025</span>
+                <span class="text-[#1A305E] dark:text-white font-medium">Tahun 2025</span>
             </div>
           
             {{-- Title --}}
             <div class="flex items-end justify-between">
                 <div>
-                    <h1 class="text-3xl md:text-4xl font-bold text-[#1A305E] mb-2">
+                    <h1 class="text-3xl md:text-4xl font-bold text-[#1A305E] dark:text-white mb-2">
                         Daftar Informasi Publik 2025
                     </h1>
-                    <p class="text-gray-600">
+                    <p class="text-gray-600 dark:text-gray-300">
                         Daftar lengkap informasi publik tahun 2025
                     </p>
                 </div>
@@ -33,7 +33,7 @@
     </div>
 
     {{-- Main Content --}}
-    <main class="py-10 md:py-16 bg-gray-50 font-['Plus_Jakarta_Sans']">
+    <main class="py-10 md:py-16 bg-gray-50 dark:bg-slate-900 font-['Plus_Jakarta_Sans']">
         <div class="container mx-auto px-4">
             <div class="max-w-7xl mx-auto">
             
@@ -51,10 +51,10 @@
                 </div>
 
                 {{-- Table --}}
-                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                    <div class="border-b border-gray-200 px-6 py-4 flex items-center justify-between bg-gray-50">
-                        <h3 class="font-bold text-gray-900">Daftar Informasi Publik 2025</h3>
-                        <button class="flex items-center gap-2 text-[#1A305E] hover:text-[#D4AF37] text-sm font-medium transition-colors">
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 overflow-hidden">
+                    <div class="border-b border-gray-200 dark:border-slate-700 px-6 py-4 flex items-center justify-between bg-gray-50 dark:bg-slate-900">
+                        <h3 class="font-bold text-gray-900 dark:text-white">Daftar Informasi Publik 2025</h3>
+                        <button class="flex items-center gap-2 text-[#1A305E] dark:text-white hover:text-[#D4AF37] text-sm font-medium transition-colors">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
                             Export Data
                         </button>
@@ -95,13 +95,13 @@
                                 @endphp
                                 @foreach ($informasiData as $item)
                                     <tr class="hover:bg-[#1A305E]/5 transition-colors border-b border-gray-100 last:border-0">
-                                        <td class="px-4 py-3 text-sm text-gray-900 font-medium whitespace-nowrap">{{ $item['no'] }}</td>
+                                        <td class="px-4 py-3 text-sm text-gray-900 dark:text-white font-medium whitespace-nowrap">{{ $item['no'] }}</td>
                                         <td class="px-4 py-3 text-sm text-gray-700 min-w-[200px]">{{ $item['jenis'] }}</td>
                                         <td class="px-4 py-3 text-sm text-gray-700 min-w-[250px]">{{ $item['ringkasan'] }}</td>
                                         <td class="px-4 py-3 text-sm text-gray-700 min-w-[150px]">{{ $item['pejabat'] }}</td>
-                                        <td class="px-4 py-3 text-sm text-gray-600 min-w-[150px]">{{ $item['penanggungJawab'] }}</td>
-                                        <td class="px-4 py-3 text-sm text-gray-600 whitespace-nowrap">{{ $item['format'] }}</td>
-                                        <td class="px-4 py-3 text-sm text-gray-600 whitespace-nowrap">{{ $item['tahun'] }}</td>
+                                        <td class="px-4 py-3 text-sm text-gray-600 dark:text-gray-300 min-w-[150px]">{{ $item['penanggungJawab'] }}</td>
+                                        <td class="px-4 py-3 text-sm text-gray-600 dark:text-gray-300 whitespace-nowrap">{{ $item['format'] }}</td>
+                                        <td class="px-4 py-3 text-sm text-gray-600 dark:text-gray-300 whitespace-nowrap">{{ $item['tahun'] }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -109,8 +109,8 @@
                     </div>
 
                     {{-- Footer Info --}}
-                    <div class="border-t border-gray-200 px-6 py-4 bg-gray-50">
-                        <p class="text-sm text-gray-600">
+                    <div class="border-t border-gray-200 dark:border-slate-700 px-6 py-4 bg-gray-50 dark:bg-slate-900">
+                        <p class="text-sm text-gray-600 dark:text-gray-300">
                             Menampilkan <strong>{{ count($informasiData) }}</strong> dari <strong>{{ count($informasiData) }}</strong> informasi publik tahun 2025
                         </p>
                     </div>

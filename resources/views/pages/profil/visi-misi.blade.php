@@ -2,26 +2,26 @@
     <x-header />
 
     {{-- Breadcrumb + Title Section --}}
-    <div class="bg-white border-b border-gray-200 font-['Plus_Jakarta_Sans']">
+    <div class="bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700 font-['Plus_Jakarta_Sans']">
         <div class="container mx-auto px-4 py-6">
             {{-- Breadcrumb --}}
-            <div class="flex items-center gap-2 text-sm text-gray-600 mb-4">
-                <a href="/" class="hover:text-[#1A305E] transition-colors">
+            <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mb-4">
+                <a href="/" class="hover:text-[#1A305E] dark:text-white transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
                 </a>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-gray-400"><path d="m9 18 6-6-6-6"/></svg>
-                <a href="#" class="hover:text-[#1A305E] transition-colors">Profil</a>
+                <a href="#" class="hover:text-[#1A305E] dark:text-white transition-colors">Profil</a>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-gray-400"><path d="m9 18 6-6-6-6"/></svg>
-                <span class="text-[#1A305E] font-medium">Visi Misi</span>
+                <span class="text-[#1A305E] dark:text-white font-medium">Visi Misi</span>
             </div>
           
             {{-- Title --}}
             <div class="flex items-end justify-between">
                 <div>
-                    <h1 class="text-3xl md:text-4xl font-bold text-[#1A305E] mb-2">
+                    <h1 class="text-3xl md:text-4xl font-bold text-[#1A305E] dark:text-white mb-2">
                         Visi Misi
                     </h1>
-                    <p class="text-gray-600">
+                    <p class="text-gray-600 dark:text-gray-300">
                         Visi dan Misi PPID Provinsi Sulawesi Selatan
                     </p>
                 </div>
@@ -33,12 +33,12 @@
     </div>
 
     {{-- Main Content --}}
-    <main class="py-10 md:py-16 bg-gray-50 font-['Plus_Jakarta_Sans']">
+    <main class="py-10 md:py-16 bg-gray-50 dark:bg-slate-900 font-['Plus_Jakarta_Sans']">
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto space-y-8">
             
                 {{-- VISI --}}
-                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 overflow-hidden">
                     <div class="bg-[#1A305E] px-6 py-4">
                         <div class="flex items-center gap-3 text-white">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
@@ -48,7 +48,7 @@
               
                     <div class="p-6 md:p-10">
                         <div class="bg-[#1A305E]/5 border-l-4 border-[#1A305E] rounded-r-lg p-6 md:p-8">
-                            <p class="text-lg md:text-xl text-gray-900 leading-relaxed font-medium text-center">
+                            <p class="text-lg md:text-xl text-gray-900 dark:text-white leading-relaxed font-medium text-center">
                                 "Terwujudnya pelayanan informasi yang transparan dan akuntabel untuk memenuhi hak setiap orang informasi dengan keterbukaan peraturan perundang-undangan yang berlaku"
                             </p>
                         </div>
@@ -56,7 +56,7 @@
                 </div>
 
                 {{-- MISI --}}
-                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 overflow-hidden">
                     <div class="bg-[#D4AF37] px-6 py-4">
                         <div class="flex items-center gap-3 text-white">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
@@ -78,7 +78,7 @@
                                 ];
                             @endphp
                             @foreach ($misiList as $index => $misi)
-                                <div class="flex gap-4 items-start p-5 bg-gray-50 rounded-lg border border-gray-200 hover:border-[#1A305E]/20 hover:bg-[#1A305E]/5 transition-all">
+                                <div class="flex gap-4 items-start p-5 bg-gray-50 dark:bg-slate-900 rounded-lg border border-gray-200 dark:border-slate-700 hover:border-[#1A305E]/20 hover:bg-[#1A305E]/5 transition-all">
                                     <div class="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-[#1A305E] to-[#D4AF37] rounded-lg flex items-center justify-center text-white font-bold shadow-sm">
                                         {{ $index + 1 }}
                                     </div>

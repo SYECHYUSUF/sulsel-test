@@ -17,8 +17,10 @@
         cursor: localStorage.getItem('acc-cursor') === 'true',
         mask: localStorage.getItem('acc-mask') === 'true',
         guide: localStorage.getItem('acc-guide') === 'true',
+        dark: localStorage.getItem('theme') === 'dark',
         fontSize: parseInt(localStorage.getItem('acc-font-size')) || 16
     },
+    speechHandler: null,
     
     {{-- Fungsi Seret (Drag) --}}
     startDragging(e) {
@@ -77,18 +79,63 @@
             body.classList.remove('reduce-motion');
         }
 
-        // Simple Speech (Just a placeholder for now as full TTS is complex)
+        // Dark Mode Logic
+        if (this.settings.dark) {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        }
+        
+        // Speech Mode Logic
         if (this.settings.speech) {
             body.classList.add('speech-mode');
+            if (!this.speechHandler) {
+                this.speechHandler = (e) => {
+                    const target = e.target.closest('p, h1, h2, h3, h4, h5, h6, a, button, span, div');
+                    if (target && target.innerText) {
+                         const text = target.innerText.trim();
+                         if (text && text.length < 200) { // Limit length to avoid reading huge blocks at once
+                             window.speechSynthesis.cancel();
+                             const utterance = new SpeechSynthesisUtterance(text);
+                             utterance.lang = 'id-ID';
+                             window.speechSynthesis.speak(utterance);
+                         }
+                    }
+                };
+            }
+            document.addEventListener('mouseover', this.speechHandler);
         } else {
             body.classList.remove('speech-mode');
+            if (this.speechHandler) {
+                document.removeEventListener('mouseover', this.speechHandler);
+            }
+            window.speechSynthesis.cancel();
         }
 
         body.style.fontSize = this.settings.fontSize + 'px';
     },
     reset() {
-        this.settings = { contrast: false, monochrome: false, dyslexic: false, bold: false, links: false, titles: false, fontSize: 16 };
+        this.settings = { 
+            contrast: false, 
+            monochrome: false, 
+            dyslexic: false, 
+            bold: false, 
+            links: false, 
+            titles: false,
+            speech: false,
+            pause: false,
+            cursor: false,
+            mask: false,
+            guide: false,
+            dark: false,
+            fontSize: 16 
+        };
         localStorage.clear();
+        if (localStorage.getItem('theme') === 'dark') {
+             this.settings.dark = true; // Preserve dark mode if it was set via theme
+        }
         this.applyToBody();
     }
 }" x-init="applyToBody()" class="relative z-[9999] font-['Plus_Jakarta_Sans']">
@@ -143,6 +190,7 @@
          <div class="grid grid-cols-2 gap-3">
     @php
         $features = [
+            ['id' => 'dark', 'label' => 'Mode Gelap', 'icon' => 'M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z'],
             ['id' => 'contrast', 'label' => 'Kontras', 'icon' => 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10'],
             ['id' => 'monochrome', 'label' => 'Monokrom', 'icon' => 'M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8Z'],
             ['id' => 'dyslexic', 'label' => 'Disleksia', 'icon' => 'M4 7V4h16v3M9 20h6M12 4v16'],

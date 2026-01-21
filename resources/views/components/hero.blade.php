@@ -76,28 +76,28 @@
                 data-aos-duration="800"
                 class="max-w-3xl mx-auto mb-10 md:mb-14 relative group mt-8">
                 <form action="/search" method="GET" class="relative">
-                    <div class="relative flex items-center bg-white backdrop-blur-md border border-white/20 rounded-full p-2 shadow-2xl transition-all duration-300 focus-within:bg-white/20 focus-within:ring-4 focus-within:ring-[#D4AF37]/30">
+                    <div class="relative flex items-center bg-white dark:bg-slate-800 backdrop-blur-md border border-white/20 dark:border-white/10 rounded-full p-2 shadow-2xl transition-all duration-300 focus-within:bg-white/20 focus-within:ring-4 focus-within:ring-[#D4AF37]/30">
                         <div class="pl-4 text-white/70">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                         </div>
                         <input 
                             type="text" 
                             name="query"
-                            placeholder="Cari dokumen, berita, atau informasi publik..." 
-                            class="w-full  border-none text-[#1A305E] placeholder-[#1A305E] px-4 py-3 md:py-4 focus:ring-0 focus:outline-none text-base md:text-lg font-medium"
+                            placeholder="{{ __('messages.common.search_placeholder') }}" 
+                            class="w-full  border-none text-[#1A305E] dark:text-gray-200 placeholder-[#1A305E] dark:placeholder-gray-400 bg-transparent px-4 py-3 md:py-4 focus:ring-0 focus:outline-none text-base md:text-lg font-medium"
                         >
                         <button type="submit" class="bg-[#D4AF37] hover:bg-[#b08d26] text-[#1A305E] font-bold py-3 px-8 rounded-full transition-all duration-300 shadow-lg transform hover:scale-105">
-                            CARI
+                            {{ __('messages.hero.search_btn') }}
                         </button>
                     </div>
                 </form>
                 
                 {{-- Hint Pencarian Populer --}}
                 <div class="mt-4 flex flex-wrap justify-center gap-3 text-sm font-medium text-white/80">
-                    <span class="text-[#D4AF37]">Populer:</span>
-                    <a href="#" class="hover:text-[#D4AF37] transition-colors bg-white/10 px-3 py-1 rounded-full backdrop-blur-sm border border-white/10 hover:bg-white/20">Laporan Keuangan</a>
-                    <a href="#" class="hover:text-[#D4AF37] transition-colors bg-white/10 px-3 py-1 rounded-full backdrop-blur-sm border border-white/10 hover:bg-white/20">Daftar Aset</a>
-                    <a href="#" class="hover:text-[#D4AF37] transition-colors bg-white/10 px-3 py-1 rounded-full backdrop-blur-sm border border-white/10 hover:bg-white/20">RKA-SKPD</a>
+                    <span class="text-[#D4AF37]">{{ __('messages.hero.popular') }}</span>
+                    <a href="#" class="hover:text-[#D4AF37] transition-colors bg-white/10 px-3 py-1 rounded-full backdrop-blur-sm border border-white/10 hover:bg-white/20">{{ __('messages.common.financial_report') }}</a>
+                    <a href="#" class="hover:text-[#D4AF37] transition-colors bg-white/10 px-3 py-1 rounded-full backdrop-blur-sm border border-white/10 hover:bg-white/20">{{ __('messages.common.asset_list') }}</a>
+                    <a href="#" class="hover:text-[#D4AF37] transition-colors bg-white/10 px-3 py-1 rounded-full backdrop-blur-sm border border-white/10 hover:bg-white/20">{{ __('messages.common.rka_skpd') }}</a>
                 </div>
             </div>
         </div>

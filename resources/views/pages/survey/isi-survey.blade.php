@@ -2,26 +2,26 @@
     <x-header />
 
     {{-- Breadcrumb + Title Section --}}
-    <div class="bg-white border-b border-gray-200 font-['Plus_Jakarta_Sans']">
+    <div class="bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700 font-['Plus_Jakarta_Sans']">
         <div class="container mx-auto px-4 py-6">
             {{-- Breadcrumb --}}
-            <div class="flex items-center gap-2 text-sm text-gray-600 mb-4">
-                <a href="/" class="hover:text-[#1A305E] transition-colors">
+            <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mb-4">
+                <a href="/" class="hover:text-[#1A305E] dark:text-white transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
                 </a>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-gray-400"><path d="m9 18 6-6-6-6"/></svg>
-                <span class="text-[#1A305E] font-medium">Survey</span>
+                <span class="text-[#1A305E] dark:text-white font-medium">Survey</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-gray-400"><path d="m9 18 6-6-6-6"/></svg>
-                <span class="text-[#1A305E] font-medium">Isi Survey</span>
+                <span class="text-[#1A305E] dark:text-white font-medium">Isi Survey</span>
             </div>
           
             {{-- Title --}}
             <div class="flex items-end justify-between">
                 <div>
-                    <h1 class="text-3xl md:text-4xl font-bold text-[#1A305E] mb-2">
+                    <h1 class="text-3xl md:text-4xl font-bold text-[#1A305E] dark:text-white mb-2">
                         Survey Kepuasan Masyarakat
                     </h1>
-                    <p class="text-gray-600">
+                    <p class="text-gray-600 dark:text-gray-300">
                         Bantu kami meningkatkan kualitas pelayanan
                     </p>
                 </div>
@@ -33,20 +33,20 @@
     </div>
 
     {{-- Main Content --}}
-    <main class="py-10 md:py-16 bg-gray-50 font-['Plus_Jakarta_Sans']">
+    <main class="py-10 md:py-16 bg-gray-50 dark:bg-slate-900 font-['Plus_Jakarta_Sans']">
         <div class="container mx-auto px-4">
-            <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8">
+            <div class="max-w-4xl mx-auto bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8">
                 
                 <div class="mb-8 border-b border-gray-100 pb-6">
-                    <h2 class="text-xl font-bold text-[#1A305E] mb-2">Formulir Survey</h2>
-                    <p class="text-gray-600 text-sm">Mohon isi survey di bawah ini dengan jujur untuk evaluasi kami.</p>
+                    <h2 class="text-xl font-bold text-[#1A305E] dark:text-white mb-2">Formulir Survey</h2>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm">Mohon isi survey di bawah ini dengan jujur untuk evaluasi kami.</p>
                 </div>
 
                 <form class="space-y-6">
                     
                     {{-- Section: Data Responden --}}
-                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
-                        <h3 class="font-bold text-[#1A305E] mb-4 flex items-center gap-2">
+                    <div class="bg-gray-50 dark:bg-slate-900 p-6 rounded-xl border border-gray-200 dark:border-slate-700">
+                        <h3 class="font-bold text-[#1A305E] dark:text-white mb-4 flex items-center gap-2">
                             <span class="flex items-center justify-center w-6 h-6 rounded-full bg-[#1A305E] text-white text-xs">1</span>
                             Data Responden
                         </h3>
@@ -61,7 +61,7 @@
                             </div>
                             <div class="space-y-2">
                                 <label class="block text-sm font-semibold text-gray-700">Pendidikan Terakhir</label>
-                                <select class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] outline-none bg-white">
+                                <select class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] outline-none bg-white dark:bg-slate-800">
                                     <option>SD/Sederajat</option>
                                     <option>SMP/Sederajat</option>
                                     <option>SMA/Sederajat</option>
@@ -73,7 +73,7 @@
                             </div>
                             <div class="space-y-2">
                                 <label class="block text-sm font-semibold text-gray-700">Jenis Layanan</label>
-                                <select class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] outline-none bg-white">
+                                <select class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] outline-none bg-white dark:bg-slate-800">
                                     <option>Permohonan Informasi</option>
                                     <option>Pengajuan Keberatan</option>
                                     <option>Lainnya</option>
@@ -83,8 +83,8 @@
                     </div>
 
                     {{-- Section: Penilaian --}}
-                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
-                        <h3 class="font-bold text-[#1A305E] mb-4 flex items-center gap-2">
+                    <div class="bg-gray-50 dark:bg-slate-900 p-6 rounded-xl border border-gray-200 dark:border-slate-700">
+                        <h3 class="font-bold text-[#1A305E] dark:text-white mb-4 flex items-center gap-2">
                             <span class="flex items-center justify-center w-6 h-6 rounded-full bg-[#1A305E] text-white text-xs">2</span>
                             Penilaian Pelayanan
                         </h3>
@@ -100,24 +100,24 @@
                                 ];
                             @endphp
                             @foreach($questions as $index => $question)
-                                <div class="space-y-3 pb-4 border-b border-gray-200 last:border-0">
+                                <div class="space-y-3 pb-4 border-b border-gray-200 dark:border-slate-700 last:border-0">
                                     <p class="text-sm font-medium text-gray-800">{{ $index + 1 }}. {{ $question }}</p>
                                     <div class="flex flex-wrap gap-4">
                                         <label class="flex items-center gap-2 cursor-pointer">
-                                            <input type="radio" name="q{{ $index }}" class="text-[#1A305E] focus:ring-[#1A305E]" />
-                                            <span class="text-sm text-gray-600">Sangat Baik</span>
+                                            <input type="radio" name="q{{ $index }}" class="text-[#1A305E] dark:text-white focus:ring-[#1A305E]" />
+                                            <span class="text-sm text-gray-600 dark:text-gray-300">Sangat Baik</span>
                                         </label>
                                         <label class="flex items-center gap-2 cursor-pointer">
-                                            <input type="radio" name="q{{ $index }}" class="text-[#1A305E] focus:ring-[#1A305E]" />
-                                            <span class="text-sm text-gray-600">Baik</span>
+                                            <input type="radio" name="q{{ $index }}" class="text-[#1A305E] dark:text-white focus:ring-[#1A305E]" />
+                                            <span class="text-sm text-gray-600 dark:text-gray-300">Baik</span>
                                         </label>
                                         <label class="flex items-center gap-2 cursor-pointer">
-                                            <input type="radio" name="q{{ $index }}" class="text-[#1A305E] focus:ring-[#1A305E]" />
-                                            <span class="text-sm text-gray-600">Cukup</span>
+                                            <input type="radio" name="q{{ $index }}" class="text-[#1A305E] dark:text-white focus:ring-[#1A305E]" />
+                                            <span class="text-sm text-gray-600 dark:text-gray-300">Cukup</span>
                                         </label>
                                         <label class="flex items-center gap-2 cursor-pointer">
-                                            <input type="radio" name="q{{ $index }}" class="text-[#1A305E] focus:ring-[#1A305E]" />
-                                            <span class="text-sm text-gray-600">Buruk</span>
+                                            <input type="radio" name="q{{ $index }}" class="text-[#1A305E] dark:text-white focus:ring-[#1A305E]" />
+                                            <span class="text-sm text-gray-600 dark:text-gray-300">Buruk</span>
                                         </label>
                                     </div>
                                 </div>

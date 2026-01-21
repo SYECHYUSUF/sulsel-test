@@ -8,6 +8,13 @@ Route::get('/', function () {
 Route::get('/contact', function () {
     return view('pages.contact');
 });
+// Language Switcher
+Route::get('/lang/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'id'])) {
+        session(['locale' => $locale]);
+    }
+    return back();
+});
 
 // Profil Pages
 Route::get('/profil-ppid', function () { return view('pages.profil.profil-ppid'); });

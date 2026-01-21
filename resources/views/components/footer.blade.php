@@ -22,12 +22,12 @@
                         <img src="{{ asset('images/ppid-putih.png') }}" class="h-10 md:h-12 w-auto" alt="Logo PPID">
                     </a>
                     <div class="text-center sm:text-left">
-                        <h3 class="text-lg md:text-2 font-bold uppercase tracking-tight text-white">PPID Sulawesi Selatan</h3>
-                        <p class="text-xs md:text-sm text-[#D4AF37]">Pejabat Pengelola Informasi dan Dokumentasi</p>
+                    <h3 class="text-lg md:text-2xl font-bold uppercase tracking-tight text-white">{{ __('messages.header.title_1') }}</h3>
+                        <p class="text-xs md:text-sm text-[#D4AF37]">{{ __('messages.header.title_2') }}</p>
                     </div>
                 </div>
                 <p class="text-gray-300 mb-8 leading-relaxed max-w-md mx-auto sm:mx-0 text-sm md:text-base">
-                    Portal resmi informasi publik Pemerintah Provinsi Sulawesi Selatan. Kami berkomitmen memberikan layanan informasi yang transparan, akuntabel, dan profesional.
+                    {{ __('messages.footer.description') }}
                 </p>
                 
                {{-- MEDIA SOSIAL --}}
@@ -54,16 +54,16 @@
             {{-- Links Sections --}}
             @php
                 $sections = [
-                    'Profil' => ['Tentang Kami', 'Visi & Misi', 'Struktur Organisasi', 'Tupoksi'],
-                    'Layanan' => ['Permohonan Informasi', 'Pengajuan Keberatan', 'Cek Status', 'Survey Layanan'],
-                    'Informasi' => ['Berita Terbaru', 'Daftar Informasi Publik', 'Galeri Kegiatan', 'Kontak']
+                    'messages.header.profile' => ['messages.footer.about_us', 'messages.footer.vision_mission', 'messages.footer.org_structure', 'messages.footer.tasks'],
+                    'messages.header.services' => ['messages.footer.info_request', 'messages.footer.objection', 'messages.footer.check_status', 'messages.footer.service_survey'],
+                    'messages.header.public_info' => ['messages.footer.latest_news', 'messages.footer.public_info_list', 'messages.footer.activity_gallery', 'messages.footer.contact']
                 ];
             @endphp
 
             @foreach($sections as $title => $links)
             <div class="text-center sm:text-left">
                 <h4 class="text-base md:text-lg font-bold mb-6 relative inline-block sm:block text-white">
-                    {{ $title }}
+                    {{ __($title) }}
                     <span class="absolute -bottom-2 left-1/2 -translate-x-1/2 sm:translate-x-0 sm:left-0 w-8 h-1 bg-[#D4AF37] rounded-full"></span>
                 </h4>
                 <ul class="space-y-3 mt-4">
@@ -71,7 +71,7 @@
                     <li>
                         <a href="#" class="text-gray-400 hover:text-[#D4AF37] transition-colors duration-300 flex items-center justify-center sm:justify-start gap-2 group text-sm md:text-base">
                             <span class="w-1.5 h-1.5 bg-[#D4AF37] rounded-full opacity-0 group-hover:opacity-100 transition-opacity hidden sm:block"></span>
-                            {{ $link }}
+                            {{ __($link) }}
                         </a>
                     </li>
                     @endforeach
@@ -82,10 +82,10 @@
 
         {{-- Bottom Copyright --}}
         <div class="mt-12 md:mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] md:text-sm text-gray-500 text-center md:text-left">
-            <p>© 2026 Pemerintah Provinsi Sulawesi Selatan. <br class="md:hidden"> All rights reserved.</p>
+            <p>{{ __('messages.footer.rights') }}</p>
             <div class="flex gap-4 md:gap-6">
-                <a href="#" class="hover:text-[#D4AF37] transition-colors">Kebijakan Privasi</a>
-                <a href="#" class="hover:text-[#D4AF37] transition-colors">Syarat & Ketentuan</a>
+                <a href="#" class="hover:text-[#D4AF37] transition-colors">{{ __('messages.footer.privacy') }}</a>
+                <a href="#" class="hover:text-[#D4AF37] transition-colors">{{ __('messages.footer.terms') }}</a>
             </div>
         </div>
     </div>

@@ -2,26 +2,26 @@
     <x-header />
 
     {{-- Breadcrumb + Title Section --}}
-    <div class="bg-white border-b border-gray-200 font-['Plus_Jakarta_Sans']">
+    <div class="bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700 font-['Plus_Jakarta_Sans']">
         <div class="container mx-auto px-4 py-6">
             {{-- Breadcrumb --}}
-            <div class="flex items-center gap-2 text-sm text-gray-600 mb-4">
-                <a href="/" class="hover:text-[#1A305E] transition-colors">
+            <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mb-4">
+                <a href="/" class="hover:text-[#1A305E] dark:text-white transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
                 </a>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-gray-400"><path d="m9 18 6-6-6-6"/></svg>
-                <a href="#" class="hover:text-[#1A305E] transition-colors">Profil</a>
+                <a href="#" class="hover:text-[#1A305E] dark:text-white transition-colors">Profil</a>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-gray-400"><path d="m9 18 6-6-6-6"/></svg>
-                <span class="text-[#1A305E] font-medium">Maklumat</span>
+                <span class="text-[#1A305E] dark:text-white font-medium">Maklumat</span>
             </div>
           
             {{-- Title --}}
             <div class="flex items-end justify-between">
                 <div>
-                    <h1 class="text-3xl md:text-4xl font-bold text-[#1A305E] mb-2">
+                    <h1 class="text-3xl md:text-4xl font-bold text-[#1A305E] dark:text-white mb-2">
                         Maklumat
                     </h1>
-                    <p class="text-gray-600">
+                    <p class="text-gray-600 dark:text-gray-300">
                         Maklumat Pelayanan Informasi Publik PPID Sulawesi Selatan
                     </p>
                 </div>
@@ -33,22 +33,22 @@
     </div>
 
     {{-- Main Content --}}
-    <main class="py-10 md:py-16 bg-gray-50 font-['Plus_Jakarta_Sans']">
+    <main class="py-10 md:py-16 bg-gray-50 dark:bg-slate-900 font-['Plus_Jakarta_Sans']">
         <div class="container mx-auto px-4">
             <div class="max-w-5xl mx-auto space-y-8">
             
                 {{-- Maklumat Document --}}
-                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                    <div class="border-b border-gray-200 px-6 py-4 flex items-center justify-between bg-gray-50">
-                        <h2 class="font-bold text-gray-900">Maklumat Pelayanan Informasi Publik</h2>
-                        <button class="flex items-center gap-2 text-[#1A305E] hover:text-[#D4AF37] text-sm font-medium transition-colors">
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 overflow-hidden">
+                    <div class="border-b border-gray-200 dark:border-slate-700 px-6 py-4 flex items-center justify-between bg-gray-50 dark:bg-slate-900">
+                        <h2 class="font-bold text-gray-900 dark:text-white">Maklumat Pelayanan Informasi Publik</h2>
+                        <button class="flex items-center gap-2 text-[#1A305E] dark:text-white hover:text-[#D4AF37] text-sm font-medium transition-colors">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
                             Download
                         </button>
                     </div>
               
                     <div class="p-6">
-                        <div class="rounded-lg overflow-hidden border border-gray-200">
+                        <div class="rounded-lg overflow-hidden border border-gray-200 dark:border-slate-700">
                             {{-- Image detected in public/images/ --}}
                             <img
                                 src="{{ asset('images/20230918134717_Maklumat pelayanan informasi publik.png') }}"
@@ -56,7 +56,7 @@
                                 class="w-full h-auto"
                             />
                         </div>
-                        <p class="text-sm text-gray-600 text-center mt-4">
+                        <p class="text-sm text-gray-600 dark:text-gray-300 text-center mt-4">
                             Maklumat Pelayanan Informasi Publik - PPID Provinsi Sulawesi Selatan
                         </p>
                     </div>
@@ -64,8 +64,8 @@
 
                 {{-- Info Cards --}}
                 <div class="grid md:grid-cols-2 gap-6">
-                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                        <h3 class="font-bold text-gray-900 mb-4">Komitmen PPID</h3>
+                    <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700 p-6">
+                        <h3 class="font-bold text-gray-900 dark:text-white mb-4">Komitmen PPID</h3>
                         <p class="text-sm text-gray-700 leading-relaxed mb-4">
                             Dengan ini kami menyatakan sanggup menyelenggarakan pelayanan informasi publik dengan sebaik-baiknya sesuai dengan Undang-Undang Nomor 14 Tahun 2008 tentang Keterbukaan Informasi Publik.
                         </p>

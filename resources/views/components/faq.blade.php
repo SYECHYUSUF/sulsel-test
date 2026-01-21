@@ -6,34 +6,26 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-[#D4AF37]">
                     <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" x2="12" y1="17" y2="17"/>
                 </svg>
-                <span class="text-[#1A305E] text-xs md:text-sm font-bold tracking-wide uppercase">Tanya Jawab</span>
+                <span class="text-[#1A305E] text-xs md:text-sm font-bold tracking-wide uppercase">{{ __('messages.faq.badge') }}</span>
             </div>
-            <h2 class="text-2xl sm:text-3xl md:text-5xl font-bold text-[#1A305E] mb-4 leading-tight tracking-tight">Frequently Asked Questions</h2>
-            <p class="text-base md:text-lg text-[#4A5568]">Informasi cepat mengenai layanan keterbukaan informasi publik di Sulawesi Selatan</p>
+            <h2 class="text-2xl sm:text-3xl md:text-5xl font-bold text-[#1A305E] mb-4 leading-tight tracking-tight">{{ __('messages.faq.title') }}</h2>
+            <p class="text-base md:text-lg text-[#4A5568]">{{ __('messages.faq.subtitle') }}</p>
         </div>
 
         <div class="max-w-4xl mx-auto space-y-4">
             @php
                 $faqs = [
                     [
-                        'q' => 'Apa itu Informasi Publik?', 
-                        'a' => 'Informasi publik adalah informasi yang dihasilkan, disimpan, dikelola, dikirim, dan/atau diterima oleh suatu badan publik yang berkaitan dengan penyelenggara dan penyelenggaraan negara dan/atau penyelenggara dan penyelenggaraan badan publik lainnya.'
+                        'q' => 'messages.faq.q1', 
+                        'a' => 'messages.faq.a1'
                     ],
                     [
-                        'q' => 'Berapa lama waktu proses permohonan informasi?', 
-                        'a' => 'Sesuai UU No. 14 Tahun 2008, PPID wajib memberikan tanggapan paling lambat 10 hari kerja sejak permohonan diterima. PPID dapat memperpanjang waktu paling lambat 7 hari kerja berikutnya.'
+                        'q' => 'messages.faq.q2', 
+                        'a' => 'messages.faq.a2'
                     ],
                     [
-                        'q' => 'Apakah ada biaya untuk permohonan informasi?', 
-                        'a' => 'Layanan informasi publik pada PPID Sulawesi Selatan tidak dipungut biaya (Gratis). Namun, jika pemohon menginginkan penggandaan dokumen (fotokopi) atau pengiriman melalui kurir, biaya tersebut ditanggung oleh pemohon.'
-                    ],
-                    [
-                        'q' => 'Dokumen apa yang harus disiapkan saat memohon informasi?', 
-                        'a' => 'Pemohon wajib melampirkan identitas diri yang sah, yaitu KTP untuk perorangan, atau Akta Pendirian/Legalitas Organisasi untuk kategori Badan Hukum/Organisasi.'
-                    ],
-                    [
-                        'q' => 'Bagaimana jika permohonan informasi saya ditolak?', 
-                        'a' => 'Pemohon berhak mengajukan keberatan kepada Atasan PPID melalui formulir pengajuan keberatan yang tersedia di portal ini, selambat-lambatnya 30 hari kerja setelah tanggapan diterima.'
+                        'q' => 'messages.faq.q3', 
+                        'a' => 'messages.faq.a3'
                     ],
                 ];
             @endphp
@@ -46,7 +38,7 @@
                 <button @click="active = (active === {{ $index }} ? null : {{ $index }})" 
                         class="w-full flex items-center justify-between p-5 md:p-6 text-left focus:outline-none group">
                     <span class="text-base md:text-lg font-bold text-[#1A305E] leading-snug pr-4 group-hover:text-[#D4AF37] transition-colors">
-                        {{ $faq['q'] }}
+                        {{ __($faq['q']) }}
                     </span>
                     <div class="flex-shrink-0 w-8 h-8 rounded-full bg-[#1A305E]/5 flex items-center justify-center group-hover:bg-[#1A305E] group-hover:text-white transition-all">
                         <svg :class="active === {{ $index }} ? 'rotate-180' : ''" class="w-5 h-5 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -61,7 +53,7 @@
                      class="px-5 pb-6 md:px-6 md:pb-8 pt-0">
                     <div class="h-px w-full bg-gray-100 mb-4"></div>
                     <p class="text-sm md:text-base text-[#4A5568] leading-relaxed">
-                        {{ $faq['a'] }}
+                        {{ __($faq['a']) }}
                     </p>
                 </div>
             </div>

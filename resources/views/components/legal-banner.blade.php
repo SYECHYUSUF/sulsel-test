@@ -17,8 +17,8 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/></svg>
                 </div>
                 <div class="text-white">
-                    <h3 class="text-2xl md:text-3xl font-bold mb-1 tracking-tight text-[#D4AF37]">Dasar Hukum & Regulasi</h3>
-                    <p class="text-sm md:text-base text-gray-300">Layanan PPID berdasarkan peraturan perundang-undangan</p>
+                    <h3 class="text-2xl md:text-3xl font-bold mb-1 tracking-tight text-[#D4AF37]">{{ __('messages.download.legal_title') }}</h3>
+                    <p class="text-sm md:text-base text-gray-300">{{ __('messages.download.legal_subtitle') }}</p>
                 </div>
             </div>
 
@@ -26,9 +26,9 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 @php
                     $laws = [
-                        ['law' => 'UU No. 14 Tahun 2008', 'title' => 'Keterbukaan Informasi Publik'],
-                        ['law' => 'PP No. 61 Tahun 2010', 'title' => 'Pelaksanaan UU KIP'],
-                        ['law' => 'Perpres No. 33 Tahun 2020', 'title' => 'Standar Harga Satuan'],
+                        ['law' => 'UU No. 14 Tahun 2008', 'title' => 'messages.download.legal_1'],
+                        ['law' => 'PP No. 61 Tahun 2010', 'title' => 'messages.download.legal_2'],
+                        ['law' => 'Perpres No. 33 Tahun 2020', 'title' => 'messages.download.legal_3'],
                     ];
                 @endphp
                 @foreach($laws as $index => $l)
@@ -37,7 +37,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-[#D4AF37] mt-1 group-hover:scale-110 transition-transform"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                     <div class="text-white">
                         <p class="text-xs font-bold opacity-80 uppercase tracking-widest mb-1 text-[#D4AF37]">{{ $l['law'] }}</p>
-                        <p class="text-base font-semibold leading-tight text-white group-hover:text-[#D4AF37] transition-colors">{{ $l['title'] }}</p>
+                        <p class="text-base font-semibold leading-tight text-white group-hover:text-[#D4AF37] transition-colors">{{ __($l['title']) }}</p>
                     </div>
                 </div>
                 @endforeach
@@ -46,7 +46,7 @@
             {{-- Bottom Disclaimer --}}
             <div class="mt-10 md:mt-12 text-center max-w-3xl mx-auto px-4" data-aos="fade-up">
                 <p class="text-sm md:text-base text-gray-400 leading-relaxed font-medium">
-                    Komitmen kami untuk memberikan layanan informasi publik yang transparan, akuntabel, dan sesuai dengan ketentuan hukum yang berlaku di wilayah Provinsi Sulawesi Selatan.
+                    {{ __('messages.download.legal_desc') }}
                 </p>
             </div>
         </div>
