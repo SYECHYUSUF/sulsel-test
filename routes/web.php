@@ -49,3 +49,12 @@ Route::get('/layanan/sop', function () { return view('pages.layanan.sop'); });
 // Survey Pages
 Route::get('/survey/isi-survey', function () { return view('pages.survey.isi-survey'); });
 Route::get('/survey/hasil-survey', function () { return view('pages.survey.hasil-survey'); });
+
+// Admin Routes
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\BeritaController;
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('berita', BeritaController::class);
+});
