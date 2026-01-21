@@ -1,4 +1,4 @@
-<header class="sticky top-0 z-50 bg-white shadow-sm font-['Plus_Jakarta_Sans']" 
+<header class="absolute top-0 left-0 w-full z-50 bg-white shadow-sm font-['Plus_Jakarta_Sans']" 
         x-data="{ 
             mobileMenu: false,
             openProfil: false, 
