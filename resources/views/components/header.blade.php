@@ -73,7 +73,7 @@
         <div class="absolute top-0 left-0 w-full h-[2px] bg-[#D4AF37]"></div>
 
         <div class="container mx-auto px-0 lg:px-4 py-4">
-            <ul class="flex flex-col lg:flex-row items-stretch lg:items-center text-xs lg:text-sm font-medium text-white/90">
+            <ul class="flex flex-col lg:flex-row items-stretch justify-center lg:items-center text-xs lg:text-sm font-medium text-white/90">
                 
                 {{-- BERANDA --}}
                 <li class="border-b lg:border-none border-white/10">
