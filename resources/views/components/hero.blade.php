@@ -31,12 +31,12 @@
         }
     }" 
     @scroll.window="scroll = window.pageYOffset"
-    class="relative min-h-[76vh] md:min-h-[73vh] w-full overflow-hidden font-['Plus_Jakarta_Sans'] group"
+    class="w-full relative h-[calc(100vh+15vh)] overflow-hidden font-['Plus_Jakarta_Sans'] group z-10 block"
     @mouseenter="stopTimer"
     @mouseleave="startTimer"
 >
     
-    {{-- 1. CAROUSEL SLIDES DENGAN PARALLAX --}}
+    {{-- 1. CAROUSEL SLIDES (FULL BACKGROUND) --}}
     <template x-for="(slide, index) in slides" :key="index">
         <div 
             x-show="activeSlide === index"
@@ -48,43 +48,38 @@
             x-transition:leave-end="-translate-x-full"
             class="absolute inset-0 w-full h-full"
         >
-            {{-- 
-                PERUBAHAN PARALLAX DI SINI:
-                1. Class: h-[120%] dan -top-[10%] (Agar gambar lebih tinggi & tidak putus saat scroll)
-                2. Style: transform translateY (Logika pergerakan parallax)
-            --}}
+            {{-- Gambar diset h-full dan object-cover agar menutup seluruh layar --}}
             <img 
                 :src="slide" 
-                class="absolute left-0 w-full h-auto -top-[10%] mt-16 object-cover object-center"
+                class="absolute inset-0 w-full h-full object-cover object-center"
                 alt="Slider Image"
-                :style="`transform: translateY(${scroll * 0.5}px)`"
+                :style="`transform: translateY(${scroll * 0.3}px)`"
             >
-             {{-- Overlay Gradient for Text Contrast --}}
+             {{-- Overlay Gradient --}}
              <div class="absolute inset-0 bg-gradient-to-t from-[#1A305E]/90 via-[#1A305E]/40 to-transparent"></div>
         </div>
     </template>
 
-    {{-- 2. KONTEN TUMPANG TINDIH --}}
+    {{-- 2. KONTEN (CENTERED) --}}
     <div class="absolute inset-0 z-20 flex items-center justify-center">
-        <div class="container mx-auto px-6 text-center text-white mt-16 md:mt-0">
-            {{-- Judul Besar --}}
+        <div class="container mx-auto px-6 text-center text-white">
             
-             {{-- 4. INPUT PENCARIAN PREMIUM --}}
+             {{-- INPUT PENCARIAN --}}
              <div 
                 data-aos="zoom-in" 
                 data-aos-delay="400"
                 data-aos-duration="800"
-                class="max-w-3xl mx-auto mb-10 md:mb-14 relative group mt-8">
+                class="max-w-3xl mx-auto relative group">
                 <form action="/search" method="GET" class="relative">
-                    <div class="relative flex items-center bg-white dark:bg-slate-800 backdrop-blur-md border border-white/20 dark:border-white/10 rounded-full p-2 shadow-2xl transition-all duration-300 focus-within:bg-white/20 focus-within:ring-4 focus-within:ring-[#D4AF37]/30">
-                        <div class="pl-4 text-white/70">
+                    <div class="relative flex items-center bg-white backdrop-blur-md border border-white/20 rounded-full p-2 shadow-2xl transition-all duration-300 focus-within:bg-white focus-within:ring-4 focus-within:ring-[#D4AF37]/30">
+                        <div class="pl-4 text-[#1A305E]/50">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                         </div>
                         <input 
                             type="text" 
                             name="query"
-                            placeholder="{{ __('messages.common.search_placeholder') }}" 
-                            class="w-full  border-none text-[#1A305E] dark:text-gray-200 placeholder-[#1A305E] dark:placeholder-gray-400 bg-transparent px-4 py-3 md:py-4 focus:ring-0 focus:outline-none text-base md:text-lg font-medium"
+                            placeholder="Cari dokumen, berita, atau informasi publik..." 
+                            class="w-full border-none text-[#1A305E] placeholder-[#1A305E]/60 px-4 py-3 md:py-4 focus:ring-0 focus:outline-none text-base md:text-lg font-medium bg-transparent"
                         >
                         <button type="submit" class="bg-[#D4AF37] hover:bg-[#b08d26] text-[#1A305E] font-bold py-3 px-8 rounded-full transition-all duration-300 shadow-lg transform hover:scale-105">
                             {{ __('messages.hero.search_btn') }}
@@ -92,12 +87,12 @@
                     </div>
                 </form>
                 
-                {{-- Hint Pencarian Populer --}}
-                <div class="mt-4 flex flex-wrap justify-center gap-3 text-sm font-medium text-white/80">
-                    <span class="text-[#D4AF37]">{{ __('messages.hero.popular') }}</span>
-                    <a href="#" class="hover:text-[#D4AF37] transition-colors bg-white/10 px-3 py-1 rounded-full backdrop-blur-sm border border-white/10 hover:bg-white/20">{{ __('messages.common.financial_report') }}</a>
-                    <a href="#" class="hover:text-[#D4AF37] transition-colors bg-white/10 px-3 py-1 rounded-full backdrop-blur-sm border border-white/10 hover:bg-white/20">{{ __('messages.common.asset_list') }}</a>
-                    <a href="#" class="hover:text-[#D4AF37] transition-colors bg-white/10 px-3 py-1 rounded-full backdrop-blur-sm border border-white/10 hover:bg-white/20">{{ __('messages.common.rka_skpd') }}</a>
+                {{-- Hint Pencarian --}}
+                <div class="mt-6 flex flex-wrap justify-center gap-3 text-sm font-medium text-white/90">
+                    <span class="text-[#D4AF37]">Populer:</span>
+                    <a href="#" class="hover:text-[#D4AF37] transition-colors bg-white/10 px-4 py-1.5 rounded-full backdrop-blur-sm border border-white/10 hover:bg-white/20">Laporan Keuangan</a>
+                    <a href="#" class="hover:text-[#D4AF37] transition-colors bg-white/10 px-4 py-1.5 rounded-full backdrop-blur-sm border border-white/10 hover:bg-white/20">Daftar Aset</a>
+                    <a href="#" class="hover:text-[#D4AF37] transition-colors bg-white/10 px-4 py-1.5 rounded-full backdrop-blur-sm border border-white/10 hover:bg-white/20">RKA-SKPD</a>
                 </div>
             </div>
         </div>
@@ -112,17 +107,17 @@
     </button>
 
     {{-- DOT INDICATORS --}}
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-2 z-30">
+    <div class="absolute bottom-28 left-1/2 -translate-x-1/2 flex space-x-2 z-30">
         <template x-for="(slide, index) in slides" :key="index">
             <button 
                 @click="activeSlide = index"
-                class="w-12 h-1.5 rounded-full transition-all duration-300"
-                :class="activeSlide === index ? 'bg-[#D4AF37]' : 'bg-white/30 hover:bg-white/50'"
+                class="w-10 h-1.5 rounded-full transition-all duration-300"
+                :class="activeSlide === index ? 'bg-[#D4AF37] w-16' : 'bg-white/30 hover:bg-white/50'"
             ></button>
         </template>
     </div>
 
-    {{-- DEKORASI GELOMBANG HALUS --}}
+    {{-- DEKORASI GELOMBANG --}}
     <div class="absolute bottom-0 left-0 right-0 z-20 pointer-events-none text-white">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" fill="currentColor" class="w-full h-auto">
             <path fill-opacity="1" d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,42.7C1120,32,1280,32,1360,32L1440,32L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
