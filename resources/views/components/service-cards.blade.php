@@ -1,15 +1,16 @@
 <section id="layanan" 
     x-data="{ scroll: 0 }" 
     @scroll.window="scroll = window.pageYOffset"
-    class="py-12 md:py-24 bg-[#fafafa] dark:bg-slate-900 relative overflow-hidden font-['Plus_Jakarta_Sans'] transition-colors duration-300">
+    class="py-8 md:py-16 bg-[#fafafa] dark:bg-slate-900 relative overflow-hidden font-['Plus_Jakarta_Sans'] transition-colors duration-300">
     
-    {{-- Decorative Background (Subtle) --}}
-    <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-[#1A305E]/5 rounded-full blur-3xl opacity-50 pointer-events-none"></div>
-    <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#D4AF37]/10 rounded-full blur-3xl opacity-40 pointer-events-none"></div>
+    {{-- Decorative Background (Subtle) - Full Width --}}
+    <div class="absolute inset-0 w-full h-full bg-gradient-to-br from-[#1A305E]/5 via-transparent to-[#D4AF37]/5 dark:from-[#1A305E]/10 dark:to-[#D4AF37]/10 pointer-events-none"></div>
+    <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-[#1A305E]/5 rounded-full blur-3xl opacity-50 pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#D4AF37]/10 rounded-full blur-3xl opacity-40 pointer-events-none"></div>
 
     <div class="container mx-auto px-4 relative z-10">
         {{-- Section Header - Animasi Fade Down --}}
-        <div class="text-center mb-12 md:mb-20 max-w-3xl mx-auto" data-aos="fade-down">
+        <div class="text-center mb-8 md:mb-12 max-w-3xl mx-auto" data-aos="fade-down">
             <div class="inline-flex items-center gap-2 mb-4 px-4 py-2 bg-white dark:bg-slate-800 border border-[#D4AF37]/30 rounded-full shadow-sm">
                 <div class="w-2 h-2 bg-[#D4AF37] rounded-full"></div>
                 <span class="text-[#1A305E] dark:text-gray-200 text-xs md:text-sm font-bold tracking-wide uppercase">{{ __('messages.service.our_services') }}</span>

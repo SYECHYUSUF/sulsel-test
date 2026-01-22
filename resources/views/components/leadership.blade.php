@@ -1,19 +1,19 @@
 <section 
     x-data="{ scroll: 0 }" 
     @scroll.window="scroll = window.pageYOffset"
-    class="relative py-16 md:py-24 bg-[#fafafa] overflow-hidden font-['Plus_Jakarta_Sans']">
+    class="relative py-8 md:py-16 bg-[#fafafa] dark:bg-slate-900 overflow-hidden font-['Plus_Jakarta_Sans']">
     
     {{-- Parallax Background Elements --}}
-    <div class="absolute top-0 right-0 w-72 h-72 bg-[#1A305E]/5 rounded-full blur-[100px] opacity-40 -translate-y-1/2 translate-x-1/3 transition-transform duration-75 ease-out"
+    <div class="absolute top-0 right-0 w-72 h-72 bg-[#1A305E]/5 dark:bg-white/5 rounded-full blur-[100px] opacity-40 -translate-y-1/2 translate-x-1/3 transition-transform duration-75 ease-out"
          :style="`transform: translate(${30 + (scroll * 0.03)}%, ${-30 + (scroll * 0.03)}%)`"></div>
-    <div class="absolute bottom-0 left-0 w-72 h-72 bg-[#D4AF37]/10 rounded-full blur-[100px] opacity-40 translate-y-1/2 -translate-x-1/3 transition-transform duration-75 ease-out"
+    <div class="absolute bottom-0 left-0 w-72 h-72 bg-[#D4AF37]/10 dark:bg-yellow-500/10 rounded-full blur-[100px] opacity-40 translate-y-1/2 -translate-x-1/3 transition-transform duration-75 ease-out"
          :style="`transform: translate(${-30 - (scroll * 0.03)}%, ${30 - (scroll * 0.03)}%)`"></div>
 
     <div class="container mx-auto px-6 relative z-10">
         {{-- Section Header --}}
         <div class="text-center mb-16 md:mb-20" data-aos="fade-down">
             <span class="text-[#D4AF37] font-bold tracking-[0.2em] text-[10px] uppercase mb-3 block">{{ __('messages.leadership.badge') }}</span>
-            <h2 class="text-3xl md:text-4xl font-extrabold text-[#1A305E] mb-4 tracking-tight">{{ __('messages.leadership.title') }}</h2>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-[#1A305E] dark:text-white mb-4 tracking-tight">{{ __('messages.leadership.title') }}</h2>
             <div class="w-12 h-1 bg-[#D4AF37] mx-auto rounded-full"></div>
         </div>
 
@@ -40,7 +40,7 @@
             <div data-aos="fade-up" data-aos-delay="{{ $index * 200 }}" class="flex flex-col group">
                 
                 {{-- 1. Image Card --}}
-                <div class="relative aspect-[4/5] w-full rounded-[2.5rem] md:rounded-[3rem] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-gray-100 transition-all duration-700 group-hover:shadow-xl group-hover:shadow-[rgba(26,48,94,0.15)] group-hover:-translate-y-1">
+                <div class="relative aspect-[4/5] w-full rounded-[2.5rem] md:rounded-[3rem] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-gray-100 dark:border-slate-700 transition-all duration-700 group-hover:shadow-xl group-hover:shadow-[rgba(26,48,94,0.15)] group-hover:-translate-y-1">
                     
                     {{-- === BARU: List Navy di Atas Card dengan Corner Radius === --}}
                     <div class="absolute top-0 inset-x-0 h-2 bg-[#1A305E] z-40 rounded-t-lg"></div>
@@ -71,7 +71,7 @@
 
                 {{-- 3. Bio Area --}}
                 <div class="mt-5 text-center md:text-left md:pl-2">
-                    <h3 class="text-lg md:text-xl font-bold text-[#1A305E] mb-0.5 tracking-tight group-hover:text-[#D4AF37] transition-colors">
+                    <h3 class="text-lg md:text-xl font-bold text-[#1A305E] dark:text-white mb-0.5 tracking-tight group-hover:text-[#D4AF37] transition-colors">
                         {{ __($l['name']) }}
                     </h3>
                     <p class="text-[10px] md:text-xs text-[#D4AF37] font-bold uppercase tracking-[0.15em]">

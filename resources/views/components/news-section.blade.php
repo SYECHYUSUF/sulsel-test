@@ -1,4 +1,4 @@
-<section class="py-12 md:py-[89px] bg-white dark:bg-slate-900 font-['Plus_Jakarta_Sans'] transition-all">
+<section class="py-8 md:py-16 bg-white dark:bg-slate-900 font-['Plus_Jakarta_Sans'] transition-all">
     <div class="container mx-auto px-4">
         
         {{-- Section Header --}}
