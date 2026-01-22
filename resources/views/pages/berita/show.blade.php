@@ -15,7 +15,7 @@
     </div>
 
     {{-- Main Content --}}
-    <main class="pb-16 bg-gray-50 dark:bg-slate-900 font-['Plus_Jakarta_Sans']">
+    <main class="pb-16 bg-gray-50 dark:bg-slate-900 mt-36 font-['Plus_Jakarta_Sans']">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
                 

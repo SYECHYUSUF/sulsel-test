@@ -1,4 +1,10 @@
 <x-admin-layout title="Tambah Berita - Admin PPID">
+    <x-slot name="extra_head">
+        <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/47.4.0/ckeditor5.css" />
+	    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	    <script src="https://cdn.ckeditor.com/ckeditor5/47.4.0/ckeditor5.umd.js"></script>
+    </x-slot>
+
     <x-slot name="header">
         <div class="flex items-center gap-2">
             <a href="{{ route('admin.berita.index') }}" class="text-slate-500 hover:text-slate-700">
@@ -142,4 +148,36 @@
             }
         </style>
     @endpush
+
+    <x-slot name="extra_script">
+        <script>
+            $( document ).ready( () => {
+			const {
+				ClassicEditor,
+				Essentials,
+				Bold,
+				Italic,
+				Font,
+				Paragraph
+			} = CKEDITOR;
+
+			ClassicEditor
+				.create( $( '#editor' )[ 0 ], {
+					licenseKey: '<YOUR_LICENSE_KEY>',
+					plugins: [ Essentials, Bold, Italic, Font, Paragraph ],
+					toolbar: [
+						'undo', 'redo', '|', 'bold', 'italic', '|',
+						'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor'
+					]
+				} )
+				.then( editor => {
+					// Editor initialized successfully.
+					console.log( 'CKEditor 5 initialized with jQuery!' );
+				} )
+				.catch( error => {
+					console.error( 'Error initializing CKEditor 5:', error );
+				} );
+		} );
+        </script>
+    </x-slot>
 </x-admin-layout>

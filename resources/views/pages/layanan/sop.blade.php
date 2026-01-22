@@ -26,7 +26,7 @@
                     </p>
                 </div>
                 <div class="hidden md:block">
-                     <div class="w-24 h-1.5 bg-gradient-to-r from-[#1A305E] to-[#D4AF37] rounded-full"></div>
+                     <div class="w-24 h-1.5 bg-linear-to-r from-[#1A305E] to-[#D4AF37] rounded-full"></div>
                 </div>
             </div>
         </div>

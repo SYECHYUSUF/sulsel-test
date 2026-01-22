@@ -8,6 +8,10 @@ Route::get('/', function () {
 Route::get('/contact', function () {
     return view('pages.contact');
 });
+
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login');
 // Language Switcher
 Route::get('/lang/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'id'])) {

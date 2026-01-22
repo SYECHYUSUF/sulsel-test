@@ -242,6 +242,30 @@
                     </ul>
                 </li>
 
+                {{-- Dropdown Pelayanan --}}
+                <li class="relative border-b lg:border-none border-white/10 group"
+                    @mouseenter="if(window.innerWidth >= 1024) openService = true" 
+                    @mouseleave="if(window.innerWidth >= 1024) openService = false">
+                    <div @click="if(window.innerWidth < 1024) openService = !openService" 
+                         class="flex items-center justify-between px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all cursor-pointer relative">
+                        <span>{{ __('messages.header.pelayanan') }}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform text-[#D4AF37]" :class="openService ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="m6 9 6 6 6-6"/></svg>
+                         <span class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block"></span>
+                    </div>
+                    <ul x-show="openPelayanan" 
+                        x-transition:enter="transition ease-out duration-300 transform origin-top"
+                        x-transition:enter-start="opacity-0 -translate-y-2 scale-95"
+                        x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                        x-transition:leave="transition ease-in duration-200 transform origin-top"
+                        x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+                        x-transition:leave-end="opacity-0 -translate-y-2 scale-95"
+                        class="lg:absolute lg:left-0 lg:top-full w-full lg:w-56 bg-white dark:bg-slate-800 lg:shadow-xl text-[#1A305E] dark:text-gray-200 py-2 lg:rounded-b-lg lg:border-t-4 lg:border-[#D4AF37] z-50">
+                        <li><a href="/pelayanan/pengajuan-keberatan" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Pengajuan Permohonan</a></li>
+                        <li><a href="/pelayanan/permohonan-informasi" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Permohonan Informasi</a></li>
+                        <li><a href="/pelayanan/sop" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">SOP</a></li>
+                    </ul>
+                </li>
+
                 {{-- Contact Mobile Only --}}
                 <li class="lg:hidden border-b border-white/10">
                     <a href="/contact" class="block px-6 py-4 hover:bg-white/10 hover:text-white">{{ __('messages.header.contact') }}</a>
