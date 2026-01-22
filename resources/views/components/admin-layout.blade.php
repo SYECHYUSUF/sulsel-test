@@ -23,7 +23,7 @@
             <x-admin-header />
 
             <!-- Main Content -->
-            <main class="w-full flex-grow p-6 lg:p-8">
+            <main class="w-full grow p-6 lg:p-8 lg:pt-4">
                 <div class="w-full mx-auto max-w-7xl">
                     {{ $slot }}
                 </div>

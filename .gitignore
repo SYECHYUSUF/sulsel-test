@@ -23,5 +23,5 @@ Homestead.json
 Homestead.yaml
 Thumbs.db
 
-database.sql
-database-copy.sql
+./database.sql
+./database-copy.sql

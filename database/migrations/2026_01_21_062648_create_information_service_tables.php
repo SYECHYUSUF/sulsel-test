@@ -4,15 +4,14 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
         Schema::create('tbl_kat_informasi', function (Blueprint $table) {
-            $table->id('id_kat_info');
+            $table->integer('id_kat_info')->autoIncrement();
             $table->string('nm_kat_info');
             $table->string('icon');
             $table->boolean('is_active')->default(true);
@@ -20,7 +19,7 @@ return new class extends Migration
         });
 
         Schema::create('tbl_informasi', function (Blueprint $table) {
-            $table->id('id_informasi');
+            $table->integer('id_informasi')->autoIncrement();
             $table->integer('id_kat_info');
             $table->string('id_skpd');
             $table->text('judul');
@@ -35,7 +34,7 @@ return new class extends Migration
         });
 
         Schema::create('tbl_permohonan_informasi', function (Blueprint $table) {
-            $table->id('id_permohonan');
+            $table->integer('id_permohonan')->autoIncrement();
             $table->string('nama')->nullable();
             $table->string('nik')->nullable();
             $table->string('email')->nullable();
@@ -60,7 +59,7 @@ return new class extends Migration
         });
 
         Schema::create('tbl_pengajuan', function (Blueprint $table) {
-            $table->id('id_pengajuan');
+            $table->integer('id_pengajuan')->autoIncrement();
             $table->string('no_pendaftaran')->nullable();
             $table->text('tujuan')->nullable();
             $table->string('nama_pemohon')->nullable();

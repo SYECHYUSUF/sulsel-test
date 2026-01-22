@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Ikphn extends Model
+class BentukInformasi extends Model
 {
+    protected $table = 'ms_bentuk_informasi';
     protected $guarded = [];
 }

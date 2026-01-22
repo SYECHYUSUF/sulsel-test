@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Ikphn extends Model
+class Kunjungan extends Model
 {
+    protected $table = 'kunjungan';
+    public $timestamps = false;
     protected $guarded = [];
 }

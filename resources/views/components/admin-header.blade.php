@@ -16,12 +16,6 @@
 
     <!-- Right Actions -->
     <div class="flex items-center space-x-6 ml-4">
-        <!-- Language Switcher (Mock) -->
-        <div class="hidden md:flex items-center space-x-1 cursor-pointer">
-            <span class="text-sm font-semibold text-slate-600 hover:text-[#1A305E]">ENG</span>
-            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-        </div>
-
         <!-- Notification -->
         <button class="relative p-2 text-slate-400 hover:text-[#1A305E] transition-colors group">
             <span class="absolute top-2 right-2 h-2.5 w-2.5 rounded-full bg-[#D4AF37] border-2 border-slate-50"></span>
