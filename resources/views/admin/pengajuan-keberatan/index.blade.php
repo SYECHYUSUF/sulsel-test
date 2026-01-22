@@ -33,7 +33,6 @@
                     <tr>
                         <th class="px-6 py-4">No Pendaftaran</th>
                         <th class="px-6 py-4">Nama Pemohon</th>
-                        <th class="px-6 py-4">Tujuan</th>
                         <th class="px-6 py-4">Kasus</th>
                         <th class="px-6 py-4">SKPD</th>
                         <th class="px-6 py-4">Status</th>
@@ -51,9 +50,8 @@
                                 </div>
                             </td>
                             <td class="px-6 py-4">{{ $item->nama_pemohon }}</td>
-                            <td class="px-6 py-4">{{ $item->tujuan }}</td>
                             <td class="px-6 py-4">{{ $item->kasus }}</td>
-                            <td class="px-6 py-4">{{ $item->skpd->nm_skpd }}</td>
+                            <td class="px-6 py-4">{{ $data->skpd->nama_skpd ?? 'Tidak Ada SKPD' }}</td>
                             <td class="px-6 py-4">
                                 @if($item->status == 1)
                                     <span

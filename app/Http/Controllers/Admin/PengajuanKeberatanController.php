@@ -13,7 +13,7 @@ class PengajuanKeberatanController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Pengajuan::query();
+        $query = Pengajuan::with('skpd');
 
         if ($request->filled('search')) {
             $query->where('nama_pemohon', 'like', '%' . $request->search . '%');

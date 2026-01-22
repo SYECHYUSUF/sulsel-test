@@ -1,0 +1,41 @@
+/* Sidebar Container harus memiliki background warna gelap agar lengkungan terlihat */
+.sidebar-container {
+    background-color: #1a202c; /* Contoh warna gelap */
+}
+
+/* Link yang aktif */
+.sidebar-link-active {
+    background-color: #fff; /* Warna background konten utama */
+    border-radius: 20px 0 0 20px; /* Lengkungan utama di sisi kiri link */
+    position: relative;
+}
+
+/* Lengkungan "Inverted" di bagian Atas */
+.sidebar-link-active::before {
+    content: "";
+    position: absolute;
+    top: -20px;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    border-bottom-right-radius: 20px;
+    box-shadow: 10px 10px 0 10px #fff; /* Mengisi sudut dengan warna background link */
+}
+
+/* Lengkungan "Inverted" di bagian Bawah */
+.sidebar-link-active::after {
+    content: "";
+    position: absolute;
+    bottom: -20px;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    border-top-right-radius: 20px;
+    box-shadow: 10px -10px 0 10px #fff;
+}
+
+@view-transition {
+    navigation: auto; /* Mengaktifkan transisi pada navigasi antar halaman (MPA) */
+}
