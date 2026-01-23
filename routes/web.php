@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::get('/contact', function () {
     return view('pages.contact');
 });
@@ -116,4 +118,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('pengajuan-keberatan', PengajuanKeberatanController::class);
     Route::resource('data-sop', SkpdController::class);
     Route::resource('pengaturan', PengaturanController::class);
-});
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+})->middleware('auth');
+
+require __DIR__.'/auth.php';

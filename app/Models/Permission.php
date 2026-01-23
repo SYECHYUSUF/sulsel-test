@@ -2,14 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Laratrust\Models\Permission as PermissionModel;
 
-class Permission extends Model
+class Permission extends PermissionModel
 {
-    protected $guarded = [];
-
-    public function users()
-    {
-        return $this->belongsToMany(User::class, 'permission_user');
-    }
+    public $guarded = [];
 }

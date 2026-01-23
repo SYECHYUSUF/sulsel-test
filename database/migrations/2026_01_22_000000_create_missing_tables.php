@@ -16,14 +16,6 @@ return new class extends Migration {
             $table->string('asal')->nullable();
         });
 
-        Schema::create('ikphns', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama_jabatan')->nullable();
-            $table->string('file')->nullable();
-            $table->integer('jumlah_download')->nullable();
-            $table->timestamps();
-        });
-
         Schema::create('kunjungan', function (Blueprint $table) {
             $table->id();
             $table->integer('jumlah')->default(0);
@@ -54,7 +46,6 @@ return new class extends Migration {
         Schema::dropIfExists('tbl_users');
         Schema::dropIfExists('ms_waktu');
         Schema::dropIfExists('kunjungan');
-        Schema::dropIfExists('ikphns');
         Schema::dropIfExists('coba');
     }
 };
