@@ -9,4 +9,9 @@ class Berita extends Model
     protected $table = 'tbl_berita';
     protected $primaryKey = 'id_berita';
     protected $guarded = [];
+
+    public function skpd()
+    {
+        return $this->belongsTo(Skpd::class, 'id_skpd', 'id_skpd');
+    }
 }
