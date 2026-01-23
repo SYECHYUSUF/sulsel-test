@@ -33,6 +33,8 @@ return [
         'terms' => 'Terms & Conditions',
     ],
     'common' => [
+        'home' => 'Home',
+        'news' => 'News',
         'read_more' => 'Read More',
         'search_placeholder' => 'Search documents, news, or public information...',
         'popular' => 'Popular',
