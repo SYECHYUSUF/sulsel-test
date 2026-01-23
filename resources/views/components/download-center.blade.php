@@ -1,4 +1,4 @@
-<section id="download" class="py-12 md:py-24 bg-white font-['Plus_Jakarta_Sans']">
+<section id="download" class="py-8 md:py-16 bg-white dark:bg-slate-900 font-['Plus_Jakarta_Sans']">
     <div class="container mx-auto px-4">
         {{-- Section Header - Tipografi Adaptif --}}
         <div class="text-center mb-12 md:mb-16 max-w-3xl mx-auto" data-aos="fade-down">
@@ -6,10 +6,10 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-[#D4AF37]">
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/>
                 </svg>
-                <span class="text-[#1A305E] text-xs md:text-sm font-bold tracking-wide uppercase">{{ __('messages.download.badge') }}</span>
+                <span class="text-[#1A305E] dark:text-gray-200 text-xs md:text-sm font-bold tracking-wide uppercase">{{ __('messages.download.badge') }}</span>
             </div>
-            <h2 class="text-2xl sm:text-3xl md:text-5xl font-bold text-[#1A305E] mb-4 leading-tight">{{ __('messages.download.title') }}</h2>
-            <p class="text-base md:text-xl text-[#4A5568] leading-relaxed">{{ __('messages.download.subtitle') }}</p>
+            <h2 class="text-2xl sm:text-3xl md:text-5xl font-bold text-[#1A305E] dark:text-white mb-4 leading-tight">{{ __('messages.download.title') }}</h2>
+            <p class="text-base md:text-xl text-[#4A5568] dark:text-gray-300 leading-relaxed">{{ __('messages.download.subtitle') }}</p>
         </div>
 
         {{-- Grid: 1 Kolom (Mobile) -> 2 Kolom (Tablet) -> 4 Kolom (Desktop) --}}
@@ -44,7 +44,7 @@
             @endphp
 
             @foreach($docs as $index => $doc)
-            <div data-aos="fade-up" data-aos-delay="{{ $index * 100 }}" class="group bg-white dark:bg-slate-800 rounded-3xl shadow-lg hover:shadow-[0_20px_50px_-10px_rgba(26,48,94,0.15)] transition-all duration-300 border border-gray-100 dark:border-slate-700 hover:border-[#D4AF37]/50 flex flex-col h-full hover:-translate-y-2">
+            <div data-aos="fade-up" data-aos-delay="{{ $index * 100 }}" class="group bg-white dark:bg-slate-800 rounded-3xl overflow-hidden shadow-lg hover:shadow-[0_20px_50px_-10px_rgba(26,48,94,0.15)] transition-all duration-300 border border-gray-100 dark:border-slate-700 hover:border-[#D4AF37]/50 flex flex-col h-full hover:-translate-y-2">
                 <div class="bg-[#1A305E] p-6 relative overflow-hidden text-white group-hover:bg-[#15264a] transition-colors shrink-0">
                     {{-- Decorative Gold Pattern --}}
                     <div class="absolute top-0 right-0 w-24 h-24 bg-[#D4AF37]/10 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-125 transition-transform duration-500"></div>

@@ -17,13 +17,13 @@
             
             {{-- Brand Section --}}
             <div class="sm:col-span-2 text-center sm:text-left">
-                <div class="flex flex-col sm:flex-row items-center gap-3 mb-6">
+                <div class="flex flex-col sm:flex-row items-center gap-4 mb-6">
                     <a href="">
-                        <img src="{{ asset('images/ppid-putih.png') }}" class="h-10 md:h-12 w-auto" alt="Logo PPID">
+                        <img src="{{ asset('images/ppid-putih.png') }}" class="h-16 md:h-20 w-auto" alt="Logo PPID">
                     </a>
                     <div class="text-center sm:text-left">
-                    <h3 class="text-lg md:text-2xl font-bold uppercase tracking-tight text-white">{{ __('messages.header.title_1') }}</h3>
-                        <p class="text-xs md:text-sm text-[#D4AF37]">{{ __('messages.header.title_2') }}</p>
+                    <h3 class="text-xl md:text-2xl font-extrabold uppercase tracking-tight text-white leading-tight">{{ __('messages.header.title_1') }}</h3>
+                        <p class="text-sm md:text-base text-[#D4AF37] font-bold tracking-widest mt-1">{{ __('messages.header.title_2') }}</p>
                     </div>
                 </div>
                 <p class="text-gray-300 mb-8 leading-relaxed max-w-md mx-auto sm:mx-0 text-sm md:text-base">
@@ -81,7 +81,7 @@
         </div>
 
         {{-- Bottom Copyright --}}
-        <div class="mt-12 md:mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] md:text-sm text-gray-500 text-center md:text-left">
+        <div class="mt-12 md:mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 text-xs md:text-sm text-gray-500 text-center md:text-left">
             <p>{{ __('messages.footer.rights') }}</p>
             <div class="flex gap-4 md:gap-6">
                 <a href="#" class="hover:text-[#D4AF37] transition-colors">{{ __('messages.footer.privacy') }}</a>

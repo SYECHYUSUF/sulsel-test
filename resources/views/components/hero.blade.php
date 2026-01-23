@@ -3,7 +3,7 @@
         scroll: 0, 
         activeSlide: 0,
         slides: [
-            '{{ asset('images/99kubah.png') }}',
+            '{{ asset('images/welcome1.png') }}',
             '{{ asset('images/20230807143353_Alur Umum Permohonan Informasi (1).png') }}',
             '{{ asset('images/20230807143405_Tata Cara Pengajuan Informasi Publik Bagi Penyandang Disabilitas.png') }}',
             '{{ asset('images/20230915142948_Tata Cara Memperoleh Informasi Publik Revisi.png') }}',
@@ -60,39 +60,53 @@
         </div>
     </template>
 
-    {{-- 2. KONTEN (CENTERED) --}}
+    {{-- 2. KONTEN (CENTERED) - Welcome Message on First Slide Only --}}
     <div class="absolute inset-0 z-20 flex items-center justify-center">
         <div class="container mx-auto px-6 text-center text-white">
-            
-             {{-- INPUT PENCARIAN --}}
-             <div 
-                data-aos="zoom-in" 
-                data-aos-delay="400"
-                data-aos-duration="800"
-                class="max-w-3xl mx-auto relative group">
-                <form action="/search" method="GET" class="relative">
-                    <div class="relative flex items-center bg-white backdrop-blur-md border border-white/20 rounded-full p-2 shadow-2xl transition-all duration-300 focus-within:bg-white focus-within:ring-4 focus-within:ring-[#D4AF37]/30">
-                        <div class="pl-4 text-[#1A305E]/50">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-                        </div>
-                        <input 
-                            type="text" 
-                            name="query"
-                            placeholder="Cari dokumen, berita, atau informasi publik..." 
-                            class="w-full border-none text-[#1A305E] placeholder-[#1A305E]/60 px-4 py-3 md:py-4 focus:ring-0 focus:outline-none text-base md:text-lg font-medium bg-transparent"
-                        >
-                        <button type="submit" class="bg-[#D4AF37] hover:bg-[#b08d26] text-[#1A305E] font-bold py-3 px-8 rounded-full transition-all duration-300 shadow-lg transform hover:scale-105">
-                            {{ __('messages.hero.search_btn') }}
-                        </button>
-                    </div>
-                </form>
+            {{-- Welcome Content - Only on First Slide --}}
+            <div x-show="activeSlide === 0"
+                 x-transition:enter="transition ease-out duration-700 delay-300"
+                 x-transition:enter-start="opacity-0 scale-95"
+                 x-transition:enter-end="opacity-100 scale-100"
+                 x-transition:leave="transition ease-in duration-300"
+                 x-transition:leave-start="opacity-100 scale-100"
+                 x-transition:leave-end="opacity-0 scale-95"
+                 class="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8 lg:gap-12 max-w-6xl mx-auto">
                 
-                {{-- Hint Pencarian --}}
-                <div class="mt-6 flex flex-wrap justify-center gap-3 text-sm font-medium text-white/90">
-                    <span class="text-[#D4AF37]">Populer:</span>
-                    <a href="#" class="hover:text-[#D4AF37] transition-colors bg-white/10 px-4 py-1.5 rounded-full backdrop-blur-sm border border-white/10 hover:bg-white/20">Laporan Keuangan</a>
-                    <a href="#" class="hover:text-[#D4AF37] transition-colors bg-white/10 px-4 py-1.5 rounded-full backdrop-blur-sm border border-white/10 hover:bg-white/20">Daftar Aset</a>
-                    <a href="#" class="hover:text-[#D4AF37] transition-colors bg-white/10 px-4 py-1.5 rounded-full backdrop-blur-sm border border-white/10 hover:bg-white/20">RKA-SKPD</a>
+                {{-- Logo Sulsel (Left) --}}
+                <div class="flex-shrink-0 hidden md:block">
+                    <img src="{{ asset('images/logo-sulsel.png') }}" 
+                         alt="Logo Sulawesi Selatan" 
+                         class="w-24 h-24 lg:w-32 lg:h-32 object-contain drop-shadow-2xl animate-pulse">
+                </div>
+                
+                {{-- Welcome Text (Center) --}}
+                <div class="flex-1 max-w-3xl">
+                    <h1 class="text-2xl md:text-4xl lg:text-5xl font-extrabold leading-tight mb-4 text-white drop-shadow-lg">
+                        Selamat Datang di Portal Resmi<br>
+                        <span class="text-[#D4AF37]">PPID Utama</span><br>
+                        Provinsi Sulawesi Selatan
+                    </h1>
+                    <p class="text-sm md:text-lg lg:text-xl text-white/90 font-medium drop-shadow-md">
+                        Transparansi Informasi Publik untuk Sulawesi Selatan yang Lebih Baik
+                    </p>
+                </div>
+                
+                {{-- Logo PPID (Right) --}}
+                <div class="flex-shrink-0 hidden md:block">
+                    <img src="{{ asset('images/logo-ppid.png') }}" 
+                         alt="Logo PPID" 
+                         class="w-24 h-24 lg:w-32 lg:h-32 object-contain drop-shadow-2xl animate-pulse">
+                </div>
+                
+                {{-- Mobile: Both Logos Below Text --}}
+                <div class="flex md:hidden gap-8 mt-4">
+                    <img src="{{ asset('images/logo-sulsel.png') }}" 
+                         alt="Logo Sulawesi Selatan" 
+                         class="w-16 h-16 object-contain drop-shadow-2xl">
+                    <img src="{{ asset('images/logo-ppid.png') }}" 
+                         alt="Logo PPID" 
+                         class="w-16 h-16 object-contain drop-shadow-2xl">
                 </div>
             </div>
         </div>
@@ -118,7 +132,8 @@
     </div>
 
     {{-- DEKORASI GELOMBANG --}}
-    <div class="absolute bottom-0 left-0 right-0 z-20 pointer-events-none text-white">
+    {{-- DEKORASI GELOMBANG --}}
+    <div class="absolute bottom-0 left-0 right-0 z-20 pointer-events-none text-white dark:text-slate-900 transition-colors duration-300">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" fill="currentColor" class="w-full h-auto">
             <path fill-opacity="1" d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,42.7C1120,32,1280,32,1360,32L1440,32L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
         </svg>

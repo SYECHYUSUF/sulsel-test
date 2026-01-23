@@ -123,7 +123,7 @@
 
                             {{-- Logo --}}
                             <div class="flex justify-center mb-6 relative z-10">
-                                <div class="w-20 h-20 bg-gray-50 dark:bg-slate-900 rounded-full flex items-center justify-center shadow-inner group-hover:bg-white dark:bg-slate-800 transition-colors">
+                                <div class="w-20 h-20 bg-gray-50 dark:bg-slate-700 rounded-full flex items-center justify-center shadow-inner group-hover:bg-white dark:group-hover:bg-slate-800 transition-colors">
                                      <img src="{{ asset('images/logo-sulsel.png') }}" alt="Logo Sulsel" class="w-14 h-14 object-contain">
                                 </div>
                             </div>
@@ -139,8 +139,8 @@
                             {{-- Contact Info --}}
                             <div class="space-y-4 text-sm text-gray-600 dark:text-gray-300">
                                 <div class="flex items-start gap-3">
-                                   <div class="w-8 h-8 rounded-lg bg-blue-50 text-[#1A305E] dark:text-white flex items-center justify-center flex-shrink-0 mt-0.5">
-                                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                                   <div class="w-7 h-7 rounded-lg bg-blue-50 dark:bg-slate-700 text-[#1A305E] dark:text-gray-200 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-[#1A305E] group-hover:text-white transition-colors">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
                                    </div>
                                     <div>
                                         <p class="font-bold text-[#1A305E] dark:text-white text-xs uppercase mb-0.5">Alamat</p>
@@ -152,8 +152,8 @@
                                 </div>
 
                                 <div class="flex items-start gap-3">
-                                     <div class="w-8 h-8 rounded-lg bg-blue-50 text-[#1A305E] dark:text-white flex items-center justify-center flex-shrink-0 mt-0.5">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                                     <div class="w-7 h-7 rounded-lg bg-blue-50 dark:bg-slate-700 text-[#1A305E] dark:text-gray-200 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-[#1A305E] group-hover:text-white transition-colors">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                                      </div>
                                     <div>
                                         <p class="font-bold text-[#1A305E] dark:text-white text-xs uppercase mb-0.5">Telepon</p>
@@ -162,8 +162,8 @@
                                 </div>
 
                                 <div class="flex items-start gap-3">
-                                     <div class="w-8 h-8 rounded-lg bg-blue-50 text-[#1A305E] dark:text-white flex items-center justify-center flex-shrink-0 mt-0.5">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                                     <div class="w-7 h-7 rounded-lg bg-blue-50 dark:bg-slate-700 text-[#1A305E] dark:text-gray-200 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-[#1A305E] group-hover:text-white transition-colors">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
                                      </div>
                                     <div class="min-w-0">
                                         <p class="font-bold text-[#1A305E] dark:text-white text-xs uppercase mb-0.5">Email</p>
@@ -174,8 +174,8 @@
                                 </div>
 
                                 <div class="flex items-start gap-3">
-                                     <div class="w-8 h-8 rounded-lg bg-blue-50 text-[#1A305E] dark:text-white flex items-center justify-center flex-shrink-0 mt-0.5">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"/></svg>
+                                     <div class="w-7 h-7 rounded-lg bg-blue-50 dark:bg-slate-700 text-[#1A305E] dark:text-gray-200 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-[#1A305E] group-hover:text-white transition-colors">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"/></svg>
                                      </div>
                                     <div class="min-w-0">
                                         <p class="font-bold text-[#1A305E] dark:text-white text-xs uppercase mb-0.5">Website</p>
@@ -192,10 +192,10 @@
                 {{-- Pagination (Placeholder) --}}
                 <div class="mt-12 flex items-center justify-center gap-2">
                     <button class="w-10 h-10 flex items-center justify-center bg-[#1A305E] text-white rounded-lg shadow-md hover:bg-[#1A305E]/90 transition-all hover:-translate-y-0.5 font-bold">1</button>
-                    <button class="w-10 h-10 flex items-center justify-center bg-white dark:bg-slate-800 text-gray-700 rounded-lg hover:bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 transition-all font-medium">2</button>
-                    <button class="w-10 h-10 flex items-center justify-center bg-white dark:bg-slate-800 text-gray-700 rounded-lg hover:bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 transition-all font-medium">3</button>
+                    <button class="w-10 h-10 flex items-center justify-center bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 border border-gray-200 dark:border-slate-700 transition-all font-medium">2</button>
+                    <button class="w-10 h-10 flex items-center justify-center bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 border border-gray-200 dark:border-slate-700 transition-all font-medium">3</button>
                     <span class="px-2 text-gray-400">...</span>
-                    <button class="w-10 h-10 flex items-center justify-center bg-white dark:bg-slate-800 text-gray-700 rounded-lg hover:bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 transition-all font-medium">7</button>
+                    <button class="w-10 h-10 flex items-center justify-center bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 border border-gray-200 dark:border-slate-700 transition-all font-medium">7</button>
                 </div>
 
             </div>

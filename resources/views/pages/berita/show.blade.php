@@ -5,17 +5,20 @@
     <div class="bg-gray-50 dark:bg-slate-900 pt-8 pb-4 font-['Plus_Jakarta_Sans']">
         <div class="container mx-auto px-4">
             <div class="flex flex-wrap items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                <a href="/" class="hover:text-[#1A305E] dark:text-white transition-colors">Beranda</a>
-                <span class="text-gray-300">/</span>
-                <a href="/berita" class="hover:text-[#1A305E] dark:text-white transition-colors">Berita</a>
-                <span class="text-gray-300">/</span>
-                <span class="text-[#1A305E] dark:text-white font-medium truncate max-w-[200px] md:max-w-none">Menkomdigi: Tanpa Keterampilan Inklusif, Transformasi Digital Bisa...</span>
+                <a href="/" class="flex items-center gap-1.5 hover:text-[#1A305E] dark:hover:text-[#D4AF37] transition-colors">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
+                    Beranda
+                </a>
+                <svg class="w-4 h-4 text-gray-400 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <a href="/berita" class="hover:text-[#1A305E] dark:hover:text-[#D4AF37] transition-colors">Berita</a>
+                <svg class="w-4 h-4 text-gray-400 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <span class="text-[#1A305E] dark:text-[#D4AF37] font-semibold truncate max-w-[200px] md:max-w-none">Menkomdigi: Tanpa Keterampilan Inklusif...</span>
             </div>
         </div>
     </div>
 
     {{-- Main Content --}}
-    <main class="pb-16 bg-gray-50 dark:bg-slate-900 font-['Plus_Jakarta_Sans']">
+    <div class="pb-16 bg-gray-50 dark:bg-slate-900 font-['Plus_Jakarta_Sans']">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
                 
@@ -46,7 +49,7 @@
                     </div>
 
                     {{-- Article Body --}}
-                    <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
+                    <div class="prose prose-lg dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 leading-relaxed">
                         <p class="lead font-medium text-gray-900 dark:text-white text-xl mb-6">
                             Jakarta (20/01) - Menteri Komunikasi dan Digital (Menkomdigi) menegaskan bahwa transformasi digital nasional bukan hanya soal teknologi, tetapi juga tentang manusia.
                         </p>
@@ -79,7 +82,7 @@
                     </div>
 
                     {{-- Tags & Share --}}
-                    <div class="mt-12 pt-8 border-t border-gray-100">
+                    <div class="mt-12 pt-8 border-t border-gray-100 dark:border-transparent">
                         <div class="flex flex-wrap items-center justify-between gap-6">
                             <div class="flex flex-wrap gap-2">
                                 <span class="text-sm font-semibold text-gray-700 mr-2">Tags:</span>
@@ -119,7 +122,7 @@
                                     <span class="text-4xl font-bold text-gray-200 group-hover:text-[#D4AF37] transition-colors -mt-2">0{{$i+1}}</span>
                                     <div>
                                         <div class="text-xs text-gray-500 mb-1">Siaran Pers • 12 Jan 2026</div>
-                                        <h4 class="text-sm font-bold text-gray-900 dark:text-white leading-snug group-hover:text-[#1A305E] dark:text-white transition-colors">
+                                        <h4 class="text-sm font-bold text-gray-900 dark:text-white leading-snug group-hover:text-[#1A305E] dark:group-hover:text-[#D4AF37] transition-colors">
                                             Kementerian Komdigi Luncurkan Program 1000 Startup Digital 2026
                                         </h4>
                                     </div>
@@ -135,19 +138,19 @@
                             Kategori
                         </h3>
                         <div class="space-y-2">
-                            <a href="#" class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 dark:bg-slate-900 transition-colors group">
+                            <a href="#" class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors group">
                                 <span class="text-gray-700 font-medium group-hover:text-[#1A305E] dark:text-white">Siaran Pers</span>
                                 <span class="bg-gray-100 dark:bg-slate-700 text-gray-500 text-xs px-2 py-1 rounded-full group-hover:bg-[#1A305E] group-hover:text-white transition-colors">124</span>
                             </a>
-                            <a href="#" class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 dark:bg-slate-900 transition-colors group">
+                            <a href="#" class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors group">
                                 <span class="text-gray-700 font-medium group-hover:text-[#1A305E] dark:text-white">Berita Pemerintahan</span>
                                 <span class="bg-gray-100 dark:bg-slate-700 text-gray-500 text-xs px-2 py-1 rounded-full group-hover:bg-[#1A305E] group-hover:text-white transition-colors">85</span>
                             </a>
-                            <a href="#" class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 dark:bg-slate-900 transition-colors group">
+                            <a href="#" class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors group">
                                 <span class="text-gray-700 font-medium group-hover:text-[#1A305E] dark:text-white">Artikel Digital</span>
                                 <span class="bg-gray-100 dark:bg-slate-700 text-gray-500 text-xs px-2 py-1 rounded-full group-hover:bg-[#1A305E] group-hover:text-white transition-colors">42</span>
                             </a>
-                            <a href="#" class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 dark:bg-slate-900 transition-colors group">
+                            <a href="#" class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors group">
                                 <span class="text-gray-700 font-medium group-hover:text-[#1A305E] dark:text-white">Pengumuman</span>
                                 <span class="bg-gray-100 dark:bg-slate-700 text-gray-500 text-xs px-2 py-1 rounded-full group-hover:bg-[#1A305E] group-hover:text-white transition-colors">16</span>
                             </a>
@@ -158,7 +161,7 @@
 
             </div>
         </div>
-    </main>
+    </div>
 
     <x-footer />
 </x-layout>

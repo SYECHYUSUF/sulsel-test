@@ -25,21 +25,40 @@
     {{-- Fungsi Seret (Drag) --}}
     startDragging(e) {
         this.isDragging = true;
+        this.hasMoved = false;
+        
+        const startX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+        const startY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+
         const move = (event) => {
             if (!this.isDragging) return;
-            const touch = event.type === 'touchmove' ? event.touches[0] : event;
-            this.pos.x = touch.clientX - 28;
-            this.pos.y = touch.clientY - 28;
+            const clientX = event.type === 'touchmove' ? event.touches[0].clientX : event.clientX;
+            const clientY = event.type === 'touchmove' ? event.touches[0].clientY : event.clientY;
+            
+            // Calculate distance moved
+            const diffX = Math.abs(clientX - startX);
+            const diffY = Math.abs(clientY - startY);
+            
+            // Only consider it a drag if moved more than 5px
+            if (diffX > 5 || diffY > 5) {
+                this.hasMoved = true;
+                this.pos.x = clientX - 28;
+                this.pos.y = clientY - 28;
+            }
         };
         const stop = () => {
             this.isDragging = false;
-            {{-- Snap ke sisi kiri atau kanan --}}
-            this.pos.x = (this.pos.x + 28 > window.innerWidth / 2) ? window.innerWidth - 70 : 16;
-            {{-- Batasi agar tidak keluar layar atas/bawah --}}
-            this.pos.y = Math.max(20, Math.min(window.innerHeight - 80, this.pos.y));
             
-            localStorage.setItem('acc-pos-x', this.pos.x);
-            localStorage.setItem('acc-pos-y', this.pos.y);
+            if (this.hasMoved) {
+                {{-- Snap ke sisi kiri atau kanan --}}
+                this.pos.x = (this.pos.x + 28 > window.innerWidth / 2) ? window.innerWidth - 70 : 16;
+                {{-- Batasi agar tidak keluar layar atas/bawah --}}
+                this.pos.y = Math.max(20, Math.min(window.innerHeight - 80, this.pos.y));
+                
+                localStorage.setItem('acc-pos-x', this.pos.x);
+                localStorage.setItem('acc-pos-y', this.pos.y);
+            }
+            
             window.removeEventListener('mousemove', move);
             window.removeEventListener('mouseup', stop);
             window.removeEventListener('touchmove', move);
@@ -57,9 +76,11 @@
         this.applyToBody();
     },
     adjustFont(val) {
-        this.settings.fontSize = Math.max(12, Math.min(24, this.settings.fontSize + val));
-        localStorage.setItem('acc-font-size', this.settings.fontSize);
-        this.applyToBody();
+        // Mengubah ukuran font pada elemen root (html) agar rem unit ikut berubah
+        const currentSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+        const newSize = Math.max(12, Math.min(24, currentSize + val));
+        document.documentElement.style.fontSize = newSize + 'px';
+        localStorage.setItem('acc-font-size', newSize);
     },
     applyToBody() {
         const body = document.body;
@@ -96,7 +117,7 @@
                     const target = e.target.closest('p, h1, h2, h3, h4, h5, h6, a, button, span, div');
                     if (target && target.innerText) {
                          const text = target.innerText.trim();
-                         if (text && text.length < 200) { // Limit length to avoid reading huge blocks at once
+                         if (text && text.length < 200) { 
                              window.speechSynthesis.cancel();
                              const utterance = new SpeechSynthesisUtterance(text);
                              utterance.lang = 'id-ID';
@@ -114,7 +135,10 @@
             window.speechSynthesis.cancel();
         }
 
-        body.style.fontSize = this.settings.fontSize + 'px';
+        // Set Saved Font Size
+        if (this.settings.fontSize) {
+             document.documentElement.style.fontSize = this.settings.fontSize + 'px';
+        }
     },
     reset() {
         this.settings = { 
@@ -133,8 +157,10 @@
             fontSize: 16 
         };
         localStorage.clear();
+        document.documentElement.style.fontSize = '16px'; // Reset font size
+        
         if (localStorage.getItem('theme') === 'dark') {
-             this.settings.dark = true; // Preserve dark mode if it was set via theme
+             this.settings.dark = true; 
         }
         this.applyToBody();
     }
@@ -142,20 +168,21 @@
 
     {{-- 1. TOMBOL AKSESIBILITAS (Movable) --}}
     <button 
+        x-data="{ hasMoved: false }"
         @mousedown="startDragging($event)" 
         @touchstart="startDragging($event)"
-        @click="if(!isDragging) isOpen = !isOpen"
-        class="fixed w-14 h-14 bg-violet-600 text-white rounded-full shadow-2xl flex items-center justify-center cursor-move hover:scale-110 active:scale-95 transition-transform z-[9999]"
+        @click="if(!hasMoved) isOpen = !isOpen"
+        class="fixed w-14 h-14 bg-[#1A305E] text-white rounded-full shadow-2xl flex items-center justify-center cursor-move hover:scale-110 active:scale-95 transition-transform z-[9999]"
         :style="'left: ' + pos.x + 'px; top: ' + pos.y + 'px;'"
         aria-label="Aksesibilitas">
         
-        {{-- Ikon Orang (Aksesibilitas Universal) --}}
-        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="4" r="1"/>
-            <path d="m18 19 1-7-6 1"/>
-            <path d="m5 8 3-3 5.5 3-2.36 3.5"/>
-            <path d="M4.24 14.5a5 5 0 0 0 6.88 1.83"/>
-            <path d="M14.5 17.5c-2.5 0-2.5-2.5-5-2.5"/>
+        {{-- Ikon Universal Access --}}
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-disabled">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M9 5a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+            <path d="M11 7l0 8l4 0l4 5" />
+            <path d="M11 11l5 0" />
+            <path d="M7 11.5a5 5 0 1 0 6 7.5" />
         </svg>
     </button>
 
@@ -168,7 +195,7 @@
         :style="'top: ' + (pos.y > window.innerHeight / 2 ? pos.y - 420 : pos.y + 70) + 'px; left: ' + (pos.x > window.innerWidth / 2 ? pos.x - 280 : pos.x) + 'px;'"
         style="display: none;">
         
-        <div class="bg-violet-600 p-5 text-white flex justify-between items-center">
+        <div class="bg-[#1A305E] p-5 text-white flex justify-between items-center">
             <h3 class="font-bold text-lg flex items-center gap-2">Menu Aksesibilitas</h3>
             <button @click="isOpen = false" class="hover:bg-white/20 p-1 rounded-lg">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
@@ -180,9 +207,9 @@
             <div>
                 <p class="text-[10px] font-black uppercase text-gray-400 mb-2 tracking-widest">Ukuran Tulisan</p>
                 <div class="flex items-center justify-between bg-gray-50 p-2 rounded-xl">
-                    <button @click="adjustFont(-2)" class="w-10 h-10 bg-white rounded-lg shadow-sm font-bold text-violet-600">-</button>
+                    <button @click="adjustFont(-2)" class="w-10 h-10 bg-white rounded-lg shadow-sm font-bold text-[#1A305E]">-</button>
                     <span x-text="settings.fontSize + 'px'" class="font-bold"></span>
-                    <button @click="adjustFont(2)" class="w-10 h-10 bg-white rounded-lg shadow-sm font-bold text-violet-600">+</button>
+                    <button @click="adjustFont(2)" class="w-10 h-10 bg-white rounded-lg shadow-sm font-bold text-[#1A305E]">+</button>
                 </div>
             </div>
 
@@ -207,7 +234,7 @@
 
     @foreach($features as $f)
     <button @click="toggle('{{ $f['id'] }}')" 
-        :class="settings.{{ $f['id'] }} ? 'bg-violet-600 text-white shadow-lg shadow-violet-200 border-violet-600' : 'bg-gray-50 text-gray-700 hover:bg-violet-50 hover:text-violet-600 border-transparent hover:border-violet-200'"
+        :class="settings.{{ $f['id'] }} ? 'bg-[#1A305E] text-white shadow-lg shadow-[#1A305E]/20 border-[#1A305E]' : 'bg-gray-50 text-gray-700 hover:bg-[#1A305E]/5 hover:text-[#1A305E] border-transparent hover:border-[#1A305E]/20'"
         class="group flex flex-col items-center justify-center p-3 rounded-2xl transition-all duration-300 border shadow-sm focus:outline-none">
         
         <div class="mb-1.5 transition-all duration-300 group-hover:scale-125 group-active:scale-90">

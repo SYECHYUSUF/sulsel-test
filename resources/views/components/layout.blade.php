@@ -47,7 +47,7 @@
 >
 
 
-    <main>
+    <main class="{{ request()->is('/') ? '' : 'pt-36 lg:pt-48' }}">
         {{-- Konten Utama yang akan diisi oleh @section atau {{ $slot }} --}}
         {{ $slot }}
     </main>

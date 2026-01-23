@@ -1,4 +1,4 @@
-<header class="absolute top-0 left-0 w-full z-50 bg-white shadow-sm font-['Plus_Jakarta_Sans']" 
+<header class="fixed top-0 left-0 w-full z-50 bg-white dark:bg-slate-900 shadow-sm font-['Plus_Jakarta_Sans'] transition-colors duration-300" 
         x-data="{ 
             mobileMenu: false,
             openProfil: false, 
@@ -19,7 +19,7 @@
     <div class="container mx-auto px-4 py-4 md:py-6 flex items-center justify-between">
         <a href="/" class="flex items-center gap-3 group">
             {{-- Logo Image --}}
-            <img src="{{ asset('images/logo-ppid.png') }}" alt="Logo PPID Sulawesi Selatan" class="h-10 md:h-14 w-auto transition-transform group-hover:scale-105" />
+            <img src="{{ asset('images/ppid-2.png') }}" alt="Logo PPID Sulawesi Selatan" class="h-10 md:h-14 w-auto transition-transform group-hover:scale-105" />
             
             {{-- TEKS SAMPING LOGO --}}
             <div class="flex flex-col justify-center">
@@ -31,6 +31,24 @@
                 </span>
             </div>
         </a>
+
+        {{-- SEARCH BAR (Desktop) --}}
+        <div class="hidden lg:flex flex-1 max-w-xl mx-8">
+            <form action="/search" method="GET" class="w-full relative">
+                <input 
+                    type="text" 
+                    name="query" 
+                    placeholder="Cari informasi..." 
+                    class="w-full py-2.5 pl-4 pr-12 rounded-full border-2 border-gray-300 bg-white focus:bg-white focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 text-sm transition-all text-[#1A305E] placeholder:text-gray-500 dark:bg-slate-800 dark:border-slate-600 dark:text-white dark:placeholder:text-gray-400 dark:focus:bg-slate-900 dark:focus:border-[#D4AF37]"
+                >
+                <button type="submit" class="absolute right-1 top-1 bottom-1 bg-[#1A305E] hover:bg-[#15264a] text-white px-4 rounded-full transition-colors flex items-center justify-center dark:hover:bg-[#D4AF37] dark:hover:text-[#1A305E]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+            </form>
+        </div>
 
         <div class="flex items-center gap-3 md:gap-4">
             {{-- Contact Desktop --}}
@@ -75,6 +93,24 @@
 
         <div class="container mx-auto px-0 lg:px-4 py-4">
             <ul class="flex flex-col lg:flex-row items-stretch justify-center lg:items-center text-xs lg:text-sm font-medium text-white/90">
+                
+                {{-- SEARCH (Mobile Only) --}}
+                <li class="lg:hidden px-6 py-4 border-b border-white/10">
+                    <form action="/search" method="GET" class="relative">
+                        <input 
+                            type="text" 
+                            name="query" 
+                            placeholder="Cari informasi..." 
+                            class="w-full py-2 pl-4 pr-10 rounded-lg bg-white/10 border-2 border-white/30 text-white placeholder-white/70 text-sm focus:bg-white/20 focus:border-[#D4AF37] focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/30"
+                        >
+                        <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 text-white/70 hover:text-[#D4AF37]">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                        </button>
+                    </form>
+                </li>
                 
                 {{-- BERANDA --}}
                 <li class="border-b lg:border-none border-white/10">
