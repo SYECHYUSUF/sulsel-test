@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Menyesuaikan container utama TinyMCE */
+.tox-tinymce {
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 0.5rem !important;
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
+}
+
+/* Menyesuaikan saat editor mendapatkan fokus (Focus State) */
+.tox-tinymce.tox-tinymce--focused {
+    border-color: #d4af37 !important; /* Warna ppid-accent */
+    box-shadow: 0 0 0 1px #d4af37 !important; /* Meniru focus:ring-1 */
+}
+
+/* Menghilangkan border internal antara toolbar dan area edit jika diperlukan */
+.tox .tox-toolbar__primary {
+    border-bottom: 1px solid #f1f5f9 !important; /* slate-100 */
+}

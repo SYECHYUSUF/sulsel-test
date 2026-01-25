@@ -108,19 +108,41 @@ use App\Http\Controllers\Admin\PengaturanController;
 use App\Http\Controllers\Admin\PermohonanInformasiController;
 use App\Http\Controllers\Admin\SkpdController;
 use App\Http\Controllers\Admin\SlideBannerController;
+use App\Http\Controllers\SopController;
 
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    // Rute yang bisa diakses admin & odp
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-    Route::resource('berita', BeritaController::class);
-    Route::resource('data-skpd', SkpdController::class);
-    Route::resource('permohonan-informasi', PermohonanInformasiController::class);
-    Route::resource('slide-banner', SlideBannerController::class);
-    Route::resource('pengajuan-keberatan', PengajuanKeberatanController::class);
-    Route::resource('data-sop', SkpdController::class);
     Route::resource('pengaturan', PengaturanController::class);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-})->middleware('auth');
+
+    // Rute yang dibatasi berdasarkan ID SKPD menggunakan Middleware
+    Route::middleware(['check_skpd'])->group(function () {
+        Route::resource('berita', BeritaController::class);
+        Route::resource('permohonan-informasi', PermohonanInformasiController::class);
+        Route::resource('pengajuan-keberatan', PengajuanKeberatanController::class);
+    });
+
+    // Rute khusus Super Admin (Tanpa check_skpd karena mengelola semua SKPD)
+    Route::middleware(['role:admin'])->group(function () {
+        Route::resource('data-skpd', SkpdController::class);
+        Route::resource('data-sop', SopController::class);
+        Route::resource('slide-banner', SlideBannerController::class);
+    });
+
+    // Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    // Route::resource('berita', BeritaController::class);
+    // Route::resource('data-skpd', SkpdController::class);
+    // Route::resource('permohonan-informasi', PermohonanInformasiController::class);
+    // Route::resource('slide-banner', SlideBannerController::class);
+    // Route::resource('pengajuan-keberatan', PengajuanKeberatanController::class);
+    // Route::resource('data-sop', SkpdController::class);
+    // Route::resource('pengaturan', PengaturanController::class);
+    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
 require __DIR__.'/auth.php';

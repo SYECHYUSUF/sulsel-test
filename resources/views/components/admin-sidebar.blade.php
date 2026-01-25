@@ -49,6 +49,8 @@
                 </svg>
             </x-sidebar-link>
 
+            {{-- Route khusus admin --}}
+            @role('admin')
             <x-sidebar-link href="/admin/slide-banner" :active="request()->is('admin/slide-banner*')" label="Slide Banner">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -56,6 +58,7 @@
                     </path>
                 </svg>
             </x-sidebar-link>
+            @endrole
 
             <x-sidebar-link href="/admin/data-sop" :active="request()->is('admin/data-sop*')" label="Data SOP">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -70,6 +73,8 @@
             <span class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px]">System</span>
         </div>
         <ul>
+            {{-- Route khusus admin --}}
+            @role('admin')
             <x-sidebar-link href="/admin/users" :active="request()->is('admin/users*')" label="Users">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -77,7 +82,10 @@
                     </path>
                 </svg>
             </x-sidebar-link>
+            @endrole
 
+            {{-- Route khusus admin --}}
+            @role('admin')
             <x-sidebar-link href="/admin/data-skpd" :active="request()->is('admin/data-skpd*')" label="Data SKPD">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -85,6 +93,7 @@
                     </path>
                 </svg>
             </x-sidebar-link>
+            @endrole
 
             <x-sidebar-link href="/admin/pengaturan" :active="request()->is('admin/pengaturan*')" label="Pengaturan">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">

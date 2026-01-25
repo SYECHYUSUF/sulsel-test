@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Berita;
 use App\Models\Skpd;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -16,7 +17,14 @@ class BeritaController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Berita::query();
+        $user = Auth::user();
+        $query = Berita::with('skpd'); // Eager Loading untuk mencegah N+1
+
+        // Filter otomatis jika role adalah 'opd'
+        // Pastikan tabel 'tbl_berita' memiliki kolom 'id_skpd'
+        if ($user->hasRole('opd')) {
+            $query->where('id_skpd', $user->id_skpd);
+        }
 
         if ($request->filled('search')) {
             $query->where('judul', 'like', '%' . $request->search . '%');
@@ -26,14 +34,15 @@ class BeritaController extends Controller
             $query->where('verify', $request->verify);
         }
 
-        if ($request->filled('id_skpd')) {
-            $query->where('id_skpd', $request->id_skpd);
+        $berita = $query->latest('tgl_upload')->paginate(10);
+
+        // Jika request meminta JSON
+        if ($request->expectsJson()) {
+            return response()->json($berita);
         }
 
-        $berita = $query->latest('tgl_upload')->paginate(10);
         $skpdList = Skpd::all();
-
-        return view('admin.berita.index', compact('berita', 'skpdList'));
+        return view('admin.berita.index', compact('skpdList'));
     }
 
     /**
@@ -41,7 +50,13 @@ class BeritaController extends Controller
      */
     public function create()
     {
-        $skpdList = Skpd::orderBy('nm_skpd')->get();
+        $user = Auth::user();
+
+        // Jika user adalah OPD, hanya ambil SKPD miliknya. Jika admin, ambil semua.
+        $skpdList = $user->hasRole('opd') 
+            ? Skpd::where('id_skpd', $user->id_skpd)->get() 
+            : Skpd::orderBy('nm_skpd')->get();
+
         return view('admin.berita.create', compact('skpdList'));
     }
 
@@ -50,29 +65,36 @@ class BeritaController extends Controller
      */
     public function store(Request $request)
     {
+        // Validasi Input
         $request->validate([
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required',
+            'id_skpd' => 'required',
             'img_berita' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'id_skpd' => 'required|exists:tbl_skpd,id_skpd',
             'verify' => 'required|in:y,n,t',
         ]);
 
-        $data = $request->except('img_berita');
-        $data['slug'] = Str::slug($request->judul) . '-' . rand(100, 999);
-        $data['viewers'] = 0;
-        $data['tgl_upload'] = now();
+        $data = $request->all();
 
+        // Generate Slug Otomatis
+        $data['slug'] = Str::slug($request->judul) . '-' . rand(100, 999);
+        
+        // Set Default Viewers
+        $data['viewers'] = 0;
+
+        // Handle Upload Gambar
         if ($request->hasFile('img_berita')) {
             $file = $request->file('img_berita');
-            $filename = $file->hashName();
+            $filename = time() . '_' . $file->getClientOriginalName();
             $file->storeAs('img_berita', $filename, 'public');
             $data['img_berita'] = $filename;
         }
 
+        // Simpan ke Database
         Berita::create($data);
 
-        return redirect()->route('admin.berita.index')->with('success', 'Berita berhasil ditambahkan');
+        return redirect()->route('admin.berita.index')
+            ->with('success', 'Berita berhasil ditambahkan.');
     }
 
     /**

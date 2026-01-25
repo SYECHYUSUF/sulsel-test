@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\PermohonanInformasi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PermohonanInformasiController extends Controller
 {
@@ -16,13 +17,32 @@ class PermohonanInformasiController extends Controller
      */
     public function index(Request $request)
     {
-        $query = PermohonanInformasi::query();
+        $user = Auth::user();
+        $query = PermohonanInformasi::with('skpd');
 
-        if ($request->filled('search')) {
-            $query->where('nama', 'like', '%' . $request->search . '%');
+        // 1. Guard Berdasarkan Role
+        // Jika user adalah OPD, hanya tampilkan permohonan yang ditujukan ke SKPD mereka
+        if ($user->hasRole('opd')) {
+            $query->where('id_skpd', $user->id_skpd);
         }
 
-        $permohonan = $query->latest('created_at')->paginate(10);
+        // 2. Filter Pencarian
+        if ($request->filled('search')) {
+            $searchTerm = '%' . $request->search . '%';
+            $query->where(function($q) use ($searchTerm) {
+                $q->where('nama', 'like', $searchTerm)
+                ->orWhere('email', 'like', $searchTerm)
+                ->orWhere('no_hp', 'like', $searchTerm);
+            });
+        }
+
+        // 3. Pagination & Sorting
+        $permohonan = $query->latest()->paginate(10);
+
+        // 4. Handle JSON Request (Untuk Alpine.js)
+        if ($request->expectsJson()) {
+            return response()->json($permohonan);
+        }
 
         return view('admin.permohonan-informasi.index', compact('permohonan'));
     }

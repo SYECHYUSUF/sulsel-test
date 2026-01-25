@@ -2,16 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Sop;
 use Illuminate\Http\Request;
 
 class SopController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Menampilkan daftar SOP.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $query = Sop::query();
+
+        // 1. Logika Pencarian
+        if ($request->filled('search')) {
+            $query->where('judul', 'like', '%' . $request->search . '%');
+        }
+
+        // 2. Pagination & Sorting
+        $sop = $query->latest()->paginate(10);
+
+        // 3. Respon JSON untuk Alpine.js (Jika diminta)
+        if ($request->expectsJson()) {
+            return response()->json($sop);
+        }
+
+        return view('admin.data-sop.index', compact('sop'));
     }
 
     /**

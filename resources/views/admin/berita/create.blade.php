@@ -1,4 +1,14 @@
 <x-admin-layout title="Tambah Berita - Admin PPID">
+    <x-slot name="extra_head">
+        <link href="/vendor/filepond/index.css" rel="stylesheet" />
+        <link
+            href="/vendor/filepond/image-preview.css"
+            rel="stylesheet"
+        />
+        <script src="/vendor/filepond/image-preview.js"></script>
+        <script src="/vendor/filepond/index.js"></script>
+    </x-slot>
+
     <x-slot name="header">
         <div class="flex items-center gap-2">
             <a href="{{ route('admin.berita.index') }}" class="text-slate-500 hover:text-slate-700">
@@ -18,7 +28,7 @@
         </div>
 
         <form action="{{ route('admin.berita.store') }}" method="POST" enctype="multipart/form-data"
-            class="p-6 space-y-6">
+            class="p-6 pt-0 space-y-6">
             @csrf
 
             <!-- Judul -->
@@ -32,63 +42,61 @@
                 @enderror
             </div>
 
-            <!-- SKPD & Status -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <label class="block text-sm font-medium text-slate-700 mb-2">SKPD</label>
-                    <select name="id_skpd"
-                        class="w-full px-4 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-ppid-accent focus:ring-1 focus:ring-ppid-accent"
-                        required>
-                        <option value="">Pilih SKPD</option>
-                        @foreach($skpdList as $skpd)
-                            <option value="{{ $skpd->id_skpd }}" {{ old('id_skpd') == $skpd->id_skpd ? 'selected' : '' }}>
-                                {{ $skpd->nm_skpd }}
-                            </option>
-                        @endforeach
-                    </select>
-                    @error('id_skpd')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-slate-700 mb-2">Status Verifikasi</label>
-                    <select name="verify"
-                        class="w-full px-4 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-ppid-accent focus:ring-1 focus:ring-ppid-accent"
-                        required>
-                        <option value="n" {{ old('verify') == 'n' ? 'selected' : '' }}>Belum Verifikasi</option>
-                        <option value="y" {{ old('verify') == 'y' ? 'selected' : '' }}>Terverifikasi</option>
-                        <option value="t" {{ old('verify') == 't' ? 'selected' : '' }}>Ditolak</option>
-                    </select>
-                    @error('verify')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
+            <div class="space-y-2">
+                <label for="id_skpd" class="text-sm font-medium text-slate-700">SKPD Terkait</label>
+                
+                <x-searchable-select 
+                    name="id_skpd" 
+                    id="id_skpd" 
+                    :options="$skpdList" 
+                    idKey="id_skpd"
+                    :disabled="auth()->user()->hasRole('opd')"
+                    labelKey="nm_skpd"
+                    :value="old('id_skpd', auth()->user()->id_skpd)"
+                    placeholder="-- Pilih SKPD --"
+                />
+
+                @error('id_skpd')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+                
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-2">Status Verifikasi</label>
+                <select name="verify"
+                    class="w-full px-4 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-ppid-accent focus:ring-1 focus:ring-ppid-accent"
+                    required>
+                    <option value="n" {{ old('verify') == 'n' ? 'selected' : '' }}>Belum Verifikasi</option>
+                    <option value="y" {{ old('verify') == 'y' ? 'selected' : '' }}>Terverifikasi</option>
+                    <option value="t" {{ old('verify') == 't' ? 'selected' : '' }}>Ditolak</option>
+                </select>
+                @error('verify')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
             </div>
 
             <!-- Gambar -->
             <div>
-                <label class="block text-sm font-medium text-slate-700 mb-2">Gambar Sampul</label>
-                <div class="flex items-start gap-4">
-                    <div class="flex-1">
-                        <input type="file" name="img_berita" accept="image/*"
-                            class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200"
-                            onchange="previewImage(this)" required>
-                        <p class="text-xs text-slate-400 mt-1">Format: JPG, PNG, GIF. Maks: 2MB.</p>
-                        @error('img_berita')
-                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <div id="imagePreview"
-                        class="w-32 h-20 bg-slate-100 rounded-lg overflow-hidden hidden border border-slate-200">
-                        <img src="" class="w-full h-full object-cover">
-                    </div>
+                <label class="block text-sm font-medium text-slate-700 mb-2">Thumbnail</label>
+                <div class="flex-1">                        
+                    <input type="file" 
+                        class="filepond"
+                        name="img_berita"
+                        id="gambar"
+                        accept="image/png, image/jpeg, image/gif"
+                    />
+                    @error('img_berita')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
+                
             </div>
 
             <!-- Deskripsi (WYSIWYG) -->
             <div>
                 <label class="block text-sm font-medium text-slate-700 mb-2">Konten Berita</label>
-                <textarea name="deskripsi" id="editor" rows="10">{{ old('deskripsi') }}</textarea>
+
+                <textarea name="deskripsi" id="editor" class="editor" rows="10">{{ old('deskripsi') }}</textarea>
                 @error('deskripsi')
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                 @enderror
@@ -107,39 +115,26 @@
         </form>
     </div>
 
-    @push('scripts')
-        <script src="https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckeditor.js"></script>
+    <!-- Vendor -->
+    <x-slot name="extra_script">
+        <script src="/vendor/jquery/jquery.min.js"></script>
+        <script src="/vendor/tinymce/tinymce.min.js"></script>
+        <script src="/vendor/tinymce/init-editor.js"></script>
         <script>
-            ClassicEditor
-                .create(document.querySelector('#editor'))
-                .catch(error => {
-                    console.error(error);
-                });
-
-            function previewImage(input) {
-                const preview = document.getElementById('imagePreview');
-                const img = preview.querySelector('img');
-
-                if (input.files && input.files[0]) {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        img.src = e.target.result;
-                        preview.classList.remove('hidden');
-                    }
-                    reader.readAsDataURL(input.files[0]);
-                } else {
-                    img.src = '';
-                    preview.classList.add('hidden');
+            FilePond.registerPlugin(FilePondPluginImagePreview);
+            FilePond.registerPlugin(
+                FilePondPluginImagePreview,
+            );
+                // Select the file input and use 
+                // create() to turn it into a pond
+                FilePond.create(
+                document.querySelector('#gambar'),
+                {
+                    labelIdle: `Drag & Drop your picture or <span class="filepond--label-action">Browse</span>`,
+                    imagePreviewHeight: 170,
+                    storeAsFile: true,
                 }
-            }
+            );
         </script>
-    @endpush
-
-    @push('styles')
-        <style>
-            .ck-editor__editable_inline {
-                min-height: 400px;
-            }
-        </style>
-    @endpush
+    </x-slot>
 </x-admin-layout>

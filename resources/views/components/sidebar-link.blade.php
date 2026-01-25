@@ -14,7 +14,7 @@
 @endphp
 
 <li>
-    <a href="{{ $href }}" 
+    <a wire:navigate href="{{ $href }}" 
        {{ $attributes->merge(['class' => "relative flex items-center px-6 py-3.5 text-sm font-medium transition-all duration-200 $classes"]) }}
        {{-- BARIS KUNCI: Memberikan nama transisi hanya jika link aktif --}}
        @if($active) style="view-transition-name: active-sidebar-indicator;" @endif>

@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Pengajuan;
+use App\Models\PengajuanKeberatan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PengajuanKeberatanController extends Controller
 {
@@ -13,13 +14,30 @@ class PengajuanKeberatanController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Pengajuan::with('skpd');
+        $user = Auth::user();
+        $query = PengajuanKeberatan::with(['skpd']);
 
-        if ($request->filled('search')) {
-            $query->where('nama_pemohon', 'like', '%' . $request->search . '%');
+        // Filter Berdasarkan Role
+        if ($user->hasRole('opd')) {
+            $query->where('id_skpd', $user->id_skpd);
         }
 
-        $pengajuan = $query->latest('created_at')->paginate(10);
+        // Filter Pencarian
+        if ($request->filled('search')) {
+            $searchTerm = '%' . $request->search . '%';
+            $query->where(function($q) use ($searchTerm) {
+                $q->where('nama_pemohon', 'like', $searchTerm)
+                ->orWhere('kode_permohonan', 'like', $searchTerm)
+                ->orWhere('alasan_keberatan', 'like', $searchTerm);
+            });
+        }
+
+        $pengajuan = $query->latest()->paginate(10);
+
+        // Handle JSON Request 
+        if ($request->expectsJson()) {
+            return response()->json($pengajuan);
+        }
 
         return view('admin.pengajuan-keberatan.index', compact('pengajuan'));
     }
