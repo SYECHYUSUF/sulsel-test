@@ -25,3 +25,5 @@ Thumbs.db
 
 ./database.sql
 ./database-copy.sql
+
+/prompts/

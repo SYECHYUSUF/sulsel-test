@@ -109,6 +109,12 @@ use App\Http\Controllers\Admin\PermohonanInformasiController;
 use App\Http\Controllers\Admin\SkpdController;
 use App\Http\Controllers\Admin\SlideBannerController;
 use App\Http\Controllers\SopController;
+use App\Http\Controllers\Admin\FaqController;
+use App\Http\Controllers\Admin\InformasiController;
+use App\Http\Controllers\Admin\KategoriInformasiController;
+use App\Http\Controllers\Admin\InformasiSetiapSaatController;
+use App\Http\Controllers\Admin\InformasiSertaMertaController;
+use App\Http\Controllers\Admin\InformasiDaftarPublikController;
 
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     // Rute yang bisa diakses admin & odp
@@ -120,29 +126,30 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 
     // Rute yang dibatasi berdasarkan ID SKPD menggunakan Middleware
     Route::middleware(['check_skpd'])->group(function () {
+        Route::resource('skpd', SkpdController::class);
+
         Route::resource('berita', BeritaController::class);
         Route::resource('permohonan-informasi', PermohonanInformasiController::class);
         Route::resource('pengajuan-keberatan', PengajuanKeberatanController::class);
+        Route::post('informasi-publik/bulk-delete', [InformasiController::class, 'bulkDelete'])->name('informasi-publik.bulk-delete');
+        Route::post('informasi-publik/bulk-update-status', [InformasiController::class, 'bulkUpdateStatus'])->name('informasi-publik.bulk-update-status');
+
+        // Master Data
+        Route::resource('informasi-publik', InformasiController::class);
+        Route::resource('informasi-setiap-saat', InformasiSetiapSaatController::class);
+        Route::resource('informasi-serta-merta', InformasiSertaMertaController::class);
+        Route::resource('informasi-daftar-publik', InformasiDaftarPublikController::class);
     });
 
     // Rute khusus Super Admin (Tanpa check_skpd karena mengelola semua SKPD)
     Route::middleware(['role:admin'])->group(function () {
-        Route::resource('data-skpd', SkpdController::class);
         Route::resource('data-sop', SopController::class);
         Route::resource('slide-banner', SlideBannerController::class);
-    });
+        Route::resource('faq', FaqController::class);
 
-    // Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-    // Route::resource('berita', BeritaController::class);
-    // Route::resource('data-skpd', SkpdController::class);
-    // Route::resource('permohonan-informasi', PermohonanInformasiController::class);
-    // Route::resource('slide-banner', SlideBannerController::class);
-    // Route::resource('pengajuan-keberatan', PengajuanKeberatanController::class);
-    // Route::resource('data-sop', SkpdController::class);
-    // Route::resource('pengaturan', PengaturanController::class);
-    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+        // Metadata Informasi
+        Route::resource('kategori-informasi', KategoriInformasiController::class);
+    });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

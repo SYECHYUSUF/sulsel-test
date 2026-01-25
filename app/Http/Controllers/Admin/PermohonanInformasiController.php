@@ -12,7 +12,7 @@ class PermohonanInformasiController extends Controller
     /**
      * Display a listing of the resource.
      */
-     /**
+    /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
@@ -29,10 +29,10 @@ class PermohonanInformasiController extends Controller
         // 2. Filter Pencarian
         if ($request->filled('search')) {
             $searchTerm = '%' . $request->search . '%';
-            $query->where(function($q) use ($searchTerm) {
+            $query->where(function ($q) use ($searchTerm) {
                 $q->where('nama', 'like', $searchTerm)
-                ->orWhere('email', 'like', $searchTerm)
-                ->orWhere('no_hp', 'like', $searchTerm);
+                    ->orWhere('email', 'like', $searchTerm)
+                    ->orWhere('no_hp', 'like', $searchTerm);
             });
         }
 
@@ -66,9 +66,20 @@ class PermohonanInformasiController extends Controller
     /**
      * Display the specified resource.
      */
+    /**
+     * Display the specified resource.
+     */
     public function show(string $id)
     {
-        //
+        $permohonan = PermohonanInformasi::with('skpd')->findOrFail($id);
+        $user = Auth::user();
+
+        // Security Check
+        if ($user->hasRole('opd') && $permohonan->id_skpd !== $user->id_skpd) {
+            abort(403);
+        }
+
+        return view('admin.permohonan-informasi.show', compact('permohonan'));
     }
 
     /**
@@ -76,7 +87,7 @@ class PermohonanInformasiController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        // Not used, using show for actions
     }
 
     /**
@@ -84,7 +95,46 @@ class PermohonanInformasiController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $permohonan = PermohonanInformasi::findOrFail($id);
+        $user = Auth::user();
+
+        // Security Check
+        if ($user->hasRole('opd') && $permohonan->id_skpd !== $user->id_skpd) {
+            abort(403);
+        }
+
+        $validated = $request->validate([
+            'status' => 'required|integer',
+            'alasan' => 'nullable|string|required_if:status,' . PermohonanInformasi::STATUS_TOLAK,
+            'file' => 'nullable|file|mimes:pdf,doc,docx,jpg,png|max:10240', // 10MB
+        ]);
+
+        $data = [
+            'status' => $validated['status']
+        ];
+
+        // Handle Rejection
+        if ($validated['status'] == PermohonanInformasi::STATUS_TOLAK) {
+            $data['alasan'] = $validated['alasan'];
+        }
+
+        // Handle File Upload for Completion
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $path = $file->store('permohonan/hasil/' . date('Y/m'), 'public');
+            $data['file'] = $path;
+        }
+
+        // Handle "Verifikasi" (Admin only) - 0 -> 1
+        // Usually verified means it's accepted by admin and ready for OPD
+        if ($permohonan->status == PermohonanInformasi::STATUS_PENDING && $validated['status'] == PermohonanInformasi::STATUS_PROSES) {
+            // Logic if needed (e.g. notify OPD)
+        }
+
+        $permohonan->update($data);
+
+        return redirect()->route('admin.permohonan-informasi.show', $id)
+            ->with('success', 'Status permohonan berhasil diperbarui.');
     }
 
     /**
@@ -92,6 +142,7 @@ class PermohonanInformasiController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // Optional: Implement delete if needed, for now maybe restrict
+        abort(403, 'Menghapus permohonan tidak diizinkan.');
     }
 }

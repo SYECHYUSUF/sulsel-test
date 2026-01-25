@@ -13,7 +13,7 @@ class CheckSkpd
     {
         $user = Auth::user();
 
-        // Izinkan jika user adalah Super Admin 
+        // Izinkan jika user adalah Admin 
         if ($user->hasRole('admin')) {
             return $next($request);
         }
@@ -21,7 +21,7 @@ class CheckSkpd
         // Ambil resource dari parameter rute (misal: /admin/berita/{berita})
         // Laravel otomatis mencoba memetakan model jika menggunakan Resource Controller
         $resource = $request->route()->parameter('berita') 
-                 ?? $request->route()->parameter('data-skpd')
+                 ?? $request->route()->parameter('data_skpd')
                  ?? $request->route()->parameter('permohonan_informasi');
 
         // Lakukan validasi jika resource ada dan memiliki kolom id_skpd

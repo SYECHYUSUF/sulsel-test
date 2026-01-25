@@ -54,7 +54,23 @@ class SkpdController extends Controller
      */
     public function update(Request $request, Skpd $skpd)
     {
-        //
+        $validated = $request->validate([
+            'nm_skpd' => 'required|string|max:255',
+            'alamat' => 'nullable|string',
+            'email' => 'nullable|email|max:150',
+            'no_tlp' => 'nullable|string|max:20',
+            'website' => 'nullable|url|max:255',
+            'kadis' => 'nullable|string|max:200',
+            'sek' => 'nullable|string|max:200',
+            'visimisi' => 'nullable|string',
+            'tupoksi' => 'nullable|string',
+            'jenis' => 'nullable|in:opd,kab',
+            'is_active' => 'required|in:1,0',
+        ]);
+
+        $skpd->update($validated);
+
+        return redirect()->route('admin.skpd.show', $skpd)->with('success', 'Data SKPD berhasil diperbarui');
     }
 
     /**

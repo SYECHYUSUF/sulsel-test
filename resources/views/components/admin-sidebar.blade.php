@@ -20,7 +20,48 @@
                 </svg>
             </x-sidebar-link>
 
-            <x-sidebar-link href="/admin/permohonan-informasi" :active="request()->is('admin/permohonan-informasi*')" label="Permohonan Info" badge="5">
+            {{-- Route opd --}}
+            @role('opd')
+            {{-- Grouped Menu: Informasi --}}
+            <x-sidebar-dropdown 
+                label="Manajemen Info" 
+                :active="request()->is('admin/informasi-*') || request()->routeIs('admin.kategori-informasi.*')"
+            >
+                <x-slot name="icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </x-slot>
+
+                {{-- Link di dalam dropdown --}}
+                <x-sidebar-link href="{{ route('admin.informasi-setiap-saat.index') }}"
+                    :active="request()->routeIs('admin.informasi-setiap-saat.*')" label="Info Setiap Saat">
+                    {{-- <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg> --}}
+                </x-sidebar-link>
+
+                <x-sidebar-link href="{{ route('admin.informasi-serta-merta.index') }}"
+                    :active="request()->routeIs('admin.informasi-serta-merta.*')" label="Info Serta Merta">
+                    {{-- <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg> --}}
+                </x-sidebar-link>
+
+                <x-sidebar-link href="{{ route('admin.informasi-daftar-publik.index') }}"
+                    :active="request()->routeIs('admin.informasi-daftar-publik.*')" label="Info Daftar Publik">
+                    {{-- <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                        </path>
+                    </svg> --}}
+                </x-sidebar-link>
+            </x-sidebar-dropdown>
+            
+            <x-sidebar-link href="/admin/permohonan-informasi" :active="request()->is('admin/permohonan-informasi*')"
+                label="Permohonan Info" badge="5">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
@@ -28,18 +69,21 @@
                 </svg>
             </x-sidebar-link>
 
-            <x-sidebar-link href="/admin/pengajuan-keberatan" :active="request()->is('admin/pengajuan-keberatan*')" label="Keberatan">
+            <x-sidebar-link href="/admin/pengajuan-keberatan" :active="request()->is('admin/pengajuan-keberatan*')"
+                label="Pengajuan Keberatan">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                 </svg>
             </x-sidebar-link>
+            @endrole
         </ul>
 
         <div class="px-10 mb-1 mt-2">
-            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px]">Content</span>
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px]">Konten</span>
         </div>
         <ul>
+            @role('opd')
             <x-sidebar-link :href="route('admin.berita.index')" :active="request()->routeIs('admin.berita.*')"
                 label="Berita & Artikel">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -48,10 +92,25 @@
                     </path>
                 </svg>
             </x-sidebar-link>
+            @endrole
 
+            
             {{-- Route khusus admin --}}
             @role('admin')
-            <x-sidebar-link href="/admin/slide-banner" :active="request()->is('admin/slide-banner*')" label="Slide Banner">
+            <x-sidebar-link :href="route('admin.faq.index')" :active="request()->routeIs('admin.faq.*')" label="FAQ">
+                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-message-circle-question-mark-icon lucide-message-circle-question-mark">
+                    <path
+                        d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719" />
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                    <path d="M12 17h.01" />
+                </svg>
+            </x-sidebar-link>
+
+
+            <x-sidebar-link href="/admin/slide-banner" :active="request()->is('admin/slide-banner*')"
+                label="Slide Banner">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
@@ -59,22 +118,68 @@
                 </svg>
             </x-sidebar-link>
             @endrole
+        </ul>
 
-            <x-sidebar-link href="/admin/data-sop" :active="request()->is('admin/data-sop*')" label="Data SOP">
+        {{-- Route khusus admin --}}
+        @role('admin')
+        <div class="px-10 mb-1 mt-2">
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px]">Pengaturan</span>
+        </div>
+        <ul>
+            <x-sidebar-link href="{{ route('admin.data-sop.index') }}" :active="request()->is('admin/data-sop*')"
+                label="Data SOP">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <g fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path
+                            d="M5 8c0-2.828 0-4.243.879-5.121C6.757 2 8.172 2 11 2h2c2.828 0 4.243 0 5.121.879C19 3.757 19 5.172 19 8v8c0 2.828 0 4.243-.879 5.121C17.243 22 15.828 22 13 22h-2c-2.828 0-4.243 0-5.121-.879C5 20.243 5 18.828 5 16zm0-3.924c-.975.096-1.631.313-2.121.803C2 5.757 2 7.172 2 10v4c0 2.828 0 4.243.879 5.121c.49.49 1.146.707 2.121.803M19 4.076c.975.096 1.631.313 2.121.803C22 5.757 22 7.172 22 10v4c0 2.828 0 4.243-.879 5.121c-.49.49-1.146.707-2.121.803" />
+                        <path stroke-linecap="round" d="M9 13h6M9 9h6m-6 8h3" />
+                    </g>
+                </svg>
+            </x-sidebar-link>
+
+            <x-sidebar-link href="{{ route('admin.kategori-informasi.index') }}"
+                :active="request()->routeIs('admin.kategori-informasi.*')" label="Kategori Info">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+                        d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z">
                     </path>
                 </svg>
             </x-sidebar-link>
-        </ul>
 
-        <div class="px-10 mb-1 mt-2">
-            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px]">System</span>
-        </div>
-        <ul>
-            {{-- Route khusus admin --}}
-            @role('admin')
+            {{-- <x-sidebar-link href="{{ route('admin.kategori-informasi.index') }}"
+                :active="request()->routeIs('admin.kategori-informasi.*')" label="Kategori Info">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z">
+                    </path>
+                </svg>
+            </x-sidebar-link>
+
+            <x-sidebar-link href="{{ route('admin.informasi-setiap-saat.index') }}"
+                :active="request()->routeIs('admin.informasi-setiap-saat.*')" label="Info Setiap Saat">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+            </x-sidebar-link>
+
+            <x-sidebar-link href="{{ route('admin.informasi-serta-merta.index') }}"
+                :active="request()->routeIs('admin.informasi-serta-merta.*')" label="Info Serta Merta">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+            </x-sidebar-link>
+
+            <x-sidebar-link href="{{ route('admin.informasi-daftar-publik.index') }}"
+                :active="request()->routeIs('admin.informasi-daftar-publik.*')" label="Info Daftar Publik">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                    </path>
+                </svg>
+            </x-sidebar-link> --}}
+
             <x-sidebar-link href="/admin/users" :active="request()->is('admin/users*')" label="Users">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -82,18 +187,15 @@
                     </path>
                 </svg>
             </x-sidebar-link>
-            @endrole
 
-            {{-- Route khusus admin --}}
-            @role('admin')
-            <x-sidebar-link href="/admin/data-skpd" :active="request()->is('admin/data-skpd*')" label="Data SKPD">
+            <x-sidebar-link href="{{ route('admin.skpd.index') }}" :active="request()->is('admin/skpd*')"
+                label="Data SKPD">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
                     </path>
                 </svg>
             </x-sidebar-link>
-            @endrole
 
             <x-sidebar-link href="/admin/pengaturan" :active="request()->is('admin/pengaturan*')" label="Pengaturan">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -105,5 +207,23 @@
                 </svg>
             </x-sidebar-link>
         </ul>
+        @endrole
+
+        {{-- Route khusus opd --}}
+        @role('opd')
+        <div class="px-10 mb-1 mt-2">
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px]">Pengaturan</span>
+        </div>
+        <ul>
+            <x-sidebar-link href="{{ route('admin.skpd.show', auth()->user()->id_skpd) }}"
+                :active="request()->is('admin/skpd*')" label="Data SKPD">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
+                    </path>
+                </svg>
+            </x-sidebar-link>
+        </ul>
+        @endrole
     </nav>
 </aside>

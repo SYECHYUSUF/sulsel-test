@@ -7,10 +7,11 @@
 
     <div class="grid grid-cols-3 gap-4">
         @foreach ($skpd as $item)
-        <a href="{{ route('admin.data-skpd.show', $item) }}" class="bg-white rounded-xl shadow-sm p-4 border border-slate-100 overflow-hidden">
-            <h3 class="text-base mb-2">{{ $item->nm_skpd }}</h3>
-            <h5 class="text-gray-500">{{ $item->alamat }}</h5>
-        </a>    
+            <a href="{{ route('admin.skpd.show', $item) }}"
+                class="bg-white rounded-xl shadow-sm p-4 border border-slate-100 overflow-hidden">
+                <h3 class="text-base mb-2">{{ $item->nm_skpd }}</h3>
+                <h5 class="text-gray-500">{{ $item->alamat }}</h5>
+            </a>
         @endforeach
-    </div>  
+    </div>
 </x-admin-layout>

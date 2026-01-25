@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Sop;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SopController extends Controller
 {
@@ -49,9 +50,9 @@ class SopController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Sop $sop)
     {
-        //
+        return view('admin.data-sop.show', compact('sop'));
     }
 
     /**

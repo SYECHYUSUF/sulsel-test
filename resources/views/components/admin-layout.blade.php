@@ -16,13 +16,15 @@
     @endisset
 </head>
 <body class="bg-slate-50 font-sans antialiased text-slate-800">
-    <div class="flex h-screen overflow-hidden" x-data="{ sidebarOpen: true }">
+    <div 
+        class="flex h-screen overflow-hidden" 
+        x-data="{ sidebarOpen: true }"
+    >
         <!-- Sidebar -->
         <x-admin-sidebar />
 
         <!-- Main Content Wrapper -->
         <div class="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden transition-all duration-300">
-            
             <!-- Header -->
             <x-admin-header />
 
