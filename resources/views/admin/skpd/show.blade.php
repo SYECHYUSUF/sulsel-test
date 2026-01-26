@@ -10,21 +10,21 @@
         <script src="/vendor/filepond/index.js"></script>
     </x-slot>
 
-    <h3 class="text-lg font-bold text-[#1A305E] mb-4">{{ $skpd->nm_skpd }}</h3>
+    <h3 class="text-lg font-bold text-[#1A305E] dark:text-blue-400 mb-4">{{ $skpd->nm_skpd }}</h3>
 
     {{-- Success/Error Messages --}}
     @if(session('success'))
-        <div class="bg-green-50 border-l-4 mb-4 border-green-500 p-4 rounded-lg">
-            <p class="text-green-700">{{ session('success') }}</p>
+        <div class="bg-green-50 dark:bg-green-900/30 border-l-4 mb-4 border-green-500 p-4 rounded-lg">
+            <p class="text-green-700 dark:text-green-300">{{ session('success') }}</p>
         </div>
     @endif
     @if(session('error'))
-        <div class="bg-red-50 border-l-4 mb-4 border-red-500 p-4 rounded-lg">
-            <p class="text-red-700">{{ session('error') }}</p>
+        <div class="bg-red-50 dark:bg-red-900/30 border-l-4 mb-4 border-red-500 p-4 rounded-lg">
+            <p class="text-red-700 dark:text-red-300">{{ session('error') }}</p>
         </div>
     @endif
 
-    <div class="bg-white rounded-xl shadow-sm p-6 border border-slate-100 overflow-hidden">
+    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-6 border border-slate-100 dark:border-slate-700 overflow-hidden">
         
 
         <form action="{{ route('admin.skpd.update', $skpd) }}" method="POST" enctype="multipart/form-data">
@@ -34,7 +34,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <!-- Logo -->
                 <div>
-                    <label class="block text-sm font-medium text-slate-700 mb-2">Logo SKPD</label>
+                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Logo SKPD</label>
                     <div class="flex-1">                        
                         <input type="file" 
                             class="filepond"
@@ -89,7 +89,7 @@
                 <div>
                     <x-input-label for="jenis" :value="__('Jenis')" />
                     <select id="jenis" name="jenis"
-                        class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                        class="block mt-1 w-full border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
                         <option value="">-- Pilih Jenis --</option>
                         <option value="opd" {{ old('jenis', $skpd->jenis) == 'opd' ? 'selected' : '' }}>OPD</option>
                         <option value="kab" {{ old('jenis', $skpd->jenis) == 'kab' ? 'selected' : '' }}>Kabupaten</option>
@@ -115,7 +115,7 @@
                 <div>
                     <x-input-label for="is_active" :value="__('Status Aktif')" />
                     <select id="is_active" name="is_active"
-                        class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                        class="block mt-1 w-full border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
                         <option value="1" {{ old('is_active', $skpd->is_active) == '1' ? 'selected' : '' }}>Aktif</option>
                         <option value="0" {{ old('is_active', $skpd->is_active) == '0' ? 'selected' : '' }}>Tidak Aktif
                         </option>
@@ -146,7 +146,7 @@
 
             <div class="flex items-center justify-end gap-4">
                 <a href="{{ route('admin.skpd.index') }}"
-                    class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
+                    class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
                     Batal
                 </a>
                 <x-primary-button>

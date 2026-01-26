@@ -24,15 +24,15 @@
     <div x-data="permohonanDataTable()" x-init="fetchData()" class="space-y-6">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-                <h1 class="text-2xl font-bold text-slate-900">Permohonan Informasi</h1>
-                <p class="text-slate-500 text-sm">Pantau dan kelola permintaan informasi publik dari masyarakat.</p>
+                <h1 class="text-2xl font-bold text-slate-900 dark:text-slate-100">Permohonan Informasi</h1>
+                <p class="text-slate-500 dark:text-slate-400 text-sm">Pantau dan kelola permintaan informasi publik dari masyarakat.</p>
             </div>
             <div class="flex items-center gap-3">
                 <div class="relative">
                     <input type="text" x-model="search" @input.debounce.500ms="fetchData()"
                         placeholder="Cari pemohon..."
-                        class="pl-10 pr-4 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 w-full md:w-64 text-sm transition-all">
-                    <div class="absolute left-3 top-2.5 text-slate-400">
+                        class="pl-10 pr-4 py-2 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 w-full md:w-64 text-sm transition-all placeholder-slate-400 dark:placeholder-slate-500">
+                    <div class="absolute left-3 top-2.5 text-slate-400 dark:text-slate-500">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -43,10 +43,10 @@
             </div>
         </div>
 
-        <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden shadow-sm">
             <div class="overflow-x-auto">
                 <table class="w-full text-sm text-left">
-                    <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 font-semibold">
+                    <thead class="bg-slate-50 dark:bg-slate-700/50 border-b border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 font-semibold">
                         <tr>
                             <th class="px-6 py-4">Pemohon</th>
                             <th class="px-6 py-4">Kontak</th>
@@ -59,27 +59,27 @@
                             <th class="px-6 py-4 text-right"></th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-100">
+                    <tbody class="divide-y divide-slate-100 dark:divide-slate-700">
                         <template x-if="loading">
                             <template x-for="i in 5" :key="i">
                                 <tr class="animate-pulse">
                                     <td class="px-6 py-4">
-                                        <div class="h-4 bg-slate-100 rounded w-3/4"></div>
+                                        <div class="h-4 bg-slate-100 dark:bg-slate-700 rounded w-3/4"></div>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <div class="h-4 bg-slate-100 rounded w-1/2"></div>
+                                        <div class="h-4 bg-slate-100 dark:bg-slate-700 rounded w-1/2"></div>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <div class="h-4 bg-slate-100 rounded w-1/2"></div>
+                                        <div class="h-4 bg-slate-100 dark:bg-slate-700 rounded w-1/2"></div>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <div class="h-6 bg-slate-100 rounded-full w-16"></div>
+                                        <div class="h-6 bg-slate-100 dark:bg-slate-700 rounded-full w-16"></div>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <div class="h-4 bg-slate-100 rounded w-20"></div>
+                                        <div class="h-4 bg-slate-100 dark:bg-slate-700 rounded w-20"></div>
                                     </td>
                                     <td class="px-6 py-4 text-right">
-                                        <div class="h-8 bg-slate-100 rounded-lg w-10 ml-auto"></div>
+                                        <div class="h-8 bg-slate-100 dark:bg-slate-700 rounded-lg w-10 ml-auto"></div>
                                     </td>
                                 </tr>
                             </template>
@@ -87,7 +87,7 @@
 
                         <template x-if="!loading && items.length === 0">
                             <tr>
-                                <td colspan="6" class="px-6 py-12 text-center text-slate-500">
+                                <td colspan="6" class="px-6 py-12 text-center text-slate-500 dark:text-slate-400">
                                     Tidak ada data permohonan.
                                 </td>
                             </tr>
@@ -95,19 +95,19 @@
 
                         <template x-if="!loading">
                             <template x-for="item in items" :key="item.id_permohonan">
-                                <tr class="hover:bg-slate-50/50 transition-colors">
+                                <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-700/30 transition-colors">
                                     <td class="px-6 py-4">
-                                        <div class="font-medium text-slate-900" x-text="item.nama"></div>
-                                        <div class="text-xs text-slate-400" x-text="item.kategori_pemohon"></div>
+                                        <div class="font-medium text-slate-900 dark:text-slate-100" x-text="item.nama"></div>
+                                        <div class="text-xs text-slate-400 dark:text-slate-500" x-text="item.kategori_pemohon"></div>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <div class="text-slate-600" x-text="item.email"></div>
-                                        <div class="text-xs text-slate-400" x-text="item.no_hp"></div>
+                                        <div class="text-slate-600 dark:text-slate-300" x-text="item.email"></div>
+                                        <div class="text-xs text-slate-400 dark:text-slate-500" x-text="item.no_hp"></div>
                                     </td>
                                     {{-- Tampilkan sel ini hanya jika admin --}}
                                     <template x-if="isAdmin">
                                         <td class="px-6 py-4">
-                                            <span class="text-slate-600"
+                                            <span class="text-slate-600 dark:text-slate-300"
                                                 x-text="item.skpd ? item.skpd.nm_skpd : '-'"></span>
                                         </td>
                                     </template>
@@ -116,10 +116,10 @@
                                             :class="item.status_color" x-text="item.status_label">
                                         </span>
                                     </td>
-                                    <td class="px-6 py-4 text-slate-500" x-text="formatDate(item.created_at)"></td>
+                                    <td class="px-6 py-4 text-slate-500 dark:text-slate-400" x-text="formatDate(item.created_at)"></td>
                                     <td class="px-6 py-4 text-right">
                                         <a :href="'/admin/permohonan-informasi/' + item.id_permohonan"
-                                            class="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all inline-block">
+                                            class="p-2 text-slate-400 dark:text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-lg transition-all inline-block">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -139,15 +139,15 @@
 
         <div class="flex flex-col md:flex-row items-center justify-between gap-4 py-2"
             x-show="!loading && items.length > 0">
-            <div class="text-sm text-slate-500">
-                Menampilkan <span class="font-medium text-slate-900" x-text="items.length"></span> dari <span
-                    class="font-medium text-slate-900" x-text="pagination.total"></span> data
+            <div class="text-sm text-slate-500 dark:text-slate-400">
+                Menampilkan <span class="font-medium text-slate-900 dark:text-slate-100" x-text="items.length"></span> dari <span
+                    class="font-medium text-slate-900 dark:text-slate-100" x-text="pagination.total"></span> data
             </div>
             <div class="flex items-center gap-2">
                 <button @click="changePage(pagination.prev_page_url)" :disabled="!pagination.prev_page_url"
-                    class="px-4 py-2 border border-slate-200 rounded-xl text-sm font-medium hover:bg-slate-50 disabled:opacity-50 transition-colors">Sebelumnya</button>
+                    class="px-4 py-2 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-xl text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-700 disabled:opacity-50 transition-colors">Sebelumnya</button>
                 <button @click="changePage(pagination.next_page_url)" :disabled="!pagination.next_page_url"
-                    class="px-4 py-2 border border-slate-200 rounded-xl text-sm font-medium hover:bg-slate-50 disabled:opacity-50 transition-colors">Berikutnya</button>
+                    class="px-4 py-2 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-xl text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-700 disabled:opacity-50 transition-colors">Berikutnya</button>
             </div>
         </div>
     </div>

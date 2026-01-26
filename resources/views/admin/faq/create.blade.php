@@ -3,20 +3,20 @@
 
     <x-slot name="header">
         <div class="flex items-center gap-2">
-            <a href="{{ route('admin.faq.index') }}" class="text-slate-500 hover:text-slate-700">
+            <a href="{{ route('admin.faq.index') }}" class="text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                 </svg>
             </a>
-            <span class="text-slate-300">/</span>
+            <span class="text-slate-300 dark:text-slate-600">/</span>
             <span>Tambah FAQ</span>
         </div>
     </x-slot>
 
-    <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden max-w-4xl mx-auto">
-        <div class="p-6 border-b border-slate-100">
-            <h3 class="text-lg font-bold text-[#1A305E]">Form Tambah FAQ</h3>
+    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 overflow-hidden max-w-4xl mx-auto">
+        <div class="p-6 border-b border-slate-100 dark:border-slate-700">
+            <h3 class="text-lg font-bold text-[#1A305E] dark:text-blue-400">Form Tambah FAQ</h3>
         </div>
 
         <form action="{{ route('admin.faq.store') }}" method="POST" class="p-6 pt-0 space-y-6">
@@ -24,9 +24,9 @@
 
             <!-- Pertanyaan -->
             <div>
-                <label class="block text-sm font-medium text-slate-700 mb-2">Pertanyaan</label>
+                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Pertanyaan</label>
                 <input type="text" name="pertanyaan" value="{{ old('pertanyaan') }}"
-                    class="w-full px-4 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-ppid-accent focus:ring-1 focus:ring-ppid-accent"
+                    class="w-full px-4 py-2 border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 rounded-lg text-sm focus:outline-none focus:border-ppid-accent focus:ring-1 focus:ring-ppid-accent placeholder-slate-400 dark:placeholder-slate-500"
                     placeholder="Masukkan pertanyaan" required>
                 @error('pertanyaan')
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -35,9 +35,9 @@
 
             <!-- Jawaban -->
             <div>
-                <label class="block text-sm font-medium text-slate-700 mb-2">Jawaban</label>
+                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Jawaban</label>
                 <textarea name="jawaban"
-                    class="w-full px-4 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-ppid-accent focus:ring-1 focus:ring-ppid-accent"
+                    class="w-full px-4 py-2 border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 rounded-lg text-sm focus:outline-none focus:border-ppid-accent focus:ring-1 focus:ring-ppid-accent placeholder-slate-400 dark:placeholder-slate-500"
                     rows="5" placeholder="Masukkan jawaban">{{ old('jawaban') }}</textarea>
                 @error('jawaban')
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -47,9 +47,9 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Status Active -->
                 <div>
-                    <label class="block text-sm font-medium text-slate-700 mb-2">Status</label>
+                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Status</label>
                     <select name="is_active"
-                        class="w-full px-4 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-ppid-accent focus:ring-1 focus:ring-ppid-accent">
+                        class="w-full px-4 py-2 border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 rounded-lg text-sm focus:outline-none focus:border-ppid-accent focus:ring-1 focus:ring-ppid-accent">
                         <option value="1" {{ old('is_active') == '1' ? 'selected' : '' }}>Aktif</option>
                         <option value="0" {{ old('is_active') == '0' ? 'selected' : '' }}>Tidak Aktif</option>
                     </select>
@@ -60,9 +60,9 @@
 
                 <!-- Urutan -->
                 <div>
-                    <label class="block text-sm font-medium text-slate-700 mb-2">Urutan (Opsional)</label>
+                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Urutan (Opsional)</label>
                     <input type="number" name="urutan" value="{{ old('urutan') }}"
-                        class="w-full px-4 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-ppid-accent focus:ring-1 focus:ring-ppid-accent"
+                        class="w-full px-4 py-2 border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 rounded-lg text-sm focus:outline-none focus:border-ppid-accent focus:ring-1 focus:ring-ppid-accent"
                         placeholder="Contoh: 1">
                     @error('urutan')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -70,13 +70,13 @@
                 </div>
             </div>
 
-            <div class="pt-6 border-t border-slate-100 flex justify-end gap-3">
+            <div class="pt-6 border-t border-slate-100 dark:border-slate-700 flex justify-end gap-3">
                 <a href="{{ route('admin.faq.index') }}"
-                    class="px-4 py-2 bg-white border border-slate-200 text-slate-700 rounded-lg text-sm font-medium hover:bg-slate-50 transition-colors">
+                    class="px-4 py-2 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-200 rounded-lg text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-600 transition-colors">
                     Batal
                 </a>
                 <button type="submit"
-                    class="px-4 py-2 bg-[#1A305E] text-white rounded-lg text-sm font-medium hover:bg-ppid-dark transition-colors">
+                    class="px-4 py-2 bg-[#1A305E] dark:bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-ppid-dark dark:hover:bg-blue-700 transition-colors">
                     Simpan FAQ
                 </button>
             </div>

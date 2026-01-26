@@ -1,12 +1,15 @@
 /* Sidebar Container harus memiliki background warna gelap agar lengkungan terlihat */
 .sidebar-container {
-    background-color: #1a202c; /* Contoh warna gelap */
+    background-color: #1a202c;
+    /* Contoh warna gelap */
 }
 
 /* Link yang aktif */
 .sidebar-link-active {
-    background-color: #fff; /* Warna background konten utama */
-    border-radius: 20px 0 0 20px; /* Lengkungan utama di sisi kiri link */
+    background-color: #fff;
+    /* Warna background konten utama */
+    border-radius: 20px 0 0 20px;
+    /* Lengkungan utama di sisi kiri link */
     position: relative;
 }
 
@@ -20,7 +23,8 @@
     height: 20px;
     background-color: transparent;
     border-bottom-right-radius: 20px;
-    box-shadow: 10px 10px 0 10px #fff; /* Mengisi sudut dengan warna background link */
+    box-shadow: 10px 10px 0 10px #fff;
+    /* Mengisi sudut dengan warna background link */
 }
 
 /* Lengkungan "Inverted" di bagian Bawah */
@@ -37,5 +41,37 @@
 }
 
 @view-transition {
-    navigation: auto; /* Mengaktifkan transisi pada navigasi antar halaman (MPA) */
+    navigation: auto;
+    /* Mengaktifkan transisi pada navigasi antar halaman (MPA) */
+}
+
+::view-transition-group(sidebar) {
+    animation-duration: 0.4s;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* FOUC Prevention */
+html.sidebar-closed aside {
+    width: 6rem !important;
+    /* w-24 */
+}
+
+html.sidebar-closed aside .logo-text {
+    display: none !important;
+    width: 0 !important;
+    opacity: 0 !important;
+}
+
+html.sidebar-closed aside img {
+    height: 3rem !important;
+    /* h-12 */
+    width: auto !important;
+}
+
+html.sidebar-closed aside .sidebar-label {
+    display: none !important;
+}
+
+html.sidebar-closed aside nav {
+    /* Adjust padding or other elements if needed */
 }

@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+    .bg-background {
+        @apply bg-white dark:bg-slate-900;
+    }
+
+    .text-foreground {
+        @apply text-slate-900 dark:text-slate-100;
+    }
+}
+
 /* Menyesuaikan container utama TinyMCE */
 .tox-tinymce {
     border: 1px solid #e2e8f0 !important;
@@ -13,11 +23,14 @@
 
 /* Menyesuaikan saat editor mendapatkan fokus (Focus State) */
 .tox-tinymce.tox-tinymce--focused {
-    border-color: #d4af37 !important; /* Warna ppid-accent */
-    box-shadow: 0 0 0 1px #d4af37 !important; /* Meniru focus:ring-1 */
+    border-color: #d4af37 !important;
+    /* Warna ppid-accent */
+    box-shadow: 0 0 0 1px #d4af37 !important;
+    /* Meniru focus:ring-1 */
 }
 
 /* Menghilangkan border internal antara toolbar dan area edit jika diperlukan */
 .tox .tox-toolbar__primary {
-    border-bottom: 1px solid #f1f5f9 !important; /* slate-100 */
+    border-bottom: 1px solid #f1f5f9 !important;
+    /* slate-100 */
 }

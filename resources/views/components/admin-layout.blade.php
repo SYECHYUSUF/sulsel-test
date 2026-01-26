@@ -9,17 +9,83 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
-    @vite(['resources/css/app.css', 'resources/css/sidebar.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/sidebar.css'])
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
+    <script>
+        // Prevent FOUC by setting sidebar state immediately
+        (function() {
+            const sidebarOpen = localStorage.getItem('sidebarOpen') === null ? true : localStorage.getItem('sidebarOpen') === 'true';
+            document.documentElement.classList.toggle('sidebar-closed', !sidebarOpen);
+        })();
+    </script>
 
     @isset($extra_head)
         {{ $extra_head }}
     @endisset
 </head>
-<body class="bg-slate-50 font-sans antialiased text-slate-800">
+<body class="bg-slate-50 font-sans antialiased text-foreground dark:bg-slate-900"
+    x-data="{ 
+        darkMode: localStorage.getItem('darkMode') === 'true',
+        toggleDarkMode() {
+            this.darkMode = !this.darkMode;
+            localStorage.setItem('darkMode', this.darkMode);
+            if (this.darkMode) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        },
+        init() {
+            if (this.darkMode) {
+                document.documentElement.classList.add('dark');
+            }
+        }
+    }"
+    x-init="init()"
+>
     <div 
         class="flex h-screen overflow-hidden" 
-        x-data="{ sidebarOpen: true }"
+        x-data="{ 
+            sidebarOpen: localStorage.getItem('sidebarOpen') === null ? true : localStorage.getItem('sidebarOpen') === 'true',
+            toggleSidebar() {
+                const newState = !this.sidebarOpen;
+                
+                const update = () => {
+                    this.sidebarOpen = newState;
+                    document.documentElement.classList.toggle('sidebar-closed', !newState);
+                    localStorage.setItem('sidebarOpen', newState);
+                };
+
+                if (document.startViewTransition) {
+                    document.startViewTransition(update);
+                } else {
+                    update();
+                }
+            },
+            init() {
+                // Sync initial state if needed, but script handled it.
+                // Just watch for future changes if manipulated outside
+                this.$watch('sidebarOpen', val => {
+                    document.documentElement.classList.toggle('sidebar-closed', !val);
+                    localStorage.setItem('sidebarOpen', val);
+                });
+            }
+        }"
     >
+        <!-- Mobile Backdrop -->
+        <div x-show="sidebarOpen" 
+             @click="toggleSidebar()" 
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0"
+             x-transition:enter-end="opacity-100"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100"
+             x-transition:leave-end="opacity-0"
+             class="fixed inset-0 bg-black/50 z-20 md:hidden glass"
+             style="display: none;"></div>
+
         <!-- Sidebar -->
         <x-admin-sidebar />
 
@@ -36,7 +102,7 @@
             </main>
 
             <!-- Footer -->
-            <footer class="w-full p-6 text-center text-sm text-slate-500">
+            <footer class="w-full p-6 text-center text-sm text-slate-500 dark:text-slate-400">
                 &copy; {{ date('Y') }} PPID Provinsi Sulawesi Selatan. All rights reserved.
             </footer>
         </div>

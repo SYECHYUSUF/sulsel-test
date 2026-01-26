@@ -1,14 +1,26 @@
-<aside class="shrink-0 w-72 flex flex-col transition-all duration-300 bg-[#1A305E] text-white z-20 font-sans"
-    :class="sidebarOpen ? 'translate-x-0' : '-translate-x-64 absolute h-full'">
+<aside class="flex flex-col transition-all duration-300 bg-[#1A305E] text-white z-30 font-sans border-r border-slate-200/10 absolute md:static h-full shadow-xl md:shadow-none inset-y-0 left-0"
+    style="view-transition-name: sidebar"
+    :class="sidebarOpen ? 'w-72 translate-x-0' : 'w-20 -translate-x-full md:translate-x-0 md:w-24'">
 
-    <div class="flex items-center gap-3 px-6 py-4 bg-[#1A305E]">
-        <img src="{{ asset('images/ppid-putih.png') }}" alt="Logo PPID Sulawesi Selatan"
-            class="h-10 md:h-14 w-auto transition-transform group-hover:scale-105" />
+    <div class="flex items-center h-20 bg-[#1A305E] transition-all duration-300"
+         :class="sidebarOpen ? 'px-8 gap-4' : 'px-0 justify-center'">
+        <img src="{{ asset('images/ppid-2.png') }}" alt="Logo PPID Sulawesi Selatan"
+            class="transition-all duration-300 object-contain"
+            :class="sidebarOpen ? 'h-12 w-auto' : 'h-10 w-10'" />
+            
+        <div class="logo-text flex flex-col overflow-hidden whitespace-nowrap transition-all duration-300"
+             :class="sidebarOpen ? 'w-full opacity-100 ml-0' : 'w-0 opacity-0 hidden'">
+            <span class="font-bold text-sm tracking-wide">PPID</span>
+            <span class="text-[10px] text-slate-300">Sulawesi Selatan</span>
+        </div>
     </div>
 
-    <nav class="flex-1 overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-        <div class="px-10 mb-1 mt-2">
-            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px]">Main Menu</span>
+    <nav class="flex-1 overflow-y-auto overflow-x-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden py-4">
+        <div class="px-6 transition-all duration-300 overflow-hidden whitespace-nowrap" 
+             :class="sidebarOpen ? 'max-h-10 opacity-100 mb-2 mt-2' : 'max-h-0 opacity-0 mb-0 mt-0'">
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px] whitespace-nowrap">
+                {{ __('Main Menu') }}
+            </span>
         </div>
         <ul>
             <x-sidebar-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')"
@@ -23,8 +35,9 @@
 
         {{-- Route opd --}}
         @role('opd')
-        <div class="px-10 mb-1 mt-2">
-            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px]">Layanan</span>
+        <div class="px-6 transition-all duration-300 overflow-hidden whitespace-nowrap" 
+             :class="sidebarOpen ? 'max-h-10 opacity-100 mb-2 mt-6' : 'max-h-0 opacity-0 mb-0 mt-0'">
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px] whitespace-nowrap">{{ __('Layanan') }}</span>
         </div>
         <ul>   
             <x-sidebar-link href="/admin/permohonan-informasi" :active="request()->is('admin/permohonan-informasi*')"
@@ -42,8 +55,9 @@
 
         {{-- Manajemen Informasi --}}
         @role('opd')
-        <div class="px-10 mb-1 mt-2">
-            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px]">Manajemen Informasi</span>
+        <div class="px-6 transition-all duration-300 overflow-hidden whitespace-nowrap" 
+             :class="sidebarOpen ? 'max-h-10 opacity-100 mb-2 mt-6' : 'max-h-0 opacity-0 mb-0 mt-0'">
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px] whitespace-nowrap">{{ __('Manajemen Informasi') }}</span>
         </div>
         <ul>
 
@@ -99,8 +113,9 @@
         @endrole
 
 
-        <div class="px-10 mb-1 mt-2">
-            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px]">Konten</span>
+        <div class="px-6 transition-all duration-300 overflow-hidden whitespace-nowrap" 
+             :class="sidebarOpen ? 'max-h-10 opacity-100 mb-2 mt-6' : 'max-h-0 opacity-0 mb-0 mt-0'">
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px] whitespace-nowrap">{{ __('Konten') }}</span>
         </div>
         <ul>
             @role('opd')
@@ -142,8 +157,9 @@
 
         {{-- Route khusus admin --}}
         @role('admin')
-        <div class="px-10 mb-1 mt-2">
-            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px]">Pengaturan</span>
+        <div class="px-6 transition-all duration-300 overflow-hidden whitespace-nowrap" 
+             :class="sidebarOpen ? 'max-h-10 opacity-100 mb-2 mt-6' : 'max-h-0 opacity-0 mb-0 mt-0'">
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px] whitespace-nowrap">{{ __('Pengaturan') }}</span>
         </div>
         <ul>
             <x-sidebar-link href="{{ route('admin.data-sop.index') }}" :active="request()->is('admin/data-sop*')"
@@ -197,8 +213,9 @@
 
         {{-- Route khusus opd --}}
         @role('opd')
-        <div class="px-10 mb-1 mt-2">
-            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px]">Pengaturan</span>
+        <div class="px-6 transition-all duration-300 overflow-hidden whitespace-nowrap" 
+             :class="sidebarOpen ? 'max-h-10 opacity-100 mb-2 mt-6' : 'max-h-0 opacity-0 mb-0 mt-0'">
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px] whitespace-nowrap">{{ __('Pengaturan') }}</span>
         </div>
         <ul>
             <x-sidebar-link href="{{ route('admin.skpd.show', auth()->user()->id_skpd) }}"

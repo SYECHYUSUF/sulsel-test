@@ -31,15 +31,15 @@
     <div x-data="faqDataTable()" x-init="fetchData()" class="space-y-6">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-                <h1 class="text-2xl font-bold text-slate-900">Daftar FAQ</h1>
-                <p class="text-slate-500 text-sm">Kelola pertanyaan yang sering diajukan.</p>
+                <h1 class="text-2xl font-bold text-slate-900 dark:text-slate-100">Daftar FAQ</h1>
+                <p class="text-slate-500 dark:text-slate-400 text-sm">Kelola pertanyaan yang sering diajukan.</p>
             </div>
             <div class="flex items-center gap-3">
                 <div class="relative">
                     <input type="text" x-model="search" @input.debounce.500ms="fetchData()"
                         placeholder="Cari pertanyaan..."
-                        class="pl-10 pr-4 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 w-full md:w-64 text-sm transition-all">
-                    <div class="absolute left-3 top-2.5 text-slate-400">
+                        class="pl-10 pr-4 py-2 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 w-full md:w-64 text-sm transition-all placeholder-slate-400 dark:placeholder-slate-500">
+                    <div class="absolute left-3 top-2.5 text-slate-400 dark:text-slate-500">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -59,10 +59,10 @@
             </div>
         </div>
 
-        <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden shadow-sm">
             <div class="overflow-x-auto">
                 <table class="w-full text-sm text-left">
-                    <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 font-semibold">
+                    <thead class="bg-slate-50 dark:bg-slate-700/50 border-b border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 font-semibold">
                         <tr>
                             <th class="px-6 py-4">Pertanyaan</th>
                             <th class="px-6 py-4">Status</th>
@@ -70,22 +70,22 @@
                             <th class="px-6 py-4 text-right">Aksi</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-100">
+                    <tbody class="divide-y divide-slate-100 dark:divide-slate-700">
                         <template x-if="loading">
                             <template x-for="i in 5" :key="i">
                                 <tr class="animate-pulse">
                                     <td class="px-6 py-4">
-                                        <div class="h-4 bg-slate-100 rounded w-3/4 mb-2"></div>
-                                        <div class="h-3 bg-slate-50 rounded w-1/2"></div>
+                                        <div class="h-4 bg-slate-100 dark:bg-slate-700 rounded w-3/4 mb-2"></div>
+                                        <div class="h-3 bg-slate-50 dark:bg-slate-700/50 rounded w-1/2"></div>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <div class="h-6 bg-slate-100 rounded-full w-16"></div>
+                                        <div class="h-6 bg-slate-100 dark:bg-slate-700 rounded-full w-16"></div>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <div class="h-4 bg-slate-100 rounded w-10"></div>
+                                        <div class="h-4 bg-slate-100 dark:bg-slate-700 rounded w-10"></div>
                                     </td>
                                     <td class="px-6 py-4 text-right">
-                                        <div class="h-8 bg-slate-100 rounded-lg w-12 ml-auto"></div>
+                                        <div class="h-8 bg-slate-100 dark:bg-slate-700 rounded-lg w-12 ml-auto"></div>
                                     </td>
                                 </tr>
                             </template>
@@ -93,7 +93,7 @@
 
                         <template x-if="!loading && faqs.length === 0">
                             <tr>
-                                <td colspan="4" class="px-6 py-12 text-center text-slate-500">
+                                <td colspan="4" class="px-6 py-12 text-center text-slate-500 dark:text-slate-400">
                                     Data FAQ tidak ditemukan.
                                 </td>
                             </tr>
@@ -101,23 +101,23 @@
 
                         <template x-if="!loading">
                             <template x-for="item in faqs" :key="item.id_faq">
-                                <tr class="hover:bg-slate-50/50 transition-colors">
+                                <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-700/30 transition-colors">
                                     <td class="px-6 py-4">
-                                        <div class="font-medium text-slate-900 line-clamp-2" x-text="item.pertanyaan">
+                                        <div class="font-medium text-slate-900 dark:text-slate-100 line-clamp-2" x-text="item.pertanyaan">
                                         </div>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span :class="{
-                                            'bg-emerald-50 text-emerald-700 border-emerald-100': item.is_active,
-                                            'bg-slate-50 text-slate-700 border-slate-100': !item.is_active
+                                            'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 border-emerald-100 dark:border-emerald-800': item.is_active,
+                                            'bg-slate-50 dark:bg-slate-700 text-slate-700 dark:text-slate-400 border-slate-100 dark:border-slate-600': !item.is_active
                                         }" class="px-2.5 py-1 rounded-full text-xs font-medium border"
                                             x-text="item.is_active ? 'Aktif' : 'Non-Aktif'"></span>
                                     </td>
-                                    <td class="px-6 py-4 text-slate-500" x-text="item.urutan || '-'"></td>
+                                    <td class="px-6 py-4 text-slate-500 dark:text-slate-400" x-text="item.urutan || '-'"></td>
                                     <td class="px-6 py-4 text-right">
                                         <div class="flex justify-end gap-2">
                                             <a :href="'/admin/faq/' + item.id_faq"
-                                                class="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all"
+                                                class="p-2 text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-lg transition-all"
                                                 title="Lihat">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
                                                     viewBox="0 0 24 24" stroke="currentColor">
@@ -129,7 +129,7 @@
                                                 </svg>
                                             </a>
                                             <a :href="'/admin/faq/' + item.id_faq + '/edit'"
-                                                class="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all"
+                                                class="p-2 text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-lg transition-all"
                                                 title="Edit">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
                                                     viewBox="0 0 24 24" stroke="currentColor">
@@ -143,7 +143,7 @@
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit"
-                                                    class="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all"
+                                                    class="p-2 text-slate-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-all"
                                                     title="Hapus">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
                                                         viewBox="0 0 24 24" stroke="currentColor">
@@ -165,17 +165,17 @@
 
         <div class="flex flex-col md:flex-row items-center justify-between gap-4 py-2"
             x-show="!loading && faqs.length > 0">
-            <div class="text-sm text-slate-500">
-                Menampilkan <span class="font-medium text-slate-900" x-text="faqs.length"></span> data dari <span
-                    class="font-medium text-slate-900" x-text="pagination.total"></span> total FAQ
+            <div class="text-sm text-slate-500 dark:text-slate-400">
+                Menampilkan <span class="font-medium text-slate-900 dark:text-slate-100" x-text="faqs.length"></span> data dari <span
+                    class="font-medium text-slate-900 dark:text-slate-100" x-text="pagination.total"></span> total FAQ
             </div>
             <div class="flex items-center gap-2">
                 <button @click="changePage(pagination.prev_page_url)" :disabled="!pagination.prev_page_url"
-                    class="px-4 py-2 border border-slate-200 rounded-xl text-sm font-medium hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+                    class="px-4 py-2 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-xl text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
                     Sebelumnya
                 </button>
                 <button @click="changePage(pagination.next_page_url)" :disabled="!pagination.next_page_url"
-                    class="px-4 py-2 border border-slate-200 rounded-xl text-sm font-medium hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+                    class="px-4 py-2 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-xl text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
                     Berikutnya
                 </button>
             </div>
