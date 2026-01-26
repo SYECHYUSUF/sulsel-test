@@ -16,6 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
         $middleware->alias([
             'check_skpd' => \App\Http\Middleware\CheckSkpd::class,
+            'track.visitors' => \App\Http\Middleware\TrackVisitors::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

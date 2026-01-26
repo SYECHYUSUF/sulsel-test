@@ -64,9 +64,18 @@ class SkpdController extends Controller
             'sek' => 'nullable|string|max:200',
             'visimisi' => 'nullable|string',
             'tupoksi' => 'nullable|string',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'jenis' => 'nullable|in:opd,kab',
             'is_active' => 'required|in:1,0',
         ]);
+
+        // Handle Upload Gambar
+        if ($request->hasFile('logo')) {
+            $file = $request->file('logo');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('logo-skpd', $filename, 'public');
+            $validated['logo'] = $filename;
+        }
 
         $skpd->update($validated);
 

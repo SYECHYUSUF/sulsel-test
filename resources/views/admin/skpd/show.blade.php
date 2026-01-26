@@ -1,22 +1,53 @@
 <x-admin-layout title="Manajemen SKPD - Admin PPID">
-    <x-slot name="header">
-        Manajemen SKPD
+
+    <x-slot name="extra_head">
+        <link href="/vendor/filepond/index.css" rel="stylesheet" />
+        <link
+            href="/vendor/filepond/image-preview.css"
+            rel="stylesheet"
+        />
+        <script src="/vendor/filepond/image-preview.js"></script>
+        <script src="/vendor/filepond/index.js"></script>
     </x-slot>
 
     <h3 class="text-lg font-bold text-[#1A305E] mb-4">{{ $skpd->nm_skpd }}</h3>
 
-    <div class="bg-white rounded-xl shadow-sm p-6 border border-slate-100 overflow-hidden">
-        @if (session('success'))
-            <div class="mb-4 p-4 bg-green-100 border border-green-200 text-green-700 rounded-lg">
-                {{ session('success') }}
-            </div>
-        @endif
+    {{-- Success/Error Messages --}}
+    @if(session('success'))
+        <div class="bg-green-50 border-l-4 mb-4 border-green-500 p-4 rounded-lg">
+            <p class="text-green-700">{{ session('success') }}</p>
+        </div>
+    @endif
+    @if(session('error'))
+        <div class="bg-red-50 border-l-4 mb-4 border-red-500 p-4 rounded-lg">
+            <p class="text-red-700">{{ session('error') }}</p>
+        </div>
+    @endif
 
-        <form action="{{ route('admin.skpd.update', $skpd) }}" method="POST">
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-slate-100 overflow-hidden">
+        
+
+        <form action="{{ route('admin.skpd.update', $skpd) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <!-- Logo -->
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">Logo SKPD</label>
+                    <div class="flex-1">                        
+                        <input type="file" 
+                            class="filepond"
+                            name="logo"
+                            id="logo"
+                            accept="image/png, image/jpeg, image/jpg"
+                        />
+                        @error('logo')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
                 <!-- Nama SKPD -->
                 <div class="col-span-1 md:col-span-2">
                     <x-input-label for="nm_skpd" :value="__('Nama SKPD')" />
@@ -130,5 +161,42 @@
         <script src="/vendor/jquery/jquery.min.js"></script>
         <script src="/vendor/tinymce/tinymce.min.js"></script>
         <script src="/vendor/tinymce/init-editor.js"></script>
+        <script>
+            FilePond.registerPlugin(FilePondPluginImagePreview);
+            FilePond.registerPlugin(
+                FilePondPluginImagePreview,
+            );
+                // Select the file input and use 
+                // create() to turn it into a pond
+                FilePond.create(
+                document.querySelector('#logo'),
+                {
+                    labelIdle: `Drag & Drop your picture or <span class="filepond--label-action">Browse</span>`,
+                    imagePreviewHeight: 170,
+                    storeAsFile: true,
+                    // Menambahkan file yang sudah ada
+                    files: [
+                        @if($skpd->logo)
+                        {
+                            source: "{{ asset('storage/logo-skpd/' . $skpd->logo) }}",
+                            options: {
+                                type: 'local', // Menandakan file sudah ada di server
+                            }
+                        }
+                        @endif
+                    ],
+                    server: {
+                        // FilePond membutuhkan endpoint 'load' untuk mengambil gambar dari URL 'local'
+                        load: (source, load, error, progress, abort, headers) => {
+                            fetch(source)
+                                .then(response => response.blob())
+                                .then(load)
+                                .catch(error);
+                        }
+                    }
+                }
+            );
+        </script>
     </x-slot>
+
 </x-admin-layout>

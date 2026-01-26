@@ -10,6 +10,30 @@ return new class extends Migration {
      */
     public function up(): void
     {
+
+    Schema::create('daftar_informasi_publik', function (Blueprint $table) {
+            $table->id();
+            $table->string('a')->default('');
+            $table->string('b')->default('');
+            $table->string('c')->default('');
+            $table->string('d')->default('');
+            $table->string('e')->default('');
+            $table->string('f')->default('');
+            $table->string('g')->default('');
+            $table->string('h')->default('');
+            $table->bigInteger('id_md_informasi_publik')->nullable();
+            $table->bigInteger('is_active')->default(1);
+            $table->timestamps();
+        });
+
+        Schema::create('ms_daftar_informasi_publik', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama')->nullable();
+            $table->string('slug')->nullable();
+            $table->bigInteger('is_active')->default(0);
+            $table->timestamps();
+        });
+
         Schema::create('tbl_kat_informasi', function (Blueprint $table) {
             $table->integer('id_kat_info')->autoIncrement();
             $table->string('nm_kat_info');
@@ -130,5 +154,7 @@ return new class extends Migration {
         Schema::dropIfExists('tbl_permohonan_informasi');
         Schema::dropIfExists('tbl_informasi');
         Schema::dropIfExists('tbl_kat_informasi');
+        Schema::dropIfExists('daftar_informasi_publik');
+        Schema::dropIfExists('ms_daftar_informasi_publik');
     }
 };

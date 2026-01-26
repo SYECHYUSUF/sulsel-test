@@ -5,11 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Berita;
 use App\Models\Informasi;
+use App\Models\LogLogin;
 use App\Models\PengajuanKeberatan;
 use App\Models\PermohonanInformasi;
 use App\Models\Skpd;
 use App\Models\Visitor;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -36,11 +36,15 @@ class DashboardController extends Controller
         $recentActivities = $this->getRecentActivities();
         $permohonanByStatus = $this->getPermohonanByStatus();
 
-        return view('admin.dashboard.index', compact(
+        // Ambil 5 login terbaru dengan relasi user
+        $recentLogins = LogLogin::with('user')->orderBy('id', 'desc')->take(5)->get();
+
+        return view('admin.dashboard.admin', compact(
             'stats',
             'monthlyTrends',
             'recentActivities',
-            'permohonanByStatus'
+            'permohonanByStatus',
+            'recentLogins',
         ));
     }
 
