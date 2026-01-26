@@ -76,14 +76,19 @@
         this.applyToBody();
     },
     adjustFont(val) {
-        // Mengubah ukuran font pada elemen root (html) agar rem unit ikut berubah
-        const currentSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+        const root = document.documentElement;
+        // Get current size computed or from settings
+        let currentSize = this.settings.fontSize;
         const newSize = Math.max(12, Math.min(24, currentSize + val));
-        document.documentElement.style.fontSize = newSize + 'px';
+        
+        this.settings.fontSize = newSize;
+        root.style.fontSize = newSize + 'px';
         localStorage.setItem('acc-font-size', newSize);
     },
     applyToBody() {
         const body = document.body;
+        const doc = document.documentElement;
+
         body.classList.toggle('high-contrast', this.settings.contrast);
         body.classList.toggle('monochrome', this.settings.monochrome);
         body.classList.toggle('dyslexic-font', this.settings.dyslexic);
@@ -94,50 +99,80 @@
         body.classList.toggle('acc-mask-mode', this.settings.mask);
         body.classList.toggle('acc-reading-guide', this.settings.guide);
         
-        if (this.settings.pause) {
-            body.classList.add('reduce-motion');
-        } else {
-            body.classList.remove('reduce-motion');
-        }
+        if (this.settings.pause) body.classList.add('reduce-motion');
+        else body.classList.remove('reduce-motion');
 
         // Dark Mode Logic
         if (this.settings.dark) {
-            document.documentElement.classList.add('dark');
+            doc.classList.add('dark');
             localStorage.setItem('theme', 'dark');
         } else {
-            document.documentElement.classList.remove('dark');
+            doc.classList.remove('dark');
             localStorage.setItem('theme', 'light');
         }
         
-        // Speech Mode Logic
+        // Font Size
+        // Font Size
+        doc.style.fontSize = this.settings.fontSize + 'px';
+    },
+
+    initSpeech() {
         if (this.settings.speech) {
-            body.classList.add('speech-mode');
-            if (!this.speechHandler) {
-                this.speechHandler = (e) => {
-                    const target = e.target.closest('p, h1, h2, h3, h4, h5, h6, a, button, span, div');
-                    if (target && target.innerText) {
-                         const text = target.innerText.trim();
-                         if (text && text.length < 200) { 
-                             window.speechSynthesis.cancel();
-                             const utterance = new SpeechSynthesisUtterance(text);
-                             utterance.lang = 'id-ID';
-                             window.speechSynthesis.speak(utterance);
-                         }
-                    }
-                };
-            }
-            document.addEventListener('mouseover', this.speechHandler);
+            document.body.classList.add('speech-mode');
+            this.addSpeechListeners();
         } else {
-            body.classList.remove('speech-mode');
-            if (this.speechHandler) {
-                document.removeEventListener('mouseover', this.speechHandler);
-            }
+            document.body.classList.remove('speech-mode');
+            this.removeSpeechListeners();
             window.speechSynthesis.cancel();
         }
+    },
+    addSpeechListeners() {
+        if (this.speechHandler) return;
 
-        // Set Saved Font Size
-        if (this.settings.fontSize) {
-             document.documentElement.style.fontSize = this.settings.fontSize + 'px';
+        this.speechHandler = (e) => {
+            if (!this.settings.speech) return;
+            
+            // Cancel previous speech
+            window.speechSynthesis.cancel();
+
+            // Check if hovering over text element
+            const target = e.target.closest('h1, h2, h3, h4, h5, h6, p, a, span, li, button, input, label');
+            if (target && target.innerText && target.innerText.trim().length > 0) {
+                // Determine language based on document lang or detect contents
+                // Defaulting to ID as primary, you might want to switch based on {{ app()->getLocale() }} ideally but JS doesn't parse blade.
+                // We'll trust the browser's detection or default to ID.
+                const utterance = new SpeechSynthesisUtterance(target.innerText);
+                utterance.lang = document.documentElement.lang || 'id-ID';
+                utterance.rate = 1;
+                window.speechSynthesis.speak(utterance);
+            }
+        };
+
+        // Using mouseover for hover-to-speech (Accessibility often uses this or click)
+        // Adding a small delay to avoid reading everything while moving mouse quickly
+        let timer;
+        document.addEventListener('mouseover', (e) => {
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                if(this.speechHandler) this.speechHandler(e);
+            }, 500); // 500ms delay
+        });
+        
+        // Save the wrapper to remove listener later if needed (though with anonymous function wrapper above it's hard to remove exactly same one without stored ref. 
+        // For simplicity in this Alpine component scope, we might just toggle the flag inside the handler or store the specific function reference.)
+        // Refined approach:
+        this.realSpeechHandler = (e) => {
+             clearTimeout(this.speechTimer);
+             this.speechTimer = setTimeout(() => {
+                 this.speechHandler(e);
+             }, 500);
+        };
+        document.addEventListener('mouseover', this.realSpeechHandler);
+    },
+    removeSpeechListeners() {
+        if (this.realSpeechHandler) {
+             document.removeEventListener('mouseover', this.realSpeechHandler);
+             this.realSpeechHandler = null;
         }
     },
     reset() {
@@ -157,14 +192,9 @@
             fontSize: 16 
         };
         localStorage.clear();
-        document.documentElement.style.fontSize = '16px'; // Reset font size
-        
-        if (localStorage.getItem('theme') === 'dark') {
-             this.settings.dark = true; 
-        }
         this.applyToBody();
     }
-}" x-init="applyToBody()" class="relative z-[9999] font-['Plus_Jakarta_Sans']">
+}" x-init="applyToBody(); initSpeech();" class="relative z-[9999] font-['Plus_Jakarta_Sans']">
 
     {{-- 1. TOMBOL AKSESIBILITAS (Movable) --}}
     <button 

@@ -57,20 +57,29 @@
                 <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 overflow-hidden mb-8">
                     <div class="border-b border-gray-200 dark:border-slate-700 px-6 py-4 flex items-center justify-between bg-gray-50 dark:bg-slate-900">
                         <h2 class="font-bold text-gray-900 dark:text-white">Bagan Struktur Organisasi PPID</h2>
-                        <button class="flex items-center gap-2 text-[#1A305E] dark:text-white hover:text-[#D4AF37] text-sm font-medium transition-colors">
+                        <a href="{{ isset($pdfPath) && $pdfPath ? asset($pdfPath) : '#' }}" 
+                           @if(isset($pdfPath) && $pdfPath) download @endif
+                           class="flex items-center gap-2 text-[#1A305E] dark:text-white hover:text-[#D4AF37] text-sm font-medium transition-colors">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
                             Download
-                        </button>
+                        </a>
                     </div>
               
                     <div class="p-6">
-                        <div class="rounded-lg overflow-hidden border border-gray-200 dark:border-slate-700">
-                             {{-- Placeholder Image --}}
-                            <img
-                                src="https://placehold.co/1200x800/EEE/31343C?text=Bagan+Struktur+Organisasi+PPID"
-                                alt="Struktur Organisasi PPID Sulawesi Selatan"
-                                class="w-full h-auto"
-                            />
+                        <div class="rounded-lg overflow-hidden border border-gray-200 dark:border-slate-700 h-[600px] md:h-[800px]">
+                             {{-- Dynamic PDF/Image --}}
+                            @if(isset($pdfPath) && $pdfPath)
+                                <iframe src="{{ asset($pdfPath) }}" width="100%" height="100%" class="w-full h-full border-0">
+                                    <p>Browser Anda tidak mendukung pratinjau PDF. 
+                                    <a href="{{ asset($pdfPath) }}">Download PDF</a> untuk melihatnya.</p>
+                                </iframe>
+                            @else
+                                <img
+                                    src="https://placehold.co/1200x800/EEE/31343C?text=Bagan+Struktur+Organisasi+PPID"
+                                    alt="Struktur Organisasi PPID Sulawesi Selatan"
+                                    class="w-full h-full object-cover"
+                                />
+                            @endif
                         </div>
                     </div>
                 </div>

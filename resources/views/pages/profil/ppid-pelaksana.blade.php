@@ -36,84 +36,6 @@
     <main class="py-12 md:py-16 bg-gray-50 dark:bg-slate-900 font-['Plus_Jakarta_Sans']">
         <div class="container mx-auto px-4">
             <div class="max-w-7xl mx-auto">
-            
-                @php
-                    $ppidData = [
-                        [
-                            'name' => 'Badan Perencanaan, Penelitian Dan Pengembangan Daerah',
-                            'address' => 'Jl. Jend. Urip Sumoharjo No. 269 Makassar',
-                            'postalCode' => 'Kode Pos Kota Makassar 90234',
-                            'phone' => '0411-455297',
-                            'email' => 'bappeda@sulselprov.go.id',
-                            'website' => 'https://bappeda.sulselprov.go.id'
-                        ],
-                        [
-                            'name' => 'Badan Pengelolaan Keuangan Dan Aset Daerah',
-                            'address' => 'Jl. Jend. Sudirman No. 5 Makassar',
-                            'postalCode' => 'Kode Pos Kota Makassar 90111',
-                            'phone' => '0411-441962',
-                            'email' => 'bpkad@sulselprov.go.id',
-                            'website' => 'https://bpkad.sulselprov.go.id'
-                        ],
-                        [
-                            'name' => 'Dinas Komunikasi, Informatika, Statistik Dan Persandian',
-                            'address' => 'Jl. Urip Sumoharjo No. 269 Makassar',
-                            'postalCode' => 'Kode Pos Kota Makassar 90234',
-                            'phone' => '0411-448907',
-                            'email' => 'diskominfo@sulselprov.go.id',
-                            'website' => 'https://diskominfo.sulselprov.go.id'
-                        ],
-                        [
-                            'name' => 'Badan Kepegawaian, Pendidikan Dan Pelatihan Daerah',
-                            'address' => 'Jl. A. P. Pettarani No. 1 Makassar 90221 - Provinsi Sulawesi Selatan',
-                            'postalCode' => '',
-                            'phone' => '0411-452346',
-                            'email' => 'bkpsdm@sulselprov.go.id',
-                            'website' => 'https://bkpsdm.sulselprov.go.id'
-                        ],
-                        [
-                            'name' => 'Badan Pendapatan Daerah Provinsi Sulawesi Selatan',
-                            'address' => 'Jl. Urip Sumoharjo KM.4 Makassar',
-                            'postalCode' => '',
-                            'phone' => '0411-452346',
-                            'email' => 'bapenda@sulselprov.go.id',
-                            'website' => 'https://bapenda.sulselprov.go.id'
-                        ],
-                        [
-                            'name' => 'Dinas Kesehatan Provinsi Sulawesi Selatan',
-                            'address' => 'Jl. Perintis Kemerdekaan KM. 10 Tamalanrea, Kec. Tamalanrea, Makassar Sulawesi Selatan 90245',
-                            'postalCode' => '',
-                            'phone' => '0411-584534',
-                            'email' => 'dinkes@sulselprov.go.id',
-                            'website' => 'https://dinkes.sulselprov.go.id'
-                        ],
-                        [
-                            'name' => 'Dinas Pekerjaan Umum Dan Penataan Ruang Provinsi Sulawesi Selatan',
-                            'address' => 'Jl. A. P. Pettarani No. 1 Makassar',
-                            'postalCode' => 'Kode Pos Kota Makassar 90111',
-                            'phone' => '0411-424809',
-                            'email' => 'pupr@sulselprov.go.id',
-                            'website' => 'https://pupr.sulselprov.go.id'
-                        ],
-                        [
-                            'name' => 'Dinas Perumahan, Kawasan Permukiman, Cipta Karya Dan Pertanahan',
-                            'address' => 'Jl. Urip Sumoharjo No. 269 Makassar, Kec. Panakkukang Kota Makassar',
-                            'postalCode' => '',
-                            'phone' => '0411-448907',
-                            'email' => 'perkim@sulselprov.go.id',
-                            'website' => 'https://perkim.sulselprov.go.id'
-                        ],
-                        [
-                            'name' => 'Dinas Sosial Provinsi Sulawesi Selatan',
-                            'address' => 'Jl. AP. Pettarani No. 3 Makassar, Kec. Panakkukang, Kota Makassar',
-                            'postalCode' => '',
-                            'phone' => '0411-452346',
-                            'email' => 'dinsos@sulselprov.go.id',
-                            'website' => 'https://dinsos.sulselprov.go.id'
-                        ]
-                    ];
-                @endphp
-
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     @foreach($ppidData as $ppid)
                         <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 p-8 hover:shadow-xl transition-all hover:border-[#D4AF37]/30 group hover:-translate-y-1 relative overflow-hidden">
@@ -124,13 +46,25 @@
                             {{-- Logo --}}
                             <div class="flex justify-center mb-6 relative z-10">
                                 <div class="w-20 h-20 bg-gray-50 dark:bg-slate-700 rounded-full flex items-center justify-center shadow-inner group-hover:bg-white dark:group-hover:bg-slate-800 transition-colors">
-                                     <img src="{{ asset('images/logo-sulsel.png') }}" alt="Logo Sulsel" class="w-14 h-14 object-contain">
+                                    
+                                    @if($ppid->logo)
+                                        {{-- Jika logo SKPD ada --}}
+                                        <img src="{{ asset('storage/logo-skpd/' . $ppid->logo) }}" 
+                                            alt="Logo {{ $ppid->nama_skpd }}" 
+                                            class="w-14 h-14 object-contain">
+                                    @else
+                                        {{-- Jika logo kosong, gunakan default --}}
+                                        <img src="{{ asset('images/logo-sulsel.png') }}" 
+                                            alt="Logo Default" 
+                                            class="w-14 h-14 object-contain">
+                                    @endif
+
                                 </div>
                             </div>
 
                             {{-- Name --}}
                             <h3 class="text-center font-bold text-[#1A305E] dark:text-white mb-6 text-base leading-snug min-h-[50px] flex items-center justify-center">
-                                {{ $ppid['name'] }}
+                                {{ $ppid->nm_skpd }}
                             </h3>
 
                             {{-- Divider --}}
@@ -144,10 +78,7 @@
                                    </div>
                                     <div>
                                         <p class="font-bold text-[#1A305E] dark:text-white text-xs uppercase mb-0.5">Alamat</p>
-                                        <p class="leading-relaxed text-xs">{{ $ppid['address'] }}</p>
-                                        @if($ppid['postalCode'])
-                                            <p class="leading-relaxed text-xs">{{ $ppid['postalCode'] }}</p>
-                                        @endif
+                                        <p class="leading-relaxed text-xs">{{ $ppid->alamat ?? '-' }}</p>
                                     </div>
                                 </div>
 
@@ -157,7 +88,7 @@
                                      </div>
                                     <div>
                                         <p class="font-bold text-[#1A305E] dark:text-white text-xs uppercase mb-0.5">Telepon</p>
-                                        <p class="text-xs">{{ $ppid['phone'] }}</p>
+                                        <p class="text-xs">{{ $ppid->no_telp ?? '-' }}</p>
                                     </div>
                                 </div>
 
@@ -167,8 +98,8 @@
                                      </div>
                                     <div class="min-w-0">
                                         <p class="font-bold text-[#1A305E] dark:text-white text-xs uppercase mb-0.5">Email</p>
-                                        <a href="mailto:{{ $ppid['email'] }}" class="text-[#1A305E] dark:text-white hover:underline break-all group-hover:text-[#D4AF37] transition-colors text-xs truncate block">
-                                            {{ $ppid['email'] }}
+                                        <a href="mailto:{{ $ppid->email }}" class="text-[#1A305E] dark:text-white hover:underline break-all group-hover:text-[#D4AF37] transition-colors text-xs truncate block">
+                                            {{ $ppid->email ?? '-' }}
                                         </a>
                                     </div>
                                 </div>
@@ -179,8 +110,8 @@
                                      </div>
                                     <div class="min-w-0">
                                         <p class="font-bold text-[#1A305E] dark:text-white text-xs uppercase mb-0.5">Website</p>
-                                        <a href="{{ $ppid['website'] }}" target="_blank" rel="noopener noreferrer" class="text-[#1A305E] dark:text-white hover:underline break-all group-hover:text-[#D4AF37] transition-colors text-xs truncate block">
-                                            {{ $ppid['website'] }}
+                                        <a href="{{ $ppid->website }}" target="_blank" rel="noopener noreferrer" class="text-[#1A305E] dark:text-white hover:underline break-all group-hover:text-[#D4AF37] transition-colors text-xs truncate block">
+                                            {{ $ppid->website ?? '-' }}
                                         </a>
                                     </div>
                                 </div>
@@ -189,13 +120,9 @@
                     @endforeach
                 </div>
 
-                {{-- Pagination (Placeholder) --}}
-                <div class="mt-12 flex items-center justify-center gap-2">
-                    <button class="w-10 h-10 flex items-center justify-center bg-[#1A305E] text-white rounded-lg shadow-md hover:bg-[#1A305E]/90 transition-all hover:-translate-y-0.5 font-bold">1</button>
-                    <button class="w-10 h-10 flex items-center justify-center bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 border border-gray-200 dark:border-slate-700 transition-all font-medium">2</button>
-                    <button class="w-10 h-10 flex items-center justify-center bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 border border-gray-200 dark:border-slate-700 transition-all font-medium">3</button>
-                    <span class="px-2 text-gray-400">...</span>
-                    <button class="w-10 h-10 flex items-center justify-center bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 border border-gray-200 dark:border-slate-700 transition-all font-medium">7</button>
+                {{-- Pagination --}}
+                <div class="mt-12 flex justify-center">
+                    {{ $ppidData->links('pagination::tailwind') }}
                 </div>
 
             </div>

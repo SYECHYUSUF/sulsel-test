@@ -55,7 +55,7 @@
                         <select name="category" 
                                 onchange="this.form.submit()" 
                                 class="w-full px-4 py-2.5 rounded-lg border border-gray-200 dark:border-slate-600 bg-gray-50 dark:bg-slate-700 text-gray-700 dark:text-gray-200 focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent outline-none transition-all appearance-none cursor-pointer">
-                            <option value="">Semua Kategori</option>
+                            <option value="">{{ __('messages.common.categories') }}</option>
                             @foreach($categories as $cat)
                                 <option value="{{ $cat->id_skpd }}" {{ request('category') == $cat->id_skpd ? 'selected' : '' }}>
                                     {{ $cat->nm_skpd }}
@@ -64,7 +64,7 @@
                         </select>
                     </div>
                     <button type="submit" class="px-6 py-2.5 bg-[#1A305E] hover:bg-[#152649] text-white font-semibold rounded-lg transition-colors shadow-md">
-                        Cari
+                        {{ __('messages.news.search_btn') }}
                     </button>
                 </form>
             </div>
@@ -79,27 +79,13 @@
                         <div class="flex items-center justify-between mb-6">
                             <h2 class="text-2xl font-bold text-[#1A305E] dark:text-white">
                                 @if(request('search'))
-                                    Hasil Pencarian: "{{ request('search') }}"
+                                    {{ __('messages.news.search_results', ['keyword' => request('search')]) }}
                                 @elseif(request('category'))
-                                    Berita Kategori: {{ $categories->where('id_skpd', request('category'))->first()->nm_skpd ?? '' }}
+                                    {{ __('messages.news.category_filter', ['category' => $categories->where('id_skpd', request('category'))->first()->nm_skpd ?? '']) }}
                                 @else
                                     {{ __('messages.news.featured_topic') }}
                                 @endif
                             </h2>
-
-                            {{-- View Toggler (Moved here for better context, or keep in header if preferred but needs x-data scope) --}}
-                            {{-- Ideally x-data should be at a higher level if buttons are outside. 
-                               Let's check where the buttons are: they are in the header area lines 21-30. 
-                               So I need to move x-data up or use Alpine store/events. 
-                               Actually, looking at the file structure, the buttons are in the header SECTION (lines 5-33).
-                               The grid is in the main content section.
-                               
-                               To make this work cleanly without a global store, I should wrap the whole page content 
-                               (or at least from the header down) in x-data.
-                               
-                               Let's look at where I can place x-data. The layout starts at line 3.
-                               I will place x-data on the div at line 3.
-                            --}}
                         </div>
                         
                         @if($berita->count() > 0)
@@ -111,9 +97,18 @@
                                 {{-- Image --}}
                                 <div class="relative overflow-hidden shrink-0"
                                      :class="view === 'grid' ? 'h-48 w-full' : 'h-48 w-full md:w-64 md:h-auto'">
-                                    <img src="{{ $news->img_berita ? asset('storage/img_berita/' . $news->img_berita) : 'https://via.placeholder.com/400x300?text=No+Image' }}" 
+                                    @if($news->img_berita)
+                                    <img src="{{ asset('storage/img_berita/' . $news->img_berita) }}" 
                                          alt="{{ $news->judul }}" 
-                                         class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                                         class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                                    >
+                                    @else
+                                    <div class="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-slate-700 dark:to-slate-800 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-gray-300 dark:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                        </svg>
+                                    </div>
+                                    @endif
                                     
                                     <div class="absolute top-3 left-3 bg-[#1A305E] text-white text-[10px] font-bold px-2.5 py-1 rounded shadow-sm uppercase tracking-wide">
                                         {{ $news->skpd->nm_skpd ?? 'Umum' }}
@@ -141,7 +136,7 @@
                                     </p>
                                     
                                     <a href="{{ route('berita.show', $news->slug) }}" class="inline-flex items-center text-sm font-semibold text-[#D4AF37] hover:tracking-wide transition-all mt-auto group/link">
-                                        {{ __('messages.common.read_more') }}
+                                        {{ __('messages.news.read_more') }}
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1 w-4 h-4 transform group-hover/link:translate-x-1 transition-transform"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                                     </a>
                                 </div>
@@ -151,8 +146,8 @@
                         @else
                         <div class="text-center py-12">
                             <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
-                            <h3 class="text-lg font-medium text-gray-900 dark:text-white">Tidak ada berita ditemukan</h3>
-                            <p class="text-gray-500 dark:text-gray-400">Coba kata kunci lain atau ubah filter.</p>
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-white">{{ __('messages.news.no_news') }}</h3>
+                            <p class="text-gray-500 dark:text-gray-400">{{ __('messages.news.no_news_desc') }}</p>
                         </div>
                         @endif
                     </div>
@@ -172,7 +167,7 @@
                         <div class="absolute inset-0 bg-gradient-to-br from-[#1A305E] to-black opacity-50"></div>
                         <div class="p-6 text-center z-10 relative">
                             <div class="mb-4">
-                                <h3 class="text-lg font-bold tracking-widest mb-1 text-[#D4AF37]">WARTA SULSEL</h3>
+                                <h3 class="text-lg font-bold tracking-widest mb-1 text-[#D4AF37]">{{ __('messages.news.recent_posts') }}</h3>
                                 <p class="text-[10px] uppercase text-gray-300 tracking-wider">{{ __('messages.news.source_info') }}</p>
                             </div>
                             

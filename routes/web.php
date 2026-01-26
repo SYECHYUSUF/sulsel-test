@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Skpd;
 use App\Http\Controllers\BeritaController as PublicBeritaController;
 use App\Http\Controllers\DokumenPublikController as GuestDokumenPublikController;
 
@@ -32,7 +33,8 @@ Route::middleware(['track.visitors'])->group(function () {
         return view('pages.profil.sambutan');
     });
     Route::get('/struktur-organisasi', function () {
-        return view('pages.profil.struktur-organisasi');
+        $pdfPath = \App\Models\Setting::where('key', 'struktur_organisasi_path')->value('value');
+        return view('pages.profil.struktur-organisasi', compact('pdfPath'));
     });
     Route::get('/visi-misi', function () {
         return view('pages.profil.visi-misi');
@@ -46,8 +48,10 @@ Route::middleware(['track.visitors'])->group(function () {
     Route::get('/profil-pemprov', function () {
         return view('pages.profil.pemerintah');
     });
+    
     Route::get('/ppid-pelaksana', function () {
-        return view('pages.profil.ppid-pelaksana');
+        $ppidData = Skpd::orderBy('nm_skpd', 'asc')->paginate(12);
+        return view('pages.profil.ppid-pelaksana', compact('ppidData'));
     });
 
     // Berita Pages
@@ -90,6 +94,7 @@ Route::middleware(['track.visitors'])->group(function () {
     Route::get('/layanan/pengajuan-keberatan', function () {
         return view('pages.layanan.pengajuan-keberatan');
     });
+    Route::post('/layanan/pengajuan-keberatan', [\App\Http\Controllers\PengajuanKeberatanController::class, 'store'])->name('layanan.pengajuan-keberatan.store');
     Route::get('/layanan/sop', function () {
         return view('pages.layanan.sop');
     });
@@ -123,6 +128,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     // Rute yang bisa diakses admin & odp
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('pengaturan', PengaturanController::class);
+    Route::resource('struktur-organisasi', \App\Http\Controllers\Admin\StrukturOrganisasiController::class); // Added route
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

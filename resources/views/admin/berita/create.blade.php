@@ -116,7 +116,7 @@
                 FilePond.create(
                 document.querySelector('#gambar'),
                 {
-                    labelIdle: `Drag & Drop your picture or <span class="filepond--label-action">Browse</span>`,
+                    labelIdle: `Seret & Letakkan file atau <span class="filepond--label-action">Telusuri</span>`,
                     imagePreviewHeight: 170,
                     storeAsFile: true,
                 }

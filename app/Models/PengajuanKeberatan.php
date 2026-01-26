@@ -14,4 +14,9 @@ class PengajuanKeberatan extends Model
     {
         return $this->belongsTo(Skpd::class, 'id_skpd');
     }
+
+    public function alasanPengajuan()
+    {
+        return $this->hasMany(AlasanPengajuan::class, 'id_pengajuan', 'id_pengajuan');
+    }
 }

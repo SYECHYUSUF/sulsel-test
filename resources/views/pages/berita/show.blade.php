@@ -22,8 +22,8 @@
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
                 
-                {{-- Article Content --}}
-                <div class="lg:col-span-8 bg-white dark:bg-slate-800 rounded-2xl p-6 md:p-10 shadow-sm border border-gray-100 dark:border-slate-700">
+                {{-- Article Content (No Card Style) --}}
+                <div class="lg:col-span-8">
                     
                     {{-- Article Header --}}
                     <div class="mb-8">
@@ -44,15 +44,23 @@
                             {{ $berita->judul }}
                         </h1>
                         
-                        <div class="rounded-xl overflow-hidden mb-2">
-                             <img src="{{ $berita->img_berita ? asset('storage/img_berita/' . $berita->img_berita) : 'https://via.placeholder.com/800x400' }}" 
+                        <div class="rounded-xl overflow-hidden mb-6 shadow-lg">
+@if($berita->img_berita)
+                             <img src="{{ asset('storage/img_berita/' . $berita->img_berita) }}" 
                                   class="w-full h-auto object-cover" 
                                   alt="{{ $berita->judul }}">
+                             @else
+                             <div class="w-full h-64 md:h-96 bg-gray-100 dark:bg-slate-700 flex items-center justify-center rounded-xl">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20 text-gray-300 dark:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                             </div>
+                             @endif
                         </div>
                     </div>
 
                     {{-- Article Body --}}
-                    <div class="prose prose-lg dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 leading-relaxed">
+                    <div class="prose prose-lg dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 leading-relaxed text-justify">
                         {!! $berita->deskripsi !!}
                     </div>
 
@@ -60,13 +68,13 @@
                     <div class="mt-12 pt-8 border-t border-gray-100 dark:border-slate-700">
                         <div class="flex flex-wrap items-center justify-between gap-6">
                             <div class="flex flex-wrap gap-2">
-                                <span class="text-sm font-semibold text-gray-700 dark:text-gray-300 mr-2">Kategori:</span>
+                                <span class="text-sm font-semibold text-gray-700 dark:text-gray-300 mr-2">{{ __('messages.common.categories') }}:</span>
                                 <a href="/berita?category={{ $berita->id_skpd }}" class="px-3 py-1 bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-300 rounded-full text-sm hover:bg-[#1A305E] hover:text-white transition-colors">
                                     #{{ Str::slug($berita->skpd->nm_skpd ?? 'umum') }}
                                 </a>
                             </div>
                             <div class="flex items-center gap-3">
-                                <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">Bagikan:</span>
+                                <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">{{ __('messages.news.share') }}:</span>
                                 <a href="https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}" target="_blank" class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors">
                                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
                                 </a>
