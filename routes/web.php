@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BeritaController as PublicBeritaController;
+use App\Http\Controllers\DokumenPublikController as GuestDokumenPublikController;
 
 // Language Switcher
 Route::get('/lang/{locale}', function ($locale) {
@@ -11,6 +12,8 @@ Route::get('/lang/{locale}', function ($locale) {
     }
     return back();
 });
+
+Route::get('/api/dokumen-publik/search-suggestions', [GuestDokumenPublikController::class, 'suggestions']);
 
 Route::middleware(['track.visitors'])->group(function () {
     Route::get('/', function () {
@@ -47,9 +50,9 @@ Route::middleware(['track.visitors'])->group(function () {
         return view('pages.profil.ppid-pelaksana');
     });
 
-// Berita Pages
-Route::get('/berita', [PublicBeritaController::class, 'index']);
-Route::get('/berita/{slug}', [PublicBeritaController::class, 'show'])->name('berita.show');
+    // Berita Pages
+    Route::get('/berita', [PublicBeritaController::class, 'index']);
+    Route::get('/berita/{slug}', [PublicBeritaController::class, 'show'])->name('berita.show');
 
     // Informasi Publik Pages
     Route::get('/informasi-publik', function () {

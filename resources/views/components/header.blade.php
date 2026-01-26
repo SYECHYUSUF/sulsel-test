@@ -33,21 +33,8 @@
         </a>
 
         {{-- SEARCH BAR (Desktop) --}}
-        <div class="hidden lg:flex flex-1 max-w-xl mx-8">
-            <form action="/search" method="GET" class="w-full relative">
-                <input 
-                    type="text" 
-                    name="query" 
-                    placeholder="Cari informasi..." 
-                    class="w-full py-2.5 pl-4 pr-12 rounded-full border-2 border-gray-300 bg-white focus:bg-white focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 text-sm transition-all text-[#1A305E] placeholder:text-gray-500 dark:bg-slate-800 dark:border-slate-600 dark:text-white dark:placeholder:text-gray-400 dark:focus:bg-slate-900 dark:focus:border-[#D4AF37]"
-                >
-                <button type="submit" class="absolute right-1 top-1 bottom-1 bg-[#1A305E] hover:bg-[#15264a] text-white px-4 rounded-full transition-colors flex items-center justify-center dark:hover:bg-[#D4AF37] dark:hover:text-[#1A305E]">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                    </svg>
-                </button>
-            </form>
+        <div class="hidden lg:flex flex-1">
+            <x-dokumen-publik-search />
         </div>
 
         <div class="flex items-center gap-3 md:gap-4">
