@@ -10,12 +10,6 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('coba', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama')->nullable();
-            $table->string('asal')->nullable();
-        });
-
         Schema::create('kunjungan', function (Blueprint $table) {
             $table->id();
             $table->integer('jumlah')->default(0);

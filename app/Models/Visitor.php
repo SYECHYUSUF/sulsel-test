@@ -8,4 +8,5 @@ class Visitor extends Model
 {
     protected $table = 'visitors';
     protected $guarded = [];
+    protected $fillable = ['count'];
 }

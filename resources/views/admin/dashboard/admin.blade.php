@@ -3,7 +3,6 @@
         <h1 class="text-2xl font-bold text-slate-800">Dashboard Overview</h1>
         <p class="text-sm text-slate-500">
             Selamat datang kembali, {{ auth()->user()->name }}.
-            Unit Kerja: {{ auth()->user()->skpd->nm_skpd ?? 'Tidak Terikat SKPD' }}
         </p>
     </div>
 
@@ -119,8 +118,12 @@
                 </div>
                 <div>
                     <p class="text-sm font-medium text-slate-500">Visitor</p>
+                    
                     <h2 class="text-2xl font-bold text-slate-800">
-                        {{ $stats['total_visitor'] >= 1000 ? number_format($stats['total_visitor'] / 1000, 1) . 'k' : number_format($stats['total_visitor']) }}
+                        {{ $stats['total_visitor'] >= 1000 
+                            ? number_format($stats['total_visitor'] / 1000, 1) . 'k' 
+                            : number_format($stats['total_visitor']) 
+                        }}
                     </h2>
                 </div>
             </div>
@@ -168,49 +171,56 @@
                 </div>
             </div>
 
-            <div
-                class="col-span-12 lg:col-span-4 bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col justify-between">
-                <div>
-                    <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-slate-800 font-bold text-lg">Piket Hari Ini</h3>
-                        <span
-                            class="text-[10px] uppercase tracking-wider font-bold bg-amber-100 text-amber-700 px-2 py-1 rounded">Shift
-                            Pagi</span>
-                    </div>
-
-                    <div class="flex flex-col items-center text-center py-4">
-                        <div class="relative mb-4">
-                            <div
-                                class="absolute -inset-1 bg-gradient-to-tr from-[#D4AF37] to-[#1A305E] rounded-full opacity-25">
-                            </div>
-                            <img src="https://ui-avatars.com/api/?name=Andi+M&background=1A305E&color=fff" alt="Officer"
-                                class="relative w-24 h-24 rounded-full border-4 border-white shadow-sm object-cover">
-                        </div>
-
-                        <h4 class="text-lg font-bold text-slate-800">Andi Mulawarman</h4>
-                        <p class="text-sm text-slate-500 mb-6">Staf Layanan Informasi</p>
-
-                        <div
-                            class="inline-flex items-center text-xs font-bold text-slate-600 bg-slate-100 px-4 py-2 rounded-full border border-slate-200">
-                            <svg class="w-4 h-4 mr-2 text-[#1A305E]" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            08:00 — 16:00 WITA
-                        </div>
-                    </div>
+            <div class="col-span-12 lg:col-span-4 bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-slate-800 font-bold text-lg">Login Terbaru</h3>
+                    <a href="{{ route('admin.log-login.index') }}" class="text-xs font-semibold text-blue-600 hover:text-blue-700">Lihat Semua</a>
                 </div>
 
-                <div class="flex gap-2 mt-6">
-                    <button
-                        class="flex-1 py-2 px-4 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-600 text-sm font-semibold transition-colors border border-slate-200">
-                        Kemarin
-                    </button>
-                    <button
-                        class="flex-1 py-2 px-4 rounded-xl bg-slate-800 hover:bg-slate-900 text-white text-sm font-semibold transition-colors shadow-sm">
-                        Besok
-                    </button>
+                <div class="space-y-4 flex-1">
+                    @forelse($recentLogins as $log)
+                        <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-50 border border-slate-100 transition-hover hover:border-blue-200">
+                            <div class="flex-shrink-0">
+                                <img src="https://ui-avatars.com/api/?name={{ urlencode($log->user->name ?? 'U') }}&background=1A305E&color=fff" 
+                                    alt="Avatar" class="w-10 h-10 rounded-full shadow-sm">
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm font-bold text-slate-800 truncate">
+                                    {{ $log->user->name ?? 'Unknown User' }}
+                                </p>
+                                <div class="flex items-center gap-2 mt-0.5">
+                                    <span class="text-[10px] font-mono text-slate-500 bg-slate-200 px-1.5 py-0.5 rounded">
+                                        {{ $log->ip_address }}
+                                    </span>
+                                    <span class="text-[10px] text-slate-400">
+                                        {{ $log->created_at?->diffForHumans() ?? 'Baru saja' }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="py-10 text-center">
+                            <p class="text-sm text-slate-400 italic">Belum ada riwayat login.</p>
+                        </div>
+                    @endforelse
+                </div>
+
+                <div class="mt-6 pt-6 border-t border-slate-100">
+                    <div class="p-4 bg-blue-50 rounded-xl border border-blue-100">
+                        <div class="flex items-start gap-3">
+                            <div class="p-2 bg-white rounded-lg text-blue-600 shadow-sm">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h5 class="text-xs font-bold text-blue-900 uppercase tracking-wider">Security Tip</h5>
+                                <p class="text-[11px] text-blue-700 mt-1 leading-relaxed">
+                                    Pastikan untuk selalu memantau alamat IP yang tidak dikenal untuk menjaga keamanan akun admin.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 

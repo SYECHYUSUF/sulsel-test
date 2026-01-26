@@ -4,13 +4,6 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BeritaController as PublicBeritaController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/contact', function () {
-    return view('pages.contact');
-});
 // Language Switcher
 Route::get('/lang/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'id'])) {
@@ -19,82 +12,92 @@ Route::get('/lang/{locale}', function ($locale) {
     return back();
 });
 
-// Profil Pages
-Route::get('/profil-ppid', function () {
-    return view('pages.profil.profil-ppid');
-});
-Route::get('/sambutan', function () {
-    return view('pages.profil.sambutan');
-});
-Route::get('/struktur-organisasi', function () {
-    return view('pages.profil.struktur-organisasi');
-});
-Route::get('/visi-misi', function () {
-    return view('pages.profil.visi-misi');
-});
-Route::get('/tupoksi', function () {
-    return view('pages.profil.tupoksi');
-});
-Route::get('/maklumat-pelayanan', function () {
-    return view('pages.profil.maklumat');
-});
-Route::get('/profil-pemprov', function () {
-    return view('pages.profil.pemerintah');
-});
-Route::get('/ppid-pelaksana', function () {
-    return view('pages.profil.ppid-pelaksana');
-});
+Route::middleware(['track.visitors'])->group(function () {
+    Route::get('/', function () {
+        return view('welcome');
+    });
+
+    Route::get('/contact', function () {
+        return view('pages.contact');
+    });
+
+    // Profil Pages
+    Route::get('/profil-ppid', function () {
+        return view('pages.profil.profil-ppid');
+    });
+    Route::get('/sambutan', function () {
+        return view('pages.profil.sambutan');
+    });
+    Route::get('/struktur-organisasi', function () {
+        return view('pages.profil.struktur-organisasi');
+    });
+    Route::get('/visi-misi', function () {
+        return view('pages.profil.visi-misi');
+    });
+    Route::get('/tupoksi', function () {
+        return view('pages.profil.tupoksi');
+    });
+    Route::get('/maklumat-pelayanan', function () {
+        return view('pages.profil.maklumat');
+    });
+    Route::get('/profil-pemprov', function () {
+        return view('pages.profil.pemerintah');
+    });
+    Route::get('/ppid-pelaksana', function () {
+        return view('pages.profil.ppid-pelaksana');
+    });
 
 // Berita Pages
 Route::get('/berita', [PublicBeritaController::class, 'index']);
 Route::get('/berita/{slug}', [PublicBeritaController::class, 'show'])->name('berita.show');
 
-// Informasi Publik Pages
-Route::get('/informasi-publik', function () {
-    return view('pages.informasi-publik.index');
-});
-Route::get('/informasi-publik/2023', function () {
-    return view('pages.informasi-publik.tahun-2023');
-});
-Route::get('/informasi-publik/2024', function () {
-    return view('pages.informasi-publik.tahun-2024');
-});
-Route::get('/informasi-publik/2025', function () {
-    return view('pages.informasi-publik.tahun-2025');
-});
-Route::get('/informasi-publik/serta-merta', function () {
-    return view('pages.informasi-publik.serta-merta');
-});
-Route::get('/informasi-publik/setiap-saat', function () {
-    return view('pages.informasi-publik.setiap-saat');
-});
-Route::get('/informasi-publik/dikecualikan', function () {
-    return view('pages.informasi-publik.dikecualikan');
-});
-Route::get('/informasi-publik/berkala', function () {
-    return view('pages.informasi-publik.berkala');
-});
-Route::get('/informasi-publik/pengadaan', function () {
-    return view('pages.informasi-publik.pengadaan');
-});
+    // Informasi Publik Pages
+    Route::get('/informasi-publik', function () {
+        return view('pages.informasi-publik.index');
+    });
+    Route::get('/informasi-publik/2023', function () {
+        return view('pages.informasi-publik.tahun-2023');
+    });
+    Route::get('/informasi-publik/2024', function () {
+        return view('pages.informasi-publik.tahun-2024');
+    });
+    Route::get('/informasi-publik/2025', function () {
+        return view('pages.informasi-publik.tahun-2025');
+    });
+    Route::get('/informasi-publik/serta-merta', function () {
+        return view('pages.informasi-publik.serta-merta');
+    });
+    Route::get('/informasi-publik/setiap-saat', function () {
+        return view('pages.informasi-publik.setiap-saat');
+    });
+    Route::get('/informasi-publik/dikecualikan', function () {
+        return view('pages.informasi-publik.dikecualikan');
+    });
+    Route::get('/informasi-publik/berkala', function () {
+        return view('pages.informasi-publik.berkala');
+    });
+    Route::get('/informasi-publik/pengadaan', function () {
+        return view('pages.informasi-publik.pengadaan');
+    });
 
-// Layanan Pages
-Route::get('/layanan/permohonan-informasi', function () {
-    return view('pages.layanan.permohonan-informasi');
-});
-Route::get('/layanan/pengajuan-keberatan', function () {
-    return view('pages.layanan.pengajuan-keberatan');
-});
-Route::get('/layanan/sop', function () {
-    return view('pages.layanan.sop');
-});
+    // Layanan Pages
+    Route::get('/layanan/permohonan-informasi', function () {
+        return view('pages.layanan.permohonan-informasi');
+    });
+    Route::get('/layanan/pengajuan-keberatan', function () {
+        return view('pages.layanan.pengajuan-keberatan');
+    });
+    Route::get('/layanan/sop', function () {
+        return view('pages.layanan.sop');
+    });
 
-// Survey Pages
-Route::get('/survey/isi-survey', function () {
-    return view('pages.survey.isi-survey');
-});
-Route::get('/survey/hasil-survey', function () {
-    return view('pages.survey.hasil-survey');
+    // Survey Pages
+    Route::get('/survey/isi-survey', function () {
+        return view('pages.survey.isi-survey');
+    });
+    Route::get('/survey/hasil-survey', function () {
+        return view('pages.survey.hasil-survey');
+    });
 });
 
 // Admin Routes
@@ -108,11 +111,8 @@ use App\Http\Controllers\Admin\SkpdController;
 use App\Http\Controllers\Admin\SlideBannerController;
 use App\Http\Controllers\SopController;
 use App\Http\Controllers\Admin\FaqController;
-use App\Http\Controllers\Admin\InformasiController;
-use App\Http\Controllers\Admin\InformasiPublikController;
 use App\Http\Controllers\Admin\KategoriInformasiController;
-use App\Http\Controllers\Admin\InformasiSetiapSaatController;
-use App\Http\Controllers\Admin\InformasiSertaMertaController;
+use App\Http\Controllers\Admin\LogLoginController;
 use App\Http\Controllers\Admin\MatriksDIPController;
 use App\Http\Controllers\Admin\UserController;
 
@@ -151,6 +151,8 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::resource('slide-banner', SlideBannerController::class);
         Route::resource('faq', FaqController::class);
         Route::resource('users', UserController::class);
+        
+        Route::get('/log-login', [LogLoginController::class, 'index'])->name('log-login.index');
 
         // Metadata Informasi
         Route::resource('kategori-informasi', KategoriInformasiController::class);
