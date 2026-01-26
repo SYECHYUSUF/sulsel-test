@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BeritaController as PublicBeritaController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -45,12 +46,8 @@ Route::get('/ppid-pelaksana', function () {
 });
 
 // Berita Pages
-Route::get('/berita', function () {
-    return view('pages.berita.index');
-});
-Route::get('/berita/detail', function () {
-    return view('pages.berita.show');
-});
+Route::get('/berita', [PublicBeritaController::class, 'index']);
+Route::get('/berita/{slug}', [PublicBeritaController::class, 'show'])->name('berita.show');
 
 // Informasi Publik Pages
 Route::get('/informasi-publik', function () {

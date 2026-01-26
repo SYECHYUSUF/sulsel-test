@@ -11,4 +11,9 @@ class Skpd extends Model
     public $incrementing = false; // Karena id_skpd adalah string (varchar)
     protected $keyType = 'string';
     protected $guarded = [];
+
+    public function berita()
+    {
+        return $this->hasMany(Berita::class, 'id_skpd', 'id_skpd');
+    }
 }
