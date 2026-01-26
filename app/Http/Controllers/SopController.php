@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Sop;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class SopController extends Controller
 {
@@ -36,7 +35,7 @@ class SopController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.data-sop.create');
     }
 
     /**
@@ -44,7 +43,23 @@ class SopController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'file' => 'required|file|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png|max:5120',
+        ]);
+
+        $data = $request->only('judul');
+
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $filename = time() . '_' . preg_replace('/[^a-zA-Z0-9._-]/', '_', $file->getClientOriginalName());
+            $path = $file->storeAs('sop', $filename, 'public');
+            $data['file'] = $filename;
+        }
+
+        Sop::create($data);
+
+        return redirect()->route('admin.data-sop.index')->with('success', 'SOP berhasil ditambahkan.');
     }
 
     /**
@@ -58,24 +73,55 @@ class SopController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Sop $data_sop)
     {
-        //
+        $sop = $data_sop;
+        return view('admin.data-sop.edit', compact('sop'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Sop $data_sop)
     {
-        //
+        $sop = $data_sop;
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'file' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png|max:5120',
+        ]);
+
+        $data = $request->only('judul');
+
+        if ($request->hasFile('file')) {
+            // Delete old file
+            if ($sop->file && \Storage::disk('public')->exists('sop/' . $sop->file)) {
+                \Storage::disk('public')->delete('sop/' . $sop->file);
+            }
+
+            $file = $request->file('file');
+            $filename = time() . '_' . preg_replace('/[^a-zA-Z0-9._-]/', '_', $file->getClientOriginalName());
+            $path = $file->storeAs('sop', $filename, 'public');
+            $data['file'] = $filename;
+        }
+
+        $sop->update($data);
+
+        return redirect()->route('admin.data-sop.index')->with('success', 'SOP berhasil diperbarui.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Sop $data_sop)
     {
-        //
+        $sop = $data_sop;
+        // Delete file
+        if ($sop->file && \Storage::disk('public')->exists('sop/' . $sop->file)) {
+            \Storage::disk('public')->delete('sop/' . $sop->file);
+        }
+
+        $sop->delete();
+
+        return redirect()->route('admin.data-sop.index')->with('success', 'SOP berhasil dihapus.');
     }
 }

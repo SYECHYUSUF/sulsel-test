@@ -9,23 +9,24 @@
             </div>
             <div class="flex items-center gap-3">
                 <div class="relative">
-                    <input 
-                        type="text" 
-                        x-model="search" 
-                        @input.debounce.500ms="fetchData()" 
-                        placeholder="Cari judul SOP..." 
-                        class="pl-10 pr-4 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 w-full md:w-64 text-sm transition-all"
-                    >
+                    <input type="text" x-model="search" @input.debounce.500ms="fetchData()"
+                        placeholder="Cari judul SOP..."
+                        class="pl-10 pr-4 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 w-full md:w-64 text-sm transition-all">
                     <div class="absolute left-3 top-2.5 text-slate-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                     </div>
                 </div>
                 @role('admin')
-                <a href="{{ route('admin.data-sop.create') }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-xl transition-colors shadow-sm gap-2">
+                <a href="{{ route('admin.data-sop.create') }}"
+                    class="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-xl transition-colors shadow-sm gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                        <path fill-rule="evenodd"
+                            d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                            clip-rule="evenodd" />
                     </svg>
                     Tambah SOP
                 </a>
@@ -49,11 +50,21 @@
                         <template x-if="loading">
                             <template x-for="i in 5" :key="i">
                                 <tr class="animate-pulse">
-                                    <td class="px-6 py-4"><div class="h-4 bg-slate-100 rounded w-3/4"></div></td>
-                                    <td class="px-6 py-4"><div class="h-4 bg-slate-100 rounded w-1/2"></div></td>
-                                    <td class="px-6 py-4 text-center"><div class="h-4 bg-slate-100 rounded w-12 mx-auto"></div></td>
-                                    <td class="px-6 py-4"><div class="h-4 bg-slate-100 rounded w-20"></div></td>
-                                    <td class="px-6 py-4 text-right"><div class="h-8 bg-slate-100 rounded-lg w-10 ml-auto"></div></td>
+                                    <td class="px-6 py-4">
+                                        <div class="h-4 bg-slate-100 rounded w-3/4"></div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="h-4 bg-slate-100 rounded w-1/2"></div>
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        <div class="h-4 bg-slate-100 rounded w-12 mx-auto"></div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="h-4 bg-slate-100 rounded w-20"></div>
+                                    </td>
+                                    <td class="px-6 py-4 text-right">
+                                        <div class="h-8 bg-slate-100 rounded-lg w-10 ml-auto"></div>
+                                    </td>
                                 </tr>
                             </template>
                         </template>
@@ -73,31 +84,64 @@
                                     <td class="px-6 py-4">
                                         <div class="flex items-center gap-2">
                                             <span class="p-1.5 bg-rose-50 text-rose-600 rounded-lg">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                                                 </svg>
                                             </span>
-                                            <span class="text-xs text-slate-500 uppercase font-semibold" x-text="getFileExtension(item.file)"></span>
+                                            <span class="text-xs text-slate-500 uppercase font-semibold"
+                                                x-text="getFileExtension(item.file)"></span>
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 text-center">
-                                        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600 text-xs font-bold" x-text="item.jumlah_download"></span>
+                                        <span
+                                            class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600 text-xs font-bold"
+                                            x-text="item.jumlah_download"></span>
                                     </td>
-                                    <td class="px-6 py-4 text-slate-500" x-text="formatDate(item.updated_at || item.created_at)"></td>
+                                    <td class="px-6 py-4 text-slate-500"
+                                        x-text="formatDate(item.updated_at || item.created_at)"></td>
                                     <td class="px-6 py-4 text-right">
                                         <div class="flex justify-end gap-2">
-                                            <a :href="'/storage/sop/' + item.file" target="_blank" class="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all" title="Lihat">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                            <a :href="'/storage/sop/' + item.file" target="_blank"
+                                                class="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all"
+                                                title="Lihat">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                                 </svg>
                                             </a>
                                             @role('admin')
-                                            <a :href="'/admin/data-sop/' + item.id + '/edit'" class="p-2 text-slate-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-all" title="Edit">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                            <a :href="'/admin/data-sop/' + item.id + '/edit'"
+                                                class="p-2 text-slate-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-all"
+                                                title="Edit">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                                 </svg>
                                             </a>
+                                            <form :action="'/admin/data-sop/' + item.id" method="POST" class="inline"
+                                                onsubmit="return confirm('Apakah Anda yakin ingin menghapus SOP ini?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                    class="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all"
+                                                    title="Hapus">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                                        viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                    </svg>
+                                                </button>
+                                            </form>
                                             @endrole
                                         </div>
                                     </td>
@@ -109,13 +153,17 @@
             </div>
         </div>
 
-        <div class="flex flex-col md:flex-row items-center justify-between gap-4 py-2" x-show="!loading && items.length > 0">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4 py-2"
+            x-show="!loading && items.length > 0">
             <div class="text-sm text-slate-500">
-                Menampilkan <span class="font-medium text-slate-900" x-text="items.length"></span> dari <span class="font-medium text-slate-900" x-text="pagination.total"></span> data SOP
+                Menampilkan <span class="font-medium text-slate-900" x-text="items.length"></span> dari <span
+                    class="font-medium text-slate-900" x-text="pagination.total"></span> data SOP
             </div>
             <div class="flex items-center gap-2">
-                <button @click="changePage(pagination.prev_page_url)" :disabled="!pagination.prev_page_url" class="px-4 py-2 border border-slate-200 rounded-xl text-sm font-medium hover:bg-slate-50 disabled:opacity-50 transition-colors">Sebelumnya</button>
-                <button @click="changePage(pagination.next_page_url)" :disabled="!pagination.next_page_url" class="px-4 py-2 border border-slate-200 rounded-xl text-sm font-medium hover:bg-slate-50 disabled:opacity-50 transition-colors">Berikutnya</button>
+                <button @click="changePage(pagination.prev_page_url)" :disabled="!pagination.prev_page_url"
+                    class="px-4 py-2 border border-slate-200 rounded-xl text-sm font-medium hover:bg-slate-50 disabled:opacity-50 transition-colors">Sebelumnya</button>
+                <button @click="changePage(pagination.next_page_url)" :disabled="!pagination.next_page_url"
+                    class="px-4 py-2 border border-slate-200 rounded-xl text-sm font-medium hover:bg-slate-50 disabled:opacity-50 transition-colors">Berikutnya</button>
             </div>
         </div>
     </div>
@@ -127,11 +175,11 @@
                 items: [],
                 pagination: {},
                 search: '',
-                
+
                 async fetchData(url = null) {
                     this.loading = true;
                     const targetUrl = url || `/admin/data-sop?search=${encodeURIComponent(this.search)}`;
-                    
+
                     try {
                         const response = await fetch(targetUrl, {
                             headers: { 'Accept': 'application/json' }
