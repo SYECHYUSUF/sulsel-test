@@ -1,5 +1,5 @@
 <header class="z-10 bg-slate-50 sticky top-0 h-20 flex items-center justify-between px-8 py-5">
-    <div class="flex-1 flex items-center max-w-2xl">
+    <div class="flex-1 flex items-center max-w-2xl gap-4">
         <button @click="sidebarOpen = !sidebarOpen" class="p-2 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />

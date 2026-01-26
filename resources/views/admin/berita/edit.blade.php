@@ -1,15 +1,12 @@
 <x-admin-layout title="Edit Berita - Admin PPID">
-    <x-slot name="header">
-        <div class="flex items-center gap-2">
-            <a href="{{ route('admin.berita.index') }}" class="text-slate-500 hover:text-slate-700">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-                </svg>
-            </a>
-            <span class="text-slate-300">/</span>
-            <span>Edit Berita</span>
-        </div>
+    <x-slot name="extra_head">
+        <link href="/vendor/filepond/index.css" rel="stylesheet" />
+        <link
+            href="/vendor/filepond/image-preview.css"
+            rel="stylesheet"
+        />
+        <script src="/vendor/filepond/image-preview.js"></script>
+        <script src="/vendor/filepond/index.js"></script>
     </x-slot>
 
     <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden max-w-4xl mx-auto">
@@ -18,7 +15,7 @@
         </div>
 
         <form action="{{ route('admin.berita.update', $berita->id_berita) }}" method="POST"
-            enctype="multipart/form-data" class="p-6 space-y-6">
+            enctype="multipart/form-data" class="p-6 pt-0 space-y-6">
             @csrf
             @method('PUT')
 
@@ -33,65 +30,60 @@
                 @enderror
             </div>
 
-            <!-- SKPD & Status -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <label class="block text-sm font-medium text-slate-700 mb-2">SKPD</label>
-                    <select name="id_skpd"
-                        class="w-full px-4 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-ppid-accent focus:ring-1 focus:ring-ppid-accent"
-                        required>
-                        <option value="">Pilih SKPD</option>
-                        @foreach($skpdList as $skpd)
-                            <option value="{{ $skpd->id_skpd }}" {{ old('id_skpd', $berita->id_skpd) == $skpd->id_skpd ? 'selected' : '' }}>{{ $skpd->nm_skpd }}</option>
-                        @endforeach
-                    </select>
-                    @error('id_skpd')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-slate-700 mb-2">Status Verifikasi</label>
-                    <select name="verify"
-                        class="w-full px-4 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-ppid-accent focus:ring-1 focus:ring-ppid-accent"
-                        required>
-                        <option value="n" {{ old('verify', $berita->verify) == 'n' ? 'selected' : '' }}>Belum Verifikasi
-                        </option>
-                        <option value="y" {{ old('verify', $berita->verify) == 'y' ? 'selected' : '' }}>Terverifikasi
-                        </option>
-                        <option value="t" {{ old('verify', $berita->verify) == 't' ? 'selected' : '' }}>Ditolak</option>
-                    </select>
-                    @error('verify')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
+            <div class="space-y-2">
+                <label for="id_skpd" class="text-sm font-medium text-slate-700">SKPD Terkait</label>
+                
+                <x-searchable-select 
+                    name="id_skpd" 
+                    id="id_skpd" 
+                    :options="$skpdList" 
+                    idKey="id_skpd"
+                    :disabled="auth()->user()->hasRole('opd')"
+                    labelKey="nm_skpd"
+                    :value="old('id_skpd', auth()->user()->id_skpd)"
+                    placeholder="-- Pilih SKPD --"
+                />
+
+                @error('id_skpd')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-2">Status Verifikasi</label>
+                <select name="verify"
+                    class="w-full px-4 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-ppid-accent focus:ring-1 focus:ring-ppid-accent"
+                    required>
+                    <option value="n" {{ old('verify') == 'n' ? 'selected' : '' }}>Belum Verifikasi</option>
+                    <option value="y" {{ old('verify') == 'y' ? 'selected' : '' }}>Terverifikasi</option>
+                    <option value="t" {{ old('verify') == 't' ? 'selected' : '' }}>Ditolak</option>
+                </select>
+                @error('verify')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
             </div>
 
             <!-- Gambar -->
             <div>
                 <label class="block text-sm font-medium text-slate-700 mb-2">Gambar Sampul</label>
-                <div class="flex items-start gap-4">
-                    <div class="flex-1">
-                        <input type="file" name="img_berita" accept="image/*"
-                            class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200"
-                            onchange="previewImage(this)">
-                        <p class="text-xs text-slate-400 mt-1">Format: JPG, PNG, GIF. Maks: 2MB. Biarkan kosong jika
-                            tidak ingin mengubah gambar.</p>
-                        @error('img_berita')
-                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <div id="imagePreview"
-                        class="w-32 h-20 bg-slate-100 rounded-lg overflow-hidden border border-slate-200 {{ $berita->img_berita ? '' : 'hidden' }}">
-                        <img src="{{ $berita->img_berita ? asset('storage/img_berita/' . $berita->img_berita) : '' }}"
-                            class="w-full h-full object-cover">
-                    </div>
+                <div class="flex-1">                        
+                    <input type="file" 
+                        class="filepond"
+                        name="img_berita"
+                        id="gambar"
+                        accept="image/png, image/jpeg, image/gif"
+                    />
+                    @error('img_berita')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
             </div>
-
+            
             <!-- Deskripsi (WYSIWYG) -->
             <div>
                 <label class="block text-sm font-medium text-slate-700 mb-2">Konten Berita</label>
-                <textarea name="deskripsi" id="editor" rows="10">{{ old('deskripsi', $berita->deskripsi) }}</textarea>
+
+                <textarea name="deskripsi" id="editor" class="editor" rows="10">{{ old('deskripsi', $berita->deskripsi) }}</textarea>
                 @error('deskripsi')
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                 @enderror
@@ -110,44 +102,46 @@
         </form>
     </div>
 
-    @push('scripts')
-        <script src="https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckeditor.js"></script>
+    <!-- Vendor -->
+    <x-slot name="extra_script">
+        <script src="/vendor/jquery/jquery.min.js"></script>
+        <script src="/vendor/tinymce/tinymce.min.js"></script>
+        <script src="/vendor/tinymce/init-editor.js"></script>
         <script>
-            ClassicEditor
-                .create(document.querySelector('#editor'))
-                .catch(error => {
-                    console.error(error);
-                });
-
-            function previewImage(input) {
-                const preview = document.getElementById('imagePreview');
-                const img = preview.querySelector('img');
-
-                if (input.files && input.files[0]) {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        img.src = e.target.result;
-                        preview.classList.remove('hidden');
+            FilePond.registerPlugin(FilePondPluginImagePreview);
+            FilePond.registerPlugin(
+                FilePondPluginImagePreview,
+            );
+            // Select the file input and use 
+            // create() to turn it into a pond
+            FilePond.create(
+                document.querySelector('#gambar'),
+                {
+                    labelIdle: `Drag & Drop your picture or <span class="filepond--label-action">Browse</span>`,
+                    imagePreviewHeight: 170,
+                    storeAsFile: true,
+                    // Menambahkan file yang sudah ada
+                    files: [
+                        @if($berita->img_berita)
+                        {
+                            source: "{{ asset('storage/img_berita/' . $berita->img_berita) }}",
+                            options: {
+                                type: 'local', // Menandakan file sudah ada di server
+                            }
+                        }
+                        @endif
+                    ],
+                    server: {
+                        // FilePond membutuhkan endpoint 'load' untuk mengambil gambar dari URL 'local'
+                        load: (source, load, error, progress, abort, headers) => {
+                            fetch(source)
+                                .then(response => response.blob())
+                                .then(load)
+                                .catch(error);
+                        }
                     }
-                    reader.readAsDataURL(input.files[0]);
-                } else {
-                    // Jika tidak ada file baru, dan tidak ada gambar lama, sembunyikan.
-                    // Tapi kalau edit, kita biarkan gambar lama (logic di BE tidak hapus kalau null).
-                    // Di preview JS ini, kalau user cancel file picker, input value jadi empty.
-                    // Kita bisa kembalikan ke gambar aslinya jika perlu, tapi untuk simpelnya kita sembunyikan saja atau biarkan.
-                    // Disini, kalau clear input, hidden.
-                    // Sebaiknya kalau edit, jika clear input, balik ke gambar server?
-                    // Tidak apa, user bisa refresh page.
                 }
-            }
+            );  
         </script>
-    @endpush
-
-    @push('styles')
-        <style>
-            .ck-editor__editable_inline {
-                min-height: 400px;
-            }
-        </style>
-    @endpush
+    </x-slot>
 </x-admin-layout>

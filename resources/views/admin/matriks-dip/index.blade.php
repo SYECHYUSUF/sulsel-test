@@ -1,23 +1,21 @@
-<x-admin-layout title="Informasi Daftar Publik - Admin PPID">
-    <x-slot name="header">
-        <div class="flex items-center justify-between">
-            <h2 class="font-semibold text-xl text-slate-800 leading-tight">
-                {{ __('Informasi Daftar Publik') }}
-            </h2>
-            <a href="{{ route('admin.informasi-daftar-publik.create') }}"
-                class="px-4 py-2 bg-[#1A305E] text-white rounded-lg text-sm font-medium hover:bg-ppid-dark transition-colors flex items-center gap-2">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                </svg>
-                Tambah Data
-            </a>
-        </div>
-    </x-slot>
+<x-admin-layout title="Daftar Informasi Publik - Admin PPID">
+    <div class="flex items-center justify-between mb-4">
+        <h2 class="font-semibold text-xl text-slate-800 leading-tight">
+            {{ __('Daftar Informasi Publik') }}
+        </h2>
+        <a href="{{ route('admin.matriks-dip.create') }}"
+            class="px-4 py-2 bg-[#1A305E] text-white rounded-lg text-sm font-medium hover:bg-ppid-dark transition-colors flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+            </svg>
+            Tambah Data
+        </a>
+    </div>
 
     <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
         <div class="p-4 border-b border-slate-100 bg-slate-50/50 flex justify-between">
             <div class="relative w-full md:w-64">
-                <form action="{{ route('admin.informasi-daftar-publik.index') }}" method="GET">
+                <form action="{{ route('admin.matriks-dip.index') }}" method="GET">
                     <input type="text" name="search" value="{{ request('search') }}"
                         class="w-full pl-10 pr-4 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-ppid-accent focus:ring-1 focus:ring-ppid-accent"
                         placeholder="Cari data...">
@@ -35,9 +33,9 @@
             <table class="w-full text-sm text-left text-slate-600">
                 <thead class="text-xs text-slate-500 uppercase bg-slate-50 border-b border-slate-100">
                     <tr>
-                        <th scope="col" class="px-6 py-3">Column A</th>
-                        <th scope="col" class="px-6 py-3">Column B</th>
-                        <th scope="col" class="px-6 py-3">Column C</th>
+                        <th scope="col" class="px-6 py-3">{{ \App\Models\MatriksDip::columnLabels()['a'] }}</th>
+                        <th scope="col" class="px-6 py-3">{{ \App\Models\MatriksDip::columnLabels()['b'] }}</th>
+                        <th scope="col" class="px-6 py-3">{{ \App\Models\MatriksDip::columnLabels()['c'] }}</th>
                         <th scope="col" class="px-6 py-3 text-right">Aksi</th>
                     </tr>
                 </thead>
@@ -45,11 +43,11 @@
                     @forelse ($items as $item)
                         <tr class="bg-white border-b border-slate-100 hover:bg-slate-50 transition-colors">
                             <td class="px-6 py-4 font-medium text-slate-900">{{ $item->a }}</td>
-                            <td class="px-6 py-4">{{ Str::limit($item->b, 50) }}</td>
-                            <td class="px-6 py-4">{{ Str::limit($item->c, 50) }}</td>
+                            <td class="px-6 py-4">{{ Str::limit($item->b, 100) }}</td>
+                            <td class="px-6 py-4">{{ Str::limit($item->c, 100) }}</td>
                             <td class="px-6 py-4 text-right">
                                 <div class="flex items-center justify-end gap-2">
-                                    <a href="{{ route('admin.informasi-daftar-publik.edit', $item->id) }}"
+                                    <a href="{{ route('admin.matriks-dip.edit', $item->id) }}"
                                         class="p-2 text-slate-500 hover:text-[#1A305E] hover:bg-slate-50 rounded-lg transition-colors">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -57,7 +55,7 @@
                                             </path>
                                         </svg>
                                     </a>
-                                    <form action="{{ route('admin.informasi-daftar-publik.destroy', $item->id) }}"
+                                    <form action="{{ route('admin.matriks-dip.destroy', $item->id) }}"
                                         method="POST"
                                         onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
                                         @csrf

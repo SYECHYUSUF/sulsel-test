@@ -1,52 +1,19 @@
-@php
-    $user = Auth::user();
-@endphp
 <x-admin-layout title="Informasi Publik - Admin PPID">
-    <x-slot name="header">
-        <div class="flex items-center justify-between">
-            <h2 class="font-semibold text-xl text-slate-800 leading-tight">
-                {{ __('Daftar Informasi Publik') }}
-            </h2>
-            <a href="{{ route('admin.informasi-publik.create') }}"
-                class="px-4 py-2 bg-[#1A305E] text-white rounded-lg text-sm font-medium hover:bg-ppid-dark transition-colors flex items-center gap-2">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                </svg>
-                Tambah Informasi
-            </a>
-        </div>
-    </x-slot>
+    <div class="flex items-center justify-between mb-4">
+        <h2 class="font-semibold text-xl text-slate-800 leading-tight">
+            {{ __('Daftar Informasi Publik') }}
+        </h2>
+        <a href="{{ route('admin.dokumen-publik.create') }}"
+            class="px-4 py-2 bg-[#1A305E] text-white rounded-lg text-sm font-medium hover:bg-ppid-dark transition-colors flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+            </svg>
+            Tambah Informasi
+        </a>
+    </div>
 
     <div x-data="{
-        selectedIds: [],
         showFilters: false,
-        bulkAction: '',
-        bulkStatus: '',
-        selectAll: false,
-        toggleAll() {
-            this.selectAll = !this.selectAll;
-            if (this.selectAll) {
-                this.selectedIds = Array.from(document.querySelectorAll('input[name=\u0022item_ids[]\u0022]')).map(el => el.value);
-            } else {
-                this.selectedIds = [];
-            }
-        },
-        confirmBulkAction() {
-            if (this.selectedIds.length === 0) {
-                alert('Pilih minimal 1 item');
-                return false;
-            }
-            if (this.bulkAction === 'delete') {
-                return confirm(`Hapus ${this.selectedIds.length} dokumen yang dipilih?`);
-            } else if (this.bulkAction === 'update_status') {
-                if (!this.bulkStatus) {
-                    alert('Pilih status terlebih dahulu');
-                    return false;
-                }
-                return confirm(`Ubah status ${this.selectedIds.length} dokumen yang dipilih?`);
-            }
-            return true;
-        }
     }" class="space-y-4">
         
         {{-- Success/Error Messages --}}
@@ -68,7 +35,7 @@
                 <div class="flex flex-col md:flex-row gap-3 w-full lg:w-auto flex-1">
                     {{-- Search --}}
                     <div class="relative w-full md:w-64">
-                        <form action="{{ route('admin.informasi-publik.index') }}" method="GET">
+                        <form action="{{ route('admin.dokumen-publik.index') }}" method="GET">
                             @foreach(request()->except('search') as $key => $value)
                                 @if(!is_array($value))
                                     <input type="hidden" name="{{ $key }}" value="{{ $value }}">
@@ -87,7 +54,7 @@
                     </div>
 
                     {{-- Category Filter --}}
-                    <form action="{{ route('admin.informasi-publik.index') }}" method="GET" class="w-full md:w-48">
+                    <form action="{{ route('admin.dokumen-publik.index') }}" method="GET" class="w-full md:w-48">
                         @foreach(request()->except('id_kat_info') as $key => $value)
                             @if(!is_array($value))
                                 <input type="hidden" name="{{ $key }}" value="{{ $value }}">
@@ -116,7 +83,7 @@
 
                 {{-- Bulk Actions --}}
                 <div class="flex gap-2" x-show="selectedIds.length > 0" x-cloak>
-                    <form method="POST" action="{{ route('admin.informasi-publik.bulk-delete') }}" @submit="return confirmBulkAction()">
+                    <form method="POST" action="{{ route('admin.dokumen-publik.bulk-delete') }}" @submit="return confirmBulkAction()">
                         @csrf
                         <template x-for="id in selectedIds">
                             <input type="hidden" name="ids[]" :value="id">
@@ -131,7 +98,7 @@
                         </button>
                     </form>
 
-                    <form method="POST" action="{{ route('admin.informasi-publik.bulk-update-status') }}" @submit="return confirmBulkAction()">
+                    <form method="POST" action="{{ route('admin.dokumen-publik.bulk-update-status') }}" @submit="return confirmBulkAction()">
                         @csrf
                         <template x-for="id in selectedIds">
                             <input type="hidden" name="ids[]" :value="id">
@@ -155,7 +122,7 @@
 
             {{-- Advanced Filters Panel --}}
             <div x-show="showFilters" x-cloak x-transition class="p-4 border-b border-slate-100 bg-blue-50/30">
-                <form action="{{ route('admin.informasi-publik.index') }}" method="GET" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <form action="{{ route('admin.dokumen-publik.index') }}" method="GET" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     {{-- Preserve search --}}
                     @if(request('search'))
                         <input type="hidden" name="search" value="{{ request('search') }}">
@@ -165,7 +132,7 @@
                     @endif
 
                     {{-- SKPD Filter (Admin only) --}}
-                    @if(!$user->hasRole('opd'))
+                    @if(!auth()->user()->hasRole('opd'))
                         <div>
                             <label class="block text-xs font-medium text-slate-700 mb-1">SKPD</label>
                             <select name="id_skpd"
@@ -223,7 +190,7 @@
                             class="px-4 py-2 bg-[#1A305E] text-white rounded-lg text-sm font-medium hover:bg-ppid-dark transition-colors flex-1">
                             Terapkan Filter
                         </button>
-                        <a href="{{ route('admin.informasi-publik.index') }}"
+                        <a href="{{ route('admin.dokumen-publik.index') }}"
                             class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-medium hover:bg-slate-200 transition-colors">
                             Reset
                         </a>
@@ -258,10 +225,6 @@
                 <table class="w-full text-sm text-left text-slate-600">
                     <thead class="text-xs text-slate-500 uppercase bg-slate-50 border-b border-slate-100">
                         <tr>
-                            <th scope="col" class="px-6 py-3 w-12">
-                                <input type="checkbox" @change="toggleAll()" :checked="selectAll"
-                                    class="rounded border-slate-300 text-[#1A305E] focus:ring-ppid-accent">
-                            </th>
                             <th scope="col" class="px-6 py-3">Judul Informasi</th>
                             <th scope="col" class="px-6 py-3">Kategori</th>
                             <th scope="col" class="px-6 py-3">SKPD</th>
@@ -273,11 +236,6 @@
                     <tbody>
                         @forelse ($informasi as $info)
                             <tr class="bg-white border-b border-slate-100 hover:bg-slate-50 transition-colors">
-                                <td class="px-6 py-4">
-                                    <input type="checkbox" name="item_ids[]" value="{{ $info->id_informasi }}"
-                                        x-model="selectedIds"
-                                        class="rounded border-slate-300 text-[#1A305E] focus:ring-ppid-accent">
-                                </td>
                                 <td class="px-6 py-4">
                                     <div class="font-medium text-slate-900">{{ $info->judul }}</div>
                                     <div class="text-xs text-slate-500 mt-1">Uploaded: {{ $info->tgl_upload }}</div>
@@ -326,7 +284,7 @@
                                 </td>
                                 <td class="px-6 py-4 text-right">
                                     <div class="flex items-center justify-end gap-2">
-                                        <a href="{{ route('admin.informasi-publik.edit', $info->id_informasi) }}"
+                                        <a href="{{ route('admin.dokumen-publik.edit', $info->id_informasi) }}"
                                             class="p-2 text-slate-500 hover:text-[#1A305E] hover:bg-slate-50 rounded-lg transition-colors">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -334,7 +292,7 @@
                                                 </path>
                                             </svg>
                                         </a>
-                                        <form action="{{ route('admin.informasi-publik.destroy', $info->id_informasi) }}"
+                                        <form action="{{ route('admin.dokumen-publik.destroy', $info->id_informasi) }}"
                                             method="POST"
                                             onsubmit="return confirm('Apakah Anda yakin ingin menghapus informasi ini?')">
                                             @csrf

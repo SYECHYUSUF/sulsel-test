@@ -103,6 +103,7 @@ Route::get('/survey/hasil-survey', function () {
 // Admin Routes
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\BeritaController;
+use App\Http\Controllers\Admin\DokumenPublikController;
 use App\Http\Controllers\Admin\PengajuanKeberatanController;
 use App\Http\Controllers\Admin\PengaturanController;
 use App\Http\Controllers\Admin\PermohonanInformasiController;
@@ -111,10 +112,12 @@ use App\Http\Controllers\Admin\SlideBannerController;
 use App\Http\Controllers\SopController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\InformasiController;
+use App\Http\Controllers\Admin\InformasiPublikController;
 use App\Http\Controllers\Admin\KategoriInformasiController;
 use App\Http\Controllers\Admin\InformasiSetiapSaatController;
 use App\Http\Controllers\Admin\InformasiSertaMertaController;
-use App\Http\Controllers\Admin\InformasiDaftarPublikController;
+use App\Http\Controllers\Admin\MatriksDIPController;
+use App\Http\Controllers\Admin\UserController;
 
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     // Rute yang bisa diakses admin & odp
@@ -131,14 +134,18 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::resource('berita', BeritaController::class);
         Route::resource('permohonan-informasi', PermohonanInformasiController::class);
         Route::resource('pengajuan-keberatan', PengajuanKeberatanController::class);
-        Route::post('informasi-publik/bulk-delete', [InformasiController::class, 'bulkDelete'])->name('informasi-publik.bulk-delete');
-        Route::post('informasi-publik/bulk-update-status', [InformasiController::class, 'bulkUpdateStatus'])->name('informasi-publik.bulk-update-status');
 
         // Master Data
-        Route::resource('informasi-publik', InformasiController::class);
-        Route::resource('informasi-setiap-saat', InformasiSetiapSaatController::class);
-        Route::resource('informasi-serta-merta', InformasiSertaMertaController::class);
-        Route::resource('informasi-daftar-publik', InformasiDaftarPublikController::class);
+        // Route::post('informasi-publik/bulk-delete', [InformasiController::class, 'bulkDelete'])->name('informasi-publik.bulk-delete');
+        // Route::post('informasi-publik/bulk-update-status', [InformasiController::class, 'bulkUpdateStatus'])->name('informasi-publik.bulk-update-status');
+        // Route::resource('informasi-publik', InformasiPublikController::class);
+        // Route::resource('dokumen', InformasiPublikController::class);
+
+        Route::resource('dokumen-publik', DokumenPublikController::class);
+        Route::post('dokumen-publik/bulk-delete', [DokumenPublikController::class, 'bulkDelete'])->name('dokumen-publik.bulk-delete');
+        Route::post('dokumen-publik/bulk-update-status', [DokumenPublikController::class, 'bulkUpdateStatus'])->name('dokumen-publik.bulk-update-status');
+
+        Route::resource('matriks-dip', MatriksDIPController::class);
     });
 
     // Rute khusus Super Admin (Tanpa check_skpd karena mengelola semua SKPD)
@@ -146,6 +153,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::resource('data-sop', SopController::class);
         Route::resource('slide-banner', SlideBannerController::class);
         Route::resource('faq', FaqController::class);
+        Route::resource('users', UserController::class);
 
         // Metadata Informasi
         Route::resource('kategori-informasi', KategoriInformasiController::class);

@@ -20,13 +20,12 @@ class PermohonanInformasiController extends Controller
         $user = Auth::user();
         $query = PermohonanInformasi::with('skpd');
 
-        // 1. Guard Berdasarkan Role
-        // Jika user adalah OPD, hanya tampilkan permohonan yang ditujukan ke SKPD mereka
+        // Guard Berdasarkan Role
         if ($user->hasRole('opd')) {
             $query->where('id_skpd', $user->id_skpd);
         }
 
-        // 2. Filter Pencarian
+        // Filter Pencarian
         if ($request->filled('search')) {
             $searchTerm = '%' . $request->search . '%';
             $query->where(function ($q) use ($searchTerm) {
@@ -36,10 +35,10 @@ class PermohonanInformasiController extends Controller
             });
         }
 
-        // 3. Pagination & Sorting
+        // Pagination & Sorting
         $permohonan = $query->latest()->paginate(10);
 
-        // 4. Handle JSON Request (Untuk Alpine.js)
+        // Handle JSON Request (Untuk Alpine.js)
         if ($request->expectsJson()) {
             return response()->json($permohonan);
         }

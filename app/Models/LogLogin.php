@@ -7,7 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class LogLogin extends Model
 {
     protected $table = 'log_login';
-    const CREATED_AT = 'createdAt';
-    const UPDATED_AT = null;
-    protected $guarded = [];
+    
+    public $timestamps = false;
+
+    protected $fillable = ['id_user', 'tipe', 'createdAt', 'ip'];
+
+    protected $casts = [
+        'createdAt' => 'datetime',
+    ];
 }

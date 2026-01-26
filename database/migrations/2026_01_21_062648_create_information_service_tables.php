@@ -101,29 +101,6 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-        Schema::create('ms_daftar_informasi_publik', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama')->nullable();
-            $table->string('slug')->nullable();
-            $table->bigInteger('is_active')->default(0);
-            $table->timestamps();
-        });
-
-        Schema::create('daftar_informasi_publik', function (Blueprint $table) {
-            $table->id();
-            $table->string('a')->default('');
-            $table->string('b')->default('');
-            $table->string('c')->default('');
-            $table->string('d')->default('');
-            $table->string('e')->default('');
-            $table->string('f')->default('');
-            $table->string('g')->default('');
-            $table->string('h')->default('');
-            $table->bigInteger('id_md_informasi_publik')->nullable();
-            $table->bigInteger('is_active')->default(1);
-            $table->timestamps();
-        });
-
         // Tambahkan ini di dalam function up() file create_information_service_tables.php
         $extraTables = ['informasis', 'informasiis', 'informasiiis'];
         foreach ($extraTables as $tableName) {
@@ -147,8 +124,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('daftar_informasi_publik');
-        Schema::dropIfExists('ms_daftar_informasi_publik');
         Schema::dropIfExists('ms_bentuk_informasi');
         Schema::dropIfExists('tbl_alasan_pengajuan');
         Schema::dropIfExists('tbl_pengajuan');

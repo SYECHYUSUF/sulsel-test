@@ -59,4 +59,12 @@ class User extends Authenticatable implements LaratrustUser
         // Parameter: (ModelTarget, ForeignKey_di_User, OwnerKey_di_Skpd)
         return $this->belongsTo(Skpd::class, 'id_skpd', 'id_skpd');
     }
+
+    public function lastLogin()
+    {
+        // Mengambil satu data terbaru dari log_login yang bertipe 'login'
+        return $this->hasOne(LogLogin::class, 'id_user', 'id')
+                    ->where('tipe', 'login')
+                    ->latestOfMany('createdAt');
+    }
 }

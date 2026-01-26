@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\InformasiDaftarPublik;
+use App\Models\InformasiPublik;
 use Illuminate\Http\Request;
 
-class InformasiDaftarPublikController extends Controller
+class InformasiPublikController extends Controller
 {
     public function index(Request $request)
     {
-        $query = InformasiDaftarPublik::query();
+        $query = InformasiPublik::query();
 
         if ($request->filled('search')) {
             $search = $request->search;
@@ -22,12 +22,12 @@ class InformasiDaftarPublikController extends Controller
 
         $items = $query->paginate(10);
 
-        return view('admin.informasi-daftar-publik.index', compact('items'));
+        return view('admin.informasi-publik.index', compact('items'));
     }
 
     public function create()
     {
-        return view('admin.informasi-daftar-publik.create');
+        return view('admin.informasi-publik.create');
     }
 
     public function store(Request $request)
@@ -43,21 +43,21 @@ class InformasiDaftarPublikController extends Controller
             'h' => 'nullable|string|max:255',
         ]);
 
-        InformasiDaftarPublik::create($validated);
+        InformasiPublik::create($validated);
 
-        return redirect()->route('admin.informasi-daftar-publik.index')
+        return redirect()->route('admin.informasi-publik.index')
             ->with('success', 'Informasi Daftar Publik berhasil ditambahkan.');
     }
 
     public function edit(string $id)
     {
-        $item = InformasiDaftarPublik::findOrFail($id);
-        return view('admin.informasi-daftar-publik.edit', compact('item'));
+        $item = InformasiPublik::findOrFail($id);
+        return view('admin.informasi-publik.edit', compact('item'));
     }
 
     public function update(Request $request, string $id)
     {
-        $item = InformasiDaftarPublik::findOrFail($id);
+        $item = InformasiPublik::findOrFail($id);
 
         $validated = $request->validate([
             'a' => 'nullable|string|max:255',
@@ -72,16 +72,16 @@ class InformasiDaftarPublikController extends Controller
 
         $item->update($validated);
 
-        return redirect()->route('admin.informasi-daftar-publik.index')
+        return redirect()->route('admin.informasi-publik.index')
             ->with('success', 'Informasi Daftar Publik berhasil diperbarui.');
     }
 
     public function destroy(string $id)
     {
-        $item = InformasiDaftarPublik::findOrFail($id);
+        $item = InformasiPublik::findOrFail($id);
         $item->delete();
 
-        return redirect()->route('admin.informasi-daftar-publik.index')
+        return redirect()->route('admin.informasi-publik.index')
             ->with('success', 'Informasi Daftar Publik berhasil dihapus.');
     }
 }

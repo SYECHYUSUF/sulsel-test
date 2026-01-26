@@ -9,19 +9,6 @@
         <script src="/vendor/filepond/index.js"></script>
     </x-slot>
 
-    <x-slot name="header">
-        <div class="flex items-center gap-2">
-            <a href="{{ route('admin.berita.index') }}" class="text-slate-500 hover:text-slate-700">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-                </svg>
-            </a>
-            <span class="text-slate-300">/</span>
-            <span>Tambah Berita</span>
-        </div>
-    </x-slot>
-
     <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden max-w-4xl mx-auto">
         <div class="p-6 border-b border-slate-100">
             <h3 class="text-lg font-bold text-[#1A305E]">Form Tambah Berita</h3>
@@ -77,7 +64,7 @@
 
             <!-- Gambar -->
             <div>
-                <label class="block text-sm font-medium text-slate-700 mb-2">Thumbnail</label>
+                <label class="block text-sm font-medium text-slate-700 mb-2">Gambar Sampul</label>
                 <div class="flex-1">                        
                     <input type="file" 
                         class="filepond"
@@ -89,7 +76,6 @@
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                     @enderror
                 </div>
-                
             </div>
 
             <!-- Deskripsi (WYSIWYG) -->
