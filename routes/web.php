@@ -95,6 +95,7 @@ Route::middleware(['track.visitors'])->group(function () {
         return view('pages.layanan.pengajuan-keberatan');
     });
     Route::post('/layanan/pengajuan-keberatan', [\App\Http\Controllers\PengajuanKeberatanController::class, 'store'])->name('layanan.pengajuan-keberatan.store');
+    Route::post('/layanan/permohonan-informasi', [\App\Http\Controllers\PermohonanInformasiController::class, 'store'])->name('layanan.permohonan-informasi.store');
     Route::get('/layanan/sop', function () {
         return view('pages.layanan.sop');
     });
@@ -138,7 +139,8 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::resource('skpd', SkpdController::class);
 
         Route::resource('berita', BeritaController::class);
-        Route::resource('permohonan-informasi', PermohonanInformasiController::class);
+        Route::resource('berita', BeritaController::class);
+        // Permohonan Informasi moved to Admin group
         Route::resource('pengajuan-keberatan', PengajuanKeberatanController::class);
 
         // Master Data
@@ -160,6 +162,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::resource('slide-banner', SlideBannerController::class);
         Route::resource('faq', FaqController::class);
         Route::resource('users', UserController::class);
+        Route::resource('permohonan-informasi', PermohonanInformasiController::class); // Moved here
         
         Route::get('/log-login', [LogLoginController::class, 'index'])->name('log-login.index');
 
