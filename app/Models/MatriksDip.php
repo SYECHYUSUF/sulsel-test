@@ -15,13 +15,13 @@ class MatriksDip extends Model
     public static function columnLabels()
     {
         return [
-            'a' => 'Judul Informasi',
+            'a' => 'Jenis Informasi',
             'b' => 'Ringkasan Isi',
             'c' => 'Pejabat yang Menguasai',
             'd' => 'Penanggung Jawab',
             'e' => 'Waktu Pembuatan',
-            'f' => 'Bentuk Informasi',
-            'g' => 'Masa Retensi',
+            'f' => 'Format',
+            'g' => 'Tahun',
             'h' => 'Tautan Dokumen',
         ];
     }

@@ -10,8 +10,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-
-    Schema::create('daftar_informasi_publik', function (Blueprint $table) {
+        Schema::create('daftar_informasi_publik', function (Blueprint $table) {
             $table->id();
             $table->string('a')->default('');
             $table->string('b')->default('');
