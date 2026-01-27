@@ -87,9 +87,52 @@
                         <span class="text-[#D4AF37]">PPID Utama</span><br>
                         Provinsi Sulawesi Selatan
                     </h1>
-                    <p class="text-sm md:text-lg lg:text-xl text-white/90 font-medium drop-shadow-md">
+                    <p class="text-sm md:text-lg lg:text-xl text-white/90 font-medium drop-shadow-md mb-8">
                         Transparansi Informasi Publik untuk Sulawesi Selatan yang Lebih Baik
                     </p>
+                    
+                    {{-- Hero Search Bar --}}
+                    <div class="max-w-2xl mx-auto">
+                        <button 
+                            @click="$dispatch('open-search')"
+                            class="group w-full flex items-center gap-3 px-6 py-4 bg-white/95 dark:bg-slate-800/95 backdrop-blur-md rounded-2xl shadow-2xl hover:shadow-[#D4AF37]/20 hover:shadow-3xl transition-all duration-300 border-2 border-transparent hover:border-[#D4AF37]/50">
+                            
+                            {{-- Search Icon --}}
+                            <div class="flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#4A5568] dark:text-gray-400 group-hover:text-[#D4AF37] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                            </div>
+                            
+                            {{-- Placeholder Text --}}
+                            <div class="flex-1 text-left">
+                                <span class="text-[#4A5568] dark:text-gray-400 text-base md:text-lg font-medium">
+                                    {{ __('messages.common.search_placeholder') }}
+                                </span>
+                            </div>
+                            
+                            {{-- Keyboard Shortcut Hint --}}
+                            <div class="hidden md:flex items-center gap-1 px-3 py-1.5 bg-gray-100 dark:bg-slate-700 rounded-lg">
+                                <kbd class="text-xs font-semibold text-[#4A5568] dark:text-gray-400">Ctrl</kbd>
+                                <span class="text-xs text-[#4A5568] dark:text-gray-400">+</span>
+                                <kbd class="text-xs font-semibold text-[#4A5568] dark:text-gray-400">K</kbd>
+                            </div>
+                        </button>
+                        
+                        {{-- Popular Keywords --}}
+                        <div class="mt-4 flex flex-wrap items-center justify-center gap-2">
+                            <span class="text-white/70 text-sm font-medium">{{ __('messages.hero.popular') }}</span>
+                            <a href="/informasi-publik/berkala" class="px-3 py-1 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full text-white text-xs font-medium transition-all hover:scale-105">
+                                Laporan Keuangan
+                            </a>
+                            <a href="/informasi-publik/serta-merta" class="px-3 py-1 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full text-white text-xs font-medium transition-all hover:scale-105">
+                                Informasi Serta Merta
+                            </a>
+                            <a href="/berita" class="px-3 py-1 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full text-white text-xs font-medium transition-all hover:scale-105">
+                                Berita Terkini
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 
                 {{-- Logo PPID (Right) --}}

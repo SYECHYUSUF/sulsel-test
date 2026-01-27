@@ -5,7 +5,6 @@
     {{-- Decorative Elements dangan Parallax --}}
     <div class="absolute top-10 left-0 w-48 h-48 md:top-20 md:left-10 md:w-72 md:h-72 bg-[#1A305E]/5 dark:bg-white/5 rounded-full blur-3xl opacity-20 transition-transform duration-75" :style="`transform: translateY(${scroll * 0.1}px)`"></div>
     <div class="absolute bottom-10 right-0 w-48 h-48 md:bottom-20 md:right-10 md:w-72 md:h-72 bg-[#D4AF37]/5 dark:bg-yellow-500/5 rounded-full blur-3xl opacity-20 transition-transform duration-75" :style="`transform: translateY(${scroll * -0.1}px)`"></div>
-
     <div class="container mx-auto px-6 md:px-4 relative z-10">
         {{-- Section Header --}}
         <div class="text-center mb-12 md:mb-16 max-w-3xl mx-auto" data-aos="fade-down">
@@ -81,7 +80,6 @@
                         <div class="inline-flex items-center gap-2 px-4 py-2 bg-gray-50 dark:bg-slate-700 rounded-full border border-gray-100 dark:border-slate-600">
                             <svg class="w-4 h-4 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                             <span class="text-xs md:text-sm font-semibold text-[#1A305E] dark:text-gray-200">{{ __($s['dur']) }}</span>
-                            <span class="text-xs md:text-sm font-semibold text-[#1A305E]">{{ $s['dur'] }}</span>
                         </div>
                     </div>
                 </div>

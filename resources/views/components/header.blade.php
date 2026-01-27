@@ -37,6 +37,14 @@
         <div class="flex items-center gap-3 md:gap-4">
             {{-- Contact Desktop --}}
             <a href="/contact" class="hidden lg:block text-sm font-medium text-[#4A5568] dark:text-gray-300 hover:text-[#D4AF37] transition-colors">{{ __('messages.header.contact') }}</a>
+            
+            {{-- Login Button --}}
+            <a href="/login" class="hidden lg:flex items-center gap-1.5 text-sm font-medium text-[#4A5568] dark:text-gray-300 hover:text-[#D4AF37] transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                </svg>
+                Login
+            </a>
 
             {{-- Search Trigger Button --}}
             <button @click="$dispatch('open-search')" 
@@ -274,6 +282,16 @@
                 {{-- Contact Mobile Only --}}
                 <li class="lg:hidden border-b border-white/10">
                     <a href="/contact" class="block px-6 py-4 hover:bg-white/10 hover:text-white">{{ __('messages.header.contact') }}</a>
+                </li>
+                
+                {{-- Login Mobile Only --}}
+                <li class="lg:hidden border-b border-white/10">
+                    <a href="/login" class="flex items-center gap-2 px-6 py-4 hover:bg-white/10 hover:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                        </svg>
+                        Login
+                    </a>
                 </li>
             </ul>
         </div>

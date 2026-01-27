@@ -40,7 +40,7 @@
                 <div class="relative z-10 flex flex-col items-center mt-8">
                     <!-- PPID LOGO -->
                     <div class="relative w-40 h-auto mb-6 transform transition-transform duration-500 hover:scale-105 drop-shadow-2xl">
-                        <img src="{{ asset('images/logo-ppid.png') }}" alt="Logo PPID Sulsel" class="w-full h-auto object-contain drop-shadow-lg">
+                        <img src="{{ asset('images/ppid-2.png') }}" alt="Logo PPID Sulsel" class="w-full h-auto object-contain drop-shadow-lg">
                     </div>
                     
                     <h2 class="text-3xl font-bold text-white mb-2 tracking-tight leading-tight">PPID Utama<br><span class="text-[#D4AF37]">Sulawesi Selatan</span></h2>

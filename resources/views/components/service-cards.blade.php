@@ -23,14 +23,14 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
             @php
                 $services = [
-                    ['title' => 'messages.service.info_public_title', 'desc' => 'messages.service.public_info_desc', 'icon' => 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10'],
-                    ['title' => 'messages.footer.info_request', 'desc' => 'messages.service.request_desc', 'icon' => 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'],
-                    ['title' => 'messages.footer.objection', 'desc' => 'messages.service.objection_desc', 'icon' => 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z'],
+                    ['title' => 'messages.service.info_public_title', 'desc' => 'messages.service.public_info_desc', 'icon' => 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10', 'url' => '/informasi-publik'],
+                    ['title' => 'messages.footer.info_request', 'desc' => 'messages.service.request_desc', 'icon' => 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z', 'url' => '/layanan/permohonan-informasi'],
+                    ['title' => 'messages.footer.objection', 'desc' => 'messages.service.objection_desc', 'icon' => 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z', 'url' => '/layanan/pengajuan-keberatan'],
                 ];
             @endphp
 
             @foreach($services as $index => $s)
-            <div class="group h-full"
+            <a href="{{ $s['url'] }}" class="group h-full block"
                  data-aos="fade-up" 
                  data-aos-delay="{{ $index * 150 }}">
                 <div class="relative bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_-10px_rgba(26,48,94,0.1)] transition-all duration-700 ease-out group-hover:-translate-y-1 border border-gray-100/80 dark:border-slate-700 overflow-hidden h-full flex flex-col">
@@ -48,16 +48,16 @@
                     <h3 class="text-xl font-bold text-[#1A305E] dark:text-white mb-3 group-hover:text-[#D4AF37] transition-colors">{{ __($s['title']) }}</h3>
                     <p class="text-[#4A5568] dark:text-gray-300 leading-relaxed mb-8 flex-grow">{{ __($s['desc']) }}</p>
                     
-                    <a href="#" class="inline-flex items-center gap-2 text-sm font-bold text-[#1A305E] dark:text-white group-hover:translate-x-1 transition-transform uppercase tracking-wider">
+                    <span class="inline-flex items-center gap-2 text-sm font-bold text-[#1A305E] dark:text-white group-hover:translate-x-1 transition-transform uppercase tracking-wider">
                         {{ __('messages.service.access_service') }}
                         <svg class="w-4 h-4 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                    </a>
+                    </span>
                 </div>
 
                 {{-- Decorative Circle on Hover --}}
                 <div class="absolute -bottom-10 -right-10 w-32 h-32 bg-[#D4AF37]/5 rounded-full group-hover:scale-150 transition-transform duration-700 ease-out"></div>
                 </div>
-            </div>
+            </a>
             @endforeach
         </div>
     </div>
