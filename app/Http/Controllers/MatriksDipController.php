@@ -51,5 +51,4 @@ class MatriksDipController extends Controller
             ->paginate(10);
         return view('pages.informasi-publik.pengadaan', compact('matriksDip'));
     }
-
 }

@@ -4,8 +4,11 @@
     <x-slot name="extra_head">
         <link href="/vendor/filepond/index.css" rel="stylesheet" />
         <link href="/vendor/filepond/image-preview.css" rel="stylesheet" />
+        <link href="/vendor/filepond/filepond-plugin-pdf-preview.min.css" rel="stylesheet" />
+        
         <script src="/vendor/filepond/image-preview.js"></script>
         <script src="/vendor/filepond/index.js"></script>
+        <script src="/vendor/filepond/filepond-plugin-pdf-preview.min.js"></script>
     </x-slot>
 
     <div class="max-w-4xl mx-auto">
@@ -43,7 +46,7 @@
                     <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">File Dokumen <span
                             class="text-rose-500">*</span></label>
                     <input type="file" name="file" id="file" class="filepond" required>
-                    <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">Format yang didukung: PDF, DOC, DOCX, XLS, XLSX, JPG, PNG.
+                    <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">Format yang didukung: PDF, DOC, DOCX, JPG, JPEG, PNG.
                         Maksimal 5MB.</p>
                     @error('file')
                         <p class="mt-1 text-sm text-rose-500">{{ $message }}</p>
@@ -63,13 +66,24 @@
 
     <x-slot name="extra_script">
         <script src="/vendor/filepond/image-preview.js"></script>
+        <script src="/vendor/filepond/filepond-plugin-pdf-preview.min.js"></script>
         <script src="/vendor/filepond/index.js"></script>
         <script>
-            FilePond.registerPlugin(FilePondPluginImagePreview);
+            // Registrasi kedua plugin: Image Preview dan PDF Preview
+            FilePond.registerPlugin(
+                FilePondPluginImagePreview,
+                FilePondPluginPdfPreview
+            );
+
             FilePond.create(document.querySelector('#file'), {
                 labelIdle: `Seret & Letakkan file atau <span class="filepond--label-action">Telusuri</span>`,
                 storeAsFile: true,
                 maxFileSize: '5MB',
+                
+                // Konfigurasi PDF Preview
+                allowPdfPreview: true,
+                pdfPreviewHeight: 320,
+                pdfComponentExtraParams: 'toolbar=0&view=fit&page=1'
             });
         </script>
     </x-slot>

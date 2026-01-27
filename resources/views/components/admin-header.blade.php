@@ -1,4 +1,4 @@
-<header class="z-10 bg-slate-50 dark:bg-slate-800 sticky top-0 h-20 flex items-center justify-between px-8 py-5 transition-colors duration-300 shadow-sm">
+<header class="z-50 bg-slate-50 dark:bg-slate-800 sticky top-0 h-20 flex items-center justify-between px-8 py-5 transition-colors duration-300 shadow-sm">
     <div class="flex-1 flex items-center max-w-2xl gap-4">
         <button @click="toggleSidebar()" class="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -55,6 +55,77 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
             </svg>
         </button>
+        
+        {{-- Notification Bell --}}
+        @php
+            $unreadCount = \App\Models\Notification::where(function($query) {
+                    $query->where('to_user_id', auth()->id())
+                          ->orWhere('to_skpd_id', auth()->user()->id_skpd);
+                })
+                ->whereNull('read_at')
+                ->count();
+        @endphp
+        <div class="relative" x-data="{ openNotif: false }" @click.away="openNotif = false">
+            <button @click="openNotif = !openNotif" class="p-2 rounded-full text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-700 transition-colors relative">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                </svg>
+                @if($unreadCount > 0)
+                    <span class="absolute top-1 right-1 flex h-4 w-4">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-4 w-4 bg-red-500 text-[10px] text-white items-center justify-center font-bold">
+                            {{ $unreadCount > 9 ? '9+' : $unreadCount }}
+                        </span>
+                    </span>
+                @endif
+            </button>
+            <div x-show="openNotif" 
+                 x-transition:enter="transition ease-out duration-100"
+                 x-transition:enter-start="transform opacity-0 scale-95"
+                 x-transition:enter-end="transform opacity-100 scale-100"
+                 class="absolute right-0 mt-3 w-80 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl shadow-2xl py-2 z-50 overflow-hidden"
+                 style="display: none;">
+                <div class="px-4 py-2 border-b border-slate-50 dark:border-slate-700 flex justify-between items-center">
+                    <span class="text-xs font-bold text-slate-800 dark:text-slate-200 uppercase">Notifikasi</span>
+                    <a href="{{ route('admin.notifications.index') }}" class="text-[10px] font-bold text-blue-600 hover:underline">Lihat Semua</a>
+                </div>
+                <div class="max-h-96 overflow-y-auto">
+                    @php
+                        $headerNotifs = \App\Models\Notification::where(function($query) {
+                                $query->where('to_user_id', auth()->id())
+                                      ->orWhere('to_skpd_id', auth()->user()->id_skpd);
+                            })
+                            ->latest()
+                            ->take(5)
+                            ->get();
+                    @endphp
+                    @forelse($headerNotifs as $n)
+                        <a href="{{ $n->url ?? '#' }}"
+                            onclick="event.preventDefault(); markAsRead('{{ $n->id_notification }}', '{{ $n->url }}')"
+                            class="block px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors border-b border-slate-50 dark:border-slate-700 last:border-0">
+                            <div class="flex gap-3">
+                                <div class="flex-shrink-0 mt-1">
+                                    <div class="p-1.5 {{ $n->read_at ? 'bg-slate-100 text-slate-400' : 'bg-blue-100 text-blue-600' }} rounded-lg">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">{{ $n->title }}</p>
+                                    <p class="text-[10px] text-slate-500 mt-0.5 line-clamp-2">{{ $n->message }}</p>
+                                    <p class="text-[9px] text-slate-400 mt-1">{{ $n->created_at->diffForHumans() }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    @empty
+                        <div class="px-4 py-8 text-center">
+                            <p class="text-xs text-slate-400 italic">Tidak ada notifikasi baru.</p>
+                        </div>
+                    @endforelse
+                </div>
+            </div>
+        </div>
 
         {{-- Profile Dropdown --}}
         <div class="relative" x-data="{ open: false }" @click.away="open = false">
@@ -111,3 +182,23 @@
         </div>
     </div>
 </header>
+
+<script>
+    if (typeof markAsRead !== 'function') {
+        function markAsRead(id, url = null) {
+            fetch(`/admin/notifications/${id}/read`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    'Accept': 'application/json'
+                }
+            }).then(() => {
+                if (url && url !== 'null' && url !== 'undefined' && url !== '#') {
+                    window.location.href = url;
+                } else {
+                    window.location.reload();
+                }
+            });
+        }
+    }
+</script>

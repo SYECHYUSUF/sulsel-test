@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\DokumenPublik;
 use App\Models\Informasi;
 use App\Models\KategoriInformasi;
+use App\Models\Notification;
+use App\Models\User;
 use App\Models\Skpd;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -106,10 +108,13 @@ class DokumenPublikController extends Controller
             'id_skpd' => 'required',
             'file' => 'required|file|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png|max:5120',
             'ket' => 'required',
-            'verify' => 'required|in:y,n,t',
+            'verify' => 'nullable|in:y,n,t',
         ]);
 
         $data = $request->all();
+
+        // Set default value 'n' jika input 'verify' tidak ada di request
+        $data['verify'] = $request->input('verify', 'n');
 
         // Handle File Upload
         if ($request->hasFile('file')) {
@@ -118,18 +123,39 @@ class DokumenPublikController extends Controller
             $data['file'] = $path;
         }
 
-        Informasi::create($data);
+        $informasi = Informasi::create($data);
+
+        // Notify Admins if created by OPD
+        if (Auth::user()->hasRole('opd')) {
+            $admins = User::whereHasRole('admin')->get();
+            foreach ($admins as $admin) {
+                Notification::send([
+                    'to_user_id' => $admin->id,
+                    'type' => 'info',
+                    'title' => 'Dokumen Publik Baru',
+                    'message' => 'OPD ' . Auth::user()->skpd->nm_skpd . ' telah mengunggah dokumen baru: ' . $informasi->judul,
+                    'url' => route('admin.dokumen-publik.show', $informasi->id_informasi),
+                    'notifiable_id' => $informasi->id_informasi,
+                    'notifiable_type' => get_class($informasi),
+                ]);
+            }
+        }
 
         return redirect()->route('admin.dokumen-publik.index')
             ->with('success', 'Dokumen informasi berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+        $informasi = DokumenPublik::with(['kategori', 'skpd'])->findOrFail($id);
+        $user = Auth::user();
+
+        // Security check for OPD
+        if ($user->hasRole('opd') && $informasi->id_skpd !== $user->id_skpd) {
+            abort(403);
+        }
+
+        return view('admin.dokumen-publik.show', compact('informasi'));
     }
 
     /**
@@ -269,6 +295,26 @@ class DokumenPublikController extends Controller
             'n' => 'Pending',
             't' => 'Ditolak',
         };
+
+        $type = match ($request->verify) {
+            'y' => 'success',
+            'n' => 'info',
+            't' => 'error',
+        };
+
+        // Notify OPD users for each updated document
+        $updatedDocs = DokumenPublik::whereIn('id_informasi', $request->ids)->get();
+        foreach ($updatedDocs as $doc) {
+            Notification::send([
+                'to_skpd_id' => $doc->id_skpd,
+                'type' => $type,
+                'title' => 'Status Dokumen: ' . $statusText,
+                'message' => 'Dokumen "' . $doc->judul . '" telah ' . strtolower($statusText) . ' oleh admin.',
+                'url' => route('admin.dokumen-publik.show', $doc->id_informasi),
+                'notifiable_id' => $doc->id_informasi,
+                'notifiable_type' => get_class($doc),
+            ]);
+        }
 
         return redirect()->route('admin.dokumen-publik.index')
             ->with('success', $count . ' dokumen berhasil diubah menjadi ' . $statusText . '.');
