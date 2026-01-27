@@ -129,7 +129,8 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::resource('skpd', SkpdController::class);
 
         Route::resource('berita', BeritaController::class);
-        Route::resource('permohonan-informasi', PermohonanInformasiController::class);
+        Route::resource('berita', BeritaController::class);
+        // Permohonan Informasi moved to Admin group
         Route::resource('pengajuan-keberatan', PengajuanKeberatanController::class);
         Route::post('pengajuan-keberatan/{id}/feedback', [PengajuanKeberatanController::class, 'storeFeedback'])->name('pengajuan-keberatan.storeFeedback');
         Route::get('pengajuan-keberatan/{id}/feedback', [PengajuanKeberatanController::class, 'loadFeedback'])->name('pengajuan-keberatan.loadFeedback');
@@ -146,8 +147,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::resource('data-sop', SopController::class);
         Route::resource('slide-banner', SlideBannerController::class);
         Route::resource('faq', FaqController::class);
-        Route::resource('users', UserController::class);
-
+        Route::resource('users', UserController::class);        
         Route::get('/log-login', [LogLoginController::class, 'index'])->name('log-login.index');
 
         // Metadata Informasi

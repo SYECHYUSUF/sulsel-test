@@ -28,15 +28,17 @@ class PermohonanInformasi extends Model
     const STATUS_PROSES = 1;
     const STATUS_SELESAI = 2;
     const STATUS_TOLAK = 3;
+    const STATUS_BATAL = 4;
 
     // Accessor for Status Label
     public function getStatusLabelAttribute()
     {
         return match ($this->status) {
             self::STATUS_PENDING => 'Menunggu Verifikasi',
-            self::STATUS_PROSES => 'Sedang Diproses',
-            self::STATUS_SELESAI => 'Selesai / Diberikan',
+            self::STATUS_PROSES => 'Diproses',
+            self::STATUS_SELESAI => 'Diselesaikan',
             self::STATUS_TOLAK => 'Ditolak',
+            self::STATUS_BATAL => 'Dibatalkan',
             default => 'Unknown',
         };
     }
@@ -49,6 +51,7 @@ class PermohonanInformasi extends Model
             self::STATUS_PROSES => 'bg-blue-100 text-blue-800',
             self::STATUS_SELESAI => 'bg-green-100 text-green-800',
             self::STATUS_TOLAK => 'bg-red-100 text-red-800',
+            self::STATUS_BATAL => 'bg-gray-100 text-gray-800',
             default => 'bg-slate-100 text-slate-800',
         };
     }

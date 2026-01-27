@@ -20,10 +20,10 @@ class PermohonanInformasiController extends Controller
         $user = Auth::user();
         $query = PermohonanInformasi::with('skpd');
 
-        // Guard Berdasarkan Role
-        if ($user->hasRole('opd')) {
-            $query->where('id_skpd', $user->id_skpd);
-        }
+        // Guard Berdasarkan Role (Dihapus karena sekarang khusus Admin)
+        // if ($user->hasRole('opd')) {
+        //     $query->where('id_skpd', $user->id_skpd);
+        // }
 
         // Filter Pencarian
         if ($request->filled('search')) {
@@ -73,10 +73,10 @@ class PermohonanInformasiController extends Controller
         $permohonan = PermohonanInformasi::with('skpd')->findOrFail($id);
         $user = Auth::user();
 
-        // Security Check
-        if ($user->hasRole('opd') && $permohonan->id_skpd !== $user->id_skpd) {
-            abort(403);
-        }
+        // Security Check (Removed for Admin)
+        // if ($user->hasRole('opd') && $permohonan->id_skpd !== $user->id_skpd) {
+        //     abort(403);
+        // }
 
         return view('admin.permohonan-informasi.show', compact('permohonan'));
     }
@@ -97,10 +97,10 @@ class PermohonanInformasiController extends Controller
         $permohonan = PermohonanInformasi::findOrFail($id);
         $user = Auth::user();
 
-        // Security Check
-        if ($user->hasRole('opd') && $permohonan->id_skpd !== $user->id_skpd) {
-            abort(403);
-        }
+        // Security Check (Removed for Admin)
+        // if ($user->hasRole('opd') && $permohonan->id_skpd !== $user->id_skpd) {
+        //     abort(403);
+        // }
 
         $validated = $request->validate([
             'status' => 'required|integer',
@@ -141,7 +141,28 @@ class PermohonanInformasiController extends Controller
      */
     public function destroy(string $id)
     {
-        // Optional: Implement delete if needed, for now maybe restrict
-        abort(403, 'Menghapus permohonan tidak diizinkan.');
+        $permohonan = PermohonanInformasi::findOrFail($id);
+        
+        // Allowed statuses to delete: SELESAI (2), TOLAK (3), BATAL (4)
+        if (in_array($permohonan->status, [
+            PermohonanInformasi::STATUS_SELESAI,
+            PermohonanInformasi::STATUS_TOLAK,
+            PermohonanInformasi::STATUS_BATAL
+        ])) {
+            // Delete file if exists
+            if ($permohonan->file) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($permohonan->file);
+            }
+            if ($permohonan->foto_ktp) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($permohonan->foto_ktp);
+            }
+            
+            $permohonan->delete();
+            
+            return redirect()->route('admin.permohonan-informasi.index')
+                ->with('success', 'Permohonan berhasil dihapus.');
+        }
+
+        abort(403, 'Menghapus permohonan yang sedang berjalan tidak diizinkan.');
     }
 }

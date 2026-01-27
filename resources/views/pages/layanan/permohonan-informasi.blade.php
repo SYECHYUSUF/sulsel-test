@@ -51,7 +51,30 @@
                         </p>
                     </div>
 
-                    <form class="space-y-8">
+                    @if(session('success'))
+                        <div class="mb-6 p-4 bg-green-50 border border-green-200 text-green-700 rounded-lg">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    
+                    @if(session('error'))
+                        <div class="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
+                    @if ($errors->any())
+                        <div class="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg">
+                            <ul class="list-disc list-inside">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <form action="{{ route('layanan.permohonan-informasi.store') }}" method="POST" enctype="multipart/form-data" class="space-y-8">
+                        @csrf
                         {{-- Personal Data --}}
                         <div class="space-y-6">
                             <h3 class="text-lg font-bold text-[#1A305E] dark:text-white flex items-center gap-2 border-b border-gray-100 pb-2">
@@ -62,33 +85,41 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div class="space-y-2">
                                     <label class="block text-sm font-semibold text-gray-700">Nama Lengkap</label>
-                                    <input type="text" placeholder="Masukkan nama sesuai KTP" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" />
+                                    <input type="text" name="nama" value="{{ old('nama') }}" placeholder="Masukkan nama sesuai KTP" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" required />
                                 </div>
                                 <div class="space-y-2">
                                     <label class="block text-sm font-semibold text-gray-700">No. KTP (NIK)</label>
-                                    <input type="text" placeholder="16 digit NIK" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" />
+                                    <input type="text" name="nik" value="{{ old('nik') }}" placeholder="16 digit NIK" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" required />
                                 </div>
                             </div>
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div class="space-y-2">
-                                    <label class="block text-sm font-semibold text-gray-700">Nomor KK</label>
-                                    <input type="text" placeholder="Nomor Kartu Keluarga" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" />
+                                    <label class="block text-sm font-semibold text-gray-700">Nomor KK (Opsional)</label>
+                                    <input type="text" name="no_kk" value="{{ old('no_kk') }}" placeholder="Nomor Kartu Keluarga" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" />
                                 </div>
                                 <div class="space-y-2">
                                     <label class="block text-sm font-semibold text-gray-700">Email</label>
-                                    <input type="email" placeholder="contoh@email.com" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" />
+                                    <input type="email" name="email" value="{{ old('email') }}" placeholder="contoh@email.com" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" required />
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-2">
+                                    <label class="block text-sm font-semibold text-gray-700">No. HP / WhatsApp</label>
+                                    <input type="text" name="no_hp" value="{{ old('no_hp') }}" placeholder="08xxxxxxxxxx" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" required />
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="block text-sm font-semibold text-gray-700">Alamat</label>
+                                    <textarea name="alamat" rows="1" placeholder="Alamat lengkap domisili" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800 resize-none" required>{{ old('alamat') }}</textarea>
                                 </div>
                             </div>
                             
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div class="space-y-2">
-                                    <label class="block text-sm font-semibold text-gray-700">Alamat</label>
-                                    <textarea rows="3" placeholder="Alamat lengkap domisili" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800 resize-none"></textarea>
-                                </div>
+                                {{-- Alamat moved to grid above --}}
                                 <div class="space-y-2">
                                     <label class="block text-sm font-semibold text-gray-700">Pekerjaan</label>
-                                    <input type="text" placeholder="Pekerjaan saat ini" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" />
+                                    <input type="text" name="pekerjaan" value="{{ old('pekerjaan') }}" placeholder="Pekerjaan saat ini" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" required />
                                 </div>
                             </div>
                         </div>
@@ -103,11 +134,10 @@
                                 <div class="space-y-2">
                                     <label class="block text-sm font-semibold text-gray-700">Upload Foto KTP</label>
                                     <div class="relative">
-                                        <input type="file" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-[#1A305E]/10 file:text-[#1A305E] dark:text-white hover:file:bg-[#1A305E]/20 cursor-pointer border border-gray-300 rounded-lg" />
+                                        <input type="file" name="foto_ktp" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-[#1A305E]/10 file:text-[#1A305E] dark:text-white hover:file:bg-[#1A305E]/20 cursor-pointer border border-gray-300 rounded-lg" required />
                                     </div>
                                     <p class="text-xs text-gray-500 mt-1">Format: JPG, JPEG, PNG (Max. 5MB)</p>
                                 </div>
-                                 {{-- Placeholder for Upload KK if needed, but not in user request explicitly, keeping design balanced --}}
                             </div>
                         </div>
 
@@ -122,17 +152,17 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div class="space-y-2">
                                     <label class="block text-sm font-semibold text-gray-700">Nomor Pengeluaran (Badan Hukum)</label>
-                                    <input type="text" placeholder="Jika mewakili badan hukum" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" />
+                                    <input type="text" name="nmr_pengesahan" value="{{ old('nmr_pengesahan') }}" placeholder="Jika mewakili badan hukum" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" />
                                 </div>
                                 <div class="space-y-2">
                                     <label class="block text-sm font-semibold text-gray-700">Tujuan Penggunaan Informasi</label>
-                                    <input type="text" placeholder="Jelaskan tujuan permohonan" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" />
+                                    <input type="text" name="tujuan" value="{{ old('tujuan') }}" placeholder="Jelaskan tujuan permohonan" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" required />
                                 </div>
                             </div>
 
                             <div class="space-y-2">
                                 <label class="block text-sm font-semibold text-gray-700">Rincian Informasi Yang Dibutuhkan</label>
-                                <textarea rows="4" placeholder="Deskripsikan informasi yang Anda butuhkan secara detail" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800 resize-none"></textarea>
+                                <textarea name="rincian" rows="4" placeholder="Deskripsikan informasi yang Anda butuhkan secara detail" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800 resize-none" required>{{ old('rincian') }}</textarea>
                             </div>
                         </div>
 
