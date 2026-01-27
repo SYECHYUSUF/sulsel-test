@@ -69,6 +69,7 @@ Route::middleware(['track.visitors'])->group(function () {
     Route::get('/informasi-publik/dikecualikan', [GuestDokumenPublikController::class, 'dikecualikan']);
     Route::get('/informasi-publik/berkala', [GuestDokumenPublikController::class, 'berkala']);
     Route::get('/informasi-publik/pengadaan', [PublicMatriksDipController::class, 'pengadaan']);
+    Route::get('/informasi-publik/detail/{id}', [GuestDokumenPublikController::class, 'show'])->name('informasi-publik.show');
 
     // Layanan Pages
     Route::get('/layanan/permohonan-informasi', function () {

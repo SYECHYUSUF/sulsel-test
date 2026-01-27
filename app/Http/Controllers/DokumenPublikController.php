@@ -68,5 +68,12 @@ class DokumenPublikController extends Controller
 
         return view('pages.informasi-publik.dikecualikan', compact('informasiData'));
     }
+
+    public function show($id)
+    {
+        $informasi = DokumenPublik::with(['kategori', 'skpd'])->findOrFail($id);
+
+        return view('pages.informasi-publik.detail', compact('informasi'));
+    }
 }
 

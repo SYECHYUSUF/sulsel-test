@@ -99,14 +99,14 @@
                                         </td>
                                         <td class="px-4 py-3 text-sm text-gray-700 font-medium">{{ $item->judul }}</td>
                                         <td class="px-4 py-3 text-sm text-gray-600 dark:text-gray-300 whitespace-nowrap">
-                                            {{ $item->tgl_upload }}</td>
+                                            {{ $item->tgl_upload }}
+                                        </td>
                                         <td class="px-4 py-3 text-sm text-gray-700">{{ $item->skpd->nm_skpd ?? '-' }}</td>
                                         <td class="px-4 py-3 text-center whitespace-nowrap">
                                             <div class="flex items-center justify-center gap-2">
-                                                <a href="{{ $item->file ? (str_starts_with($item->file, 'http') ? $item->file : asset('storage/' . $item->file)) : '#' }}"
-                                                    target="_blank"
+                                                <a href="{{ route('informasi-publik.show', $item->id_informasi) }}"
                                                     class="p-1.5 text-[#1A305E] dark:text-white hover:bg-[#1A305E]/10 rounded transition-colors"
-                                                    title="Lihat">
+                                                    title="Lihat Detail">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
