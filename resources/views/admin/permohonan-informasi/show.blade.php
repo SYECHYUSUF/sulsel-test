@@ -12,7 +12,10 @@
         </div>
     </x-slot>
 
-    <div x-data="{ rejectionModalOpen: false }">
+    <div x-data="{ 
+        rejectionModalOpen: false, 
+        successModalOpen: @if(session('success')) true @else false @endif
+    }">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <!-- Main Detail -->
         <div class="lg:col-span-2 space-y-6">
@@ -169,8 +172,7 @@
                         </div>
                         
                         {{-- Selesaikan --}}
-                        <form action="{{ route('admin.permohonan-informasi.update', $permohonan->id_permohonan) }}" method="POST"
-                            onsubmit="return confirm('Apakah Anda yakin ingin menyelesaikan permohonan ini?');">
+                        <form action="{{ route('admin.permohonan-informasi.update', $permohonan->id_permohonan) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <input type="hidden" name="status" value="2"> {{-- 2 = SELESAI --}}
@@ -181,8 +183,7 @@
                         </form>
                         
                         {{-- Batalkan --}}
-                        <form action="{{ route('admin.permohonan-informasi.update', $permohonan->id_permohonan) }}" method="POST"
-                            onsubmit="return confirm('Apakah Anda yakin ingin membatalkan permohonan ini?');">
+                        <form action="{{ route('admin.permohonan-informasi.update', $permohonan->id_permohonan) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <input type="hidden" name="status" value="4"> {{-- 4 = BATAL --}}
@@ -249,6 +250,68 @@
                         </button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success/Notification Modal -->
+    <div x-show="successModalOpen" class="fixed inset-0 z-50 overflow-y-auto" style="display: none;">
+        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+            <div x-show="successModalOpen" @click="successModalOpen = false" 
+                class="fixed inset-0 transition-opacity" aria-hidden="true">
+                <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm opacity-100"></div>
+            </div>
+
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+            <div x-show="successModalOpen"
+                class="inline-block align-bottom bg-white dark:bg-slate-800 rounded-[2rem] text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full relative">
+                
+                <!-- Modal Content -->
+                <div class="px-8 pt-10 pb-8 relative z-10 flex flex-col items-center text-center">
+                    
+                    <!-- Icon Wrapper with Blob Background -->
+                    <div class="relative w-28 h-28 mb-6 flex items-center justify-center transform hover:scale-105 transition-transform duration-300">
+                        <!-- Blob SVG -->
+                        <svg viewBox="0 0 200 200" class="absolute inset-0 w-full h-full drop-shadow-2xl" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="blobGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#1A305E;stop-opacity:1" /> <!-- Primary Dark Blue -->
+                                    <stop offset="100%" style="stop-color:#3B82F6;stop-opacity:1" /> <!-- Blue 500 -->
+                                </linearGradient>
+                            </defs>
+                            <path fill="url(#blobGradient)" d="M44.7,-76.4C58.9,-69.2,71.8,-59.1,81.6,-46.6C91.4,-34.1,98.1,-19.2,95.8,-4.9C93.5,9.4,82.2,23.1,70.8,34.1C59.4,45.1,47.9,53.4,36.1,60.8C24.3,68.2,12.2,74.7,-1.2,76.8C-14.6,78.9,-29.2,76.6,-42.6,69.9C-56,63.2,-68.2,52.1,-76.6,38.6C-85,25.1,-89.6,9.2,-86.6,-5.3C-83.6,-19.8,-73,-32.9,-62,-44.6C-51,-56.3,-39.6,-66.6,-26.8,-74.7C-14,-82.8,0.2,-88.7,14.6,-88.7C29,-88.7,46.1,-82.8,58.7,-73.4L44.7,-76.4Z" transform="translate(100 100) scale(1.1)" />
+                        </svg>
+                        
+                        <!-- Check Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-white relative z-10 filter drop-shadow-md" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+
+                    <!-- Title -->
+                    <h3 class="text-3xl font-black text-slate-800 dark:text-white mb-3 tracking-tight">Yey, Berhasil!</h3>
+                    
+                    <!-- Message -->
+                    <p class="text-slate-500 dark:text-slate-400 text-base font-medium leading-relaxed mb-1">
+                        {{ session('success') ?? 'Aksi yang kamu lakukan berjalan mulus.' }}
+                    </p>
+                    <p class="text-slate-400 dark:text-slate-500 text-sm mb-10">
+                        Semuanya aman terkendali.
+                    </p>
+
+                    <!-- Buttons -->
+                    <div class="flex gap-4 w-full">
+                        <button @click="successModalOpen = false"
+                            class="flex-1 px-5 py-3.5 rounded-2xl bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-bold text-sm tracking-wide hover:bg-slate-300 dark:hover:bg-slate-600 transition-all active:scale-95">
+                            Tutup
+                        </button>
+                        <button @click="successModalOpen = false"
+                            class="flex-1 px-5 py-3.5 rounded-2xl text-white font-bold text-sm tracking-wide shadow-xl shadow-blue-500/30 transition-all transform hover:scale-105 active:scale-95 bg-gradient-to-r from-[#1A305E] to-blue-600 hover:to-blue-500">
+                            Mantap!
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -142,7 +142,8 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::resource('data-sop', SopController::class);
         Route::resource('slide-banner', SlideBannerController::class);
         Route::resource('faq', FaqController::class);
-        Route::resource('users', UserController::class);        
+        Route::resource('users', UserController::class);
+        Route::resource('permohonan-informasi', PermohonanInformasiController::class);
         Route::get('/log-login', [LogLoginController::class, 'index'])->name('log-login.index');
 
         // Metadata Informasi
