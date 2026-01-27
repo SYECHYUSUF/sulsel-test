@@ -53,9 +53,37 @@ class PengajuanKeberatanController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function storeFeedback(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'feedback' => 'required|string',
+        ]);
+
+        $pengajuan = PengajuanKeberatan::findOrFail($id);
+        
+        $pengajuan->update([
+            'feedback' => $validated['feedback'],
+            'tgl_feedback' => now(),
+            'feedback_by' => Auth::id(),
+            'status' => 'a' // Set status to 'Approved'/'Answered' 
+        ]);
+
+        return back()->with('success', 'Feedback berhasil dikirim.');
+    }
+    
+    public function loadFeedback($id)
+    {
+        $pengajuan = PengajuanKeberatan::with(['feedbackBy', 'alasanPengajuan'])->findOrFail($id);
+        
+        return response()->json([
+            'no_pendaftaran' => $pengajuan->no_pendaftaran,
+            'nama_pemohon' => $pengajuan->nama_pemohon,
+            'alasan' => $pengajuan->alasanPengajuan->pluck('alasan'),
+            'kasus' => $pengajuan->kasus,
+            'feedback' => $pengajuan->feedback,
+            'tgl_feedback' => $pengajuan->tgl_feedback,
+            'feedback_by' => $pengajuan->feedbackBy ? $pengajuan->feedbackBy->name : '-'
+        ]);
     }
 
     /**
