@@ -2,10 +2,29 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Models\Skpd;
-use App\Http\Controllers\BeritaController as PublicBeritaController;
+use App\Http\Controllers\BeritaController as GuestBeritaController;
 use App\Http\Controllers\DokumenPublikController as GuestDokumenPublikController;
-use App\Http\Controllers\MatriksDipController as PublicMatriksDipController;
+use App\Http\Controllers\MatriksDipController as GuestMatriksDipController;
+use App\Http\Controllers\SopController as GuestSopController;
+use App\Http\Controllers\PengajuanKeberatanController as GuestPengajuanKeberatanController;
+
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\BeritaController;
+use App\Http\Controllers\Admin\DokumenPublikController;
+use App\Http\Controllers\Admin\PengajuanKeberatanController;
+use App\Http\Controllers\Admin\PengaturanController;
+use App\Http\Controllers\Admin\PermohonanInformasiController;
+use App\Http\Controllers\Admin\SkpdController;
+use App\Http\Controllers\Admin\SlideBannerController;
+use App\Http\Controllers\Admin\SopController;
+use App\Http\Controllers\Admin\FaqController;
+use App\Http\Controllers\Admin\KategoriInformasiController;
+use App\Http\Controllers\Admin\LogLoginController;
+use App\Http\Controllers\Admin\MatriksDIPController;
+use App\Http\Controllers\Admin\UserController;
+
+use App\Models\Setting;
+use App\Models\Skpd;
 
 // Language Switcher
 Route::get('/lang/{locale}', function ($locale) {
@@ -34,7 +53,7 @@ Route::middleware(['track.visitors'])->group(function () {
         return view('pages.profil.sambutan');
     });
     Route::get('/struktur-organisasi', function () {
-        $pdfPath = \App\Models\Setting::where('key', 'struktur_organisasi_path')->value('value');
+        $pdfPath = Setting::where('key', 'struktur_organisasi_path')->value('value');
         return view('pages.profil.struktur-organisasi', compact('pdfPath'));
     });
     Route::get('/visi-misi', function () {
@@ -56,19 +75,19 @@ Route::middleware(['track.visitors'])->group(function () {
     });
 
     // Berita Pages
-    Route::get('/berita', [PublicBeritaController::class, 'index']);
-    Route::get('/berita/{slug}', [PublicBeritaController::class, 'show'])->name('berita.show');
+    Route::get('/berita', [GuestBeritaController::class, 'index']);
+    Route::get('/berita/{slug}', [GuestBeritaController::class, 'show'])->name('berita.show');
 
     // Informasi Publik Pages
-    Route::get('/informasi-publik', [PublicMatriksDipController::class, 'index']);
-    Route::get('/informasi-publik/2023', [PublicMatriksDipController::class, 'tahun2023']);
-    Route::get('/informasi-publik/2024', [PublicMatriksDipController::class, 'tahun2024']);
-    Route::get('/informasi-publik/2025', [PublicMatriksDipController::class, 'tahun2025']);
+    Route::get('/informasi-publik', [GuestMatriksDipController::class, 'index']);
+    Route::get('/informasi-publik/2023', [GuestMatriksDipController::class, 'tahun2023']);
+    Route::get('/informasi-publik/2024', [GuestMatriksDipController::class, 'tahun2024']);
+    Route::get('/informasi-publik/2025', [GuestMatriksDipController::class, 'tahun2025']);
     Route::get('/informasi-publik/serta-merta', [GuestDokumenPublikController::class, 'sertaMerta']);
     Route::get('/informasi-publik/setiap-saat', [GuestDokumenPublikController::class, 'setiapSaat']);
     Route::get('/informasi-publik/dikecualikan', [GuestDokumenPublikController::class, 'dikecualikan']);
     Route::get('/informasi-publik/berkala', [GuestDokumenPublikController::class, 'berkala']);
-    Route::get('/informasi-publik/pengadaan', [PublicMatriksDipController::class, 'pengadaan']);
+    Route::get('/informasi-publik/pengadaan', [GuestMatriksDipController::class, 'pengadaan']);
     Route::get('/informasi-publik/detail/{id}', [GuestDokumenPublikController::class, 'show'])->name('informasi-publik.show');
 
     // Layanan Pages
@@ -78,10 +97,9 @@ Route::middleware(['track.visitors'])->group(function () {
     Route::get('/layanan/pengajuan-keberatan', function () {
         return view('pages.layanan.pengajuan-keberatan');
     });
-    Route::post('/layanan/pengajuan-keberatan', [\App\Http\Controllers\PengajuanKeberatanController::class, 'store'])->name('layanan.pengajuan-keberatan.store');
-    Route::get('/layanan/sop', function () {
-        return view('pages.layanan.sop');
-    });
+    Route::post('/layanan/pengajuan-keberatan', [GuestPengajuanKeberatanController::class, 'store'])->name('layanan.pengajuan-keberatan.store');
+    Route::get('/layanan/sop', [GuestSopController::class, 'index'])->name('layanan.sop');
+    Route::get('/layanan/sop/download/{id}', [GuestSopController::class, 'download'])->name('layanan.sop.download');
 
     // Survey Pages
     Route::get('/survey/isi-survey', function () {
@@ -91,22 +109,6 @@ Route::middleware(['track.visitors'])->group(function () {
         return view('pages.survey.hasil-survey');
     });
 });
-
-// Admin Routes
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\BeritaController;
-use App\Http\Controllers\Admin\DokumenPublikController;
-use App\Http\Controllers\Admin\PengajuanKeberatanController;
-use App\Http\Controllers\Admin\PengaturanController;
-use App\Http\Controllers\Admin\PermohonanInformasiController;
-use App\Http\Controllers\Admin\SkpdController;
-use App\Http\Controllers\Admin\SlideBannerController;
-use App\Http\Controllers\SopController;
-use App\Http\Controllers\Admin\FaqController;
-use App\Http\Controllers\Admin\KategoriInformasiController;
-use App\Http\Controllers\Admin\LogLoginController;
-use App\Http\Controllers\Admin\MatriksDIPController;
-use App\Http\Controllers\Admin\UserController;
 
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     // Rute yang bisa diakses admin & odp
@@ -124,12 +126,6 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::resource('berita', BeritaController::class);
         Route::resource('permohonan-informasi', PermohonanInformasiController::class);
         Route::resource('pengajuan-keberatan', PengajuanKeberatanController::class);
-
-        // Master Data
-        // Route::post('informasi-publik/bulk-delete', [InformasiController::class, 'bulkDelete'])->name('informasi-publik.bulk-delete');
-        // Route::post('informasi-publik/bulk-update-status', [InformasiController::class, 'bulkUpdateStatus'])->name('informasi-publik.bulk-update-status');
-        // Route::resource('informasi-publik', InformasiPublikController::class);
-        // Route::resource('dokumen', InformasiPublikController::class);
 
         Route::resource('dokumen-publik', DokumenPublikController::class);
         Route::post('dokumen-publik/bulk-delete', [DokumenPublikController::class, 'bulkDelete'])->name('dokumen-publik.bulk-delete');
