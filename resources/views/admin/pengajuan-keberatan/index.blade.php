@@ -84,8 +84,13 @@
                                         </span>
                                     </td>
                                     <td class="px-6 py-4 text-slate-500 dark:text-slate-400" x-text="formatDate(item.created_at)"></td>
-                                    <td class="px-6 py-4 text-right">
-                                        <a :href="'/admin/pengajuan-keberatan/' + item.id" class="p-2 text-slate-400 dark:text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-lg transition-all inline-block">
+                                    <td class="px-6 py-4 text-right flex justify-end gap-2">
+                                        <button @click="openFeedbackModal(item)" class="p-2 text-slate-400 dark:text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-lg transition-all" title="Beri Feedback">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+                                            </svg>
+                                        </button>
+                                        <a :href="'/admin/pengajuan-keberatan/' + item.id" class="p-2 text-slate-400 dark:text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-lg transition-all">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
@@ -97,6 +102,74 @@
                         </template>
                     </tbody>
                 </table>
+            </div>
+        </div>
+
+        <!-- Feedback Modal -->
+        <div x-show="showFeedbackModal" style="display: none;" class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+            <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                <div x-show="showFeedbackModal" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                <div x-show="showFeedbackModal" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100" x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" class="inline-block align-bottom bg-white dark:bg-slate-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl w-full">
+                    <form :action="'/admin/pengajuan-keberatan/' + (selectedItem ? selectedItem.id : '') + '/feedback'" method="POST">
+                        @csrf
+                        <div class="bg-white dark:bg-slate-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                            <div class="sm:flex sm:items-start">
+                                <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+                                    <h3 class="text-lg leading-6 font-medium text-slate-900 dark:text-slate-100" id="modal-title">
+                                        Detail & Feedback Pengajuan
+                                    </h3>
+                                    
+                                    <!-- Detail Pengajuan Section -->
+                                    <div class="mt-4 bg-slate-50 dark:bg-slate-900 p-4 rounded-lg border border-slate-200 dark:border-slate-700 text-sm overflow-y-auto max-h-60 mb-4">
+                                        <dl class="grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2">
+                                            <div class="sm:col-span-1">
+                                                <dt class="font-medium text-gray-500 dark:text-gray-400">Nomor Pendaftaran</dt>
+                                                <dd class="mt-1 text-gray-900 dark:text-gray-100" x-text="detailItem.no_pendaftaran || '-'"></dd>
+                                            </div>
+                                            <div class="sm:col-span-1">
+                                                <dt class="font-medium text-gray-500 dark:text-gray-400">Nama Pemohon</dt>
+                                                <dd class="mt-1 text-gray-900 dark:text-gray-100" x-text="detailItem.nama_pemohon || '-'"></dd>
+                                            </div>
+                                            <div class="sm:col-span-2">
+                                                <dt class="font-medium text-gray-500 dark:text-gray-400">Alasan Keberatan</dt>
+                                                <dd class="mt-1 text-gray-900 dark:text-gray-100">
+                                                    <ul class="list-disc pl-5">
+                                                        <template x-for="alasan in detailItem.alasan">
+                                                            <li x-text="alasan"></li>
+                                                        </template>
+                                                    </ul>
+                                                </dd>
+                                            </div>
+                                            <div class="sm:col-span-2">
+                                                <dt class="font-medium text-gray-500 dark:text-gray-400">Kasus Posisi</dt>
+                                                <dd class="mt-1 text-gray-900 dark:text-gray-100 whitespace-pre-wrap" x-text="detailItem.kasus || '-'"></dd>
+                                            </div>
+                                        </dl>
+                                    </div>
+                                    
+                                    <div class="mt-4">
+                                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                                            Tanggapan / Jawaban
+                                        </label>
+                                        <textarea name="feedback" rows="4" class="w-full rounded-md border-slate-300 dark:border-slate-700 dark:bg-slate-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Tulis tanggapan anda disini..." x-model="feedbackText" required></textarea>
+                                    </div>
+                                    <div class="mt-2 text-xs text-slate-400" x-show="existingFeedback">
+                                        Last Feedback: <span x-text="existingFeedback"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-slate-50 dark:bg-slate-700/50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                            <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
+                                Kirim Tanggapan
+                            </button>
+                            <button type="button" @click="showFeedbackModal = false" class="mt-3 w-full inline-flex justify-center rounded-md border border-slate-300 dark:border-slate-600 shadow-sm px-4 py-2 bg-white dark:bg-slate-800 text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                                Batal
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
 
@@ -119,6 +192,13 @@
                 pagination: {},
                 search: '',
                 isAdmin: {{ auth()->user()->hasRole('admin') ? 'true' : 'false' }},
+                
+                // Feedback Modal State
+                showFeedbackModal: false,
+                selectedItem: null,
+                detailItem: {}, // Store details here
+                feedbackText: '',
+                existingFeedback: null,
                 
                 async fetchData(url = null) {
                     this.loading = true;
@@ -150,15 +230,45 @@
                 },
 
                 getStatusClass(status) {
-                    if (status == 1) return 'bg-emerald-50 text-emerald-700 border-emerald-100';
-                    if (status == 0) return 'bg-rose-50 text-rose-700 border-rose-100';
-                    return 'bg-amber-50 text-amber-700 border-amber-100';
+                    if (status == 'y') return 'bg-emerald-50 text-emerald-700 border-emerald-100'; // Disetujui
+                    if (status == 't') return 'bg-rose-50 text-rose-700 border-rose-100'; // Ditolak
+                    if (status == 'a') return 'bg-blue-50 text-blue-700 border-blue-100'; // Dijawab
+                    return 'bg-amber-50 text-amber-700 border-amber-100'; // Proses (n)
                 },
 
                 getStatusLabel(status) {
-                    if (status == 1) return 'Disetujui';
-                    if (status == 0) return 'Ditolak';
+                    if (status == 'y') return 'Disetujui';
+                    if (status == 't') return 'Ditolak';
+                    if (status == 'a') return 'Dijawab';
                     return 'Proses';
+                },
+                
+                async openFeedbackModal(item) {
+                    this.selectedItem = item;
+                    this.feedbackText = '';
+                    this.existingFeedback = null;
+                    this.detailItem = {}; // Reset details
+                    this.showFeedbackModal = true;
+                    
+                    // Fetch details from server
+                    try {
+                        const response = await fetch(`/admin/pengajuan-keberatan/${item.id}/feedback`);
+                        const data = await response.json();
+                        
+                        this.detailItem = {
+                            no_pendaftaran: data.no_pendaftaran,
+                            nama_pemohon: data.nama_pemohon,
+                            alasan: data.alasan,
+                            kasus: data.kasus
+                        };
+
+                        if(data.feedback) {
+                            this.feedbackText = data.feedback;
+                            this.existingFeedback = data.feedback;
+                        }
+                    } catch(e) {
+                        console.error("Failed to load feedback details", e);
+                    }
                 }
             }
         }

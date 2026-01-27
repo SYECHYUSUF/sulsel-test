@@ -19,4 +19,9 @@ class PengajuanKeberatan extends Model
     {
         return $this->hasMany(AlasanPengajuan::class, 'id_pengajuan', 'id_pengajuan');
     }
+
+    public function feedbackBy()
+    {
+        return $this->belongsTo(User::class, 'feedback_by');
+    }
 }

@@ -46,9 +46,14 @@
                         <h2 class="text-2xl font-bold text-[#1A305E] dark:text-white mb-2">
                             {{ __('messages.objection.form_title') }}
                         </h2>
-                        <p class="text-gray-600 dark:text-gray-300">
+                        <p class="text-gray-600 dark:text-gray-300 mb-6">
                             {{ __('messages.objection.form_desc') }}
                         </p>
+                        
+                        <a href="{{ route('layanan.pengajuan-keberatan.check-status') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-white dark:bg-slate-700 text-[#1A305E] dark:text-white font-semibold border border-[#1A305E]/20 dark:border-slate-600 rounded-xl hover:bg-[#1A305E]/5 dark:hover:bg-slate-600 transition-all shadow-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 21-6-6m2-5a7 7 0 1 1-14 0 7 7 0 0 1 14 0z"/></svg>
+                            Tinjau / Cek Status Pengajuan
+                        </a>
                     </div>
 
                     <form action="{{ route('layanan.pengajuan-keberatan.store') }}" method="POST" class="space-y-8">

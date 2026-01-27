@@ -23,8 +23,13 @@ class PengajuanKeberatanController extends Controller
             'kasus' => 'required',
         ]);
 
+        // Cari Data Permohonan Asli untuk mendapatkan ID SKPD
+        $permohonan = \App\Models\PermohonanInformasi::where('no_pendaftaran', $request->no_pendaftaran)->first();
+        $id_skpd = $permohonan ? $permohonan->id_skpd : null;
+
         $pengajuan = \App\Models\PengajuanKeberatan::create([
             'no_pendaftaran' => $request->no_pendaftaran,
+            'id_skpd' => $id_skpd, // Save ID SKPD
             'tujuan' => $request->tujuan,
             'nama_pemohon' => $request->nama_pemohon,
             'alamat_pemohon' => $request->alamat_pemohon,
@@ -55,5 +60,28 @@ class PengajuanKeberatanController extends Controller
         }
 
         return back()->with('success', 'Pengajuan keberatan berhasil dikirim.');
+    }
+    public function checkStatus(Request $request)
+    {
+        $request->validate([
+            'no_pendaftaran' => 'required',
+            'email' => 'required|email'
+        ]);
+
+        $pengajuan = \App\Models\PengajuanKeberatan::with(['feedbackBy', 'alasanPengajuan'])
+            ->where('no_pendaftaran', $request->no_pendaftaran)
+            ->where('email_pemohon', $request->email)
+            ->first();
+
+        if (!$pengajuan) {
+            return back()->with('error', 'Data pengajuan tidak ditemukan. Periksa kembali Nomor Pendaftaran dan Email Anda.');
+        }
+
+        return view('pages.layanan.detail-status-keberatan', compact('pengajuan'));
+    }
+
+    public function formCheckStatus()
+    {
+        return view('pages.layanan.cek-status-keberatan');
     }
 }

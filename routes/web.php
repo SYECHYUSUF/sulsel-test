@@ -98,6 +98,11 @@ Route::middleware(['track.visitors'])->group(function () {
         return view('pages.layanan.pengajuan-keberatan');
     });
     Route::post('/layanan/pengajuan-keberatan', [GuestPengajuanKeberatanController::class, 'store'])->name('layanan.pengajuan-keberatan.store');
+    
+    // Check Status Routes
+    Route::get('/layanan/pengajuan-keberatan/cek-status', [GuestPengajuanKeberatanController::class, 'formCheckStatus'])->name('layanan.pengajuan-keberatan.check-status');
+    Route::post('/layanan/pengajuan-keberatan/cek-status', [GuestPengajuanKeberatanController::class, 'checkStatus']);
+
     Route::get('/layanan/sop', [GuestSopController::class, 'index'])->name('layanan.sop');
     Route::get('/layanan/sop/download/{id}', [GuestSopController::class, 'download'])->name('layanan.sop.download');
 
@@ -126,6 +131,8 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::resource('berita', BeritaController::class);
         Route::resource('permohonan-informasi', PermohonanInformasiController::class);
         Route::resource('pengajuan-keberatan', PengajuanKeberatanController::class);
+        Route::post('pengajuan-keberatan/{id}/feedback', [PengajuanKeberatanController::class, 'storeFeedback'])->name('pengajuan-keberatan.storeFeedback');
+        Route::get('pengajuan-keberatan/{id}/feedback', [PengajuanKeberatanController::class, 'loadFeedback'])->name('pengajuan-keberatan.loadFeedback');
 
         Route::resource('dokumen-publik', DokumenPublikController::class);
         Route::post('dokumen-publik/bulk-delete', [DokumenPublikController::class, 'bulkDelete'])->name('dokumen-publik.bulk-delete');
