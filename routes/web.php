@@ -53,14 +53,22 @@ Route::middleware(['track.visitors'])->group(function () {
         return view('pages.profil.profil-ppid');
     });
     Route::get('/sambutan', function () {
-        return view('pages.profil.sambutan');
+        $recentNews = \App\Models\Berita::where('verify', 'y')
+            ->orderBy('tgl_upload', 'desc')
+            ->take(4)
+            ->get();
+        return view('pages.profil.sambutan', compact('recentNews'));
     });
     Route::get('/struktur-organisasi', function () {
         $pdfPath = Setting::where('key', 'struktur_organisasi_path')->value('value');
         return view('pages.profil.struktur-organisasi', compact('pdfPath'));
     });
     Route::get('/visi-misi', function () {
-        return view('pages.profil.visi-misi');
+        $recentNews = \App\Models\Berita::where('verify', 'y')
+            ->orderBy('tgl_upload', 'desc')
+            ->take(4)
+            ->get();
+        return view('pages.profil.visi-misi', compact('recentNews'));
     });
     Route::get('/tupoksi', function () {
         return view('pages.profil.tupoksi');

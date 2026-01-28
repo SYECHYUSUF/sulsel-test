@@ -2,6 +2,7 @@
     x-data="{ 
         scroll: 0, 
         activeSlide: 0,
+        direction: 'next',
         slides: [
             '{{ asset('images/welcome1.png') }}',
             '{{ asset('images/bannertest.png') }}',
@@ -24,9 +25,11 @@
             clearInterval(this.timer);
         },
         next() {
+            this.direction = 'next';
             this.activeSlide = (this.activeSlide + 1) % this.slides.length;
         },
         prev() {
+            this.direction = 'prev';
             this.activeSlide = (this.activeSlide === 0) ? (this.slides.length - 1) : (this.activeSlide - 1);
         }
     }" 
@@ -36,29 +39,24 @@
     @mouseleave="startTimer"
 >
     
-    {{-- 1. CAROUSEL SLIDES (FULL BACKGROUND) --}}
-    <template x-for="(slide, index) in slides" :key="index">
-        <div 
-            x-show="activeSlide === index"
-            x-transition:enter="transition transform ease-out duration-700"
-            x-transition:enter-start="translate-x-full"
-            x-transition:enter-end="translate-x-0"
-            x-transition:leave="transition transform ease-in duration-700"
-            x-transition:leave-start="translate-x-0"
-            x-transition:leave-end="-translate-x-full"
-            class="absolute inset-0 w-full h-full"
-        >
-            {{-- Gambar diset untuk menampilkan seluruh konten tanpa crop --}}
-            <img 
-                :src="slide" 
-                class="absolute inset-0 w-full h-full object-contain object-center bg-white dark:bg-slate-800"
-                alt="Slider Image"
-                :style="`transform: translateY(${scroll * 0.3}px)`"
-            >
-             {{-- Overlay Gradient --}}
-             <div class="absolute inset-0 bg-gradient-to-t from-[#1A305E]/90 via-[#1A305E]/40 to-transparent"></div>
-        </div>
-    </template>
+    
+    {{-- 1. CAROUSEL SLIDES (SMOOTH SLIDING) --}}
+    <div class="relative w-full h-full flex transition-transform duration-700 ease-in-out"
+         :style="`transform: translateX(-${activeSlide * 100}%)`">
+        <template x-for="(slide, index) in slides" :key="index">
+            <div class="w-full h-full flex-shrink-0 relative">
+                {{-- Gambar diset untuk menampilkan seluruh konten tanpa crop --}}
+                <img 
+                    :src="slide" 
+                    class="absolute inset-0 w-full h-full object-contain object-center bg-white dark:bg-slate-800"
+                    alt="Slider Image"
+                    :style="`transform: translateY(${scroll * 0.3}px)`"
+                >
+                {{-- Overlay Gradient --}}
+                <div class="absolute inset-0 bg-gradient-to-t from-[#1A305E]/90 via-[#1A305E]/40 to-transparent"></div>
+            </div>
+        </template>
+    </div>
 
     {{-- 2. KONTEN (CENTERED) - Welcome Message on First Slide Only --}}
     <div class="absolute inset-0 z-20 flex items-end justify-center pb-12 mb-72">
@@ -155,7 +153,7 @@
         </div>
     </div>
 
-    {{-- CONTROLS (ARROWS) --}}
+    {{-- @ --}}
     <button @click="prev()" class="absolute left-4 top-1/2 -translate-y-14 p-3 rounded-full bg-black/20 hover:bg-[#D4AF37] hover:text-[#1A305E] text-white backdrop-blur-sm transition-all z-30 opacity-0 group-hover:opacity-100 transform -translate-x-4 group-hover:translate-x-0 duration-300 ">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
     </button>
