@@ -13,12 +13,14 @@
     </x-slot>
 
     <div x-data="{ 
-        rejectionModalOpen: false, 
+        rejectionModalOpen: false,
+        processModalOpen: false,
+        activeTab: 'jawab',
         successModalOpen: @if(session('success')) true @else false @endif
     }">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <!-- Main Detail -->
-        <div class="lg:col-span-2 space-y-6">
+        <div class="@role('admin') lg:col-span-2 @else lg:col-span-3 @endrole space-y-6">
             <!-- Applicant Info -->
             <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 overflow-hidden">
                 <div class="p-6 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center">
@@ -109,8 +111,7 @@
                 </div>
                 <div class="p-6">
                     @if($permohonan->foto_ktp)
-                        <div class="border border-slate-200 dark:border-slate-700 rounded-lg p-4 w-full md:w-1/2">
-                            <p class="text-sm font-medium mb-2 text-slate-700 dark:text-slate-300">Foto KTP:</p>
+                        <div class="w-full md:w-1/2">
                             <img src="{{ Storage::url($permohonan->foto_ktp) }}" alt="Foto KTP"
                                 class="w-full h-auto rounded">
                         </div>
@@ -134,9 +135,13 @@
                     @endif
                 </div>
             </div>
+
+            {{-- SKPD Disposisi Tracking --}}
+            @include('admin.permohonan-informasi.partials.tracking-card')
         </div>
 
         <!-- Sidebar Actions -->
+        @role('admin')
         <div class="lg:col-span-1 space-y-6">
             <!-- Action Card -->
             <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 overflow-hidden sticky top-6">
@@ -148,50 +153,54 @@
 
                     {{-- Status: PENDING (0) --}}
                     @if($permohonan->status == 0)
-                        <form action="{{ route('admin.permohonan-informasi.update', $permohonan->id_permohonan) }}"
-                            method="POST">
-                            @csrf
-                            @method('PUT')
-                            <input type="hidden" name="status" value="1">
-                            <button type="submit"
-                                class="w-full py-2.5 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors shadow-sm">
-                                Setujui Permohonan (Proses)
-                            </button>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 text-center">Ubah status ke "Diproses".
-                            </p>
-                        </form>
+                        <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-100 dark:border-yellow-800/50 p-4 rounded-lg mb-4">
+                            <p class="text-sm text-yellow-800 dark:text-yellow-300">Permohonan Menunggu Verifikasi.</p>
+                        </div>
+                        
+                        <button @click="processModalOpen = true"
+                            class="w-full py-2.5 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors shadow-sm">
+                            Proses Permohonan
+                        </button>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 text-center">Jawab Langsung atau Disposisi ke OPD.</p>
+
                         <button @click="rejectionModalOpen = true"
                             class="w-full py-2.5 bg-white dark:bg-slate-700 border border-red-200 dark:border-red-900/50 text-red-600 dark:text-red-400 rounded-lg font-medium hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors mt-3">
                             Tolak Permohonan
                         </button>
 
-                    {{-- Status: PROSES (1) --}}
+                    {{-- Status: PROSES (1) - Admin Answered --}}
                     @elseif($permohonan->status == 1)
                         <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800/50 p-4 rounded-lg mb-4">
-                            <p class="text-sm text-blue-800 dark:text-blue-300">Permohonan ini sedang <strong>Diproses</strong>.</p>
+                            <p class="text-sm text-blue-800 dark:text-blue-300">Permohonan Telah <strong>Dijawab</strong> oleh Admin.</p>
                         </div>
                         
-                        {{-- Selesaikan --}}
-                        <form action="{{ route('admin.permohonan-informasi.update', $permohonan->id_permohonan) }}" method="POST">
-                            @csrf
-                            @method('PUT')
-                            <input type="hidden" name="status" value="2"> {{-- 2 = SELESAI --}}
-                            <button type="submit"
-                                class="w-full py-2.5 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors shadow-sm mb-3">
-                                Selesaikan Permohonan
-                            </button>
-                        </form>
+                        @if($permohonan->jawaban)
+                            <div class="mt-2 p-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg border border-slate-100 dark:border-slate-600">
+                                <p class="text-xs font-semibold text-slate-500 uppercase mb-1">Jawaban Anda:</p>
+                                <p class="text-sm text-slate-700 dark:text-slate-300">{{ $permohonan->jawaban }}</p>
+                            </div>
+                        @endif
+
+                    {{-- Status: DISPOSISI (5) --}}
+                    @elseif($permohonan->status == 5)
+                        <div class="bg-purple-50 dark:bg-purple-900/20 border border-purple-100 dark:border-purple-800/50 p-4 rounded-lg mb-4">
+                            <p class="text-sm text-purple-800 dark:text-purple-300">Permohonan <strong>Didisposisikan</strong>.</p>
+                        </div>
                         
-                        {{-- Batalkan --}}
-                        <form action="{{ route('admin.permohonan-informasi.update', $permohonan->id_permohonan) }}" method="POST">
-                            @csrf
-                            @method('PUT')
-                            <input type="hidden" name="status" value="4"> {{-- 4 = BATAL --}}
-                            <button type="submit"
-                                class="w-full py-2.5 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 rounded-lg font-medium hover:bg-slate-50 dark:hover:bg-slate-600 transition-colors">
-                                Batalkan Permohonan
-                            </button>
-                        </form>
+                        @if($permohonan->skpd)
+                            <div class="mt-2 p-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg border border-slate-100 dark:border-slate-600">
+                                <p class="text-xs font-semibold text-slate-500 uppercase mb-1">SKPD Tujuan:</p>
+                                <p class="text-sm font-bold text-slate-700 dark:text-slate-300">{{ $permohonan->skpd->nm_skpd }}</p>
+                            </div>
+                        @endif
+
+                        <div class="mt-4">
+                            <a href="{{ route('admin.permohonan-informasi.disposisi', $permohonan->id_permohonan) }}"
+                               class="w-full block text-center py-2.5 bg-white dark:bg-slate-700 border-2 border-purple-200 dark:border-purple-800 text-purple-700 dark:text-purple-300 rounded-lg font-medium hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-all">
+                                + Tambah Disposisi Lain
+                            </a>
+                            <p class="text-xs text-slate-500 mt-2 text-center">Tambahkan OPD lain jika diperlukan.</p>
+                        </div>
 
                     {{-- Status: SELESAI (2), TOLAK (3), BATAL (4) --}}
                     @else
@@ -209,6 +218,96 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- Process Modal (Jawab/Disposisi) -->
+    <div x-show="processModalOpen" class="fixed inset-0 z-50 overflow-y-auto" style="display: none;">
+        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+            <div x-show="processModalOpen" @click="processModalOpen = false"
+                class="fixed inset-0 transition-opacity" aria-hidden="true">
+                <div class="absolute inset-0 bg-gray-500 dark:bg-gray-900 opacity-75"></div>
+            </div>
+
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+            <div x-show="processModalOpen"
+                class="inline-block align-bottom bg-white dark:bg-slate-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                
+                <div class="bg-white dark:bg-slate-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100 mb-4">Proses Permohonan</h3>
+                    
+                    <!-- Tabs -->
+                    <div class="flex space-x-1 rounded-xl bg-slate-100 dark:bg-slate-700/50 p-1 mb-6">
+                        <button @click="activeTab = 'jawab'" 
+                            :class="activeTab === 'jawab' ? 'bg-white dark:bg-slate-600 shadow text-blue-700 dark:text-blue-300' : 'text-slate-600 dark:text-slate-400 hover:bg-white/[0.12] hover:text-white'"
+                            class="w-full rounded-lg py-2.5 text-sm font-medium leading-5 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 transition-all">
+                            Jawab (Admin)
+                        </button>
+                        <button @click="activeTab = 'disposisi'" 
+                            :class="activeTab === 'disposisi' ? 'bg-white dark:bg-slate-600 shadow text-blue-700 dark:text-blue-300' : 'text-slate-600 dark:text-slate-400 hover:bg-white/[0.12] hover:text-white'"
+                            class="w-full rounded-lg py-2.5 text-sm font-medium leading-5 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 transition-all">
+                            Disposisi (OPD)
+                        </button>
+                    </div>
+
+                    <!-- Jawab Form -->
+                    <div x-show="activeTab === 'jawab'">
+                        <form action="{{ route('admin.permohonan-informasi.update', $permohonan->id_permohonan) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <input type="hidden" name="status" value="1"> {{-- 1 = PROSES / Admin Answered --}}
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Jawaban Permohonan <span class="text-red-500">*</span></label>
+                                <textarea name="jawaban" rows="5"
+                                    class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                    placeholder="Tuliskan jawaban untuk pemohon..." required></textarea>
+                            </div>
+                            
+                            <div class="mt-5 sm:flex sm:flex-row-reverse">
+                                <button type="submit"
+                                    class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
+                                    Kirim Jawaban
+                                </button>
+                                <button type="button" @click="processModalOpen = false"
+                                    class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 dark:border-slate-600 shadow-sm px-4 py-2 bg-white dark:bg-slate-700 text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                                    Batal
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Disposisi Form -->
+                    <div x-show="activeTab === 'disposisi'">
+                        <div class="text-center py-8">
+                            <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-8 h-8 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                            </div>
+                            <h4 class="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Pilih OPD Tujuan Disposisi</h4>
+                            <p class="text-slate-600 dark:text-slate-400 mb-6 text-sm">Anda akan dialihkan ke halaman pemilihan OPD untuk disposisi</p>
+                            
+                            <div class="flex gap-3 justify-center">
+                                <button type="button" @click="processModalOpen = false"
+                                    class="px-4 py-2 rounded-md border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-600 font-medium text-sm">
+                                    Batal
+                                </button>
+                                <a href="{{ route('admin.permohonan-informasi.disposisi', $permohonan->id_permohonan) }}"
+                                    class="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-purple-600 text-white hover:bg-purple-700 font-medium text-sm shadow-sm">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                                    </svg>
+                                    Lanjut ke Halaman Disposisi
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        @endrole
     </div>
 
     <!-- Rejection Modal -->

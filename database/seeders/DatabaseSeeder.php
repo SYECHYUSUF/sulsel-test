@@ -11,7 +11,12 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Seed roles first
-        $this->call(RoleSeeder::class);
+        $this->call([
+            RoleSeeder::class,
+            FaqSeeder::class,
+            SurveySeeder::class,
+            SurveyResponseSeeder::class,
+        ]);
 
         // --- Konfigurasi User Admin 2 ---
         $admin2Data = [

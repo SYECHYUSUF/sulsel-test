@@ -248,6 +248,12 @@
     </li>
     
     <li>
+        <a href="{{ route('layanan.cek-status-permohonan') }}" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">
+            Cek Status Permohonan
+        </a>
+    </li>
+    
+    <li>
         <a href="/layanan/sop" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">
             SOP
         </a>
