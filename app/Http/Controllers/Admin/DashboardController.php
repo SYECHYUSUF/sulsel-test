@@ -39,12 +39,27 @@ class DashboardController extends Controller
         // Ambil 5 login terbaru dengan relasi user
         $recentLogins = LogLogin::with('user')->orderBy('id', 'desc')->take(5)->get();
 
+        // Ambil dokumen publik yang menunggu verifikasi
+        $pendingDokumen = \App\Models\DokumenPublik::with(['kategori', 'skpd'])
+            ->where('verify', 'n')
+            ->latest('tgl_upload')
+            ->take(5)
+            ->get();
+
+        // Ambil notifikasi terbaru untuk Admin
+        $notifications = \App\Models\Notification::where('to_user_id', Auth::id())
+            ->latest()
+            ->take(5)
+            ->get();
+
         return view('admin.dashboard.admin', compact(
             'stats',
             'monthlyTrends',
             'recentActivities',
             'permohonanByStatus',
             'recentLogins',
+            'pendingDokumen',
+            'notifications'
         ));
     }
 
@@ -60,11 +75,21 @@ class DashboardController extends Controller
         $recentActivities = $this->getRecentActivities($idSkpd);
         $permohonanByStatus = $this->getPermohonanByStatus($idSkpd);
 
+        // Ambil notifikasi terbaru untuk OPD
+        $notifications = \App\Models\Notification::where(function ($query) use ($user) {
+            $query->where('to_user_id', $user->id)
+                ->orWhere('to_skpd_id', $user->id_skpd);
+        })
+            ->latest()
+            ->take(5)
+            ->get();
+
         return view('admin.dashboard.opd', compact(
             'stats',
             'monthlyTrends',
             'recentActivities',
-            'permohonanByStatus'
+            'permohonanByStatus',
+            'notifications'
         ));
     }
 

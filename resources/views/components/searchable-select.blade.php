@@ -38,6 +38,12 @@
         this.label = opt.label;
         this.open = false;
         this.search = '';
+
+        this.$nextTick(() => {
+            if (this.$el.closest('form')) {
+                this.$el.closest('form').submit();
+            }
+        });
     }
 }" 
 class="relative" 

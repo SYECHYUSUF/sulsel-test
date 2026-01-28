@@ -1,10 +1,7 @@
 <x-admin-layout title="Tambah Berita - Admin PPID">
     <x-slot name="extra_head">
         <link href="/vendor/filepond/index.css" rel="stylesheet" />
-        <link
-            href="/vendor/filepond/image-preview.css"
-            rel="stylesheet"
-        />
+        <link href="/vendor/filepond/image-preview.css" rel="stylesheet" />
         <script src="/vendor/filepond/image-preview.js"></script>
         <script src="/vendor/filepond/index.js"></script>
     </x-slot>
@@ -31,23 +28,15 @@
 
             <div class="space-y-2">
                 <label for="id_skpd" class="text-sm font-medium text-slate-700">SKPD Terkait</label>
-                
-                <x-searchable-select 
-                    name="id_skpd" 
-                    id="id_skpd" 
-                    :options="$skpdList" 
-                    idKey="id_skpd"
-                    :disabled="auth()->user()->hasRole('opd')"
-                    labelKey="nm_skpd"
-                    :value="old('id_skpd', auth()->user()->id_skpd)"
-                    placeholder="-- Pilih SKPD --"
-                />
+
+                <x-searchable-select name="id_skpd" id="id_skpd" :options="$skpdList" idKey="id_skpd"
+                    :disabled="auth()->user()->hasRole('opd')" labelKey="nm_skpd" :value="old('id_skpd', auth()->user()->id_skpd)" placeholder="-- Pilih SKPD --" />
 
                 @error('id_skpd')
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                 @enderror
             </div>
-                
+
             <div>
                 <label class="block text-sm font-medium text-slate-700 mb-2">Status Verifikasi</label>
                 <select name="verify"
@@ -65,13 +54,9 @@
             <!-- Gambar -->
             <div>
                 <label class="block text-sm font-medium text-slate-700 mb-2">Gambar Sampul</label>
-                <div class="flex-1">                        
-                    <input type="file" 
-                        class="filepond"
-                        name="img_berita"
-                        id="gambar"
-                        accept="image/png, image/jpeg, image/gif"
-                    />
+                <div class="flex-1">
+                    <input type="file" class="filepond" name="img_berita" id="gambar"
+                        accept="image/png, image/jpeg, image/gif" />
                     @error('img_berita')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                     @enderror
@@ -108,12 +93,9 @@
         <script src="/vendor/tinymce/init-editor.js"></script>
         <script>
             FilePond.registerPlugin(FilePondPluginImagePreview);
-            FilePond.registerPlugin(
-                FilePondPluginImagePreview,
-            );
-                // Select the file input and use 
-                // create() to turn it into a pond
-                FilePond.create(
+            // Select the file input and use 
+            // create() to turn it into a pond
+            FilePond.create(
                 document.querySelector('#gambar'),
                 {
                     labelIdle: `Seret & Letakkan file atau <span class="filepond--label-action">Telusuri</span>`,

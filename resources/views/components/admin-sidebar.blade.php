@@ -49,13 +49,11 @@
         @endrole
 
         {{-- Manajemen Informasi --}}
-        @role('opd')
         <div class="px-6 transition-all duration-300 overflow-hidden whitespace-nowrap" 
              :class="sidebarOpen ? 'max-h-10 opacity-100 mb-2 mt-6' : 'max-h-0 opacity-0 mb-0 mt-0'">
             <span class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px] whitespace-nowrap">{{ __('Manajemen Informasi') }}</span>
         </div>
         <ul>
-
             <x-sidebar-link href="{{ route('admin.matriks-dip.index') }}"
                 :active="request()->routeIs('admin.matriks-dip.*')" label="Matriks DIP">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(90 12 12)"/><path d="M2 12h20"/></g></svg>
@@ -70,7 +68,6 @@
                 </svg>
             </x-sidebar-link>
 
-            
             {{-- <x-sidebar-link href="{{ route('admin.kategori-informasi.index') }}"
                 :active="request()->routeIs('admin.kategori-informasi.*')" label="Kategori Info">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -105,7 +102,6 @@
                 </svg>
             </x-sidebar-link>  --}}
         </ul>
-        @endrole
 
 
         <div class="px-6 transition-all duration-300 overflow-hidden whitespace-nowrap" 

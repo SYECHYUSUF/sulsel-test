@@ -15,7 +15,7 @@
     <div x-data="{
         showFilters: false,
     }" class="space-y-4">
-        
+
         {{-- Success/Error Messages --}}
         @if(session('success'))
             <div class="bg-green-50 dark:bg-green-900/30 border-l-4 border-green-500 p-4 rounded-lg">
@@ -29,9 +29,11 @@
         @endif
 
         {{-- Filters and Actions Card --}}
-        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 overflow-hidden">
+        <div
+            class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 overflow-hidden">
             {{-- Quick Filters --}}
-            <div class="p-4 border-b border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-700/30 flex flex-col lg:flex-row gap-4 justify-between">
+            <div
+                class="p-4 border-b border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-700/30 flex flex-col lg:flex-row gap-4 justify-between">
                 <div class="flex flex-col md:flex-row gap-3 w-full lg:w-auto flex-1">
                     {{-- Search --}}
                     <div class="relative w-full md:w-64">
@@ -45,7 +47,8 @@
                                 class="w-full pl-10 pr-4 py-2 border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 rounded-lg text-sm focus:outline-none focus:border-ppid-accent focus:ring-1 focus:ring-ppid-accent placeholder-slate-400 dark:placeholder-slate-500"
                                 placeholder="Cari judul informasi...">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <svg class="w-4 h-4 text-slate-400 dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-4 h-4 text-slate-400 dark:text-slate-500" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                                 </svg>
@@ -71,19 +74,35 @@
                         </select>
                     </form>
 
+                    {{-- Admin SKPD Filter dengan Searchable Select --}}
+                    @if(auth()->user()->hasRole('admin'))
+                        <form action="{{ route('admin.dokumen-publik.index') }}" method="GET" class="w-full md:flex-1">
+                            @foreach(request()->except('id_skpd') as $key => $value)
+                                @if(!is_array($value))
+                                    <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                                @endif
+                            @endforeach
+
+                            <x-searchable-select name="id_skpd" :options="$skpdList" :value="request('id_skpd')"
+                                idKey="id_skpd" labelKey="nm_skpd" placeholder="Cari SKPD..." />
+                        </form>
+                    @endif
+
                     {{-- Advanced Filter Toggle --}}
                     <button @click="showFilters = !showFilters" type="button"
                         class="px-4 py-2 border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-600 transition-colors flex items-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z">
+                            </path>
                         </svg>
-                        Filter Lanjut
                     </button>
                 </div>
 
                 {{-- Bulk Actions --}}
                 <div class="flex gap-2" x-show="selectedIds.length > 0" x-cloak>
-                    <form method="POST" action="{{ route('admin.dokumen-publik.bulk-delete') }}" @submit="return confirmBulkAction()">
+                    <form method="POST" action="{{ route('admin.dokumen-publik.bulk-delete') }}"
+                        @submit="return confirmBulkAction()">
                         @csrf
                         <template x-for="id in selectedIds">
                             <input type="hidden" name="ids[]" :value="id">
@@ -92,13 +111,16 @@
                         <button type="submit"
                             class="px-4 py-2 bg-red-600 text-white rounded-lg text-sm font-medium hover:bg-red-700 transition-colors flex items-center gap-2">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                </path>
                             </svg>
                             Hapus (<span x-text="selectedIds.length"></span>)
                         </button>
                     </form>
 
-                    <form method="POST" action="{{ route('admin.dokumen-publik.bulk-update-status') }}" @submit="return confirmBulkAction()">
+                    <form method="POST" action="{{ route('admin.dokumen-publik.bulk-update-status') }}"
+                        @submit="return confirmBulkAction()">
                         @csrf
                         <template x-for="id in selectedIds">
                             <input type="hidden" name="ids[]" :value="id">
@@ -114,15 +136,17 @@
                         </select>
                         <button type="submit"
                             class="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors">
-                           Terapkan
+                            Terapkan
                         </button>
                     </form>
                 </div>
             </div>
 
             {{-- Advanced Filters Panel --}}
-            <div x-show="showFilters" x-cloak x-transition class="p-4 border-b border-slate-100 dark:border-slate-700 bg-blue-50/30 dark:bg-blue-900/10">
-                <form action="{{ route('admin.dokumen-publik.index') }}" method="GET" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div x-show="showFilters" x-cloak x-transition
+                class="p-4 border-b border-slate-100 dark:border-slate-700 bg-blue-50/30 dark:bg-blue-900/10">
+                <form action="{{ route('admin.dokumen-publik.index') }}" method="GET"
+                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     {{-- Preserve search --}}
                     @if(request('search'))
                         <input type="hidden" name="search" value="{{ request('search') }}">
@@ -131,25 +155,10 @@
                         <input type="hidden" name="id_kat_info" value="{{ request('id_kat_info') }}">
                     @endif
 
-                    {{-- SKPD Filter (Admin only) --}}
-                    @if(!auth()->user()->hasRole('opd'))
-                        <div>
-                            <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">SKPD</label>
-                            <select name="id_skpd"
-                                class="w-full px-3 py-2 border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 rounded-lg text-sm focus:outline-none focus:border-ppid-accent text-slate-700 dark:text-slate-300">
-                                <option value="">Semua SKPD</option>
-                                @foreach($skpdList as $skpd)
-                                    <option value="{{ $skpd->id_skpd }}" {{ request('id_skpd') == $skpd->id_skpd ? 'selected' : '' }}>
-                                        {{ $skpd->nm_skpd }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                    @endif
-
                     {{-- Status Filter --}}
                     <div>
-                        <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Status Verifikasi</label>
+                        <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Status
+                            Verifikasi</label>
                         <select name="verify"
                             class="w-full px-3 py-2 border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 rounded-lg text-sm focus:outline-none focus:border-ppid-accent text-slate-700 dark:text-slate-300">
                             <option value="">Semua Status</option>
@@ -161,13 +170,15 @@
 
                     {{-- Date Range --}}
                     <div>
-                        <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Tanggal Mulai</label>
+                        <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Tanggal
+                            Mulai</label>
                         <input type="date" name="start_date" value="{{ request('start_date') }}"
                             class="w-full px-3 py-2 border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 rounded-lg text-sm focus:outline-none focus:border-ppid-accent text-slate-700 dark:text-slate-300">
                     </div>
 
                     <div>
-                        <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Tanggal Akhir</label>
+                        <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Tanggal
+                            Akhir</label>
                         <input type="date" name="end_date" value="{{ request('end_date') }}"
                             class="w-full px-3 py-2 border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 rounded-lg text-sm focus:outline-none focus:border-ppid-accent text-slate-700 dark:text-slate-300">
                     </div>
@@ -179,8 +190,10 @@
                             class="w-full px-3 py-2 border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 rounded-lg text-sm focus:outline-none focus:border-ppid-accent text-slate-700 dark:text-slate-300">
                             <option value="newest" {{ request('sort') == 'newest' ? 'selected' : '' }}>Terbaru</option>
                             <option value="oldest" {{ request('sort') == 'oldest' ? 'selected' : '' }}>Terlama</option>
-                            <option value="title_asc" {{ request('sort') == 'title_asc' ? 'selected' : '' }}>Judul A-Z</option>
-                            <option value="title_desc" {{ request('sort') == 'title_desc' ? 'selected' : '' }}>Judul Z-A</option>
+                            <option value="title_asc" {{ request('sort') == 'title_asc' ? 'selected' : '' }}>Judul A-Z
+                            </option>
+                            <option value="title_desc" {{ request('sort') == 'title_desc' ? 'selected' : '' }}>Judul Z-A
+                            </option>
                         </select>
                     </div>
 
@@ -203,17 +216,21 @@
                 <div class="px-4 py-2 bg-slate-50 dark:bg-slate-700/50 flex items-center gap-2 flex-wrap text-sm">
                     <span class="text-slate-600 dark:text-slate-300 font-medium">Filter aktif:</span>
                     @if(request('search'))
-                        <span class="px-2 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-full text-xs text-slate-700 dark:text-slate-300">
+                        <span
+                            class="px-2 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-full text-xs text-slate-700 dark:text-slate-300">
                             Pencarian: "{{ request('search') }}"
                         </span>
                     @endif
                     @if(request('verify'))
-                        <span class="px-2 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-full text-xs text-slate-700 dark:text-slate-300">
-                            Status: {{ request('verify') == 'y' ? 'Terverifikasi' : (request('verify') == 'n' ? 'Pending' : 'Ditolak') }}
+                        <span
+                            class="px-2 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-full text-xs text-slate-700 dark:text-slate-300">
+                            Status:
+                            {{ request('verify') == 'y' ? 'Terverifikasi' : (request('verify') == 'n' ? 'Pending' : 'Ditolak') }}
                         </span>
                     @endif
                     @if(request('start_date') || request('end_date'))
-                        <span class="px-2 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-full text-xs text-slate-700 dark:text-slate-300">
+                        <span
+                            class="px-2 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-full text-xs text-slate-700 dark:text-slate-300">
                             Periode: {{ request('start_date') ?? '...' }} s/d {{ request('end_date') ?? '...' }}
                         </span>
                     @endif
@@ -223,7 +240,8 @@
             {{-- Table --}}
             <div class="overflow-x-auto">
                 <table class="w-full text-sm text-left text-slate-600 dark:text-slate-300">
-                    <thead class="text-xs text-slate-500 dark:text-slate-400 uppercase bg-slate-50 dark:bg-slate-700/50 border-b border-slate-100 dark:border-slate-700">
+                    <thead
+                        class="text-xs text-slate-500 dark:text-slate-400 uppercase bg-slate-50 dark:bg-slate-700/50 border-b border-slate-100 dark:border-slate-700">
                         <tr>
                             <th scope="col" class="px-6 py-3">Judul Informasi</th>
                             <th scope="col" class="px-6 py-3">Kategori</th>
@@ -235,10 +253,13 @@
                     </thead>
                     <tbody>
                         @forelse ($informasi as $info)
-                            <tr class="bg-white dark:bg-slate-800 border-b border-slate-100 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors">
+                            <tr
+                                class="bg-white dark:bg-slate-800 border-b border-slate-100 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors">
                                 <td class="px-6 py-4">
                                     <div class="font-medium text-slate-900 dark:text-slate-100">{{ $info->judul }}</div>
-                                    <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">Uploaded: {{ $info->tgl_upload }}</div>
+                                    <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">Uploaded:
+                                        {{ $info->tgl_upload }}
+                                    </div>
                                 </td>
                                 <td class="px-6 py-4">
                                     <span
@@ -313,8 +334,8 @@
                             <tr>
                                 <td colspan="7" class="px-6 py-8 text-center text-slate-500 dark:text-slate-400">
                                     <div class="flex flex-col items-center justify-center gap-2">
-                                        <svg class="w-8 h-8 text-slate-300 dark:text-slate-600" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
+                                        <svg class="w-8 h-8 text-slate-300 dark:text-slate-600" fill="none"
+                                            stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
                                             </path>
@@ -335,6 +356,8 @@
     </div>
 
     <style>
-        [x-cloak] { display: none !important; }
+        [x-cloak] {
+            display: none !important;
+        }
     </style>
 </x-admin-layout>
