@@ -63,4 +63,21 @@ class SurveyResponseController extends Controller
         
         return view('admin.survey-responses.show', compact('respondent', 'questions', 'answersMap', 'kode'));
     }
+
+    /**
+     * Remove the specified survey response from storage.
+     */
+    public function destroy($kode)
+    {
+        // Delete all responses with this code
+        $deleted = SurveyResponse::where('kode', $kode)->delete();
+        
+        if ($deleted) {
+            return redirect()->route('admin.survey-responses.index')
+                ->with('success', 'Survey berhasil dihapus.');
+        }
+        
+        return redirect()->route('admin.survey-responses.index')
+            ->with('error', 'Survey tidak ditemukan.');
+    }
 }

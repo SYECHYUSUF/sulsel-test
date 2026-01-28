@@ -158,7 +158,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         // Survey Questions
         Route::resource('survey-questions', SurveyQuestionController::class);
         // Survey Responses
-        Route::resource('survey-responses', SurveyResponseController::class)->only(['index', 'show']);
+        Route::resource('survey-responses', SurveyResponseController::class)->only(['index', 'show', 'destroy']);
     });
 });
 
