@@ -39,6 +39,12 @@ Route::get('/lang/{locale}', function ($locale) {
 
 Route::get('/api/dokumen-publik/search-suggestions', [GuestDokumenPublikController::class, 'suggestions']);
 
+// Rate Limiter
+RateLimiter::for('login', function ($request) {
+    return Limit::perMinute(100)->by($request->ip());
+});
+
+// Group Track Visitors
 Route::middleware(['track.visitors'])->group(function () {
     Route::get('/', function () {
         return view('welcome');
@@ -105,7 +111,7 @@ Route::middleware(['track.visitors'])->group(function () {
     Route::get('/layanan/permohonan-informasi', function () {
         return view('pages.layanan.permohonan-informasi');
     });
-    Route::post('/layanan/permohonan-informasi', [GuestPermohonanInformasiController::class, 'store'])->name('layanan.permohonan-informasi.store');
+    Route::get('/layanan/cek-status-permohonan', [GuestPermohonanInformasiController::class, 'checkProgressForm'])->name('layanan.cek-status-permohonan');
     Route::get('/layanan/pengajuan-keberatan', function () {
         return view('pages.layanan.pengajuan-keberatan');
     });
@@ -113,25 +119,40 @@ Route::middleware(['track.visitors'])->group(function () {
 
     // Check Status Routes
     Route::get('/layanan/pengajuan-keberatan/cek-status', [GuestPengajuanKeberatanController::class, 'formCheckStatus'])->name('layanan.pengajuan-keberatan.check-status');
-    Route::post('/layanan/pengajuan-keberatan/cek-status', [GuestPengajuanKeberatanController::class, 'checkStatus']);
 
     Route::get('/layanan/sop', [GuestSopController::class, 'index'])->name('layanan.sop');
     Route::get('/layanan/sop/download/{id}', [GuestSopController::class, 'download'])->name('layanan.sop.download');
 
     // Survey Pages
     Route::get('/survey/isi-survey', [\App\Http\Controllers\SurveyController::class, 'create']);
-    Route::post('/survey/isi-survey', [\App\Http\Controllers\SurveyController::class, 'store'])->name('survey.store');
     Route::get('/survey/hasil-survey', [\App\Http\Controllers\SurveyController::class, 'showResults']);
 });
+
+Route::post('/layanan/permohonan-informasi', [GuestPermohonanInformasiController::class, 'store'])->name('layanan.permohonan-informasi.store');
+
+Route::post('/layanan/cek-status-permohonan', [GuestPermohonanInformasiController::class, 'checkProgress']);
+
+Route::post('/layanan/pengajuan-keberatan/cek-status', [GuestPengajuanKeberatanController::class, 'checkStatus']);
+
+Route::post('/survey/isi-survey', [\App\Http\Controllers\SurveyController::class, 'store'])->name('survey.store');
+
 
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     // Rute yang bisa diakses admin & odp
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('pengaturan', PengaturanController::class);
-    Route::resource('struktur-organisasi', \App\Http\Controllers\Admin\StrukturOrganisasiController::class); // Added route
+    Route::resource('struktur-organisasi', \App\Http\Controllers\Admin\StrukturOrganisasiController::class);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Notifications
+    Route::get('notifications', [\App\Http\Controllers\Admin\NotificationController::class, 'index'])->name('notifications.index');
+    Route::post('notifications/{id}/read', [\App\Http\Controllers\Admin\NotificationController::class, 'markAsRead'])->name('notifications.read');
+    Route::post('notifications/mark-all-read', [\App\Http\Controllers\Admin\NotificationController::class, 'markAllAsRead'])->name('notifications.mark-all-read');
+    Route::delete('notifications/delete-all', [\App\Http\Controllers\Admin\NotificationController::class, 'deleteAll'])->name('notifications.delete-all');
+    Route::delete('notifications/{id}', [\App\Http\Controllers\Admin\NotificationController::class, 'destroy'])->name('notifications.destroy');
+
 
     // Rute yang dibatasi berdasarkan ID SKPD menggunakan Middleware
     Route::middleware(['check_skpd'])->group(function () {
@@ -148,14 +169,17 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::post('dokumen-publik/bulk-delete', [DokumenPublikController::class, 'bulkDelete'])->name('dokumen-publik.bulk-delete');
         Route::post('dokumen-publik/bulk-update-status', [DokumenPublikController::class, 'bulkUpdateStatus'])->name('dokumen-publik.bulk-update-status');
 
-        // Notifications
-        Route::get('notifications', [\App\Http\Controllers\Admin\NotificationController::class, 'index'])->name('notifications.index');
-        Route::post('notifications/{id}/read', [\App\Http\Controllers\Admin\NotificationController::class, 'markAsRead'])->name('notifications.read');
-        Route::post('notifications/mark-all-read', [\App\Http\Controllers\Admin\NotificationController::class, 'markAllAsRead'])->name('notifications.mark-all-read');
-        Route::delete('notifications/delete-all', [\App\Http\Controllers\Admin\NotificationController::class, 'deleteAll'])->name('notifications.delete-all');
-        Route::delete('notifications/{id}', [\App\Http\Controllers\Admin\NotificationController::class, 'destroy'])->name('notifications.destroy');
-
+        
         Route::resource('matriks-dip', MatriksDIPController::class);
+        
+        // Disposisi routes (must be before resource route)
+        Route::get('permohonan-informasi/{id}/disposisi', [PermohonanInformasiController::class, 'disposisiForm'])->name('permohonan-informasi.disposisi');
+        Route::post('permohonan-informasi/{id}/disposisi', [PermohonanInformasiController::class, 'disposisiStore']);
+        
+        // SKPD Response to Disposition
+        Route::post('permohonan-informasi/disposisi/{disposisiId}/respon', [PermohonanInformasiController::class, 'responStore'])->name('permohonan-informasi.respon.store');
+        
+        Route::resource('permohonan-informasi', PermohonanInformasiController::class);
     });
 
     // Rute khusus Super Admin (Tanpa check_skpd karena mengelola semua SKPD)
@@ -164,7 +188,6 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::resource('slide-banner', SlideBannerController::class);
         Route::resource('faq', FaqController::class);
         Route::resource('users', UserController::class);
-        Route::resource('permohonan-informasi', PermohonanInformasiController::class);
         Route::get('/log-login', [LogLoginController::class, 'index'])->name('log-login.index');
 
         // Metadata Informasi

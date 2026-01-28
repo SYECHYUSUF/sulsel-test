@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PermohonanInformasi extends Model
 {
@@ -23,14 +24,23 @@ class PermohonanInformasi extends Model
         return $this->belongsTo(Skpd::class, 'id_skpd', 'id_skpd');
     }
 
+    /**
+     * Relasi ke PermohonanDisposisi (multiple SKPDs)
+     */
+    public function disposisi(): HasMany
+    {
+        return $this->hasMany(PermohonanDisposisi::class, 'id_permohonan', 'id_permohonan');
+    }
+
     // Status Constants
     const STATUS_PENDING = 0;
     const STATUS_PROSES = 1;
     const STATUS_SELESAI = 2;
     const STATUS_TOLAK = 3;
     const STATUS_BATAL = 4;
+    const STATUS_DISPOSISI = 5;
 
-    // Accessor for Status Label
+    // Accessor for Status Label (Admin View)
     public function getStatusLabelAttribute()
     {
         return match ($this->status) {
@@ -39,6 +49,7 @@ class PermohonanInformasi extends Model
             self::STATUS_SELESAI => 'Diselesaikan',
             self::STATUS_TOLAK => 'Ditolak',
             self::STATUS_BATAL => 'Dibatalkan',
+            self::STATUS_DISPOSISI => 'Disposisi',
             default => 'Unknown',
         };
     }
@@ -52,7 +63,21 @@ class PermohonanInformasi extends Model
             self::STATUS_SELESAI => 'bg-green-100 text-green-800',
             self::STATUS_TOLAK => 'bg-red-100 text-red-800',
             self::STATUS_BATAL => 'bg-gray-100 text-gray-800',
+            self::STATUS_DISPOSISI => 'bg-purple-100 text-purple-800',
             default => 'bg-slate-100 text-slate-800',
+        };
+    }
+
+    // Accessor for Applicant Status Label (Public View)
+    public function getApplicantStatusLabelAttribute()
+    {
+        return match ($this->status) {
+            self::STATUS_PENDING => 'Menunggu Verifikasi',
+            self::STATUS_PROSES => 'Diterima',
+            self::STATUS_DISPOSISI => 'Diterima',
+            self::STATUS_SELESAI => 'Diterima',
+            self::STATUS_TOLAK => 'Ditolak',
+            default => 'Menunggu Verifikasi',
         };
     }
 }
