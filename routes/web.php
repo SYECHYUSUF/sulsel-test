@@ -23,6 +23,8 @@ use App\Http\Controllers\Admin\KategoriInformasiController;
 use App\Http\Controllers\Admin\LogLoginController;
 use App\Http\Controllers\Admin\MatriksDIPController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\SurveyQuestionController;
+use App\Http\Controllers\Admin\SurveyResponseController;
 
 use App\Models\Setting;
 use App\Models\Skpd;
@@ -109,12 +111,9 @@ Route::middleware(['track.visitors'])->group(function () {
     Route::get('/layanan/sop/download/{id}', [GuestSopController::class, 'download'])->name('layanan.sop.download');
 
     // Survey Pages
-    Route::get('/survey/isi-survey', function () {
-        return view('pages.survey.isi-survey');
-    });
-    Route::get('/survey/hasil-survey', function () {
-        return view('pages.survey.hasil-survey');
-    });
+    Route::get('/survey/isi-survey', [\App\Http\Controllers\SurveyController::class, 'create']);
+    Route::post('/survey/isi-survey', [\App\Http\Controllers\SurveyController::class, 'store'])->name('survey.store');
+    Route::get('/survey/hasil-survey', [\App\Http\Controllers\SurveyController::class, 'showResults']);
 });
 
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
@@ -155,6 +154,11 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 
         // Metadata Informasi
         Route::resource('kategori-informasi', KategoriInformasiController::class);
+        
+        // Survey Questions
+        Route::resource('survey-questions', SurveyQuestionController::class);
+        // Survey Responses
+        Route::resource('survey-responses', SurveyResponseController::class)->only(['index', 'show']);
     });
 });
 

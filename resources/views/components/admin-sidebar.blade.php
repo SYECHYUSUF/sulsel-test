@@ -216,6 +216,31 @@
         </ul>
         @endrole
 
+        @role('admin')
+        <div class="px-6 transition-all duration-300 overflow-hidden whitespace-nowrap" 
+             :class="sidebarOpen ? 'max-h-10 opacity-100 mb-2 mt-6' : 'max-h-0 opacity-0 mb-0 mt-0'">
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px] whitespace-nowrap">{{ __('Survey') }}</span>
+        </div>
+        <ul>
+            <x-sidebar-link href="{{ route('admin.survey-questions.index') }}" :active="request()->is('admin/survey-questions*')" label="Kelola Survey">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 11l3 3L22 4"/>
+                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                </svg>
+            </x-sidebar-link>
+
+            <x-sidebar-link href="{{ route('admin.survey-responses.index') }}" :active="request()->is('admin/survey-responses*')" label="Hasil Survey">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                    <line x1="16" y1="13" x2="8" y2="13"/>
+                    <line x1="16" y1="17" x2="8" y2="17"/>
+                    <polyline points="10 9 9 9 8 9"/>
+                </svg>
+            </x-sidebar-link>
+        </ul>
+        @endrole
+
         {{-- Route khusus opd --}}
         @role('opd')
         <div class="px-6 transition-all duration-300 overflow-hidden whitespace-nowrap" 

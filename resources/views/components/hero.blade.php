@@ -4,7 +4,7 @@
         activeSlide: 0,
         slides: [
             '{{ asset('images/welcome1.png') }}',
-            '{{ asset('images/20230807143353_Alur Umum Permohonan Informasi (1).png') }}',
+            '{{ asset('images/bannertest.png') }}',
             '{{ asset('images/20230807143405_Tata Cara Pengajuan Informasi Publik Bagi Penyandang Disabilitas.png') }}',
             '{{ asset('images/20230915142948_Tata Cara Memperoleh Informasi Publik Revisi.png') }}',
             '{{ asset('images/20230917024457_Tata Cara Pengaduan.png') }}',
