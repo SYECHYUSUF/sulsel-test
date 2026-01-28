@@ -35,9 +35,6 @@
 
         
         <div class="flex items-center gap-3 md:gap-4">
-            {{-- Contact Desktop --}}
-            <a href="/contact" class="hidden lg:block text-sm font-medium text-[#4A5568] dark:text-gray-300 hover:text-[#D4AF37] transition-colors">{{ __('messages.header.contact') }}</a>
-            
             {{-- Login Button --}}
             <a href="/login" class="hidden lg:flex items-center gap-1.5 text-sm font-medium text-[#4A5568] dark:text-gray-300 hover:text-[#D4AF37] transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -45,6 +42,9 @@
                 </svg>
                 Login
             </a>
+            {{-- Contact Desktop --}}
+            <a href="/contact" class="hidden lg:block text-sm font-medium text-[#4A5568] dark:text-gray-300 hover:text-[#D4AF37] transition-colors">{{ __('messages.header.contact') }}</a>
+            
 
             {{-- Search Trigger Button --}}
             <button @click="$dispatch('open-search')" 

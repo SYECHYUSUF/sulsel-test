@@ -148,32 +148,7 @@
     </div>
 
     <div class="flex items-center gap-4">
-        {{-- Language Switcher --}}
-        <div class="relative" x-data="{ openLang: false }" @click.away="openLang = false">
-            <button @click="openLang = !openLang"
-                class="flex items-center gap-2 p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
-                <span
-                    class="text-sm font-bold text-slate-600 dark:text-slate-300 uppercase">{{ app()->getLocale() }}</span>
-                <svg class="w-4 h-4 text-slate-500 transition-transform duration-200" :class="{'rotate-180': openLang}"
-                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                </svg>
-            </button>
-            <div x-show="openLang" x-transition:enter="transition ease-out duration-100"
-                x-transition:enter-start="transform opacity-0 scale-95"
-                x-transition:enter-end="transform opacity-100 scale-100"
-                class="absolute right-0 mt-2 w-32 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl shadow-xl py-1 z-50 overflow-hidden"
-                style="display: none;">
-                <a href="{{ url('lang/id') }}"
-                    class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 {{ app()->getLocale() == 'id' ? 'font-bold text-[#1A305E] dark:text-[#D4AF37]' : '' }}">
-                    Bahasa (ID)
-                </a>
-                <a href="{{ url('lang/en') }}"
-                    class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 {{ app()->getLocale() == 'en' ? 'font-bold text-[#1A305E] dark:text-[#D4AF37]' : '' }}">
-                    English (EN)
-                </a>
-            </div>
-        </div>
+        
 
         {{-- Dark Mode Toggle --}}
         <button @click="toggleDarkMode()"

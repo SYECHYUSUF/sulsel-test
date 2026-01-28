@@ -31,7 +31,7 @@
         }
     }" 
     @scroll.window="scroll = window.pageYOffset"
-    class="w-full relative h-[calc(100vh+15vh)] overflow-hidden font-['Plus_Jakarta_Sans'] group z-10 block"
+    class="w-full relative h-[100vh] overflow-hidden font-['Plus_Jakarta_Sans'] group z-10 block mt-40"
     @mouseenter="stopTimer"
     @mouseleave="startTimer"
 >
@@ -48,10 +48,10 @@
             x-transition:leave-end="-translate-x-full"
             class="absolute inset-0 w-full h-full"
         >
-            {{-- Gambar diset h-full dan object-cover agar menutup seluruh layar --}}
+            {{-- Gambar diset untuk menampilkan seluruh konten tanpa crop --}}
             <img 
                 :src="slide" 
-                class="absolute inset-0 w-full h-full object-cover object-center"
+                class="absolute inset-0 w-full h-full object-contain object-center bg-white dark:bg-slate-800"
                 alt="Slider Image"
                 :style="`transform: translateY(${scroll * 0.3}px)`"
             >
@@ -61,7 +61,7 @@
     </template>
 
     {{-- 2. KONTEN (CENTERED) - Welcome Message on First Slide Only --}}
-    <div class="absolute inset-0 z-20 flex items-center justify-center">
+    <div class="absolute inset-0 z-20 flex items-end justify-center pb-12 mb-72">
         <div class="container mx-auto px-6 text-center text-white">
             {{-- Welcome Content - Only on First Slide --}}
             <div x-show="activeSlide === 0"
@@ -137,7 +137,7 @@
                 
                 {{-- Logo PPID (Right) --}}
                 <div class="flex-shrink-0 hidden md:block">
-                    <img src="{{ asset('images/logo-ppid.png') }}" 
+                    <img src="{{ asset('images/ppid-2.png') }}" 
                          alt="Logo PPID" 
                          class="w-24 h-24 lg:w-32 lg:h-32 object-contain drop-shadow-2xl animate-pulse">
                 </div>
@@ -156,10 +156,10 @@
     </div>
 
     {{-- CONTROLS (ARROWS) --}}
-    <button @click="prev()" class="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-black/20 hover:bg-[#D4AF37] hover:text-[#1A305E] text-white backdrop-blur-sm transition-all z-30 opacity-0 group-hover:opacity-100 transform -translate-x-4 group-hover:translate-x-0 duration-300">
+    <button @click="prev()" class="absolute left-4 top-1/2 -translate-y-14 p-3 rounded-full bg-black/20 hover:bg-[#D4AF37] hover:text-[#1A305E] text-white backdrop-blur-sm transition-all z-30 opacity-0 group-hover:opacity-100 transform -translate-x-4 group-hover:translate-x-0 duration-300 ">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
     </button>
-    <button @click="next()" class="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-black/20 hover:bg-[#D4AF37] hover:text-[#1A305E] text-white backdrop-blur-sm transition-all z-30 opacity-0 group-hover:opacity-100 transform translate-x-4 group-hover:translate-x-0 duration-300">
+    <button @click="next()" class="absolute right-4 top-1/2 -translate-y-14 p-3 rounded-full bg-black/20 hover:bg-[#D4AF37] hover:text-[#1A305E] text-white backdrop-blur-sm transition-all z-30 opacity-0 group-hover:opacity-100 transform translate-x-4 group-hover:translate-x-0 duration-300 ">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
     </button>
 
@@ -177,7 +177,7 @@
     {{-- DEKORASI GELOMBANG --}}
     {{-- DEKORASI GELOMBANG --}}
     <div class="absolute bottom-0 left-0 right-0 z-20 pointer-events-none text-white dark:text-slate-900 transition-colors duration-300">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" fill="currentColor" class="w-full h-auto">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" fill="currentColor" class="w-full h-auto ">
             <path fill-opacity="1" d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,42.7C1120,32,1280,32,1360,32L1440,32L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
         </svg>
     </div>

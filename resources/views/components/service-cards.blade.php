@@ -1,12 +1,8 @@
 <section id="layanan" 
     x-data="{ scroll: 0 }" 
     @scroll.window="scroll = window.pageYOffset"
-    class="py-8 md:py-16 bg-[#fafafa] dark:bg-slate-900 relative overflow-hidden font-['Plus_Jakarta_Sans'] transition-colors duration-300">
+    class="py-8 md:py-16 bg-white dark:bg-slate-900 relative overflow-hidden font-['Plus_Jakarta_Sans'] transition-colors duration-300">
     
-    {{-- Decorative Background (Subtle) - Full Width --}}
-    <div class="absolute inset-0 w-full h-full bg-gradient-to-br from-[#1A305E]/5 via-transparent to-[#D4AF37]/5 dark:from-[#1A305E]/10 dark:to-[#D4AF37]/10 pointer-events-none"></div>
-    <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-[#1A305E]/5 rounded-full blur-3xl opacity-50 pointer-events-none"></div>
-    <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#D4AF37]/10 rounded-full blur-3xl opacity-40 pointer-events-none"></div>
 
     <div class="container mx-auto px-4 relative z-10">
         {{-- Section Header - Animasi Fade Down --}}
