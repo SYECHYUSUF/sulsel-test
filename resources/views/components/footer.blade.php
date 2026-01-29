@@ -12,8 +12,8 @@
     {{-- 2. Dot & Cultural Pattern Overlay --}}
     <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(circle, rgba(212, 175, 55, 0.3) 1px, transparent 1px); background-size: 20px 20px;"></div>
     
-    <div class="container mx-auto px-6 md:px-4 py-12 md:py-16 relative z-10" data-aos="fade-up">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-12">
+    <div class="container mx-auto px-4 sm:px-6 md:px-4 py-10 sm:py-12 md:py-16 relative z-10" data-aos="fade-up">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-10 lg:gap-12">
             
             {{-- Brand Section --}}
             <div class="sm:col-span-2 text-center sm:text-left">
@@ -103,7 +103,7 @@
         </div>
 
         {{-- Bottom Copyright --}}
-        <div class="mt-12 md:mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 text-xs md:text-sm text-gray-500 text-center md:text-left">
+        <div class="mt-10 sm:mt-12 md:mt-16 pt-6 sm:pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 sm:gap-6 text-xs md:text-sm text-gray-500 text-center md:text-left">
             <p>{{ __('messages.footer.rights') }}</p>
             <div class="flex gap-4 md:gap-6">
                 <a href="#" class="hover:text-[#D4AF37] transition-colors">{{ __('messages.footer.privacy') }}</a>

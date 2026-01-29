@@ -1,5 +1,5 @@
 {{-- News Sidebar Component --}}
-<div class="space-y-6">
+<div class="space-y-4 sm:space-y-6">
     {{-- Berita Terkini --}}
     <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 overflow-hidden">
         <div class="bg-[#1A305E] px-5 py-4">

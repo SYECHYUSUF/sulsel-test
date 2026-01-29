@@ -11,12 +11,12 @@
                 <div class="w-2 h-2 bg-[#D4AF37] rounded-full"></div>
                 <span class="text-[#1A305E] dark:text-gray-200 text-xs md:text-sm font-bold tracking-wide uppercase">{{ __('messages.service.our_services') }}</span>
             </div>
-            <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#1A305E] dark:text-white mb-6 leading-tight">{{ __('messages.service.public_info_services') }}</h2>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#1A305E] dark:text-white mb-4 sm:mb-6 leading-tight">{{ __('messages.service.public_info_services') }}</h2>
             <p class="text-base md:text-lg text-[#4A5568] dark:text-gray-300 leading-relaxed">{{ __('messages.service.access_desc') }}</p>
         </div>
 
         {{-- Cards Grid - Animasi Fade Up dengan Staggered Delay --}}
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto">
             @php
                 $services = [
                     ['title' => 'messages.service.info_public_title', 'desc' => 'messages.service.public_info_desc', 'icon' => 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10', 'url' => '/informasi-publik'],
@@ -29,7 +29,7 @@
             <a href="{{ $s['url'] }}" class="group h-full block"
                  data-aos="fade-up" 
                  data-aos-delay="{{ $index * 150 }}">
-                <div class="relative bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_-10px_rgba(26,48,94,0.1)] transition-all duration-700 ease-out group-hover:-translate-y-1 border border-gray-100/80 dark:border-slate-700 overflow-hidden h-full flex flex-col">
+                <div class="relative bg-white dark:bg-slate-800 rounded-2xl p-6 sm:p-8 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_-10px_rgba(26,48,94,0.1)] transition-all duration-700 ease-out group-hover:-translate-y-1 border border-gray-100/80 dark:border-slate-700 overflow-hidden h-full flex flex-col">
                 
                 {{-- Hover Accent Line --}}
                 <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
@@ -41,7 +41,7 @@
                         </svg>
                     </div>
                     
-                    <h3 class="text-xl font-bold text-[#1A305E] dark:text-white mb-3 group-hover:text-[#D4AF37] transition-colors">{{ __($s['title']) }}</h3>
+                    <h3 class="text-lg sm:text-xl font-bold text-[#1A305E] dark:text-white mb-3 group-hover:text-[#D4AF37] transition-colors">{{ __($s['title']) }}</h3>
                     <p class="text-[#4A5568] dark:text-gray-300 leading-relaxed mb-8 flex-grow">{{ __($s['desc']) }}</p>
                     
                     <span class="inline-flex items-center gap-2 text-sm font-bold text-[#1A305E] dark:text-white group-hover:translate-x-1 transition-transform uppercase tracking-wider">

@@ -36,7 +36,7 @@
     <main class="py-10 md:py-16 bg-gray-50 dark:bg-slate-900 font-['Plus_Jakarta_Sans']">
         <div class="container mx-auto px-4">
             <div class="max-w-7xl mx-auto">
-                <div class="grid lg:grid-cols-12 gap-8">
+                <div class="grid lg:grid-cols-12 gap-6 sm:gap-8">
                     
                     {{-- Sidebar --}}
                     <aside class="lg:col-span-4">
@@ -44,7 +44,7 @@
                     </aside>
 
                     {{-- Main Content --}}
-                    <div class="lg:col-span-8 space-y-8">
+                    <div class="lg:col-span-8 space-y-6 sm:space-y-8">
             
                         {{-- VISI --}}
                         <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 overflow-hidden">
@@ -55,7 +55,7 @@
                                 </div>
                             </div>
                     
-                            <div class="p-6 md:p-10">
+                            <div class="p-5 sm:p-6 md:p-10">
                                 <div class="bg-[#1A305E]/5 border-l-4 border-[#1A305E] rounded-r-lg p-6 md:p-8">
                                     <p class="text-lg md:text-xl text-gray-900 dark:text-white leading-relaxed font-medium text-center">
                                         "Terwujudnya pelayanan informasi yang transparan dan akuntabel untuk memenuhi hak setiap orang informasi dengan keterbukaan peraturan perundang-undangan yang berlaku"
@@ -73,7 +73,7 @@
                                 </div>
                             </div>
                     
-                            <div class="p-6 md:p-10">
+                            <div class="p-5 sm:p-6 md:p-10">
                                 <p class="text-gray-700 mb-6">
                                     Untuk mewujudkan visi tersebut, PPID Sulawesi Selatan memiliki 3 misi utama:
                                 </p>

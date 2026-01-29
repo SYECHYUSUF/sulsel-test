@@ -52,7 +52,7 @@
                data-aos="fade-up" 
                data-aos-delay="{{ $index * 100 }}" 
                class="group bg-white dark:bg-slate-800 rounded-3xl overflow-hidden shadow-lg hover:shadow-[0_20px_50px_-10px_rgba(26,48,94,0.15)] transition-all duration-300 border border-gray-100 dark:border-slate-700 hover:border-[#D4AF37]/50 flex flex-col h-full hover:-translate-y-2">
-                <div class="bg-[#1A305E] p-6 relative overflow-hidden text-white group-hover:bg-[#15264a] transition-colors shrink-0">
+                <div class="bg-[#1A305E] p-5 sm:p-6 relative overflow-hidden text-white group-hover:bg-[#15264a] transition-colors shrink-0">
                     {{-- Decorative Gold Pattern --}}
                     <div class="absolute top-0 right-0 w-24 h-24 bg-[#D4AF37]/10 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-125 transition-transform duration-500"></div>
                     
@@ -68,7 +68,7 @@
                     </div>
                 </div>
                 
-                <div class="p-6 md:p-8 flex flex-col flex-grow">
+                <div class="p-5 sm:p-6 md:p-8 flex flex-col flex-grow">
                     <h3 class="text-lg md:text-xl font-bold text-[#1A305E] dark:text-white mb-3 group-hover:text-[#D4AF37] transition-colors leading-tight">
                         {{ $card['title'] }}
                     </h3>

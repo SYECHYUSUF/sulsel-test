@@ -34,7 +34,7 @@
         }
     }" 
     @scroll.window="scroll = window.pageYOffset"
-    class="w-full relative h-[100vh] overflow-hidden font-['Plus_Jakarta_Sans'] group z-10 block mt-40"
+    class="w-full relative h-screen sm:h-[85vh] md:h-[100vh] overflow-hidden font-['Plus_Jakarta_Sans'] group z-10 block mt-32 sm:mt-36 md:mt-40"
     @mouseenter="stopTimer"
     @mouseleave="startTimer"
 >
@@ -59,7 +59,7 @@
     </div>
 
     {{-- 2. KONTEN (CENTERED) - Welcome Message on First Slide Only --}}
-    <div class="absolute inset-0 z-20 flex items-end justify-center pb-12 mb-72">
+    <div class="absolute inset-0 z-20 flex items-end justify-center pb-8 mb-16 sm:pb-10 sm:mb-24 md:pb-12 md:mb-72">
         <div class="container mx-auto px-6 text-center text-white">
             {{-- Welcome Content - Only on First Slide --}}
             <div x-show="activeSlide === 0"
@@ -80,12 +80,12 @@
                 
                 {{-- Welcome Text (Center) --}}
                 <div class="flex-1 max-w-3xl">
-                    <h1 class="text-2xl md:text-4xl lg:text-5xl font-extrabold leading-tight mb-4 text-white drop-shadow-lg">
+                    <h1 class="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-extrabold leading-tight mb-3 sm:mb-4 text-white drop-shadow-lg">
                         Selamat Datang di Portal Resmi<br>
                         <span class="text-[#D4AF37]">PPID Utama</span><br>
                         Provinsi Sulawesi Selatan
                     </h1>
-                    <p class="text-sm md:text-lg lg:text-xl text-white/90 font-medium drop-shadow-md mb-8">
+                    <p class="text-xs sm:text-sm md:text-lg lg:text-xl text-white/90 font-medium drop-shadow-md mb-4 sm:mb-6 md:mb-8">
                         Transparansi Informasi Publik untuk Sulawesi Selatan yang Lebih Baik
                     </p>
                     
@@ -93,7 +93,7 @@
                     <div class="max-w-2xl mx-auto">
                         <button 
                             @click="$dispatch('open-search')"
-                            class="group w-full flex items-center gap-3 px-6 py-4 bg-white/95 dark:bg-slate-800/95 backdrop-blur-md rounded-2xl shadow-2xl hover:shadow-[#D4AF37]/20 hover:shadow-3xl transition-all duration-300 border-2 border-transparent hover:border-[#D4AF37]/50">
+                            class="group w-full flex items-center gap-2 sm:gap-3 px-4 py-3 sm:px-6 sm:py-4 bg-white/95 dark:bg-slate-800/95 backdrop-blur-md rounded-xl sm:rounded-2xl shadow-2xl hover:shadow-[#D4AF37]/20 hover:shadow-3xl transition-all duration-300 border-2 border-transparent hover:border-[#D4AF37]/50">
                             
                             {{-- Search Icon --}}
                             <div class="flex-shrink-0">
@@ -104,7 +104,7 @@
                             
                             {{-- Placeholder Text --}}
                             <div class="flex-1 text-left">
-                                <span class="text-[#4A5568] dark:text-gray-400 text-base md:text-lg font-medium">
+                                <span class="text-[#4A5568] dark:text-gray-400 text-sm sm:text-base md:text-lg font-medium">
                                     {{ __('messages.common.search_placeholder') }}
                                 </span>
                             </div>
@@ -118,7 +118,7 @@
                         </button>
                         
                         {{-- Popular Keywords --}}
-                        <div class="mt-4 flex flex-wrap items-center justify-center gap-2">
+                        <div class="mt-3 sm:mt-4 flex flex-wrap items-center justify-center gap-1.5 sm:gap-2">
                             <span class="text-white/70 text-sm font-medium">{{ __('messages.hero.popular') }}</span>
                             <a href="/informasi-publik/berkala" class="px-3 py-1 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full text-white text-xs font-medium transition-all hover:scale-105">
                                 Laporan Keuangan
@@ -154,15 +154,15 @@
     </div>
 
     {{-- @ --}}
-    <button @click="prev()" class="absolute left-4 top-1/2 -translate-y-14 p-3 rounded-full bg-black/20 hover:bg-[#D4AF37] hover:text-[#1A305E] text-white backdrop-blur-sm transition-all z-30 opacity-0 group-hover:opacity-100 transform -translate-x-4 group-hover:translate-x-0 duration-300 ">
+    <button @click="prev()" class="absolute left-2 sm:left-4 top-1/2 -translate-y-14 p-2 sm:p-3 rounded-full bg-black/20 hover:bg-[#D4AF37] hover:text-[#1A305E] text-white backdrop-blur-sm transition-all z-30 opacity-0 group-hover:opacity-100 transform -translate-x-4 group-hover:translate-x-0 duration-300">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
     </button>
-    <button @click="next()" class="absolute right-4 top-1/2 -translate-y-14 p-3 rounded-full bg-black/20 hover:bg-[#D4AF37] hover:text-[#1A305E] text-white backdrop-blur-sm transition-all z-30 opacity-0 group-hover:opacity-100 transform translate-x-4 group-hover:translate-x-0 duration-300 ">
+    <button @click="next()" class="absolute right-2 sm:right-4 top-1/2 -translate-y-14 p-2 sm:p-3 rounded-full bg-black/20 hover:bg-[#D4AF37] hover:text-[#1A305E] text-white backdrop-blur-sm transition-all z-30 opacity-0 group-hover:opacity-100 transform translate-x-4 group-hover:translate-x-0 duration-300">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
     </button>
 
     {{-- DOT INDICATORS --}}
-    <div class="absolute bottom-28 left-1/2 -translate-x-1/2 flex space-x-2 z-30">
+    <div class="absolute bottom-20 sm:bottom-24 md:bottom-28 left-1/2 -translate-x-1/2 flex space-x-2 z-30">
         <template x-for="(slide, index) in slides" :key="index">
             <button 
                 @click="activeSlide = index"

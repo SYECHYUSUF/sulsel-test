@@ -22,7 +22,7 @@
             <img src="{{ asset('images/ppid-2.png') }}" alt="Logo PPID Sulawesi Selatan" class="h-10 md:h-14 w-auto transition-transform group-hover:scale-105" />
             
             {{-- TEKS SAMPING LOGO --}}
-            <div class="flex flex-col justify-center">
+            <div class="flex-col justify-center md:flex hidden">
                 <span class="font-extrabold text-[#1A305E] dark:text-white text-xs md:text-base leading-tight group-hover:text-[#D4AF37] transition-colors font-['Plus_Jakarta_Sans']">
                     {{ __('messages.header.title_1') }}
                 </span>
