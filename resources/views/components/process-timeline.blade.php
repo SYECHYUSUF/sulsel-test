@@ -5,8 +5,7 @@
     {{-- Decorative Elements dangan Parallax --}}
     <div class="absolute top-10 left-0 w-48 h-48 md:top-20 md:left-10 md:w-72 md:h-72 bg-[#1A305E]/5 dark:bg-white/5 rounded-full blur-3xl opacity-20 transition-transform duration-75" :style="`transform: translateY(${scroll * 0.1}px)`"></div>
     <div class="absolute bottom-10 right-0 w-48 h-48 md:bottom-20 md:right-10 md:w-72 md:h-72 bg-[#D4AF37]/5 dark:bg-yellow-500/5 rounded-full blur-3xl opacity-20 transition-transform duration-75" :style="`transform: translateY(${scroll * -0.1}px)`"></div>
-
-    <div class="container mx-auto px-6 md:px-4 relative z-10">
+    <div class="container mx-auto px-4 sm:px-6 md:px-4 relative z-10">
         {{-- Section Header --}}
         <div class="text-center mb-12 md:mb-16 max-w-3xl mx-auto" data-aos="fade-down">
             <div class="inline-flex items-center gap-2 mb-4 px-4 py-2 md:px-5 md:py-2.5 bg-white dark:bg-slate-800 border border-[#D4AF37]/30 dark:border-[#D4AF37]/20 rounded-full shadow-sm">
@@ -18,7 +17,7 @@
         </div>
 
         <div class="max-w-6xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 relative">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 sm:gap-10 md:gap-8 relative">
                 
                 {{-- Connecting Line --}}
                 <div class="hidden md:block absolute top-16 left-0 right-0 h-1 bg-gradient-to-r from-[#1A305E]/10 via-[#D4AF37]/20 to-[#1A305E]/10 dark:from-white/5 dark:via-[#D4AF37]/20 dark:to-white/5" style="width: calc(100% - 8rem); left: 4rem;"></div>
@@ -62,7 +61,7 @@
 
                 @foreach($steps as $index => $s)
                 <div class="relative" data-aos="fade-up" data-aos-delay="{{ $index * 200 }}">
-                    <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 md:p-8 shadow-sm hover:shadow-[0_20px_50px_-10px_rgba(26,48,94,0.15)] transition-all duration-300 border border-gray-100 dark:border-slate-700 hover:border-[#D4AF37]/30 group hover:-translate-y-2">
+                    <div class="bg-white dark:bg-slate-800 rounded-3xl p-5 sm:p-6 md:p-8 shadow-sm hover:shadow-[0_20px_50px_-10px_rgba(26,48,94,0.15)] transition-all duration-300 border border-gray-100 dark:border-slate-700 hover:border-[#D4AF37]/30 group hover:-translate-y-2">
                         {{-- Number Badge --}}
                         <div class="absolute -top-3 -left-3 md:-top-4 md:-left-4 w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br {{ $s['col'] }} rounded-2xl flex items-center justify-center shadow-lg z-10 text-white font-bold text-lg md:text-xl">
                             {{ $s['n'] }}
@@ -81,7 +80,6 @@
                         <div class="inline-flex items-center gap-2 px-4 py-2 bg-gray-50 dark:bg-slate-700 rounded-full border border-gray-100 dark:border-slate-600">
                             <svg class="w-4 h-4 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                             <span class="text-xs md:text-sm font-semibold text-[#1A305E] dark:text-gray-200">{{ __($s['dur']) }}</span>
-                            <span class="text-xs md:text-sm font-semibold text-[#1A305E]">{{ $s['dur'] }}</span>
                         </div>
                     </div>
                 </div>

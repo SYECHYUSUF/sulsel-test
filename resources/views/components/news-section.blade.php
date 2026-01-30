@@ -7,7 +7,7 @@
                 <span class="w-2 h-2 bg-[#D4AF37] rounded-full animate-pulse"></span>
                 <span class="text-[#1A305E] dark:text-gray-200 text-[9px] md:text-[10px] font-black uppercase tracking-widest">{{ __('messages.common.news') }}</span>
             </div>
-            <h2 class="text-2xl md:text-[42px] font-extrabold text-[#1A305E] dark:text-white mb-4 md:mb-[21px] leading-tight tracking-tight">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-extrabold text-[#1A305E] dark:text-white mb-4 md:mb-[21px] leading-tight tracking-tight">
                 {{ __('messages.news.title') }}
             </h2>
             <p class="text-base md:text-lg text-[#4A5568] dark:text-gray-300">{{ __('messages.news.latest_update') }}</p>
@@ -44,7 +44,7 @@
                     </div>
                 </div>
 
-                <div class="p-6 md:p-[34px] flex-grow flex flex-col">
+                <div class="p-5 sm:p-6 md:p-[34px] flex-grow flex flex-col">
                     <div class="flex items-center gap-2 text-[#4A5568] dark:text-gray-400 text-xs mb-3 md:mb-[13px] font-semibold">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
                         {{ \Carbon\Carbon::parse($item->tgl_upload)->format('d M Y') }}

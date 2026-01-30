@@ -12,7 +12,7 @@
             <p class="text-base md:text-lg text-[#4A5568] dark:text-gray-400">{{ __('messages.faq.subtitle') }}</p>
         </div>
 
-        <div class="max-w-4xl mx-auto space-y-4">
+        <div class="max-w-4xl mx-auto space-y-3 sm:space-y-4">
             @php
                 $faqs = [
                     [
@@ -36,7 +36,7 @@
                  :class="active === {{ $index }} ? 'ring-2 ring-[#D4AF37]/20 border-[#D4AF37] shadow-lg' : 'hover:border-[#D4AF37]/50'">
                 
                 <button @click="active = (active === {{ $index }} ? null : {{ $index }})" 
-                        class="w-full flex items-center justify-between p-5 md:p-6 text-left focus:outline-none group">
+                        class="w-full flex items-center justify-between p-4 sm:p-5 md:p-6 text-left focus:outline-none group min-h-[60px]">
                     <span class="text-base md:text-lg font-bold text-[#1A305E] dark:text-white leading-snug pr-4 group-hover:text-[#D4AF37] transition-colors">
                         {{ __($faq['q']) }}
                     </span>
@@ -50,7 +50,7 @@
                 <div x-show="active === {{ $index }}" 
                      x-collapse 
                      x-cloak
-                     class="px-5 pb-6 md:px-6 md:pb-8 pt-0">
+                     class="px-4 pb-5 sm:px-5 sm:pb-6 md:px-6 md:pb-8 pt-0">
                     <div class="h-px w-full bg-gray-100 dark:bg-slate-600 mb-4"></div>
                     <p class="text-sm md:text-base text-[#4A5568] dark:text-slate-300 leading-relaxed">
                         {{ __($faq['a']) }}

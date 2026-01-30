@@ -9,16 +9,16 @@
     <div class="absolute bottom-0 left-0 w-72 h-72 bg-[#D4AF37]/10 dark:bg-yellow-500/10 rounded-full blur-[100px] opacity-40 translate-y-1/2 -translate-x-1/3 transition-transform duration-75 ease-out"
          :style="`transform: translate(${-30 - (scroll * 0.03)}%, ${30 - (scroll * 0.03)}%)`"></div>
 
-    <div class="container mx-auto px-6 relative z-10">
+    <div class="container mx-auto px-4 sm:px-6 relative z-10">
         {{-- Section Header --}}
-        <div class="text-center mb-16 md:mb-20" data-aos="fade-down">
+        <div class="text-center mb-12 sm:mb-16 md:mb-20" data-aos="fade-down">
             <span class="text-[#D4AF37] font-bold tracking-[0.2em] text-[10px] uppercase mb-3 block">{{ __('messages.leadership.badge') }}</span>
-            <h2 class="text-3xl md:text-4xl font-extrabold text-[#1A305E] dark:text-white mb-4 tracking-tight">{{ __('messages.leadership.title') }}</h2>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#1A305E] dark:text-white mb-4 tracking-tight">{{ __('messages.leadership.title') }}</h2>
             <div class="w-12 h-1 bg-[#D4AF37] mx-auto rounded-full"></div>
         </div>
 
         {{-- Grid --}}
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 max-w-4xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10 md:gap-12 max-w-4xl mx-auto">
             @php
                 $leaders = [
                     [
@@ -70,7 +70,7 @@
                 </div>
 
                 {{-- 3. Bio Area --}}
-                <div class="mt-5 text-center md:text-left md:pl-2">
+                <div class="mt-4 sm:mt-5 text-center md:text-left md:pl-2">
                     <h3 class="text-lg md:text-xl font-bold text-[#1A305E] dark:text-white mb-0.5 tracking-tight group-hover:text-[#D4AF37] transition-colors">
                         {{ __($l['name']) }}
                     </h3>

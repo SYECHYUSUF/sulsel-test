@@ -77,62 +77,61 @@
                     </div>
                 </div>
 
-                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 overflow-hidden">
-                     <div class="border-b border-gray-200 dark:border-slate-700 px-6 py-4">
-                        <h3 class="font-bold text-[#1A305E] dark:text-white">Laporan Hasil Survey Tahunan</h3>
-                    </div>
-                    <div class="p-6">
-                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                             {{-- Report Card 2024 --}}
-                            <div class="border border-gray-200 dark:border-slate-700 rounded-xl p-5 hover:shadow-md transition-shadow">
-                                <div class="flex items-start justify-between mb-4">
-                                     <div class="bg-blue-50 p-3 rounded-lg text-[#1A305E] dark:text-white">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
-                                    </div>
-                                    <span class="bg-[#D4AF37]/10 text-[#D4AF37] text-xs font-bold px-2 py-1 rounded">2024</span>
+                {{-- Survey Results by Question --}}
+                <div class="space-y-6">
+                    @foreach($results as $result)
+                        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-md border-2 border-gray-200 dark:border-slate-700 overflow-hidden hover:shadow-xl transition-all">
+                            {{-- Question Header --}}
+                            <div class="bg-gradient-to-r from-[#1A305E] to-[#2A4A7E] p-6">
+                                <div class="flex items-start gap-3">
+                                    <span class="flex-shrink-0 inline-flex items-center justify-center w-10 h-10 rounded-full bg-white text-[#1A305E] text-lg font-bold shadow-md">
+                                        {{ $result['question']->urutan }}
+                                    </span>
+                                    <h4 class="text-lg font-bold text-white leading-relaxed pt-1">
+                                        {{ $result['question']->soal }}
+                                    </h4>
                                 </div>
-                                <h4 class="font-bold text-gray-900 dark:text-white mb-1">Laporan IKM 2024</h4>
-                                <p class="text-sm text-gray-500 mb-4">Laporan Indeks Kepuasan Masyarakat Semester I Tahun 2024.</p>
-                                <button class="text-sm font-medium text-[#1A305E] dark:text-white hover:underline flex items-center gap-1">
-                                    Download PDF
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
-                                </button>
+                            </div>
+                            
+                            {{-- Bar Charts --}}
+                            <div class="p-6 space-y-5 bg-gradient-to-br from-gray-50 to-white dark:from-slate-900 dark:to-slate-800">
+                                @foreach($result['stats'] as $index => $stat)
+                                    <div class="group">
+                                        <div class="flex items-center justify-between mb-2">
+                                            <div class="flex items-center gap-2">
+                                                <span class="flex items-center justify-center w-7 h-7 rounded-full bg-[#673AB7] text-white text-sm font-bold">
+                                                    {{ chr(65 + $index) }}
+                                                </span>
+                                                <span class="text-base font-semibold text-gray-800 dark:text-gray-200">
+                                                    {{ $stat['option'] }}
+                                                </span>
+                                            </div>
+                                            <div class="flex items-center gap-2">
+                                                <span class="text-sm text-gray-600 dark:text-gray-400">{{ $stat['count'] }} responden</span>
+                                                <span class="text-xl font-bold text-[#673AB7]">{{ $stat['percentage'] }}%</span>
+                                            </div>
+                                        </div>
+                                        <div class="relative w-full bg-gray-200 dark:bg-slate-700 rounded-full h-10 overflow-hidden shadow-inner">
+                                            <div class="absolute inset-0 bg-gradient-to-r from-[#673AB7] to-[#8B5FBF] h-full rounded-full flex items-center px-4 transition-all duration-700 ease-out group-hover:brightness-110" 
+                                                 style="width: {{ $stat['percentage'] }}%">
+                                                @if($stat['percentage'] > 12)
+                                                <span class="text-sm font-bold text-white drop-shadow-md">{{ $stat['percentage'] }}%</span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
 
-                             {{-- Report Card 2023 --}}
-                            <div class="border border-gray-200 dark:border-slate-700 rounded-xl p-5 hover:shadow-md transition-shadow">
-                                <div class="flex items-start justify-between mb-4">
-                                     <div class="bg-blue-50 p-3 rounded-lg text-[#1A305E] dark:text-white">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
-                                    </div>
-                                    <span class="bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-300 text-xs font-bold px-2 py-1 rounded">2023</span>
+                            {{-- Footer Stats --}}
+                            <div class="bg-gradient-to-r from-blue-50 to-amber-50 dark:from-slate-800 dark:to-slate-700 px-6 py-4 border-t-2 border-gray-200 dark:border-slate-600">
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-gray-600 dark:text-gray-400 font-medium">Total Responden</span>
+                                    <span class="text-[#1A305E] dark:text-[#D4AF37] font-bold text-base">{{ collect($result['stats'])->sum('count') }} orang</span>
                                 </div>
-                                <h4 class="font-bold text-gray-900 dark:text-white mb-1">Laporan IKM 2023</h4>
-                                <p class="text-sm text-gray-500 mb-4">Laporan Indeks Kepuasan Masyarakat Tahun 2023 Lengkap.</p>
-                                <button class="text-sm font-medium text-[#1A305E] dark:text-white hover:underline flex items-center gap-1">
-                                    Download PDF
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
-                                </button>
                             </div>
-
-                             {{-- Report Card 2022 --}}
-                            <div class="border border-gray-200 dark:border-slate-700 rounded-xl p-5 hover:shadow-md transition-shadow">
-                                <div class="flex items-start justify-between mb-4">
-                                     <div class="bg-blue-50 p-3 rounded-lg text-[#1A305E] dark:text-white">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
-                                    </div>
-                                    <span class="bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-300 text-xs font-bold px-2 py-1 rounded">2022</span>
-                                </div>
-                                <h4 class="font-bold text-gray-900 dark:text-white mb-1">Laporan IKM 2022</h4>
-                                <p class="text-sm text-gray-500 mb-4">Laporan Indeks Kepuasan Masyarakat Tahun 2022 Lengkap.</p>
-                                <button class="text-sm font-medium text-[#1A305E] dark:text-white hover:underline flex items-center gap-1">
-                                    Download PDF
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
-                                </button>
-                            </div>
-
                         </div>
-                    </div>
+                    @endforeach
                 </div>
 
             </div>

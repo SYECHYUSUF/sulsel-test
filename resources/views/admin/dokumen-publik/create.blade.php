@@ -2,8 +2,11 @@
     <x-slot name="extra_head">
         <link href="/vendor/filepond/index.css" rel="stylesheet" />
         <link href="/vendor/filepond/image-preview.css" rel="stylesheet" />
+        <link href="/vendor/filepond/filepond-plugin-pdf-preview.min.css" rel="stylesheet" />
+
         <script src="/vendor/filepond/image-preview.js"></script>
         <script src="/vendor/filepond/index.js"></script>
+        <script src="/vendor/filepond/filepond-plugin-pdf-preview.min.js"></script>
     </x-slot>
 
     <x-slot name="header">
@@ -70,28 +73,29 @@
                 @enderror
             </div>
 
-            <!-- Status Verifikasi -->
-            <div>
-                <label class="block text-sm font-medium text-slate-700 mb-2">Status Verifikasi <span
-                        class="text-red-500">*</span></label>
-                <select name="verify"
-                    class="w-full px-4 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-ppid-accent focus:ring-1 focus:ring-ppid-accent"
-                    required>
-                    <option value="n" {{ old('verify') == 'n' ? 'selected' : '' }}>Belum Verifikasi</option>
-                    <option value="y" {{ old('verify') == 'y' ? 'selected' : '' }}>Terverifikasi</option>
-                    <option value="t" {{ old('verify') == 't' ? 'selected' : '' }}>Ditolak</option>
-                </select>
-                @error('verify')
-                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                @enderror
-            </div>
+            <!-- Status Verifikasi Oleh Admin -->
+            @if(auth()->user()->hasRole('admin'))
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">Status Verifikasi <span
+                            class="text-red-500">*</span></label>
+                    <select name="verify"
+                        class="w-full px-4 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-ppid-accent focus:ring-1 focus:ring-ppid-accent">
+                        <option value="n" {{ old('verify') == 'n' ? 'selected' : '' }}>Belum Verifikasi</option>
+                        <option value="y" {{ old('verify') == 'y' ? 'selected' : '' }}>Terverifikasi</option>
+                        <option value="t" {{ old('verify') == 't' ? 'selected' : '' }}>Ditolak</option>
+                    </select>
+                    @error('verify')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+            @endif
 
             <!-- File Upload -->
             <div>
                 <label class="block text-sm font-medium text-slate-700 mb-2">Dokumen File <span
                         class="text-red-500">*</span></label>
                 <input type="file" class="filepond" name="file" id="file_upload" required>
-                <p class="text-xs text-slate-500 mt-1">Format: PDF, DOC, DOCX, XLS, XLSX, JPG, PNG (Max: 5MB)</p>
+                <p class="text-xs text-slate-500 mt-1">Format: PDF, DOC, DOCX, XLS, XLSX, JPG, PNG (Max: 50MB)</p>
                 @error('file')
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                 @enderror
@@ -124,14 +128,26 @@
 
     <!-- Vendor -->
     <x-slot name="extra_script">
+        <script src="/vendor/filepond/image-preview.js"></script>
+        <script src="/vendor/filepond/filepond-plugin-pdf-preview.min.js"></script>
+        <script src="/vendor/filepond/index.js"></script>
         <script>
-            FilePond.registerPlugin(FilePondPluginImagePreview);
+            // Registrasi kedua plugin: Image Preview dan PDF Preview
+            FilePond.registerPlugin(
+                FilePondPluginImagePreview,
+                FilePondPluginPdfPreview
+            );
             FilePond.create(
                 document.querySelector('#file_upload'),
                 {
-                    labelIdle: `Drag & Drop your file or <span class="filepond--label-action">Browse</span>`,
+                    labelIdle: `Seret & Letakkan file atau <span class="filepond--label-action">Telusuri</span>`,
                     storeAsFile: true,
-                    maxFileSize: '5MB',
+                    maxFileSize: '50MB',
+
+                    // Konfigurasi PDF Preview
+                    allowPdfPreview: true,
+                    pdfPreviewHeight: 320,
+                    pdfComponentExtraParams: 'toolbar=0&view=fit&page=1'
                 }
             );
         </script>

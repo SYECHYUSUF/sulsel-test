@@ -22,7 +22,7 @@
             <img src="{{ asset('images/ppid-2.png') }}" alt="Logo PPID Sulawesi Selatan" class="h-10 md:h-14 w-auto transition-transform group-hover:scale-105" />
             
             {{-- TEKS SAMPING LOGO --}}
-            <div class="flex flex-col justify-center">
+            <div class="flex-col justify-center md:flex hidden">
                 <span class="font-extrabold text-[#1A305E] dark:text-white text-xs md:text-base leading-tight group-hover:text-[#D4AF37] transition-colors font-['Plus_Jakarta_Sans']">
                     {{ __('messages.header.title_1') }}
                 </span>
@@ -35,45 +35,84 @@
 
         
         <div class="flex items-center gap-3 md:gap-4">
+            {{-- Login Button --}}
+            <a href="/login" class="hidden lg:flex items-center gap-1.5 text-sm font-medium text-[#4A5568] dark:text-gray-300 hover:text-[#D4AF37] transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                </svg>
+                Login
+            </a>
             {{-- Contact Desktop --}}
             <a href="/contact" class="hidden lg:block text-sm font-medium text-[#4A5568] dark:text-gray-300 hover:text-[#D4AF37] transition-colors">{{ __('messages.header.contact') }}</a>
-
+            
+            
             {{-- Search Trigger Button --}}
             <button @click="$dispatch('open-search')" 
-                    class="p-2 rounded-full text-[#4A5568] dark:text-gray-300 hover:text-[#D4AF37] hover:bg-[#1A305E]/5 dark:hover:bg-white/10 transition-all"
-                    aria-label="Search">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            class="p-2 rounded-full text-[#4A5568] dark:text-gray-300 hover:text-[#D4AF37] hover:bg-[#1A305E]/5 dark:hover:bg-white/10 transition-all"
+            aria-label="Search">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+        </button>
+        
+        {{-- Dark Mode Toggle --}}
+        <button @click="darkMode = !darkMode; localStorage.setItem('theme', darkMode ? 'dark' : 'light'); if(darkMode) document.documentElement.classList.add('dark'); else document.documentElement.classList.remove('dark');" 
+        class="p-2 rounded-full text-[#4A5568] dark:text-gray-300 hover:text-[#D4AF37] hover:bg-[#1A305E]/5 dark:hover:bg-white/10 transition-all">
+        <svg x-show="!darkMode" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+        <svg x-show="darkMode" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+    </button>
+    
+    {{-- Dropdown Bahasa --}}
+    <div class="relative" @click.away="openLang = false">
+        <button @click="openLang = !openLang" class="flex items-center gap-1 text-[#4A5568] dark:text-gray-300 hover:text-[#D4AF37] transition-colors font-bold uppercase focus:outline-none text-sm">
+            <span x-text="lang"></span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform" :class="openLang ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path d="m6 9 6 6 6-6"/>
+            </svg>
+        </button>
+        
+        <div x-show="openLang" x-transition class="absolute right-0 mt-2 w-24 bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-xl rounded-xl overflow-hidden py-1 z-[60]">
+            <a href="/lang/id" class="block w-full text-left px-4 py-2 hover:bg-[#D4AF37]/10 hover:text-[#D4AF37] dark:text-gray-200 transition-colors text-sm">🇮🇩 ID</a>
+            <a href="/lang/en" class="block w-full text-left px-4 py-2 hover:bg-[#D4AF37]/10 hover:text-[#D4AF37] dark:text-gray-200 transition-colors text-sm">🇺🇸 EN</a>
+        </div>
+    </div>
+    
+    {{-- Social Media Icons - Desktop Only --}}
+    @php
+        $socials = [
+            ['name' => 'Facebook', 'link' => 'https://www.facebook.com/ppidsulsel', 'icon' => '<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>'],
+            ['name' => 'Twitter', 'link' => 'https://twitter.com/ppidsulsel', 'icon' => '<path d="M4 4l11.733 16h4.267l-11.733 -16z M4 20l6.768 -6.768 M13.232 10.768l6.768 -6.768"></path>'],
+            ['name' => 'Instagram', 'link' => 'https://www.instagram.com/ppidsulsel', 'icon' => '<rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>'],
+            ['name' => 'YouTube', 'link' => 'https://www.youtube.com/@ppidsulsel', 'icon' => '<path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.42a2.78 2.78 0 0 0-1.94 2C1 8.14 1 12 1 12s0 3.86.46 5.58a2.78 2.78 0 0 0 1.94 2c1.72.42 8.6.42 8.6.42s6.88 0 8.6-.42a2.78 2.78 0 0 0 1.94-2C23 15.86 23 12 23 12s0-3.86-.46-5.58z"></path><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"></polygon>']
+        ];
+    @endphp
+    <div class="hidden lg:flex items-center gap-2">
+        @foreach($socials as $soc)
+            <a href="{{ $soc['link'] }}" 
+               title="{{ $soc['name'] }}" 
+               target="_blank"
+               rel="noopener noreferrer"
+               class="group p-1.5 rounded-lg text-[#4A5568] dark:text-gray-300 hover:text-[#D4AF37] hover:bg-[#1A305E]/5 dark:hover:bg-white/10 transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" 
+                     width="16" 
+                     height="16" 
+                     viewBox="0 0 24 24" 
+                     fill="none" 
+                     stroke="currentColor" 
+                     stroke-width="2" 
+                     stroke-linecap="round" 
+                     stroke-linejoin="round" 
+                     class="transition-transform group-hover:scale-110">
+                    {!! $soc['icon'] !!}
                 </svg>
-            </button>
-            
-            {{-- Dark Mode Toggle --}}
-            <button @click="darkMode = !darkMode; localStorage.setItem('theme', darkMode ? 'dark' : 'light'); if(darkMode) document.documentElement.classList.add('dark'); else document.documentElement.classList.remove('dark');" 
-                    class="p-2 rounded-full text-[#4A5568] dark:text-gray-300 hover:text-[#D4AF37] hover:bg-[#1A305E]/5 dark:hover:bg-white/10 transition-all">
-                <svg x-show="!darkMode" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
-                <svg x-show="darkMode" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-            </button>
-            
-            {{-- Dropdown Bahasa --}}
-            <div class="relative" @click.away="openLang = false">
-                <button @click="openLang = !openLang" class="flex items-center gap-1 text-[#4A5568] dark:text-gray-300 hover:text-[#D4AF37] transition-colors font-bold uppercase focus:outline-none text-sm">
-                    <span x-text="lang"></span>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform" :class="openLang ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path d="m6 9 6 6 6-6"/>
-                    </svg>
-                </button>
-
-                <div x-show="openLang" x-transition class="absolute right-0 mt-2 w-24 bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-xl rounded-xl overflow-hidden py-1 z-[60]">
-                    <a href="/lang/id" class="block w-full text-left px-4 py-2 hover:bg-[#D4AF37]/10 hover:text-[#D4AF37] dark:text-gray-200 transition-colors text-sm">🇮🇩 ID</a>
-                    <a href="/lang/en" class="block w-full text-left px-4 py-2 hover:bg-[#D4AF37]/10 hover:text-[#D4AF37] dark:text-gray-200 transition-colors text-sm">🇺🇸 EN</a>
-                </div>
-            </div>
-
-            {{-- TOMBOL HAMBURGER: Hanya muncul di Mobile --}}
-            <button @click="mobileMenu = !mobileMenu" class="lg:hidden p-2 rounded-lg bg-[#1A305E]/5 dark:bg-white/10 text-[#1A305E] dark:text-white">
-                <svg x-show="!mobileMenu" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
-                <svg x-show="mobileMenu" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
-            </button>
+            </a>
+        @endforeach
+    </div>
+    {{-- TOMBOL HAMBURGER: Hanya muncul di Mobile --}}
+    <button @click="mobileMenu = !mobileMenu" class="lg:hidden p-2 rounded-lg bg-[#1A305E]/5 dark:bg-white/10 text-[#1A305E] dark:text-white">
+        <svg x-show="!mobileMenu" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+        <svg x-show="mobileMenu" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+    </button>
         </div>
     </div>
 
@@ -240,6 +279,12 @@
     </li>
     
     <li>
+        <a href="{{ route('layanan.cek-status-permohonan') }}" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">
+            Cek Status Permohonan
+        </a>
+    </li>
+    
+    <li>
         <a href="/layanan/sop" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">
             SOP
         </a>
@@ -274,6 +319,16 @@
                 {{-- Contact Mobile Only --}}
                 <li class="lg:hidden border-b border-white/10">
                     <a href="/contact" class="block px-6 py-4 hover:bg-white/10 hover:text-white">{{ __('messages.header.contact') }}</a>
+                </li>
+                
+                {{-- Login Mobile Only --}}
+                <li class="lg:hidden border-b border-white/10">
+                    <a href="/login" class="flex items-center gap-2 px-6 py-4 hover:bg-white/10 hover:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                        </svg>
+                        Login
+                    </a>
                 </li>
             </ul>
         </div>

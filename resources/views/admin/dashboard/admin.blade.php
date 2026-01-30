@@ -25,16 +25,20 @@
                         <span
                             class="text-xs font-medium py-1 px-2 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 rounded-full">{{ $stats['permohonan_trend'] }}%</span>
                     @else
-                        <span class="text-xs font-medium py-1 px-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full">Tetap</span>
+                        <span
+                            class="text-xs font-medium py-1 px-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full">Tetap</span>
                     @endif
                 </div>
                 <div>
                     <p class="text-sm font-medium text-slate-500 dark:text-slate-400">Permohonan</p>
-                    <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100">{{ number_format($stats['total_permohonan']) }}</h2>
+                    <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100">
+                        {{ number_format($stats['total_permohonan']) }}
+                    </h2>
                 </div>
             </div>
 
-            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-5 hover:border-red-300 dark:hover:border-red-500 transition-all">
+            <div
+                class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-5 hover:border-red-300 dark:hover:border-red-500 transition-all">
                 <div class="flex justify-between items-start mb-4">
                     <div class="p-2 bg-red-50 dark:bg-red-900/30 rounded-lg text-red-600 dark:text-red-400">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -42,11 +46,14 @@
                                 d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                     </div>
-                    <span class="text-xs font-medium py-1 px-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full">Tetap</span>
+                    <span
+                        class="text-xs font-medium py-1 px-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full">Tetap</span>
                 </div>
                 <div>
                     <p class="text-sm font-medium text-slate-500 dark:text-slate-400">Keberatan</p>
-                    <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100">{{ number_format($stats['total_keberatan']) }}</h2>
+                    <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100">
+                        {{ number_format($stats['total_keberatan']) }}
+                    </h2>
                 </div>
             </div>
 
@@ -63,14 +70,17 @@
                 </div>
                 <div>
                     <p class="text-sm font-medium text-slate-500 dark:text-slate-400">Berita Baru</p>
-                    <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100">{{ number_format($stats['total_berita']) }}</h2>
+                    <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100">
+                        {{ number_format($stats['total_berita']) }}
+                    </h2>
                 </div>
             </div>
 
             <div
                 class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-5 hover:border-emerald-300 dark:hover:border-emerald-500 transition-all">
                 <div class="flex justify-between items-start mb-4">
-                    <div class="p-2 bg-emerald-50 dark:bg-emerald-900/30 rounded-lg text-emerald-600 dark:text-emerald-400">
+                    <div
+                        class="p-2 bg-emerald-50 dark:bg-emerald-900/30 rounded-lg text-emerald-600 dark:text-emerald-400">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
@@ -80,7 +90,9 @@
                 </div>
                 <div>
                     <p class="text-sm font-medium text-slate-500 dark:text-slate-400">SKPD</p>
-                    <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100">{{ number_format($stats['total_skpd']) }}</h2>
+                    <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100">
+                        {{ number_format($stats['total_skpd']) }}
+                    </h2>
                 </div>
             </div>
 
@@ -118,11 +130,11 @@
                 </div>
                 <div>
                     <p class="text-sm font-medium text-slate-500 dark:text-slate-400">Visitor</p>
-                    
+
                     <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100">
-                        {{ $stats['total_visitor'] >= 1000 
-                            ? number_format($stats['total_visitor'] / 1000, 1) . 'k' 
-                            : number_format($stats['total_visitor']) 
+                        {{ $stats['total_visitor'] >= 1000
+    ? number_format($stats['total_visitor'] / 1000, 1) . 'k'
+    : number_format($stats['total_visitor']) 
                         }}
                     </h2>
                 </div>
@@ -131,11 +143,13 @@
 
         <div class="grid grid-cols-12 gap-6">
 
-            <div class="col-span-12 lg:col-span-8 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+            <div
+                class="col-span-12 lg:col-span-8 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
                     <div>
                         <h3 class="text-slate-800 dark:text-slate-100 font-bold text-lg">Statistik Layanan</h3>
-                        <p class="text-xs text-slate-500 dark:text-slate-400">Perbandingan permohonan & keberatan 2024</p>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Perbandingan permohonan & keberatan 2024
+                        </p>
                     </div>
                     <div class="flex items-center space-x-4 bg-slate-50 dark:bg-slate-700/50 p-2 rounded-lg">
                         <div class="flex items-center text-xs font-semibold text-slate-600 dark:text-slate-300">
@@ -165,23 +179,29 @@
                                     style="height: {{ $monthlyTrends['keberatan_percentages'][$month] }}%"
                                     title="Keberatan: {{ $monthlyTrends['keberatan'][$month] }}"></div>
                             </div>
-                            <span class="text-[11px] font-medium text-slate-500 dark:text-slate-400 absolute bottom-0">{{ $month }}</span>
+                            <span
+                                class="text-[11px] font-medium text-slate-500 dark:text-slate-400 absolute bottom-0">{{ $month }}</span>
                         </div>
                     @endforeach
                 </div>
             </div>
 
-            <div class="col-span-12 lg:col-span-4 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 flex flex-col">
+            <!-- Login Terbaru -->
+            <div
+                class="col-span-12 lg:col-span-4 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 flex flex-col">
                 <div class="flex justify-between items-center mb-6">
                     <h3 class="text-slate-800 dark:text-slate-100 font-bold text-lg">Login Terbaru</h3>
-                    <a href="{{ route('admin.log-login.index') }}" class="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300">Lihat Semua</a>
+                    <a href="{{ route('admin.log-login.index') }}"
+                        class="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300">Lihat
+                        Semua</a>
                 </div>
 
                 <div class="space-y-4 flex-1">
                     @forelse($recentLogins as $log)
-                        <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-700 transition-hover hover:border-blue-200 dark:hover:border-blue-500/50">
+                        <div
+                            class="flex items-center gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-700 transition-hover hover:border-blue-200 dark:hover:border-blue-500/50">
                             <div class="flex-shrink-0">
-                                <img src="https://ui-avatars.com/api/?name={{ urlencode($log->user->name ?? 'U') }}&background=1A305E&color=fff" 
+                                <img src="https://ui-avatars.com/api/?name={{ urlencode($log->user->name ?? 'U') }}&background=1A305E&color=fff"
                                     alt="Avatar" class="w-10 h-10 rounded-full shadow-sm">
                             </div>
                             <div class="flex-1 min-w-0">
@@ -189,7 +209,8 @@
                                     {{ $log->user->name ?? 'Unknown User' }}
                                 </p>
                                 <div class="flex items-center gap-2 mt-0.5">
-                                    <span class="text-[10px] font-mono text-slate-500 dark:text-slate-400 bg-slate-200 dark:bg-slate-700 px-1.5 py-0.5 rounded">
+                                    <span
+                                        class="text-[10px] font-mono text-slate-500 dark:text-slate-400 bg-slate-200 dark:bg-slate-700 px-1.5 py-0.5 rounded">
                                         {{ $log->ip_address }}
                                     </span>
                                     <span class="text-[10px] text-slate-400 dark:text-slate-500">
@@ -204,23 +225,115 @@
                         </div>
                     @endforelse
                 </div>
+            </div>
 
-                <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-700">
-                    <div class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-100 dark:border-blue-800">
-                        <div class="flex items-start gap-3">
-                            <div class="p-2 bg-white dark:bg-blue-900/40 rounded-lg text-blue-600 dark:text-blue-400 shadow-sm">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                                </svg>
-                            </div>
-                            <div>
-                                <h5 class="text-xs font-bold text-blue-900 dark:text-blue-100 uppercase tracking-wider">Security Tip</h5>
-                                <p class="text-[11px] text-blue-700 dark:text-blue-300 mt-1 leading-relaxed">
-                                    Pastikan untuk selalu memantau alamat IP yang tidak dikenal untuk menjaga keamanan akun admin.
-                                </p>
-                            </div>
-                        </div>
+            <!-- Menunggu Verifikasi Dokumen -->
+            <div
+                class="col-span-12 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+                    <div>
+                        <h3 class="text-slate-800 dark:text-slate-100 font-bold text-lg">Menunggu Verifikasi</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Dokumen publik terbaru yang memerlukan
+                            tinjauan admin</p>
                     </div>
+                    <a href="{{ route('admin.dokumen-publik.index', ['verify' => 'n']) }}"
+                        class="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 px-3 py-1.5 bg-blue-50 dark:bg-blue-900/20 rounded-lg transition-colors">
+                        Tampilkan Semua
+                    </a>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="border-b border-slate-100 dark:border-slate-700">
+                                <th class="pb-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Informasi
+                                    Dokumen</th>
+                                <th
+                                    class="pb-4 text-xs font-bold text-slate-400 uppercase tracking-wider hidden md:table-cell">
+                                    Kategori</th>
+                                <th
+                                    class="pb-4 text-xs font-bold text-slate-400 uppercase tracking-wider hidden lg:table-cell">
+                                    SKPD Penginput</th>
+                                <th class="pb-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 dark:divide-slate-700">
+                            @forelse($pendingDokumen as $dokumen)
+                                <tr class="group hover:bg-slate-50 dark:hover:bg-slate-900/40 transition-colors">
+                                    <td class="py-4 pr-4">
+                                        <div class="flex items-start gap-3">
+                                            <div
+                                                class="mt-1 p-2 bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 rounded-lg group-hover:bg-amber-100 transition-colors">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                            <div class="min-w-0">
+                                                <p
+                                                    class="text-sm font-bold text-slate-800 dark:text-slate-200 line-clamp-1">
+                                                    {{ $dokumen->judul }}
+                                                </p>
+                                                <p class="text-[10px] text-slate-500 flex items-center gap-1 mt-0.5">
+                                                    <svg class="w-3 h-3" fill="none" stroke="currentColor"
+                                                        viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                                    </svg>
+                                                    {{ $dokumen->tgl_upload ? date('d M Y', strtotime($dokumen->tgl_upload)) : '-' }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 hidden md:table-cell">
+                                        <span
+                                            class="text-xs font-medium px-2 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-md">
+                                            {{ $dokumen->kategori->nm_kat_info ?? '-' }}
+                                        </span>
+                                    </td>
+                                    <td class="py-4 hidden lg:table-cell">
+                                        <div class="flex items-center gap-2">
+                                            <span
+                                                class="text-xs text-slate-600 dark:text-slate-400 font-medium truncate max-w-[150px]">
+                                                {{ $dokumen->skpd->nm_skpd ?? '-' }}
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td class="py-4">
+                                        <div class="flex items-center gap-2">
+                                            <a href="{{ route('admin.dokumen-publik.show', $dokumen->id_informasi) }}"
+                                                class="text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                                                title="Lihat Detail">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+                                                    </path>
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="py-12 text-center">
+                                        <div class="flex flex-col items-center gap-2 text-slate-400">
+                                            <svg class="w-10 h-10 opacity-20" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                            <p class="text-sm italic">Hooray! Tidak ada dokumen publik menunggu verifikasi.
+                                            </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
