@@ -21,6 +21,7 @@ class PengajuanKeberatanController extends Controller
             'email_pemohon' => 'required|email',
             'alasan' => 'required|array|min:1',
             'kasus' => 'required',
+            'metode_respon' => 'required|in:website,whatsapp', // Add Validation
         ]);
 
         // Cari Data Permohonan Asli untuk mendapatkan ID SKPD
@@ -50,6 +51,7 @@ class PengajuanKeberatanController extends Controller
             'no_telp_kuasa' => $request->no_telp_kuasa,
             'kasus' => $request->kasus,
             'status' => 'n', // New
+            'metode_respon' => $request->metode_respon, // Save Preference
         ]);
 
         foreach ($request->alasan as $alasan) {
@@ -59,7 +61,14 @@ class PengajuanKeberatanController extends Controller
             ]);
         }
 
-        return back()->with('success', 'Pengajuan keberatan berhasil dikirim.');
+        $msg = 'Pengajuan keberatan berhasil dikirim.';
+        if($request->metode_respon == 'whatsapp') {
+            $msg .= ' Tanggapan akan dikirimkan melalui WhatsApp ke nomor yang Anda daftarkan.';
+        } else {
+            $msg .= ' Silakan cek status pengajuan secara berkala melalui menu "Cek Status".';
+        }
+
+        return back()->with('success', $msg);
     }
     public function checkStatus(Request $request)
     {

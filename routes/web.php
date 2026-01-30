@@ -7,6 +7,7 @@ use App\Http\Controllers\DokumenPublikController as GuestDokumenPublikController
 use App\Http\Controllers\MatriksDipController as GuestMatriksDipController;
 use App\Http\Controllers\SopController as GuestSopController;
 use App\Http\Controllers\PengajuanKeberatanController as GuestPengajuanKeberatanController;
+use App\Http\Controllers\PermohonanInformasiController as GuestPermohonanInformasiController;
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\BeritaController;
@@ -94,9 +95,17 @@ Route::middleware(['track.visitors'])->group(function () {
     Route::get('/layanan/permohonan-informasi', function () {
         return view('pages.layanan.permohonan-informasi');
     });
+
+    Route::post('/layanan/permohonan-informasi', [GuestPermohonanInformasiController::class, 'store'])
+        ->name('layanan.permohonan-informasi.store');
+
     Route::get('/layanan/pengajuan-keberatan', function () {
         return view('pages.layanan.pengajuan-keberatan');
     });
+    
+    // Rute Permohonan Informasi
+    Route::post('/layanan/permohonan-informasi', [App\Http\Controllers\PermohonanInformasiController::class, 'store'])->name('layanan.permohonan-informasi.store');
+    
     Route::post('/layanan/pengajuan-keberatan', [GuestPengajuanKeberatanController::class, 'store'])->name('layanan.pengajuan-keberatan.store');
     
     // Check Status Routes
@@ -105,6 +114,7 @@ Route::middleware(['track.visitors'])->group(function () {
 
     Route::get('/layanan/sop', [GuestSopController::class, 'index'])->name('layanan.sop');
     Route::get('/layanan/sop/download/{id}', [GuestSopController::class, 'download'])->name('layanan.sop.download');
+    
 
     // Survey Pages
     Route::get('/survey/isi-survey', function () {
