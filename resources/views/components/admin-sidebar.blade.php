@@ -1,23 +1,24 @@
-<aside class="flex flex-col transition-all duration-300 bg-[#1A305E] text-white z-30 font-sans border-r border-slate-200/10 absolute md:static h-full shadow-xl md:shadow-none inset-y-0 left-0"
+<aside
+    class="flex flex-col transition-all duration-300 bg-[#1A305E] text-white z-30 font-sans border-r border-slate-200/10 absolute md:static h-full shadow-xl md:shadow-none inset-y-0 left-0"
     style="view-transition-name: sidebar"
     :class="sidebarOpen ? 'w-72 translate-x-0' : 'w-20 -translate-x-full md:translate-x-0 md:w-24'">
 
     <div class="flex items-center h-20 bg-[#1A305E] transition-all duration-300"
-         :class="sidebarOpen ? 'px-8 gap-4' : 'px-0 justify-center'">
+        :class="sidebarOpen ? 'px-8 gap-4' : 'px-0 justify-center'">
         <img src="{{ asset('images/ppid-2.png') }}" alt="Logo PPID Sulawesi Selatan"
-            class="transition-all duration-300 object-contain"
-            :class="sidebarOpen ? 'h-12 w-auto' : 'h-10 w-10'" />
-            
+            class="transition-all duration-300 object-contain" :class="sidebarOpen ? 'h-12 w-auto' : 'h-10 w-10'" />
+
         <div class="logo-text flex flex-col overflow-hidden whitespace-nowrap transition-all duration-300"
-             :class="sidebarOpen ? 'w-full opacity-100 ml-0' : 'w-0 opacity-0 hidden'">
+            :class="sidebarOpen ? 'w-full opacity-100 ml-0' : 'w-0 opacity-0 hidden'">
             <span class="font-bold text-sm tracking-wide">PPID</span>
             <span class="text-[10px] text-slate-300">Sulawesi Selatan</span>
         </div>
     </div>
 
-    <nav class="flex-1 overflow-y-auto overflow-x-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden py-4">
-        <div class="px-6 transition-all duration-300 overflow-hidden whitespace-nowrap" 
-             :class="sidebarOpen ? 'max-h-10 opacity-100 mb-2 mt-2' : 'max-h-0 opacity-0 mb-0 mt-0'">
+    <nav
+        class="flex-1 overflow-y-auto overflow-x-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden py-4">
+        <div class="px-6 transition-all duration-300 overflow-hidden whitespace-nowrap"
+            :class="sidebarOpen ? 'max-h-10 opacity-100 mb-2 mt-2' : 'max-h-0 opacity-0 mb-0 mt-0'">
             <span class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px] whitespace-nowrap">
                 {{ __('Main Menu') }}
             </span>
@@ -30,34 +31,51 @@
                         d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z">
                     </path>
                 </svg>
-            </x-sidebar-link>   
+            </x-sidebar-link>
         </ul>
 
-        <div class="px-6 transition-all duration-300 overflow-hidden whitespace-nowrap" 
-             :class="sidebarOpen ? 'max-h-10 opacity-100 mb-2 mt-6' : 'max-h-0 opacity-0 mb-0 mt-0'">
-            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px] whitespace-nowrap">{{ __('Layanan') }}</span>
+        <div class="px-6 transition-all duration-300 overflow-hidden whitespace-nowrap"
+            :class="sidebarOpen ? 'max-h-10 opacity-100 mb-2 mt-6' : 'max-h-0 opacity-0 mb-0 mt-0'">
+            <span
+                class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px] whitespace-nowrap">{{ __('Layanan') }}</span>
         </div>
-        <ul>   
+        <ul>
             <x-sidebar-link href="/admin/pengajuan-keberatan" :active="request()->is('admin/pengajuan-keberatan*')"
                 label="Pengajuan Keberatan">
-                
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 48 48"><path fill="currentColor" fill-rule="evenodd" d="M21.5 14c0-6.904 5.596-12.5 12.5-12.5S46.5 7.096 46.5 14S40.904 26.5 34 26.5S21.5 20.904 21.5 14m14 0a1.5 1.5 0 0 0-3 0v7a1.5 1.5 0 0 0 3 0zM34 6.5A1.5 1.5 0 0 1 35.5 8v1a1.5 1.5 0 0 1-3 0V8A1.5 1.5 0 0 1 34 6.5M13.889 28a6 6 0 1 0 0-12a6 6 0 0 0 0 12m-6.86 5.514c.275-1.539 1.484-2.708 3.04-2.847a45 45 0 0 1 3.932-.167c1.57 0 2.896.075 3.931.167c1.557.139 2.766 1.308 3.041 2.847c.105.584.217 1.253.329 1.987c-7.16.007-11.764.038-14.613.068c.116-.761.232-1.453.34-2.055m38.862 6.094c-.172-1.009-1.125-1.49-2.149-1.507C41.284 38.06 35.581 38 24 38c-11.58 0-17.283.062-19.742.1c-1.024.017-1.977.5-2.15 1.51A8.5 8.5 0 0 0 2 41.021c0 .556.042 1.014.105 1.39c.17 1.023 1.137 1.51 2.175 1.52C6.751 43.959 12.454 44 24 44s17.25-.042 19.72-.068c1.037-.012 2.004-.498 2.175-1.52c.063-.376.105-.835.105-1.39a8.4 8.4 0 0 0-.109-1.414" clip-rule="evenodd"/></svg>
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 48 48">
+                    <path fill="currentColor" fill-rule="evenodd"
+                        d="M21.5 14c0-6.904 5.596-12.5 12.5-12.5S46.5 7.096 46.5 14S40.904 26.5 34 26.5S21.5 20.904 21.5 14m14 0a1.5 1.5 0 0 0-3 0v7a1.5 1.5 0 0 0 3 0zM34 6.5A1.5 1.5 0 0 1 35.5 8v1a1.5 1.5 0 0 1-3 0V8A1.5 1.5 0 0 1 34 6.5M13.889 28a6 6 0 1 0 0-12a6 6 0 0 0 0 12m-6.86 5.514c.275-1.539 1.484-2.708 3.04-2.847a45 45 0 0 1 3.932-.167c1.57 0 2.896.075 3.931.167c1.557.139 2.766 1.308 3.041 2.847c.105.584.217 1.253.329 1.987c-7.16.007-11.764.038-14.613.068c.116-.761.232-1.453.34-2.055m38.862 6.094c-.172-1.009-1.125-1.49-2.149-1.507C41.284 38.06 35.581 38 24 38c-11.58 0-17.283.062-19.742.1c-1.024.017-1.977.5-2.15 1.51A8.5 8.5 0 0 0 2 41.021c0 .556.042 1.014.105 1.39c.17 1.023 1.137 1.51 2.175 1.52C6.751 43.959 12.454 44 24 44s17.25-.042 19.72-.068c1.037-.012 2.004-.498 2.175-1.52c.063-.376.105-.835.105-1.39a8.4 8.4 0 0 0-.109-1.414"
+                        clip-rule="evenodd" />
+                </svg>
             </x-sidebar-link>
             <x-sidebar-link href="/admin/permohonan-informasi" :active="request()->is('admin/permohonan-informasi*')"
                 label="Permohonan Informasi">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m2.357 7.714l6.98 4.654c.963.641 1.444.962 1.964 1.087c.46.11.939.11 1.398 0c.52-.125 1.001-.446 1.964-1.087l6.98-4.654M7.157 19.5h9.686c1.68 0 2.52 0 3.162-.327a3 3 0 0 0 1.31-1.311c.328-.642.328-1.482.328-3.162V9.3c0-1.68 0-2.52-.327-3.162a3 3 0 0 0-1.311-1.311c-.642-.327-1.482-.327-3.162-.327H7.157c-1.68 0-2.52 0-3.162.327a3 3 0 0 0-1.31 1.311c-.328.642-.328 1.482-.328 3.162v5.4c0 1.68 0 2.52.327 3.162a3 3 0 0 0 1.311 1.311c.642.327 1.482.327 3.162.327"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="1.5"
+                        d="m2.357 7.714l6.98 4.654c.963.641 1.444.962 1.964 1.087c.46.11.939.11 1.398 0c.52-.125 1.001-.446 1.964-1.087l6.98-4.654M7.157 19.5h9.686c1.68 0 2.52 0 3.162-.327a3 3 0 0 0 1.31-1.311c.328-.642.328-1.482.328-3.162V9.3c0-1.68 0-2.52-.327-3.162a3 3 0 0 0-1.311-1.311c-.642-.327-1.482-.327-3.162-.327H7.157c-1.68 0-2.52 0-3.162.327a3 3 0 0 0-1.31 1.311c-.328.642-.328 1.482-.328 3.162v5.4c0 1.68 0 2.52.327 3.162a3 3 0 0 0 1.311 1.311c.642.327 1.482.327 3.162.327" />
+                </svg>
             </x-sidebar-link>
         </ul>
 
         {{-- Manajemen Informasi --}}
-        <div class="px-6 transition-all duration-300 overflow-hidden whitespace-nowrap" 
-             :class="sidebarOpen ? 'max-h-10 opacity-100 mb-2 mt-6' : 'max-h-0 opacity-0 mb-0 mt-0'">
-            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px] whitespace-nowrap">{{ __('Manajemen Informasi') }}</span>
+        <div class="px-6 transition-all duration-300 overflow-hidden whitespace-nowrap"
+            :class="sidebarOpen ? 'max-h-10 opacity-100 mb-2 mt-6' : 'max-h-0 opacity-0 mb-0 mt-0'">
+            <span
+                class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px] whitespace-nowrap">{{ __('Manajemen Informasi') }}</span>
         </div>
         <ul>
             <x-sidebar-link href="{{ route('admin.matriks-dip.index') }}"
                 :active="request()->routeIs('admin.matriks-dip.*')" label="Matriks DIP">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(90 12 12)"/><path d="M2 12h20"/></g></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(90 12 12)" />
+                        <path d="M2 12h20" />
+                    </g>
+                </svg>
             </x-sidebar-link>
 
             <x-sidebar-link href="{{ route('admin.dokumen-publik.index') }}"
@@ -71,9 +89,10 @@
         </ul>
 
 
-        <div class="px-6 transition-all duration-300 overflow-hidden whitespace-nowrap" 
-             :class="sidebarOpen ? 'max-h-10 opacity-100 mb-2 mt-6' : 'max-h-0 opacity-0 mb-0 mt-0'">
-            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px] whitespace-nowrap">{{ __('Konten') }}</span>
+        <div class="px-6 transition-all duration-300 overflow-hidden whitespace-nowrap"
+            :class="sidebarOpen ? 'max-h-10 opacity-100 mb-2 mt-6' : 'max-h-0 opacity-0 mb-0 mt-0'">
+            <span
+                class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px] whitespace-nowrap">{{ __('Konten') }}</span>
         </div>
         <ul>
             @role('opd')
@@ -87,7 +106,7 @@
             </x-sidebar-link>
             @endrole
 
-            
+
             {{-- Route khusus admin --}}
             @role('admin')
             <x-sidebar-link :href="route('admin.faq.index')" :active="request()->routeIs('admin.faq.*')" label="FAQ">
@@ -115,9 +134,10 @@
 
         {{-- Route khusus admin --}}
         @role('admin')
-        <div class="px-6 transition-all duration-300 overflow-hidden whitespace-nowrap" 
-             :class="sidebarOpen ? 'max-h-10 opacity-100 mb-2 mt-6' : 'max-h-0 opacity-0 mb-0 mt-0'">
-            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px] whitespace-nowrap">{{ __('Pengaturan') }}</span>
+        <div class="px-6 transition-all duration-300 overflow-hidden whitespace-nowrap"
+            :class="sidebarOpen ? 'max-h-10 opacity-100 mb-2 mt-6' : 'max-h-0 opacity-0 mb-0 mt-0'">
+            <span
+                class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px] whitespace-nowrap">{{ __('Pengaturan') }}</span>
         </div>
         <ul>
             <x-sidebar-link href="{{ route('admin.data-sop.index') }}" :active="request()->is('admin/data-sop*')"
@@ -157,9 +177,14 @@
                 </svg>
             </x-sidebar-link>
 
-             <x-sidebar-link href="{{ route('admin.struktur-organisasi.index') }}" :active="request()->is('admin/struktur-organisasi*')"
-                label="Struktur Organisasi">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+            <x-sidebar-link href="{{ route('admin.struktur-organisasi.index') }}"
+                :active="request()->is('admin/struktur-organisasi*')" label="Struktur Organisasi">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="20" height="14" x="2" y="3" rx="2" />
+                    <line x1="8" x2="16" y1="21" y2="21" />
+                    <line x1="12" x2="12" y1="17" y2="21" />
+                </svg>
             </x-sidebar-link>
 
             <x-sidebar-link href="/admin/pengaturan" :active="request()->is('admin/pengaturan*')" label="Pengaturan">
@@ -175,35 +200,35 @@
         @endrole
 
         @role('admin')
-        <div class="px-6 transition-all duration-300 overflow-hidden whitespace-nowrap" 
-             :class="sidebarOpen ? 'max-h-10 opacity-100 mb-2 mt-6' : 'max-h-0 opacity-0 mb-0 mt-0'">
-            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px] whitespace-nowrap">{{ __('Survey') }}</span>
+        <div class="px-6 transition-all duration-300 overflow-hidden whitespace-nowrap"
+            :class="sidebarOpen ? 'max-h-10 opacity-100 mb-2 mt-6' : 'max-h-0 opacity-0 mb-0 mt-0'">
+            <span
+                class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px] whitespace-nowrap">{{ __('Survey') }}</span>
         </div>
         <ul>
-            <x-sidebar-link href="{{ route('admin.survey-questions.index') }}" :active="request()->is('admin/survey-questions*')" label="Kelola Survey">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M9 11l3 3L22 4"/>
-                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
-                </svg>
-            </x-sidebar-link>
+            <x-sidebar-dropdown label="Survey" :active="request()->is('admin/survey*')">
+                <x-slot name="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 11l3 3L22 4" />
+                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+                    </svg>
+                </x-slot>
 
-            <x-sidebar-link href="{{ route('admin.survey-responses.index') }}" :active="request()->is('admin/survey-responses*')" label="Hasil Survey">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <polyline points="14 2 14 8 20 8"/>
-                    <line x1="16" y1="13" x2="8" y2="13"/>
-                    <line x1="16" y1="17" x2="8" y2="17"/>
-                    <polyline points="10 9 9 9 8 9"/>
-                </svg>
-            </x-sidebar-link>
+                <x-sidebar-dropdown-link href="{{ route('admin.survey-questions.index') }}"
+                    :active="request()->is('admin/survey-questions*')" label="Kelola Survey" />
+                <x-sidebar-dropdown-link href="{{ route('admin.survey-responses.index') }}"
+                    :active="request()->is('admin/survey-responses*')" label="Hasil Survey" />
+            </x-sidebar-dropdown>
         </ul>
         @endrole
 
         {{-- Route khusus opd --}}
         @role('opd')
-        <div class="px-6 transition-all duration-300 overflow-hidden whitespace-nowrap" 
-             :class="sidebarOpen ? 'max-h-10 opacity-100 mb-2 mt-6' : 'max-h-0 opacity-0 mb-0 mt-0'">
-            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px] whitespace-nowrap">{{ __('Pengaturan') }}</span>
+        <div class="px-6 transition-all duration-300 overflow-hidden whitespace-nowrap"
+            :class="sidebarOpen ? 'max-h-10 opacity-100 mb-2 mt-6' : 'max-h-0 opacity-0 mb-0 mt-0'">
+            <span
+                class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px] whitespace-nowrap">{{ __('Pengaturan') }}</span>
         </div>
         <ul>
             <x-sidebar-link href="{{ route('admin.skpd.show', auth()->user()->id_skpd) }}"
