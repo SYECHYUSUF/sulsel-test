@@ -34,7 +34,7 @@
         }
     }" 
     @scroll.window="scroll = window.pageYOffset"
-    class="w-full relative h-screen sm:h-[85vh] md:h-[100vh] overflow-hidden font-['Plus_Jakarta_Sans'] group z-10 block mt-32 sm:mt-36 md:mt-40"
+    class="w-full relative aspect-[16/9] sm:h-[85vh] md:h-[100vh] overflow-hidden font-['Plus_Jakarta_Sans'] group z-10 block mt-24 sm:mt-32 md:mt-40"
     @mouseenter="stopTimer"
     @mouseleave="startTimer"
 >
@@ -59,7 +59,7 @@
     </div>
 
     {{-- 2. KONTEN (CENTERED) - Welcome Message on First Slide Only --}}
-    <div class="absolute inset-0 z-20 flex items-end justify-center pb-8 mb-16 sm:pb-10 sm:mb-24 md:pb-12 md:mb-72">
+    <div class="absolute inset-0 z-20 flex items-end justify-center pb-3 sm:pb-10 sm:mb-24 md:pb-12 md:mb-72">
         <div class="container mx-auto px-6 text-center text-white">
             {{-- Welcome Content - Only on First Slide --}}
             <div x-show="activeSlide === 0"
@@ -80,31 +80,31 @@
                 
                 {{-- Welcome Text (Center) --}}
                 <div class="flex-1 max-w-3xl">
-                    <h1 class="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-extrabold leading-tight mb-3 sm:mb-4 text-white drop-shadow-lg">
+                    <h1 class="text-sm sm:text-2xl md:text-4xl lg:text-5xl font-bold leading-tight mb-1.5 sm:mb-4 text-white drop-shadow-lg">
                         Selamat Datang di Portal Resmi<br>
                         <span class="text-[#D4AF37]">PPID Utama</span><br>
                         Provinsi Sulawesi Selatan
                     </h1>
-                    <p class="text-xs sm:text-sm md:text-lg lg:text-xl text-white/90 font-medium drop-shadow-md mb-4 sm:mb-6 md:mb-8">
+                    <p class="text-[10px] leading-tight sm:text-sm md:text-lg lg:text-xl text-white/90 font-medium drop-shadow-md mb-2 sm:mb-6 md:mb-8">
                         Transparansi Informasi Publik untuk Sulawesi Selatan yang Lebih Baik
                     </p>
                     
                     {{-- Hero Search Bar --}}
-                    <div class="max-w-2xl mx-auto">
+                    <div class="max-w-2xl mx-auto scale-90 sm:scale-100">
                         <button 
                             @click="$dispatch('open-search')"
-                            class="group w-full flex items-center gap-2 sm:gap-3 px-4 py-3 sm:px-6 sm:py-4 bg-white/95 dark:bg-slate-800/95 backdrop-blur-md rounded-xl sm:rounded-2xl shadow-2xl hover:shadow-[#D4AF37]/20 hover:shadow-3xl transition-all duration-300 border-2 border-transparent hover:border-[#D4AF37]/50">
+                            class="group w-full flex items-center gap-1.5 sm:gap-3 px-3 py-1.5 sm:px-6 sm:py-4 bg-white/95 dark:bg-slate-800/95 backdrop-blur-md rounded-xl sm:rounded-2xl shadow-2xl hover:shadow-[#D4AF37]/20 hover:shadow-3xl transition-all duration-300 border-2 border-transparent hover:border-[#D4AF37]/50">
                             
                             {{-- Search Icon --}}
                             <div class="flex-shrink-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#4A5568] dark:text-gray-400 group-hover:text-[#D4AF37] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 sm:w-6 sm:h-6 text-[#4A5568] dark:text-gray-400 group-hover:text-[#D4AF37] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                 </svg>
                             </div>
                             
                             {{-- Placeholder Text --}}
                             <div class="flex-1 text-left">
-                                <span class="text-[#4A5568] dark:text-gray-400 text-sm sm:text-base md:text-lg font-medium">
+                                <span class="text-[#4A5568] dark:text-gray-400 text-xs sm:text-base md:text-lg font-normal sm:font-medium">
                                     {{ __('messages.common.search_placeholder') }}
                                 </span>
                             </div>
@@ -118,7 +118,7 @@
                         </button>
                         
                         {{-- Popular Keywords --}}
-                        <div class="mt-3 sm:mt-4 flex flex-wrap items-center justify-center gap-1.5 sm:gap-2">
+                        <div class="hidden sm:flex mt-4 flex-wrap items-center justify-center gap-2">
                             <span class="text-white/70 text-sm font-medium">{{ __('messages.hero.popular') }}</span>
                             <a href="/informasi-publik/berkala" class="px-3 py-1 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full text-white text-xs font-medium transition-all hover:scale-105">
                                 Laporan Keuangan
@@ -162,7 +162,7 @@
     </button>
 
     {{-- DOT INDICATORS --}}
-    <div class="absolute bottom-20 sm:bottom-24 md:bottom-28 left-1/2 -translate-x-1/2 flex space-x-2 z-30">
+    <div class="absolute bottom-6 sm:bottom-24 md:bottom-28 left-1/2 -translate-x-1/2 flex space-x-2 z-30">
         <template x-for="(slide, index) in slides" :key="index">
             <button 
                 @click="activeSlide = index"

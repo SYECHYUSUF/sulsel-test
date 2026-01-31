@@ -18,7 +18,7 @@
         </div>
 
         {{-- Grid --}}
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10 md:gap-12 max-w-4xl mx-auto">
+        <div class="flex md:grid justify-center gap-6 md:gap-12 w-full md:max-w-4xl mx-auto pb-4 md:pb-0 md:grid-cols-2">
             @php
                 $leaders = [
                     [
@@ -37,7 +37,7 @@
             @endphp
 
             @foreach($leaders as $index => $l)
-            <div data-aos="fade-up" data-aos-delay="{{ $index * 200 }}" class="flex flex-col group">
+            <div data-aos="fade-up" data-aos-delay="{{ $index * 200 }}" class="flex flex-col group min-w-[200px] md:min-w-0 snap-start">
                 
                 {{-- 1. Image Card --}}
                 <div class="relative aspect-[4/5] w-full rounded-[2.5rem] md:rounded-[3rem] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-gray-100 dark:border-slate-700 transition-all duration-700 group-hover:shadow-xl group-hover:shadow-[rgba(26,48,94,0.15)] group-hover:-translate-y-1">
