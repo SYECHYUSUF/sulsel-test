@@ -8,24 +8,28 @@
             <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mb-4">
                 <a href="/" class="hover:text-[#1A305E] dark:text-white transition-colors">
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+                        <path
+                            d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z">
+                        </path>
                     </svg>
                 </a>
                 <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                 </svg>
-                <a href="#" class="hover:text-[#1A305E] dark:text-white transition-colors">{{ __('messages.breadcrumb.profile') }}</a>
+                <a href="#"
+                    class="hover:text-[#1A305E] dark:text-white transition-colors">{{ __('messages.breadcrumb.profile') }}</a>
                 <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                 </svg>
-                <span class="text-[#1A305E] dark:text-white font-medium">{{ __('messages.profile.vision_mission_title') }}</span>
+                <span
+                    class="text-[#1A305E] dark:text-white font-medium">{{ __('messages.profile.vision_mission_title') }}</span>
             </div>
 
             {{-- Title --}}
-                    <div class="w-20 h-1 bg-gradient-to-r from-[#1A305E] to-transparent rounded-full"></div>
-                </div>
-            </div>
+            <div class="w-20 h-1 bg-gradient-to-r from-[#1A305E] to-transparent rounded-full"></div>
         </div>
+    </div>
+    </div>
     </div>
 
     {{-- Main Content --}}
@@ -33,76 +37,22 @@
         <div class="container mx-auto px-4">
             <div class="max-w-7xl mx-auto">
                 <div class="max-w-5xl mx-auto">
-                    
+
                     {{-- Main Content --}}
                     <div class="space-y-6 sm:space-y-8">
-            
-                        {{-- VISI --}}
-                        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 overflow-hidden">
-                            <div class="bg-[#1A305E] px-6 py-4">
-                                <div class="flex items-center gap-3 text-white">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
-                                    <h2 class="font-bold text-lg">Visi PPID Sulawesi Selatan</h2>
-                                </div>
-                            </div>
-                    
-                            <div class="p-5 sm:p-6 md:p-10">
-                                <div class="bg-[#1A305E]/5 border-l-4 border-[#1A305E] rounded-r-lg p-6 md:p-8">
-                                    <p class="text-lg md:text-xl text-gray-900 dark:text-white leading-relaxed font-medium text-center">
-                                        "Terwujudnya pelayanan informasi yang transparan dan akuntabel untuk memenuhi hak setiap orang informasi dengan keterbukaan peraturan perundang-undangan yang berlaku"
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
 
-                        {{-- MISI --}}
-                        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 overflow-hidden">
-                            <div class="bg-[#D4AF37] px-6 py-4">
-                                <div class="flex items-center gap-3 text-white">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-                                    <h2 class="font-bold text-lg">Misi PPID Sulawesi Selatan</h2>
-                                </div>
+                        {{-- Dynamic Content --}}
+                        <div
+                            class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-6 md:p-10">
+                            <div class="prose prose-slate max-w-none dark:prose-invert">
+                                {!! $profil->deskripsi ?? 'Konten belum tersedia.' !!}
                             </div>
-                    
-                            <div class="p-5 sm:p-6 md:p-10">
-                                <p class="text-gray-700 mb-6">
-                                    Untuk mewujudkan visi tersebut, PPID Sulawesi Selatan memiliki 3 misi utama:
-                                </p>
-
-                                <div class="space-y-4">
-                                    @php
-                                        $misiList = [
-                                            'Meningkatkan Pengelolaan Informasi - Mengelola pengumpulan dan penyebarluasan informasi yang berkualitas dan profesional',
-                                            'Meningkatkan Kompetensi SDM - Meningkatkan kompetensi sumber daya manusia dalam bidang Pelayanan Informasi',
-                                            'Forum Koordinasi PPID - Membentukan Forum Koordinasi PPID tingkat Pemprov Sulsel yang solid'
-                                        ];
-                                    @endphp
-                                    @foreach ($misiList as $index => $misi)
-                                        <div class="flex gap-4 items-start p-5 bg-gray-50 dark:bg-slate-900 rounded-lg border border-gray-200 dark:border-slate-700 hover:border-[#1A305E]/20 hover:bg-[#1A305E]/5 transition-all">
-                                            <div class="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-[#1A305E] to-[#D4AF37] rounded-lg flex items-center justify-center text-white font-bold shadow-sm">
-                                                {{ $index + 1 }}
-                                            </div>
-                                            <p class="text-gray-700 leading-relaxed flex-1 pt-1.5">
-                                                {{ $misi }}
-                                            </p>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-
-                        {{-- Komitmen --}}
-                        <div class="bg-gradient-to-br from-[#1A305E] to-[#4A5568] rounded-xl p-8 text-white text-center">
-                            <h3 class="text-xl font-bold mb-3">Komitmen Kami</h3>
-                            <p class="text-white/90 leading-relaxed">
-                                Dengan visi dan misi yang jelas, PPID Sulawesi Selatan berkomitmen untuk terus meningkatkan kualitas pelayanan informasi publik demi terwujudnya pemerintahan yang transparan, akuntabel, dan berintegritas.
-                            </p>
                         </div>
 
                     </div>
 
                 </div>
-        </div>
+            </div>
     </main>
     <x-footer />
 </x-layout>

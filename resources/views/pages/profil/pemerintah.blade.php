@@ -62,16 +62,8 @@
                             <h2 class="text-2xl font-bold text-[#1A305E] dark:text-white mb-2">Profil Provinsi</h2>
                             <div class="w-20 h-1 bg-[#1A305E] rounded-full"></div>
                         </div>
-                        <div class="prose prose-gray max-w-none space-y-4 text-gray-700 leading-relaxed text-justify">
-                            <p>
-                                <strong>Sulawesi Selatan</strong> merupakan salah satu provinsi di Indonesia yang terletak di bagian selatan Pulau Sulawesi. Sulawesi Selatan berbatasan dengan Provinsi Sulawesi Barat di sebelah utara, Teluk Bone dan Sulawesi Tenggara di timur, Selat Makassar di barat, dan Laut Flores di selatan.
-                            </p>
-                            <p>
-                                Sulawesi Selatan memiliki luas wilayah 46.717,48 km² dengan jumlah penduduk sekitar 9,07 juta jiwa. Wilayah ini terbagi menjadi 21 kabupaten dan 3 kota dengan Makassar sebagai ibu kota provinsi.
-                            </p>
-                            <p>
-                                Provinsi ini terkenal dengan kekayaan budayanya yang beragam, terutama budaya Bugis, Makassar, dan Toraja. Sulawesi Selatan juga memiliki potensi ekonomi yang besar terutama dalam bidang pertanian, perikanan, perdagangan, dan pariwisata.
-                            </p>
+                        <div class="prose prose-slate max-w-none dark:prose-invert">
+                            {!! $profil->deskripsi ?? 'Konten belum tersedia.' !!}
                         </div>
                     </div>
 

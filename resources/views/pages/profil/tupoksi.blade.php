@@ -7,125 +7,39 @@
             {{-- Breadcrumb --}}
             <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mb-4">
                 <a href="/" class="hover:text-[#1A305E] dark:text-white transition-colors">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z">
+                        </path>
+                    </svg>
                 </a>
-                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                <a href="#" class="hover:text-[#1A305E] dark:text-white transition-colors">{{ __('messages.breadcrumb.profile') }}</a>
-                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                <span class="text-[#1A305E] dark:text-white font-medium">{{ __('messages.profile.tupoksi_title') }}</span>
+                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+                <a href="#"
+                    class="hover:text-[#1A305E] dark:text-white transition-colors">{{ __('messages.breadcrumb.profile') }}</a>
+                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+                <span
+                    class="text-[#1A305E] dark:text-white font-medium">{{ __('messages.profile.tupoksi_title') }}</span>
             </div>
-                    <div class="w-20 h-1 bg-gradient-to-r from-[#1A305E] to-transparent rounded-full"></div>
-                </div>
-            </div>
+            <div class="w-20 h-1 bg-gradient-to-r from-[#1A305E] to-transparent rounded-full"></div>
         </div>
+    </div>
+    </div>
     </div>
 
     {{-- Main Content --}}
     <main class="py-10 md:py-16 bg-gray-50 dark:bg-slate-900 font-['Plus_Jakarta_Sans']">
         <div class="container mx-auto px-4">
             <div class="max-w-5xl mx-auto space-y-8">
-            
-                {{-- Intro --}}
-                <div class="bg-[#1A305E] text-white rounded-xl p-8 text-center">
-                    <h2 class="text-xl md:text-2xl font-bold mb-3">Tugas dan Tanggung Jawab PPID</h2>
-                    <p class="text-white/90 leading-relaxed max-w-3xl mx-auto">
-                        PPID memiliki tugas dan tanggung jawab dalam pengumpulan, pendokumentasian, penyediaan, dan pelayanan Informasi Publik, melakukan verifikasi dokumen Informasi Publik.
-                    </p>
-                </div>
 
-                {{-- PPID Utama --}}
-                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-6 md:p-10">
-                    <div class="mb-6">
-                        <h2 class="text-2xl font-bold text-[#1A305E] dark:text-white mb-2">Tugas PPID Utama</h2>
-                        <div class="w-20 h-1 bg-[#1A305E] rounded-full"></div>
-                    </div>
-              
-                    <p class="text-gray-700 mb-6 leading-relaxed">
-                        Pejabat Pengelola Informasi dan Dokumentasi (PPID) memiliki tugas dan tanggung jawab dalam melakukan verifikasi bahan Informasi Publik, dan penyediaan Informasi Publik yang akurat, benar dan tidak menyesatkan:
-                    </p>
-
-                    <div class="space-y-3">
-                        @php
-                            $tugasPPIDUtama = [
-                                'Melakukan pengumpulan, pendokumentasian, penyediaan, dan pelayanan Informasi Publik',
-                                'Melakukan verifikasi dokumen Informasi Publik',
-                                'Menguji konsekuensi Informasi Publik yang dibuka terhadap rahasia negara',
-                                'Melakukan pengklasifikasian Informasi Publik dan/atau pengubahannya',
-                                'Menetapkan Informasi Publik yang mudah diakses oleh publik',
-                                'Menyediakan Informasi Publik yang wajib diakses oleh publik',
-                                'Menyediakan Informasi Publik dan Daftar Informasi Publik yang Dikecualikan',
-                                'Melakukan pembaruan, pengelolaan dan pengamanan informasi',
-                                'Menyediakan sarana dan prasarana layanan informasi publik',
-                                'Menyiapkan kebijakan teknis informasi publik yang dilakukan oleh PPID Pelaksana'
-                            ];
-                        @endphp
-                        @foreach ($tugasPPIDUtama as $index => $tugas)
-                            <div class="flex gap-4 items-start bg-[#1A305E]/5 rounded-lg p-4 border border-[#1A305E]/10 hover:bg-[#1A305E]/10 transition-colors">
-                                <div class="flex-shrink-0 w-7 h-7 bg-[#1A305E] rounded-lg flex items-center justify-center text-white font-bold text-sm">
-                                    {{ $index + 1 }}
-                                </div>
-                                <p class="text-gray-700 leading-relaxed flex-1 pt-0.5">
-                                    {{ $tugas }}
-                                </p>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-
-                {{-- PPID Pelaksana --}}
-                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-6 md:p-10">
-                    <div class="mb-6">
-                        <h2 class="text-2xl font-bold text-[#1A305E] dark:text-white mb-2">Tugas PPID Pelaksana</h2>
-                        <div class="w-20 h-1 bg-[#D4AF37] rounded-full"></div>
-                    </div>
-              
-                    <p class="text-gray-700 mb-6 leading-relaxed">
-                        PPID Pelaksana bertanggung jawab membantu PPID dalam menyimpan, mengklasifikasi, dan menyebarkan dokumen Informasi publik:
-                    </p>
-
-                    <div class="space-y-3">
-                        @php
-                            $tugasPPIDPelaksana = [
-                                'Menyediakan, memberikan dan menerbitkan Informasi Publik yang berada di bawah kewenangannya',
-                                'Membantu PPID dalam menyimpan, mengklasifikasi, dan menyebarkan dokumen Informasi publik',
-                                'Memberikan pelayanan permohonan Informasi Publik yang langsung diambil, surat, fax, e-mail, dengan website PPID',
-                                'Membuat PPID membuat laporan layanan Informasi publik secara berkala',
-                                'Membuat, memelihara, dan/atau memutakhirkan daftar Informasi Publik yang berada dibawah penguasaannya secara berkala, dan melakukan uji keterbukaan terhadap pelayanan informasi publik'
-                            ];
-                        @endphp
-                        @foreach ($tugasPPIDPelaksana as $index => $tugas)
-                            <div class="flex gap-4 items-start bg-[#D4AF37]/5 rounded-lg p-4 border border-[#D4AF37]/20 hover:bg-[#D4AF37]/10 transition-colors">
-                                <div class="flex-shrink-0 w-7 h-7 bg-[#D4AF37] rounded-lg flex items-center justify-center text-white font-bold text-sm">
-                                    {{ $index + 1 }}
-                                </div>
-                                <p class="text-gray-700 leading-relaxed flex-1 pt-0.5">
-                                    {{ $tugas }}
-                                </p>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-
-                {{-- Prinsip --}}
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="bg-white dark:bg-slate-800 border border-[#1A305E]/20 rounded-lg p-6 hover:shadow-md transition-shadow">
-                        <h3 class="font-bold text-[#1A305E] dark:text-white mb-4">Prinsip Pelayanan</h3>
-                        <div class="space-y-2 text-sm text-gray-700">
-                            <div class="flex gap-2"><span class="text-[#1A305E] dark:text-white font-bold">✓</span> Transparan dan akuntabel</div>
-                            <div class="flex gap-2"><span class="text-[#1A305E] dark:text-white font-bold">✓</span> Cepat dan tepat waktu</div>
-                            <div class="flex gap-2"><span class="text-[#1A305E] dark:text-white font-bold">✓</span> Mudah diakses</div>
-                            <div class="flex gap-2"><span class="text-[#1A305E] dark:text-white font-bold">✓</span> Profesional dan berintegritas</div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white dark:bg-slate-800 border border-[#D4AF37]/40 rounded-lg p-6 hover:shadow-md transition-shadow">
-                        <h3 class="font-bold text-[#B08D26] mb-4">Standar Layanan</h3>
-                        <div class="space-y-2 text-sm text-gray-700">
-                            <div class="flex gap-2"><span class="text-[#D4AF37] font-bold">✓</span> Informasi akurat dan benar</div>
-                            <div class="flex gap-2"><span class="text-[#D4AF37] font-bold">✓</span> Tidak menyesatkan</div>
-                            <div class="flex gap-2"><span class="text-[#D4AF37] font-bold">✓</span> Lengkap dan terkini</div>
-                            <div class="flex gap-2"><span class="text-[#D4AF37] font-bold">✓</span> Sesuai regulasi KIP</div>
-                        </div>
+                {{-- Dynamic Content --}}
+                <div
+                    class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-6 md:p-10">
+                    <div class="prose prose-slate max-w-none dark:prose-invert">
+                        {!! $profil->deskripsi ?? 'Konten belum tersedia.' !!}
                     </div>
                 </div>
 

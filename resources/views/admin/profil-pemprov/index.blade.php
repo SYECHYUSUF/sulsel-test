@@ -11,15 +11,13 @@
             </div>
         </div>
 
-        {{-- Success Message --}}
-        @if(session('success'))
-            <div class="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-800 dark:text-green-200 rounded-xl flex items-center gap-3">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span class="font-medium">{{ session('success') }}</span>
-            </div>
-        @endif
+    <div x-data="{ showSuccess: {{ session('success') ? 'true' : 'false' }} }">
+        <x-notification-modal 
+            trigger="showSuccess" 
+            status="success" 
+            title="Berhasil!" 
+            description="{{ session('success') }}" 
+        />
 
         {{-- Editor Section --}}
         <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-8">
@@ -106,8 +104,8 @@
                     <textarea 
                         name="deskripsi" 
                         id="editor"
-                        rows="20"
-                        class="w-full px-4 py-3 border-2 border-slate-300 dark:border-slate-600 rounded-xl focus:outline-none focus:border-[#1A305E] bg-white dark:bg-slate-700 text-slate-900 dark:text-white">{{ old('deskripsi', $profil->deskripsi ?? '') }}</textarea>
+                        class="editor w-full px-4 py-3 border-2 border-slate-300 dark:border-slate-600 rounded-xl focus:outline-none focus:border-[#1A305E] bg-white dark:bg-slate-700 text-slate-900 dark:text-white"
+                        rows="10">{{ old('deskripsi', $profil->deskripsi ?? '') }}</textarea>
                     @error('deskripsi')
                         <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
                     @enderror
@@ -142,41 +140,14 @@
             </div>
         </div>
         @endif
+        </div>
     </div>
 </div>
 
-{{-- Summernote Editor --}}
-<link href="https://cdnjs.cloudflare.com/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-<style>
-    .dark .note-editor { background-color: #1e293b; border-color: #475569; }
-    .dark .note-editor .note-toolbar { background-color: #334155; border-bottom-color: #475569; }
-    .dark .note-editor .note-editable { background-color: #1e293b; color: #f1f5f9; }
-    .dark .note-editor .btn { color: #f1f5f9; }
-    .dark .note-editor .dropdown-menu { background-color: #334155; color: #f1f5f9; }
-    .dark .note-editor .dropdown-item { color: #f1f5f9; }
-    .dark .note-editor .dropdown-item:hover { background-color: #475569; }
-</style>
-<script>
-    $(document).ready(function() {
-        $('#editor').summernote({
-            height: 400,
-            placeholder: 'Tulis konten profil pemerintah di sini...',
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'italic', 'underline', 'clear']],
-                ['fontname', ['fontname']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link']],
-                ['view', ['fullscreen', 'codeview', 'help']]
-            ],
-            styleTags: ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
-            fontNames: ['Arial', 'Times New Roman', 'Verdana', 'Helvetica', 'Georgia', 'Plus Jakarta Sans']
-        });
-    });
-</script>
+<x-slot name="extra_script">
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/tinymce/tinymce.min.js"></script>
+    <script src="/vendor/tinymce/init-editor.js"></script>
+</x-slot>
 
 </x-admin-layout>
