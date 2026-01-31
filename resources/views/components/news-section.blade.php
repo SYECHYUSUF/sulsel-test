@@ -39,7 +39,7 @@
                     
                     <div class="absolute top-4 left-4 md:top-[21px] md:left-[21px]">
                         <span class="px-3 py-1.5 md:px-4 md:py-2 bg-[#D4AF37] text-white text-[9px] md:text-[10px] font-bold rounded-lg shadow-lg">
-                            {{ $item->skpd->nm_skpd ?? 'Umum' }}
+                            {{ $item->skpd->nm_skpd ?? __('messages.common.general') }}
                         </span>
                     </div>
                 </div>

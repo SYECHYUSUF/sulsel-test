@@ -26,10 +26,10 @@
             <div class="flex items-end justify-between">
                 <div>
                     <h1 class="text-3xl md:text-4xl font-bold text-[#1A305E] dark:text-white mb-2">
-                        Daftar Informasi Publik
+                        {{ __('messages.public_info_pages.index_title') }}
                     </h1>
                     <p class="text-gray-600 dark:text-gray-300">
-                        Daftar lengkap informasi publik yang tersedia
+                        {{ __('messages.public_info_pages.index_subtitle') }}
                     </p>
                 </div>
                 <div class="hidden md:block">
@@ -92,17 +92,17 @@
                                 <tr>
                                     <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide">No</th>
                                     <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide">
-                                        {{ \App\Models\MatriksDip::columnLabels()['a'] }}</th>
+                                        {{ __('messages.public_info_pages.header_a') }}</th>
                                     <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide">
-                                        {{ \App\Models\MatriksDip::columnLabels()['b'] }}</th>
+                                        {{ __('messages.public_info_pages.header_b') }}</th>
                                     <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide">
-                                        {{ \App\Models\MatriksDip::columnLabels()['c'] }}</th>
+                                        {{ __('messages.public_info_pages.header_c') }}</th>
                                     <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide">
-                                        {{ \App\Models\MatriksDip::columnLabels()['d'] }}</th>
+                                        {{ __('messages.public_info_pages.header_d') }}</th>
                                     <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide">
-                                        {{ \App\Models\MatriksDip::columnLabels()['e'] }}</th>
+                                        {{ __('messages.public_info_pages.header_e') }}</th>
                                     <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide">
-                                        {{ \App\Models\MatriksDip::columnLabels()['f'] }}</th>
+                                        {{ __('messages.public_info_pages.header_f') }}</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200">

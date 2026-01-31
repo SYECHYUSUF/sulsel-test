@@ -52,7 +52,7 @@
                         
                         <a href="{{ route('layanan.pengajuan-keberatan.check-status') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-white dark:bg-slate-700 text-[#1A305E] dark:text-white font-semibold border border-[#1A305E]/20 dark:border-slate-600 rounded-xl hover:bg-[#1A305E]/5 dark:hover:bg-slate-600 transition-all shadow-sm">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 21-6-6m2-5a7 7 0 1 1-14 0 7 7 0 0 1 14 0z"/></svg>
-                            Tinjau / Cek Status Pengajuan
+                            {{ __('messages.form.check_status_btn') }}
                         </a>
                     </div>
 
@@ -66,11 +66,11 @@
                             </h3>
                             <div class="space-y-2">
                                 <label class="block text-sm font-semibold text-gray-700">{{ __('messages.objection.reg_no') }} <span class="text-red-500">*</span></label>
-                                <input type="text" name="no_pendaftaran" placeholder="{{ __('messages.objection.reg_no_placeholder') }}" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" required />
+                                <input type="text" name="no_pendaftaran" placeholder="{{ __('messages.objection.reg_no_placeholder') }}" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800" required />
                             </div>
                             <div class="space-y-2">
                                 <label class="block text-sm font-semibold text-gray-700">{{ __('messages.objection.purpose') }} <span class="text-red-500">*</span></label>
-                                <input type="text" name="tujuan" placeholder="{{ __('messages.objection.purpose_placeholder') }}" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" required />
+                                <input type="text" name="tujuan" placeholder="{{ __('messages.objection.purpose_placeholder') }}" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800" required />
                             </div>
                         </div>
 
@@ -106,32 +106,32 @@
 
                             <div class="space-y-2">
                                 <label class="block text-sm font-semibold text-gray-700">{{ __('messages.objection.name') }} <span class="text-red-500">*</span></label>
-                                <input type="text" name="nama_pemohon" placeholder="" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" required />
+                                <input type="text" name="nama_pemohon" placeholder="" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800" required />
                             </div>
 
                             <div class="space-y-2">
                                 <label class="block text-sm font-semibold text-gray-700">{{ __('messages.objection.address') }} <span class="text-red-500">*</span></label>
-                                <input type="text" name="alamat_pemohon" placeholder="" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" required />
+                                <input type="text" name="alamat_pemohon" placeholder="" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800" required />
                             </div>
 
                             <div class="space-y-2">
                                 <label class="block text-sm font-semibold text-gray-700">{{ __('messages.objection.street') }} <span class="text-red-500">*</span></label>
-                                <input type="text" name="address_pemohon" placeholder="" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" required />
+                                <input type="text" name="address_pemohon" placeholder="" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800" required />
                             </div>
 
                             <div class="space-y-2">
                                 <label class="block text-sm font-semibold text-gray-700">{{ __('messages.objection.apt') }}</label>
-                                <input type="text" name="apt_pemohon" placeholder="" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" />
+                                <input type="text" name="apt_pemohon" placeholder="" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800" />
                             </div>
 
                             <div class="space-y-2">
                                 <label class="block text-sm font-semibold text-gray-700">{{ __('messages.objection.city') }} <span class="text-red-500">*</span></label>
-                                <input type="text" name="city_pemohon" placeholder="" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" required />
+                                <input type="text" name="city_pemohon" placeholder="" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800" required />
                             </div>
                             
                             <div class="space-y-2">
                                 <label class="block text-sm font-semibold text-gray-700">{{ __('messages.objection.state') }} <span class="text-red-500">*</span></label>
-                                <input type="text" name="state_pemohon" placeholder="" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" required />
+                                <input type="text" name="state_pemohon" placeholder="" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800" required />
                             </div>
 
                             <div class="space-y-2">
@@ -141,17 +141,17 @@
 
                             <div class="space-y-2">
                                 <label class="block text-sm font-semibold text-gray-700">{{ __('messages.objection.job') }} <span class="text-red-500">*</span></label>
-                                <input type="text" name="pekerjaan_pemohon" placeholder="" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" required />
+                                <input type="text" name="pekerjaan_pemohon" placeholder="" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800" required />
                             </div>
 
                             <div class="space-y-2">
                                 <label class="block text-sm font-semibold text-gray-700">{{ __('messages.objection.phone') }} <span class="text-red-500">*</span></label>
-                                <input type="tel" name="no_telp_pemohon" placeholder="" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" required />
+                                <input type="tel" name="no_telp_pemohon" placeholder="" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800" required />
                             </div>
 
                             <div class="space-y-2">
                                 <label class="block text-sm font-semibold text-gray-700">{{ __('messages.objection.email') }} <span class="text-red-500">*</span></label>
-                                <input type="email" name="email_pemohon" placeholder="" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" required />
+                                <input type="email" name="email_pemohon" placeholder="" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800" required />
                             </div>
                         </div>
 
@@ -163,32 +163,32 @@
                             </h3>
                              <div class="space-y-2">
                                 <label class="block text-sm font-semibold text-gray-700">{{ __('messages.objection.name_proxy') }} <span class="text-red-500">*</span></label>
-                                <input type="text" name="nama_kuasa" placeholder="" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" />
+                                <input type="text" name="nama_kuasa" placeholder="" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800" />
                             </div>
 
                             <div class="space-y-2">
                                 <label class="block text-sm font-semibold text-gray-700">{{ __('messages.objection.address') }} <span class="text-red-500">*</span></label>
-                                <input type="text" name="alamat_kuasa" placeholder="" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" />
+                                <input type="text" name="alamat_kuasa" placeholder="" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800" />
                             </div>
 
                             <div class="space-y-2">
                                 <label class="block text-sm font-semibold text-gray-700">{{ __('messages.objection.street') }} <span class="text-red-500">*</span></label>
-                                <input type="text" name="address_kuasa" placeholder="" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" />
+                                <input type="text" name="address_kuasa" placeholder="" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800" />
                             </div>
 
                             <div class="space-y-2">
                                 <label class="block text-sm font-semibold text-gray-700">{{ __('messages.objection.apt') }}</label>
-                                <input type="text" name="apt_kuasa" placeholder="" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" />
+                                <input type="text" name="apt_kuasa" placeholder="" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800" />
                             </div>
 
                             <div class="space-y-2">
                                 <label class="block text-sm font-semibold text-gray-700">{{ __('messages.objection.city') }} <span class="text-red-500">*</span></label>
-                                <input type="text" name="city_kuasa" placeholder="" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" />
+                                <input type="text" name="city_kuasa" placeholder="" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800" />
                             </div>
                             
                             <div class="space-y-2">
                                 <label class="block text-sm font-semibold text-gray-700">{{ __('messages.objection.state') }} <span class="text-red-500">*</span></label>
-                                <input type="text" name="state_kuasa" placeholder="" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" />
+                                <input type="text" name="state_kuasa" placeholder="" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800" />
                             </div>
 
                             <div class="space-y-2">
@@ -198,7 +198,7 @@
 
                             <div class="space-y-2">
                                 <label class="block text-sm font-semibold text-gray-700">{{ __('messages.objection.phone') }} <span class="text-red-500">*</span></label>
-                                <input type="tel" name="no_telp_kuasa" placeholder="" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" />
+                                <input type="tel" name="no_telp_kuasa" placeholder="" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800" />
                             </div>
                         </div>
 
@@ -238,7 +238,7 @@
 
                             <div class="space-y-2 pt-4">
                                 <label class="block text-sm font-semibold text-gray-700">{{ __('messages.objection.case_position') }} <span class="text-red-500">*</span></label>
-                                <textarea name="kasus" rows="6" placeholder="{{ __('messages.objection.case_placeholder') }}" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800 resize-none" required></textarea>
+                                <textarea name="kasus" rows="6" placeholder="{{ __('messages.objection.case_placeholder') }}" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800 resize-none" required></textarea>
                             </div>
                         </div>
                         

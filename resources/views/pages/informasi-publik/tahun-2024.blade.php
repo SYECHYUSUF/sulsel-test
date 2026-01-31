@@ -19,24 +19,23 @@
                     class="w-4 h-4 text-gray-400">
                     <path d="m9 18 6-6-6-6" />
                 </svg>
-                <a href="/informasi-publik" class="hover:text-[#1A305E] dark:text-white transition-colors">Daftar
-                    Informasi Publik</a>
+                <a href="/informasi-publik" class="hover:text-[#1A305E] dark:text-white transition-colors">{{ __('messages.breadcrumb.public_info') }}</a>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="w-4 h-4 text-gray-400">
                     <path d="m9 18 6-6-6-6" />
                 </svg>
-                <span class="text-[#1A305E] dark:text-white font-medium">Tahun 2024</span>
+                <span class="text-[#1A305E] dark:text-white font-medium">{{ __('messages.public_info_pages.year_2024_title') }}</span>
             </div>
 
             {{-- Title --}}
             <div class="flex items-end justify-between">
                 <div>
                     <h1 class="text-3xl md:text-4xl font-bold text-[#1A305E] dark:text-white mb-2">
-                        Daftar Informasi Publik 2024
+                        {{ __('messages.public_info_pages.year_2024_title') }}
                     </h1>
                     <p class="text-gray-600 dark:text-gray-300">
-                        Daftar lengkap informasi publik tahun 2024
+                        {{ __('messages.public_info_pages.year_subtitle') }}
                     </p>
                 </div>
                 <div class="hidden md:block">
@@ -98,17 +97,17 @@
                                 <tr>
                                     <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide">No</th>
                                     <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide">
-                                        {{ \App\Models\MatriksDip::columnLabels()['a'] }}</th>
+                                        {{ __('messages.public_info_pages.header_a') }}</th>
                                     <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide">
-                                        {{ \App\Models\MatriksDip::columnLabels()['b'] }}</th>
+                                        {{ __('messages.public_info_pages.header_b') }}</th>
                                     <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide">
-                                        {{ \App\Models\MatriksDip::columnLabels()['c'] }}</th>
+                                        {{ __('messages.public_info_pages.header_c') }}</th>
                                     <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide">
-                                        {{ \App\Models\MatriksDip::columnLabels()['d'] }}</th>
+                                        {{ __('messages.public_info_pages.header_d') }}</th>
                                     <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide">
-                                        {{ \App\Models\MatriksDip::columnLabels()['e'] }}</th>
+                                        {{ __('messages.public_info_pages.header_e') }}</th>
                                     <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide">
-                                        {{ \App\Models\MatriksDip::columnLabels()['f'] }}</th>
+                                        {{ __('messages.public_info_pages.header_f') }}</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200">

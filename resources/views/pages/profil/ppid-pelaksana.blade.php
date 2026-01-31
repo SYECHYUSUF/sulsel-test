@@ -10,19 +10,19 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
                 </a>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-gray-400"><path d="m9 18 6-6-6-6"/></svg>
-                <span class="text-[#1A305E] dark:text-white font-medium">Profil</span>
+                <span class="text-[#1A305E] dark:text-white font-medium">{{ __('messages.breadcrumb.profile') }}</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-gray-400"><path d="m9 18 6-6-6-6"/></svg>
-                <span class="text-[#1A305E] dark:text-white font-bold">PPID Pelaksana</span>
+                <span class="text-[#1A305E] dark:text-white font-bold">{{ __('messages.ppid_pelaksana.title') }}</span>
             </div>
           
             {{-- Title --}}
             <div class="flex items-end justify-between">
                 <div>
                     <h1 class="text-3xl md:text-4xl font-bold text-[#1A305E] dark:text-white mb-2">
-                        PPID Pelaksana
+                        {{ __('messages.ppid_pelaksana.title') }}
                     </h1>
                     <p class="text-gray-600 dark:text-gray-300">
-                        Daftar PPID Pelaksana di Lingkup Pemerintah Provinsi Sulawesi Selatan
+                        {{ __('messages.ppid_pelaksana.subtitle') }}
                     </p>
                 </div>
                 <div class="hidden md:block">
@@ -77,7 +77,7 @@
                                       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
                                    </div>
                                     <div>
-                                        <p class="font-bold text-[#1A305E] dark:text-white text-xs uppercase mb-0.5">Alamat</p>
+                                        <p class="font-bold text-[#1A305E] dark:text-white text-xs uppercase mb-0.5">{{ __('messages.ppid_pelaksana.address') }}</p>
                                         <p class="leading-relaxed text-xs">{{ $ppid->alamat ?? '-' }}</p>
                                     </div>
                                 </div>
@@ -87,7 +87,7 @@
                                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                                      </div>
                                     <div>
-                                        <p class="font-bold text-[#1A305E] dark:text-white text-xs uppercase mb-0.5">Telepon</p>
+                                        <p class="font-bold text-[#1A305E] dark:text-white text-xs uppercase mb-0.5">{{ __('messages.ppid_pelaksana.call_center') }}</p>
                                         <p class="text-xs">{{ $ppid->no_telp ?? '-' }}</p>
                                     </div>
                                 </div>
@@ -97,7 +97,7 @@
                                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
                                      </div>
                                     <div class="min-w-0">
-                                        <p class="font-bold text-[#1A305E] dark:text-white text-xs uppercase mb-0.5">Email</p>
+                                        <p class="font-bold text-[#1A305E] dark:text-white text-xs uppercase mb-0.5">{{ __('messages.ppid_pelaksana.email') }}</p>
                                         <a href="mailto:{{ $ppid->email }}" class="text-[#1A305E] dark:text-white hover:underline break-all group-hover:text-[#D4AF37] transition-colors text-xs truncate block">
                                             {{ $ppid->email ?? '-' }}
                                         </a>
@@ -109,7 +109,7 @@
                                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"/></svg>
                                      </div>
                                     <div class="min-w-0">
-                                        <p class="font-bold text-[#1A305E] dark:text-white text-xs uppercase mb-0.5">Website</p>
+                                        <p class="font-bold text-[#1A305E] dark:text-white text-xs uppercase mb-0.5">{{ __('messages.ppid_pelaksana.website') }}</p>
                                         <a href="{{ $ppid->website }}" target="_blank" rel="noopener noreferrer" class="text-[#1A305E] dark:text-white hover:underline break-all group-hover:text-[#D4AF37] transition-colors text-xs truncate block">
                                             {{ $ppid->website ?? '-' }}
                                         </a>
