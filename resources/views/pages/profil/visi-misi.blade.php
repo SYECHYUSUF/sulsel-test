@@ -36,15 +36,10 @@
     <main class="py-10 md:py-16 bg-gray-50 dark:bg-slate-900 font-['Plus_Jakarta_Sans']">
         <div class="container mx-auto px-4">
             <div class="max-w-7xl mx-auto">
-                <div class="grid lg:grid-cols-12 gap-6 sm:gap-8">
+                <div class="max-w-5xl mx-auto">
                     
-                    {{-- Sidebar --}}
-                    <aside class="lg:col-span-4">
-                        @include('components.news-sidebar')
-                    </aside>
-
                     {{-- Main Content --}}
-                    <div class="lg:col-span-8 space-y-6 sm:space-y-8">
+                    <div class="space-y-6 sm:space-y-8">
             
                         {{-- VISI --}}
                         <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 overflow-hidden">
@@ -111,7 +106,6 @@
                     </div>
 
                 </div>
-            </div>
         </div>
     </main>
     <x-footer />

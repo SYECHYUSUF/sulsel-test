@@ -170,12 +170,20 @@
                         <div class="p-5 space-y-4">
                             {{-- Gubernur --}}
                             <div class="bg-[#1A305E]/5 rounded-lg p-4 border border-[#1A305E]/10">
-                                <div class="aspect-[3/4] rounded-lg overflow-hidden mb-3 bg-white dark:bg-slate-800">
-                                    <img 
-                                        src="{{ asset('images/gubernur.jpg') }}"
-                                        alt="Andi Sudirman Sulaiman"
-                                        class="w-full h-full object-cover"
-                                    />
+                                <div class="aspect-[3/4] rounded-lg overflow-hidden mb-3">
+                                    @if($profil && $profil->foto_gubernur)
+                                        <img 
+                                            src="{{ asset('storage/' . $profil->foto_gubernur) }}"
+                                            alt="Gubernur Sulawesi Selatan"
+                                            class="w-full h-full object-cover"
+                                        />
+                                    @else
+                                        <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#1A305E] to-[#4A5568] text-white">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                            </svg>
+                                        </div>
+                                    @endif
                                 </div>
                                 <p class="font-bold text-[#1A305E] dark:text-white text-sm">Andi Sudirman Sulaiman</p>
                                 <p class="text-xs text-[#D4AF37] font-medium">Gubernur Sulawesi Selatan</p>
@@ -183,12 +191,20 @@
 
                             {{-- Wakil Gubernur --}}
                             <div class="bg-[#D4AF37]/5 rounded-lg p-4 border border-[#D4AF37]/20">
-                                <div class="aspect-[3/4] rounded-lg overflow-hidden mb-3 bg-white dark:bg-slate-800">
-                                    <img 
-                                        src="{{ asset('images/wakil-gubernur.jpg') }}"
-                                        alt="Fatmawati Rusdi"
-                                        class="w-full h-full object-cover"
-                                    />
+                                <div class="aspect-[3/4] rounded-lg overflow-hidden mb-3">
+                                    @if($profil && $profil->foto_wakil)
+                                        <img 
+                                            src="{{ asset('storage/' . $profil->foto_wakil) }}"
+                                            alt="Wakil Gubernur Sulawesi Selatan"
+                                            class="w-full h-full object-cover"
+                                        />
+                                    @else
+                                        <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#D4AF37] to-[#B08D26] text-white">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                            </svg>
+                                        </div>
+                                    @endif
                                 </div>
                                 <p class="font-bold text-[#1A305E] dark:text-white text-sm">Fatmawati Rusdi</p>
                                 <p class="text-xs text-[#B08D26] font-medium">Wakil Gubernur Sulawesi Selatan</p>

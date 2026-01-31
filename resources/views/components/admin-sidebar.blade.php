@@ -176,16 +176,32 @@
                     </path>
                 </svg>
             </x-sidebar-link>
+            
+            {{-- Profil Dropdown --}}
+            <x-sidebar-dropdown label="Profil" :active="request()->is('admin/profil*') || request()->is('admin/sambutan*') || request()->is('admin/visi-misi*') || request()->is('admin/tupoksi*') || request()->is('admin/maklumat*') || request()->is('admin/struktur-organisasi*')">
+                <x-slot name="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                    </svg>
+                </x-slot>
 
-            <x-sidebar-link href="{{ route('admin.struktur-organisasi.index') }}"
-                :active="request()->is('admin/struktur-organisasi*')" label="Struktur Organisasi">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect width="20" height="14" x="2" y="3" rx="2" />
-                    <line x1="8" x2="16" y1="21" y2="21" />
-                    <line x1="12" x2="12" y1="17" y2="21" />
-                </svg>
-            </x-sidebar-link>
+                <x-sidebar-dropdown-link href="{{ route('admin.profil-ppid.index') }}"
+                    :active="request()->is('admin/profil-ppid*')" label="Profil PPID" />
+                <x-sidebar-dropdown-link href="{{ route('admin.sambutan.index') }}"
+                    :active="request()->is('admin/sambutan*')" label="Sambutan" />
+                <x-sidebar-dropdown-link href="{{ route('admin.struktur-organisasi.index') }}"
+                    :active="request()->is('admin/struktur-organisasi*')" label="Struktur Organisasi" />
+                <x-sidebar-dropdown-link href="{{ route('admin.visi-misi.index') }}"
+                    :active="request()->is('admin/visi-misi*')" label="Visi Misi" />
+                <x-sidebar-dropdown-link href="{{ route('admin.tupoksi.index') }}"
+                    :active="request()->is('admin/tupoksi*')" label="Tupoksi" />
+                <x-sidebar-dropdown-link href="{{ route('admin.maklumat.index') }}"
+                    :active="request()->is('admin/maklumat*')" label="Maklumat" />
+                <x-sidebar-dropdown-link href="{{ route('admin.profil-pemprov.index') }}"
+                    :active="request()->is('admin/profil-pemprov*')" label="Profil Pemerintah Sulsel" />
+            </x-sidebar-dropdown>
 
             <x-sidebar-link href="/admin/pengaturan" :active="request()->is('admin/pengaturan*')" label="Pengaturan">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">

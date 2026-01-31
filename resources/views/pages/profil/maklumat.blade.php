@@ -49,12 +49,40 @@
               
                     <div class="p-6">
                         <div class="rounded-lg overflow-hidden border border-gray-200 dark:border-slate-700">
-                            {{-- Image detected in public/images/ --}}
-                            <img
-                                src="{{ asset('images/20230918134717_Maklumat pelayanan informasi publik.png') }}"
-                                alt="Maklumat Pelayanan Informasi Publik PPID Sulawesi Selatan"
-                                class="w-full h-auto"
-                            />
+                            @if($profil && $profil->file_banner)
+                                @if(Str::endsWith($profil->file_banner, '.pdf'))
+                                    {{-- PDF Preview --}}
+                                    <div class="aspect-[4/3] bg-gray-100 dark:bg-slate-700 flex flex-col items-center justify-center p-8">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-24 h-24 text-red-500 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                                        </svg>
+                                        <p class="text-gray-700 dark:text-gray-300 font-medium mb-4">Maklumat Pelayanan (PDF)</p>
+                                        <a href="{{ asset('storage/' . $profil->file_banner) }}" 
+                                           target="_blank"
+                                           class="inline-flex items-center gap-2 px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                            </svg>
+                                            Lihat PDF
+                                        </a>
+                                    </div>
+                                @else
+                                    {{-- Image Display --}}
+                                    <img
+                                        src="{{ asset('storage/' . $profil->file_banner) }}"
+                                        alt="Maklumat Pelayanan Informasi Publik PPID Sulawesi Selatan"
+                                        class="w-full h-auto"
+                                    />
+                                @endif
+                            @else
+                                {{-- Fallback to static image if no dynamic file --}}
+                                <img
+                                    src="{{ asset('images/20230918134717_Maklumat pelayanan informasi publik.png') }}"
+                                    alt="Maklumat Pelayanan Informasi Publik PPID Sulawesi Selatan"
+                                    class="w-full h-auto"
+                                />
+                            @endif
                         </div>
                         <p class="text-sm text-gray-600 dark:text-gray-300 text-center mt-4">
                             Maklumat Pelayanan Informasi Publik - PPID Provinsi Sulawesi Selatan

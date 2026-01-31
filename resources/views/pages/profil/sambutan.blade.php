@@ -142,12 +142,19 @@
                             </div>
                             <div class="p-5">
                                 <div class="bg-[#1A305E]/5 rounded-lg p-4 border border-[#1A305E]/10">
-                                    <div class="aspect-[3/4] rounded-lg overflow-hidden mb-3 bg-gradient-to-br from-[#1A305E] to-[#4A5568] border-4 border-[#D4AF37]">
-                                        <div class="w-full h-full flex items-center justify-center text-white">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                            </svg>
-                                        </div>
+                                    <div class="aspect-[3/4] rounded-lg overflow-hidden mb-3 border-4 border-[#D4AF37]">
+                                        @if($profil && $profil->foto_kepala)
+                                            <img src="{{ asset('storage/' . $profil->foto_kepala) }}" 
+                                                 alt="Kepala PPID Utama Sulawesi Selatan"
+                                                 class="w-full h-full object-cover">
+                                        @else
+                                            {{-- Fallback placeholder --}}
+                                            <div class="w-full h-full flex items-center justify-center text-white bg-gradient-to-br from-[#1A305E] to-[#4A5568]">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                                </svg>
+                                            </div>
+                                        @endif
                                     </div>
                                     <p class="font-bold text-[#1A305E] dark:text-white text-sm mb-1">Dr. H. Andi Sudirman Sulaiman, SE., MM</p>
                                     <p class="text-xs text-[#D4AF37] font-semibold mb-2">Kepala Dinas Kominfo</p>
@@ -156,8 +163,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        @include('components.news-sidebar')
                     </aside>
 
                 </div>

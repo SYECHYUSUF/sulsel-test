@@ -56,34 +56,40 @@ Route::middleware(['track.visitors'])->group(function () {
 
     // Profil Pages
     Route::get('/profil-ppid', function () {
-        return view('pages.profil.profil-ppid');
+        $profil = \App\Models\Profil::getByTipe('profil-ppid');
+        return view('pages.profil.profil-ppid', compact('profil'));
     });
     Route::get('/sambutan', function () {
+        $profil = \App\Models\Profil::getByTipe('sambutan');
         $recentNews = \App\Models\Berita::where('verify', 'y')
             ->orderBy('tgl_upload', 'desc')
             ->take(4)
             ->get();
-        return view('pages.profil.sambutan', compact('recentNews'));
+        return view('pages.profil.sambutan', compact('recentNews', 'profil'));
     });
     Route::get('/struktur-organisasi', function () {
         $pdfPath = Setting::where('key', 'struktur_organisasi_path')->value('value');
         return view('pages.profil.struktur-organisasi', compact('pdfPath'));
     });
     Route::get('/visi-misi', function () {
+        $profil = \App\Models\Profil::getByTipe('visi-misi');
         $recentNews = \App\Models\Berita::where('verify', 'y')
             ->orderBy('tgl_upload', 'desc')
             ->take(4)
             ->get();
-        return view('pages.profil.visi-misi', compact('recentNews'));
+        return view('pages.profil.visi-misi', compact('recentNews', 'profil'));
     });
     Route::get('/tupoksi', function () {
-        return view('pages.profil.tupoksi');
+        $profil = \App\Models\Profil::getByTipe('tupoksi');
+        return view('pages.profil.tupoksi', compact('profil'));
     });
     Route::get('/maklumat-pelayanan', function () {
-        return view('pages.profil.maklumat');
+        $profil = \App\Models\Profil::getByTipe('maklumat');
+        return view('pages.profil.maklumat', compact('profil'));
     });
     Route::get('/profil-pemprov', function () {
-        return view('pages.profil.pemerintah');
+        $profil = \App\Models\Profil::getByTipe('pemerintah');
+        return view('pages.profil.pemerintah', compact('profil'));
     });
 
     Route::get('/ppid-pelaksana', function () {
@@ -142,6 +148,15 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('pengaturan', PengaturanController::class);
     Route::resource('struktur-organisasi', \App\Http\Controllers\Admin\StrukturOrganisasiController::class);
+    
+    // Profil Management Routes
+    Route::resource('profil-ppid', \App\Http\Controllers\Admin\ProfilPpidController::class)->only(['index', 'store']);
+    Route::resource('sambutan', \App\Http\Controllers\Admin\SambutanController::class)->only(['index', 'store']);
+    Route::resource('visi-misi', \App\Http\Controllers\Admin\VisiMisiController::class)->only(['index', 'store']);
+    Route::resource('tupoksi', \App\Http\Controllers\Admin\TupoksiController::class)->only(['index', 'store']);
+    Route::resource('maklumat', \App\Http\Controllers\Admin\MaklumatController::class)->only(['index', 'store']);
+    Route::resource('profil-pemprov', \App\Http\Controllers\Admin\ProfilPemprovController::class)->only(['index', 'store']);
+    
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
