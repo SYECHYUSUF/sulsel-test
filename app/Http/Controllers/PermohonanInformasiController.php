@@ -15,30 +15,19 @@ class PermohonanInformasiController extends Controller
     {
         $validated = $request->validate([
             'nama' => 'required|string|max:255',
-            'nik' => 'required|string|max:16', // Adjust length as needed
-            'no_kk' => 'nullable|string|max:16', // Add if you added this column, migration didn't show it but form has it. Wait, migration didn't show no_kk. I'll double check migration.
-            // Migration check:
-            // nama, nik, email, pekerjaan, rincian, tujuan, dapat_salinan, foto_ktp, nmr_pengesahan, alamat, no_hp, peroleh_informasi, salinan_informasi, keterangan, alasan, status, id_skpd, no_pendaftaran, file, is_cek
+            'nik' => 'required|string|size:16|regex:/^[0-9]{16}$/',
+            'no_kk' => 'nullable|string|max:16',
             'email' => 'required|email|max:255',
             'no_hp' => 'required|string|max:20',
             'alamat' => 'required|string',
-            'pekerjaan' => 'required|string|max:255',
-            'foto_ktp' => 'required|file|image|max:5120', // 5MB
+            'pekerjaan_id' => 'required|exists:master_pekerjaan,id',
+            'domisili_id' => 'required|exists:master_domisili,id',
+            'foto_ktp' => 'required|file|image|mimes:jpeg,jpg,png|max:5120', // 5MB
             
             // Info details
-            'nmr_pengesahan' => 'nullable|string|max:255', // Badan Hukum
+            'nmr_pengesahan' => 'nullable|string|max:255',
             'tujuan' => 'required|string',
             'rincian' => 'required|string',
-            
-            // These fields are in migration but not explicitly in the HTML form I saw?
-            // checking view:  nmr_pengesahan is there.
-            // no_hp is NOT in the form? I should check the form again. 
-            // The form has: Nama, NIK, No KK, Email, Alamat, Pekerjaan.
-            // Upload Foto KTP.
-            // Nomor Pengeluaran (Badan Hukum) -> nmr_pengesahan
-            // Tujuan
-            // Rincian
-            
         ]);
 
         try {
