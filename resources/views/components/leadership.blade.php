@@ -18,7 +18,7 @@
         </div>
 
         {{-- Grid --}}
-        <div class="flex md:grid justify-center gap-6 md:gap-12 w-full md:max-w-4xl mx-auto pb-4 md:pb-0 md:grid-cols-2">
+        <div class="flex md:grid justify-center gap-6 md:gap-12 w-full md:max-w-4xl mx-auto pb-4 md:pb-0 md:grid-cols-2 px-4 md:px-0">
             @php
                 $leaders = [
                     [
