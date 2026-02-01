@@ -25,17 +25,17 @@
                     class="w-4 h-4 text-gray-400">
                     <path d="m9 18 6-6-6-6" />
                 </svg>
-                <span class="text-[#1A305E] dark:text-white font-bold">SOP</span>
+                <span class="text-[#1A305E] dark:text-white font-bold">{{ __('messages.menu.sop') }}</span>
             </div>
 
             {{-- Title --}}
             <div class="flex items-end justify-between">
                 <div>
                     <h1 class="text-3xl md:text-4xl font-bold text-[#1A305E] dark:text-white mb-2">
-                        Standar Operasional Prosedur
+                        {{ __('messages.layanan_pages.sop_title') }}
                     </h1>
                     <p class="text-gray-600 dark:text-gray-300">
-                        Dokumen SOP Pelayanan Informasi Publik
+                        {{ __('messages.layanan_pages.sop_subtitle') }}
                     </p>
                 </div>
                 <div class="hidden md:block">
@@ -61,12 +61,12 @@
                                 <circle cx="11" cy="11" r="8" />
                                 <path d="m21 21-4.3-4.3" />
                             </svg>
-                            <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari SOP..."
+                            <input type="text" name="search" value="{{ request('search') }}" placeholder="{{ __('messages.sop_page.search_placeholder') }}"
                                 class="w-full pl-10 pr-4 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all" />
                         </div>
                         <button type="submit"
                             class="px-6 py-2.5 bg-[#1A305E] text-white font-medium rounded-lg hover:bg-[#1A305E]/90 transition-colors">
-                            Cari
+                            {{ __('messages.news.search_btn') }}
                         </button>
                     </form>
                 </div>
@@ -78,9 +78,9 @@
                         <table class="w-full text-left border-collapse">
                             <thead class="bg-[#1A305E] text-white">
                                 <tr>
-                                    <th class="px-6 py-4 text-sm font-semibold w-16 text-center">No.</th>
-                                    <th class="px-6 py-4 text-sm font-semibold">Judul SOP</th>
-                                    <th class="px-6 py-4 text-sm font-semibold w-48 text-center">Aksi</th>
+                                    <th class="px-6 py-4 text-sm font-semibold w-16 text-center">{{ __('messages.table.no') }}</th>
+                                    <th class="px-6 py-4 text-sm font-semibold">{{ __('messages.sop_page.title_column') }}</th>
+                                    <th class="px-6 py-4 text-sm font-semibold w-48 text-center">{{ __('messages.sop_page.action_column') }}</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200">
@@ -124,7 +124,7 @@
                                 @empty
                                     <tr>
                                         <td colspan="3" class="px-6 py-12 text-center text-gray-500 italic bg-gray-50">
-                                            Tidak ada SOP yang ditemukan.
+                                            {{ __('messages.sop_page.no_data') }}
                                         </td>
                                     </tr>
                                 @endforelse

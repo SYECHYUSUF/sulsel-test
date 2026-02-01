@@ -58,13 +58,13 @@
             {{-- Judul --}}
             <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight tracking-tight">
                 <span class="bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent">
-                    Cek Status Permohonan
+                    {{ __('messages.status.check_title') }}
                 </span>
             </h1>
             
             {{-- Subtitle --}}
             <p class="text-lg sm:text-xl md:text-2xl text-blue-100 leading-relaxed max-w-4xl mx-auto font-medium mb-12 md:mb-16">
-                Lacak perkembangan permohonan informasi Anda secara <span class="text-[#D4AF37] font-bold">real-time</span>
+                {{ __('messages.status.check_subtitle') }}
             </p>
         </div>
         
@@ -84,9 +84,9 @@
                     
                     <div class="text-center mb-10">
                         <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1A305E] dark:text-white mb-4">
-                            Masukkan Email Anda
+                            {{ __('messages.status.enter_email') }}
                         </h2>
-                        <p class="text-slate-600 dark:text-slate-400">Gunakan email yang sama saat mengajukan permohonan informasi</p>
+                        <p class="text-slate-600 dark:text-slate-400">{{ __('messages.status.email_instruction') }}</p>
                     </div>
 
                     <form @submit.prevent="searchPermohonan" class="max-w-2xl mx-auto">
@@ -110,7 +110,7 @@
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                             </svg>
-                            <span x-text="loading ? 'Mencari...' : 'Cek Status Permohonan Saya'"></span>
+                            <span x-text="loading ? '{{ __('messages.status.searching') }}' : '{{ __('messages.status.check_my_status') }}'"></span>
                         </button>
                     </form>
                 </div>
@@ -124,7 +124,7 @@
             <div class="text-center mb-12">
                 <div class="inline-flex flex-col sm:flex-row items-center gap-4 bg-white dark:bg-slate-800 px-8 py-5 rounded-2xl shadow-lg border-2 border-[#1A305E]/10">
                     <h2 class="text-2xl sm:text-3xl font-bold text-[#1A305E] dark:text-white">
-                        Riwayat Permohonan
+                        {{ __('messages.status.history') }}
                     </h2>
                     <span class="bg-[#D4AF37] text-white px-4 py-1 rounded-full text-sm font-bold" x-text="permohonan.length + ' Data'"></span>
                 </div>
@@ -161,7 +161,7 @@
                             {{-- Left: Details --}}
                             <div>
                                 <label class="flex items-center gap-2 text-xs font-bold text-[#D4AF37] uppercase tracking-wider mb-3">
-                                    <span>Perihal Permohonan</span>
+                                    <span>{{ __('messages.status.subject') }}</span>
                                 </label>
                                 <p class="text-lg font-bold text-[#1A305E] dark:text-white leading-relaxed" x-text="item.rincian"></p>
                             </div>
@@ -171,16 +171,16 @@
                                 {{-- Right: Response & Handler --}}
                                 <div class="space-y-6">
                                     <div class="bg-gradient-to-br from-[#1A305E] to-[#2a4a7c] rounded-2xl p-5 text-white shadow-lg">
-                                        <p class="text-xs font-bold text-[#D4AF37] uppercase mb-1">Ditangani Oleh</p>
+                                        <p class="text-xs font-bold text-[#D4AF37] uppercase mb-1">{{ __('messages.status.handled_by') }}</p>
                                         <p class="text-lg font-bold" x-text="item.skpd ? item.skpd.nm_skpd : 'Admin PPID Sulsel'"></p>
                                     </div>
 
                                     <div>
-                                        <label class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 block">Respon / Jawaban</label>
+                                        <label class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 block">{{ __('messages.status.response') }}</label>
                                         <div class="bg-slate-50 dark:bg-slate-900 rounded-2xl p-6 border-2 border-slate-100 dark:border-slate-700 min-h-[100px]">
                                             {{-- Conditional Response Templates --}}
                                             <template x-if="item.status == 0">
-                                                <p class="text-slate-600 italic">Menunggu verifikasi admin...</p>
+                                                <p class="text-slate-600 italic">{{ __('messages.status.waiting_admin') }}</p>
                                             </template>
                                             
                                             <template x-if="item.jawaban && item.status != 0">
@@ -204,7 +204,7 @@
                                                     <a :href="`/storage/${item.file}`" target="_blank" 
                                                         class="inline-flex items-center gap-2 text-[#1A305E] dark:text-[#D4AF37] font-bold hover:underline">
                                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                                                        Download Dokumen Lampiran
+                                                        {{ __('messages.status.download_attachment') }}
                                                     </a>
                                                 </div>
                                             </template>
@@ -217,7 +217,7 @@
                                 <template x-if="item.disposisi && item.disposisi.length > 0">
                                     <div class="mt-6 pt-6 border-slate-200 dark:border-slate-700">
                                         <label class="text-xs font-bold text-[#D4AF37] uppercase tracking-wider mb-4 block">
-                                            Tracking Disposisi SKPD
+                                            {{ __('messages.status.tracking_disposition') }}
                                         </label>
                                         <div class="space-y-4">
                                             <template x-for="(disp, index) in item.disposisi" :key="index">
@@ -254,7 +254,7 @@
                                                             <template x-for="(resp, respIndex) in disp.respon" :key="respIndex">
                                                                 <div class="bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 rounded-xl p-4 mb-2">
                                                                     <p class="text-xs font-semibold text-green-800 dark:text-green-300 mb-2">
-                                                                        Respon SKPD (<span x-text="new Date(resp.responded_at).toLocaleDateString('id-ID', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })"></span>):
+                                                                        {{ __('messages.status.skpd_response') }} (<span x-text="new Date(resp.responded_at).toLocaleDateString('id-ID', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })"></span>):
                                                                     </p>
                                                                     <p class="text-sm text-slate-700 dark:text-slate-200 whitespace-pre-line" x-text="resp.respon"></p>
                                                                     

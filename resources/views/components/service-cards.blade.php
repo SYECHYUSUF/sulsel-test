@@ -34,20 +34,24 @@
                 {{-- Hover Accent Line --}}
                 <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
                 
-                <div class="relative z-10 flex flex-col h-full">
-                    <div class="w-14 h-14 rounded-xl bg-[#1A305E]/5 dark:bg-white/10 text-[#1A305E] dark:text-white group-hover:bg-[#1A305E] group-hover:text-[#D4AF37] flex items-center justify-center mb-6 transition-colors duration-300">
-                        <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <div class="relative z-10 flex flex-row md:flex-col h-full gap-4 md:gap-0">
+                    {{-- Icon Container - Pada mobile lebih kecil dan flex-shrink-0 --}}
+                    <div class="w-12 h-12 md:w-14 md:h-14 flex-shrink-0 rounded-xl bg-[#1A305E]/5 dark:bg-white/10 text-[#1A305E] dark:text-white group-hover:bg-[#1A305E] group-hover:text-[#D4AF37] flex items-center justify-center md:mb-6 transition-colors duration-300">
+                        <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="{{ $s['icon'] }}"/>
                         </svg>
                     </div>
                     
-                    <h3 class="text-lg sm:text-xl font-bold text-[#1A305E] dark:text-white mb-3 group-hover:text-[#D4AF37] transition-colors">{{ __($s['title']) }}</h3>
-                    <p class="text-[#4A5568] dark:text-gray-300 leading-relaxed mb-8 flex-grow">{{ __($s['desc']) }}</p>
-                    
-                    <span class="inline-flex items-center gap-2 text-sm font-bold text-[#1A305E] dark:text-white group-hover:translate-x-1 transition-transform uppercase tracking-wider">
-                        {{ __('messages.service.access_service') }}
-                        <svg class="w-4 h-4 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                    </span>
+                    {{-- Content Container --}}
+                    <div class="flex flex-col flex-grow">
+                        <h3 class="text-base md:text-lg lg:text-xl font-bold text-[#1A305E] dark:text-white mb-2 md:mb-3 group-hover:text-[#D4AF37] transition-colors">{{ __($s['title']) }}</h3>
+                        <p class="text-sm md:text-base text-[#4A5568] dark:text-gray-300 leading-relaxed mb-4 md:mb-8 flex-grow">{{ __($s['desc']) }}</p>
+                        
+                        <span class="inline-flex items-center gap-2 text-xs md:text-sm font-bold text-[#1A305E] dark:text-white group-hover:translate-x-1 transition-transform uppercase tracking-wider">
+                            {{ __('messages.service.access_service') }}
+                            <svg class="w-3 h-3 md:w-4 md:h-4 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                        </span>
+                    </div>
                 </div>
 
                 {{-- Decorative Circle on Hover --}}

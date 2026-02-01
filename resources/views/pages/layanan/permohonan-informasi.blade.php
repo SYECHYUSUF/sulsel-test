@@ -19,10 +19,10 @@
             <div class="flex items-end justify-between">
                 <div>
                     <h1 class="text-3xl md:text-4xl font-bold text-[#1A305E] dark:text-white mb-2">
-                        Permohonan Informasi
+                        {{ __('messages.layanan_pages.permohonan_title') }}
                     </h1>
                     <p class="text-gray-600 dark:text-gray-300">
-                        Ajukan permohonan informasi publik
+                        {{ __('messages.layanan_pages.permohonan_subtitle') }}
                     </p>
                 </div>
                 <div class="hidden md:block">
@@ -45,10 +45,10 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
                         </div>
                         <h2 class="text-2xl font-bold text-[#1A305E] dark:text-white mb-2">
-                            Formulir Permohonan Informasi
+                            {{ __('messages.form.form_title') }}
                         </h2>
                         <p class="text-gray-600 dark:text-gray-300">
-                            Silakan lengkapi formulir di bawah ini dengan data yang benar
+                            {{ __('messages.form.fill_form_desc') }}
                         </p>
                     </div>
 
@@ -88,25 +88,25 @@
                                     </div>
 
                                     <!-- Title -->
-                                    <h3 class="text-3xl font-black text-slate-800 dark:text-white mb-3 tracking-tight">Yey, Berhasil!</h3>
+                                    <h3 class="text-3xl font-black text-slate-800 dark:text-white mb-3 tracking-tight">{{ __('messages.form.success_title') }}</h3>
                                     
                                     <!-- Message -->
                                     <p class="text-slate-500 dark:text-slate-400 text-base font-medium leading-relaxed mb-1">
-                                        {{ session('success') ?? 'Permohonan Anda berhasil dikirim.' }}
+                                        {{ session('success') ?? __('messages.form.success_desc') }}
                                     </p>
                                     <p class="text-slate-400 dark:text-slate-500 text-sm mb-10">
-                                        Kami akan segera memprosesnya.
+                                        {{ __('messages.form.process_desc') }}
                                     </p>
 
                                     <!-- Buttons -->
                                     <div class="flex gap-4 w-full">
                                         <button @click="successModalOpen = false"
                                             class="flex-1 px-5 py-3.5 rounded-2xl bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-bold text-sm tracking-wide hover:bg-slate-300 dark:hover:bg-slate-600 transition-all active:scale-95">
-                                            Tutup
+                                            {{ __('messages.form.close') }}
                                         </button>
                                         <button @click="successModalOpen = false"
                                             class="flex-1 px-5 py-3.5 rounded-2xl text-white font-bold text-sm tracking-wide shadow-xl shadow-blue-500/30 transition-all transform hover:scale-105 active:scale-95 bg-gradient-to-r from-[#1A305E] to-blue-600 hover:to-blue-500">
-                                            Mantap!
+                                            {{ __('messages.form.great') }}
                                         </button>
                                     </div>
                                 </div>
@@ -136,47 +136,47 @@
                         <div class="space-y-6">
                             <h3 class="text-lg font-bold text-[#1A305E] dark:text-white flex items-center gap-2 border-b border-gray-100 pb-2">
                                 <span class="w-8 h-8 rounded-full bg-[#D4AF37] text-white flex items-center justify-center text-sm">1</span>
-                                Data Pribadi
+                                {{ __('messages.form.personal_data') }}
                             </h3>
                             
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div class="space-y-2">
-                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Nama Lengkap <span class="text-red-500">*</span></label>
-                                    <input type="text" name="nama" value="{{ old('nama') }}" placeholder="Masukkan nama sesuai KTP" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" required />
+                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">{{ __('messages.form.full_name') }} <span class="text-red-500">*</span></label>
+                                    <input type="text" name="nama" value="{{ old('nama') }}" placeholder="Masukkan nama sesuai KTP" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800" required />
                                 </div>
                                 <div class="space-y-2">
-                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">No. KTP (NIK) <span class="text-red-500">*</span></label>
-                                    <input type="text" name="nik" value="{{ old('nik') }}" placeholder="16 digit NIK" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" required />
+                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">{{ __('messages.form.id_number') }} <span class="text-red-500">*</span></label>
+                                    <input type="text" name="nik" value="{{ old('nik') }}" placeholder="16 digit NIK" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800" required />
                                 </div>
                             </div>
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div class="space-y-2">
-                                    <label class="block text-sm font-semibold text-gray-700">Nomor KK (Opsional)</label>
-                                    <input type="text" name="no_kk" value="{{ old('no_kk') }}" placeholder="Nomor Kartu Keluarga" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" />
+                                    <label class="block text-sm font-semibold text-gray-700">{{ __('messages.form.family_card_number') }}</label>
+                                    <input type="text" name="no_kk" value="{{ old('no_kk') }}" placeholder="{{ __('messages.form.family_card_number') }}" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800" />
                                 </div>
                                 <div class="space-y-2">
                                     <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Email <span class="text-red-500">*</span></label>
-                                    <input type="email" name="email" value="{{ old('email') }}" placeholder="contoh@email.com" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" required />
+                                    <input type="email" name="email" value="{{ old('email') }}" placeholder="contoh@email.com" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800" required />
                                 </div>
                             </div>
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div class="space-y-2">
                                     <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">No. HP / WhatsApp <span class="text-red-500">*</span></label>
-                                    <input type="text" name="no_hp" value="{{ old('no_hp') }}" placeholder="08xxxxxxxxxx" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" required />
+                                    <input type="text" name="no_hp" value="{{ old('no_hp') }}" placeholder="08xxxxxxxxxx" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800" required />
                                 </div>
                                 <div class="space-y-2">
                                     <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Alamat <span class="text-red-500">*</span></label>
-                                    <textarea name="alamat" rows="1" placeholder="Alamat lengkap domisili" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800 resize-none" required>{{ old('alamat') }}</textarea>
+                                    <textarea name="alamat" rows="1" placeholder="{{ __('messages.form.address_placeholder') }}" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800 resize-none" required>{{ old('alamat') }}</textarea>
                                 </div>
                             </div>
                             
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {{-- Alamat moved to grid above --}}
                                 <div class="space-y-2">
-                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Pekerjaan <span class="text-red-500">*</span></label>
-                                    <input type="text" name="pekerjaan" value="{{ old('pekerjaan') }}" placeholder="Pekerjaan saat ini" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" required />
+                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">{{ __('messages.form.job') }} <span class="text-red-500">*</span></label>
+                                    <input type="text" name="pekerjaan" value="{{ old('pekerjaan') }}" placeholder="{{ __('messages.form.job_placeholder') }}" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800" required />
                                 </div>
                             </div>
                         </div>
@@ -185,15 +185,15 @@
                         <div class="space-y-6">
                             <h3 class="text-lg font-bold text-[#1A305E] dark:text-white flex items-center gap-2 border-b border-gray-100 pb-2">
                                 <span class="w-8 h-8 rounded-full bg-[#D4AF37] text-white flex items-center justify-center text-sm">2</span>
-                                Dokumen Pendukung
+                                {{ __('messages.form.supporting_docs') }}
                             </h3>
                              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div class="space-y-2">
-                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Upload Foto KTP <span class="text-red-500">*</span></label>
+                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">{{ __('messages.form.upload_id_card') }} <span class="text-red-500">*</span></label>
                                     <div class="relative">
                                         <input type="file" name="foto_ktp" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-[#1A305E]/10 file:text-[#1A305E] dark:text-white hover:file:bg-[#1A305E]/20 cursor-pointer border border-gray-300 rounded-lg" required />
                                     </div>
-                                    <p class="text-xs text-gray-500 mt-1">Format: JPG, JPEG, PNG (Max. 5MB)</p>
+                                    <p class="text-xs text-gray-500 mt-1">{{ __('messages.form.format_hint') }}</p>
                                 </div>
                             </div>
                         </div>
@@ -203,23 +203,23 @@
                         <div class="space-y-6">
                              <h3 class="text-lg font-bold text-[#1A305E] dark:text-white flex items-center gap-2 border-b border-gray-100 pb-2">
                                 <span class="w-8 h-8 rounded-full bg-[#D4AF37] text-white flex items-center justify-center text-sm">3</span>
-                                Detail Informasi
+                                {{ __('messages.form.info_details') }}
                             </h3>
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div class="space-y-2">
-                                    <label class="block text-sm font-semibold text-gray-700">Nomor Pengeluaran (Badan Hukum)</label>
-                                    <input type="text" name="nmr_pengesahan" value="{{ old('nmr_pengesahan') }}" placeholder="Jika mewakili badan hukum" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" />
+                                    <label class="block text-sm font-semibold text-gray-700">{{ __('messages.form.legal_entity_number') }}</label>
+                                    <input type="text" name="nmr_pengesahan" value="{{ old('nmr_pengesahan') }}" placeholder="{{ __('messages.form.legal_entity_number') }}" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800" />
                                 </div>
                                 <div class="space-y-2">
-                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Tujuan Penggunaan Informasi <span class="text-red-500">*</span></label>
-                                    <input type="text" name="tujuan" value="{{ old('tujuan') }}" placeholder="Jelaskan tujuan permohonan" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800" required />
+                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">{{ __('messages.form.purpose') }} <span class="text-red-500">*</span></label>
+                                    <input type="text" name="tujuan" value="{{ old('tujuan') }}" placeholder="{{ __('messages.form.purpose') }}" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800" required />
                                 </div>
                             </div>
 
                             <div class="space-y-2">
-                                <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Rincian Informasi Yang Dibutuhkan <span class="text-red-500">*</span></label>
-                                <textarea name="rincian" rows="4" placeholder="Deskripsikan informasi yang Anda butuhkan secara detail" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:bg-slate-800 resize-none" required>{{ old('rincian') }}</textarea>
+                                <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">{{ __('messages.form.details_needed') }} <span class="text-red-500">*</span></label>
+                                <textarea name="rincian" rows="4" placeholder="{{ __('messages.form.details_placeholder') }}" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800 resize-none" required>{{ old('rincian') }}</textarea>
                             </div>
                         </div>
 
@@ -227,7 +227,7 @@
                         <div class="pt-6 flex justify-end">
                             <button type="submit" class="px-8 py-3.5 bg-[#1A305E] text-white font-bold rounded-lg hover:bg-[#1A305E]/90 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center gap-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-                                Kirim Permohonan
+                                {{ __('messages.form.submit_request') }}
                             </button>
                         </div>
                     </form>

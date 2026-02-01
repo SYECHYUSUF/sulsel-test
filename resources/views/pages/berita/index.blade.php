@@ -47,7 +47,7 @@
                         <input type="text" 
                                name="search" 
                                value="{{ request('search') }}" 
-                               placeholder="{{ __('messages.common.search_placeholder', ['default' => 'Cari berita...']) }}" 
+                               placeholder="{{ __('messages.common.search_news') }}" 
                                class="w-full pl-10 pr-4 py-2.5 rounded-lg border border-gray-200 dark:border-slate-600 bg-gray-50 dark:bg-slate-700 text-gray-700 dark:text-gray-200 focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent outline-none transition-all">
                         <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                     </div>
@@ -111,7 +111,7 @@
                                     @endif
                                     
                                     <div class="absolute top-3 left-3 bg-[#1A305E] text-white text-[10px] font-bold px-2.5 py-1 rounded shadow-sm uppercase tracking-wide">
-                                        {{ $news->skpd->nm_skpd ?? 'Umum' }}
+                                        {{ $news->skpd->nm_skpd ?? __('messages.common.general') }}
                                     </div>
                                     
                                     {{-- Overlay Link --}}

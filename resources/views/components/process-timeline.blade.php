@@ -61,25 +61,35 @@
 
                 @foreach($steps as $index => $s)
                 <div class="relative" data-aos="fade-up" data-aos-delay="{{ $index * 200 }}">
-                    <div class="bg-white dark:bg-slate-800 rounded-3xl p-5 sm:p-6 md:p-8 shadow-sm hover:shadow-[0_20px_50px_-10px_rgba(26,48,94,0.15)] transition-all duration-300 border border-gray-100 dark:border-slate-700 hover:border-[#D4AF37]/30 group hover:-translate-y-2">
-                        {{-- Number Badge --}}
-                        <div class="absolute -top-3 -left-3 md:-top-4 md:-left-4 w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br {{ $s['col'] }} rounded-2xl flex items-center justify-center shadow-lg z-10 text-white font-bold text-lg md:text-xl">
-                            {{ $s['n'] }}
-                        </div>
+                    <div class="bg-white dark:bg-slate-800 rounded-3xl p-4 md:p-8 shadow-sm hover:shadow-[0_20px_50px_-10px_rgba(26,48,94,0.15)] transition-all duration-300 border border-gray-100 dark:border-slate-700 hover:border-[#D4AF37]/30 group hover:-translate-y-2">
                         
-                        {{-- Icon --}}
-                        <div class="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br {{ $s['col'] }} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-md text-white">
-                            <div class="w-7 h-7 md:w-8 md:h-8">
-                                {!! $s['icon'] !!}
+                        {{-- Mobile: Horizontal Layout | Desktop: Vertical Layout --}}
+                        <div class="flex flex-row md:flex-col gap-4 md:gap-0">
+                            {{-- Icon Badge Container - Mobile: gunakan icon, Desktop: gunakan number badge --}}
+                            <div class="flex-shrink-0">
+                                {{-- Number Badge - Hidden on mobile, shown on desktop --}}
+                                <div class="hidden md:flex absolute -top-4 -left-4 w-12 h-12 bg-gradient-to-br {{ $s['col'] }} rounded-2xl items-center justify-center shadow-lg z-10 text-white font-bold text-xl">
+                                    {{ $s['n'] }}
+                                </div>
+                                
+                                {{-- Icon Badge --}}
+                                <div class="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br {{ $s['col'] }} rounded-2xl flex items-center justify-center md:mb-6 group-hover:scale-110 transition-transform shadow-md text-white">
+                                    <div class="w-6 h-6 md:w-8 md:h-8">
+                                        {!! $s['icon'] !!}
+                                    </div>
+                                </div>
                             </div>
-                        </div>
 
-                        <h3 class="text-lg md:text-xl font-bold text-[#1A305E] dark:text-white mb-3">{{ __($s['title']) }}</h3>
-                        <p class="text-sm md:text-base text-[#4A5568] dark:text-gray-300 leading-relaxed mb-4">{{ __($s['desc']) }}</p>
-                        
-                        <div class="inline-flex items-center gap-2 px-4 py-2 bg-gray-50 dark:bg-slate-700 rounded-full border border-gray-100 dark:border-slate-600">
-                            <svg class="w-4 h-4 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                            <span class="text-xs md:text-sm font-semibold text-[#1A305E] dark:text-gray-200">{{ __($s['dur']) }}</span>
+                            {{-- Content Container --}}
+                            <div class="flex flex-col flex-grow">
+                                <h3 class="text-base md:text-xl font-bold text-[#1A305E] dark:text-white mb-2 md:mb-3">{{ __($s['title']) }}</h3>
+                                <p class="text-sm md:text-base text-[#4A5568] dark:text-gray-300 leading-relaxed mb-3 md:mb-4">{{ __($s['desc']) }}</p>
+                                
+                                <div class="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-gray-50 dark:bg-slate-700 rounded-full border border-gray-100 dark:border-slate-600 w-fit">
+                                    <svg class="w-3 h-3 md:w-4 md:h-4 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                    <span class="text-xs md:text-sm font-semibold text-[#1A305E] dark:text-gray-200">{{ __($s['dur']) }}</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,6 @@
-<header class="fixed top-0 left-0 w-full z-50 bg-white dark:bg-slate-900 shadow-sm font-['Plus_Jakarta_Sans'] transition-colors duration-300" 
-        x-data="{ 
+<header
+    class="fixed top-0 left-0 w-full z-50 bg-white dark:bg-slate-900 shadow-sm font-['Plus_Jakarta_Sans'] transition-colors duration-300"
+    x-data="{ 
             mobileMenu: false,
             openProfil: false, 
             openDaftar: false, 
@@ -19,11 +20,13 @@
     <div class="container mx-auto px-4 py-4 md:py-6 flex items-center justify-between">
         <a href="/" class="flex items-center gap-3 group">
             {{-- Logo Image --}}
-            <img src="{{ asset('images/ppid-2.png') }}" alt="Logo PPID Sulawesi Selatan" class="h-10 md:h-14 w-auto transition-transform group-hover:scale-105" />
-            
+            <img src="{{ asset('images/ppid-2.png') }}" alt="Logo PPID Sulawesi Selatan"
+                class="h-10 md:h-14 w-auto transition-transform group-hover:scale-105" />
+
             {{-- TEKS SAMPING LOGO --}}
             <div class="flex-col justify-center md:flex hidden">
-                <span class="font-extrabold text-[#1A305E] dark:text-white text-xs md:text-base leading-tight group-hover:text-[#D4AF37] transition-colors font-['Plus_Jakarta_Sans']">
+                <span
+                    class="font-extrabold text-[#1A305E] dark:text-white text-xs md:text-base leading-tight group-hover:text-[#D4AF37] transition-colors font-['Plus_Jakarta_Sans']">
                     {{ __('messages.header.title_1') }}
                 </span>
                 <span class="font-bold text-[#D4AF37] text-[10px] md:text-xs tracking-[0.15em] uppercase mt-0.5">
@@ -32,198 +35,243 @@
             </div>
         </a>
 
-
-        
         <div class="flex items-center gap-3 md:gap-4">
             {{-- Login Button --}}
-            <a href="/login" class="hidden lg:flex items-center gap-1.5 text-sm font-medium text-[#4A5568] dark:text-gray-300 hover:text-[#D4AF37] transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-                </svg>
+            <a href="/login"
+                class="hidden lg:flex items-center gap-1.5 text-sm font-medium text-[#4A5568] dark:text-gray-300 hover:text-[#D4AF37] transition-colors">
                 Login
             </a>
             {{-- Contact Desktop --}}
-            <a href="/contact" class="hidden lg:block text-sm font-medium text-[#4A5568] dark:text-gray-300 hover:text-[#D4AF37] transition-colors">{{ __('messages.header.contact') }}</a>
-            
-            
+            <a href="/contact"
+                class="hidden lg:block text-sm font-medium text-[#4A5568] dark:text-gray-300 hover:text-[#D4AF37] transition-colors">{{ __('messages.header.contact') }}</a>
+
+
             {{-- Search Trigger Button --}}
-            <button @click="$dispatch('open-search')" 
-            class="p-2 rounded-full text-[#4A5568] dark:text-gray-300 hover:text-[#D4AF37] hover:bg-[#1A305E]/5 dark:hover:bg-white/10 transition-all"
-            aria-label="Search">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-        </button>
-        
-        {{-- Dark Mode Toggle --}}
-        <button @click="darkMode = !darkMode; localStorage.setItem('theme', darkMode ? 'dark' : 'light'); if(darkMode) document.documentElement.classList.add('dark'); else document.documentElement.classList.remove('dark');" 
-        class="p-2 rounded-full text-[#4A5568] dark:text-gray-300 hover:text-[#D4AF37] hover:bg-[#1A305E]/5 dark:hover:bg-white/10 transition-all">
-        <svg x-show="!darkMode" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
-        <svg x-show="darkMode" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-    </button>
-    
-    {{-- Dropdown Bahasa --}}
-    <div class="relative" @click.away="openLang = false">
-        <button @click="openLang = !openLang" class="flex items-center gap-1 text-[#4A5568] dark:text-gray-300 hover:text-[#D4AF37] transition-colors font-bold uppercase focus:outline-none text-sm">
-            <span x-text="lang"></span>
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform" :class="openLang ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path d="m6 9 6 6 6-6"/>
-            </svg>
-        </button>
-        
-        <div x-show="openLang" x-transition class="absolute right-0 mt-2 w-24 bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-xl rounded-xl overflow-hidden py-1 z-[60]">
-            <a href="/lang/id" class="block w-full text-left px-4 py-2 hover:bg-[#D4AF37]/10 hover:text-[#D4AF37] dark:text-gray-200 transition-colors text-sm">🇮🇩 ID</a>
-            <a href="/lang/en" class="block w-full text-left px-4 py-2 hover:bg-[#D4AF37]/10 hover:text-[#D4AF37] dark:text-gray-200 transition-colors text-sm">🇺🇸 EN</a>
-        </div>
-    </div>
-    
-    {{-- Social Media Icons - Desktop Only --}}
-    @php
-        $socials = [
-            ['name' => 'Facebook', 'link' => 'https://www.facebook.com/ppidsulsel', 'icon' => '<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>'],
-            ['name' => 'Twitter', 'link' => 'https://twitter.com/ppidsulsel', 'icon' => '<path d="M4 4l11.733 16h4.267l-11.733 -16z M4 20l6.768 -6.768 M13.232 10.768l6.768 -6.768"></path>'],
-            ['name' => 'Instagram', 'link' => 'https://www.instagram.com/ppidsulsel', 'icon' => '<rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>'],
-            ['name' => 'YouTube', 'link' => 'https://www.youtube.com/@ppidsulsel', 'icon' => '<path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.42a2.78 2.78 0 0 0-1.94 2C1 8.14 1 12 1 12s0 3.86.46 5.58a2.78 2.78 0 0 0 1.94 2c1.72.42 8.6.42 8.6.42s6.88 0 8.6-.42a2.78 2.78 0 0 0 1.94-2C23 15.86 23 12 23 12s0-3.86-.46-5.58z"></path><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"></polygon>']
-        ];
-    @endphp
-    <div class="hidden lg:flex items-center gap-2">
-        @foreach($socials as $soc)
-            <a href="{{ $soc['link'] }}" 
-               title="{{ $soc['name'] }}" 
-               target="_blank"
-               rel="noopener noreferrer"
-               class="group p-1.5 rounded-lg text-[#4A5568] dark:text-gray-300 hover:text-[#D4AF37] hover:bg-[#1A305E]/5 dark:hover:bg-white/10 transition-all">
-                <svg xmlns="http://www.w3.org/2000/svg" 
-                     width="16" 
-                     height="16" 
-                     viewBox="0 0 24 24" 
-                     fill="none" 
-                     stroke="currentColor" 
-                     stroke-width="2" 
-                     stroke-linecap="round" 
-                     stroke-linejoin="round" 
-                     class="transition-transform group-hover:scale-110">
-                    {!! $soc['icon'] !!}
+            <button @click="$dispatch('open-search')"
+                class="p-2 rounded-full text-[#4A5568] dark:text-gray-300 hover:text-[#D4AF37] hover:bg-[#1A305E]/5 dark:hover:bg-white/10 transition-all"
+                aria-label="Search">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
-            </a>
-        @endforeach
-    </div>
-    {{-- TOMBOL HAMBURGER: Hanya muncul di Mobile --}}
-    <button @click="mobileMenu = !mobileMenu" class="lg:hidden p-2 rounded-lg bg-[#1A305E]/5 dark:bg-white/10 text-[#1A305E] dark:text-white">
-        <svg x-show="!mobileMenu" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
-        <svg x-show="mobileMenu" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
-    </button>
+            </button>
+
+            {{-- Dark Mode Toggle --}}
+            <button
+                @click="darkMode = !darkMode; localStorage.setItem('theme', darkMode ? 'dark' : 'light'); if(darkMode) document.documentElement.classList.add('dark'); else document.documentElement.classList.remove('dark');"
+                class="p-2 rounded-full text-[#4A5568] dark:text-gray-300 hover:text-[#D4AF37] hover:bg-[#1A305E]/5 dark:hover:bg-white/10 transition-all">
+                <svg x-show="!darkMode" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+                <svg x-show="darkMode" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+            </button>
+
+            {{-- Dropdown Bahasa --}}
+            <div class="relative" @click.away="openLang = false">
+                <button @click="openLang = !openLang"
+                    class="flex items-center gap-1 text-[#4A5568] dark:text-gray-300 hover:text-[#D4AF37] transition-colors font-bold uppercase focus:outline-none text-sm">
+                    <span x-text="lang"></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform"
+                        :class="openLang ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="m6 9 6 6 6-6" />
+                    </svg>
+                </button>
+
+                <div x-show="openLang" x-transition
+                    class="absolute right-0 mt-2 w-24 bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-xl rounded-xl overflow-hidden py-1 z-[60]">
+                    <a href="/lang/id"
+                        class="block w-full text-left px-4 py-2 hover:bg-[#D4AF37]/10 hover:text-[#D4AF37] dark:text-gray-200 transition-colors text-sm">🇮🇩
+                        ID</a>
+                    <a href="/lang/en"
+                        class="block w-full text-left px-4 py-2 hover:bg-[#D4AF37]/10 hover:text-[#D4AF37] dark:text-gray-200 transition-colors text-sm">🇺🇸
+                        EN</a>
+                </div>
+            </div>
+
+            {{-- Social Media Icons - Desktop Only --}}
+            @php
+                $socials = \App\Models\Sosmed::orderBy('urutan')->get();
+            @endphp
+            <div class="hidden lg:flex items-center gap-2">
+                @foreach($socials as $soc)
+                    <a href="{{ $soc->link_sosmed }}" title="{{ $soc->judul }}" target="_blank" rel="noopener noreferrer"
+                        class="group p-1.5 rounded-lg text-[#4A5568] dark:text-gray-300 hover:text-[#D4AF37] hover:bg-[#1A305E]/5 dark:hover:bg-white/10 transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="transition-transform group-hover:scale-110">
+                            {!! $soc->icon_sosmed !!}
+                        </svg>
+                    </a>
+                @endforeach
+            </div>
+            {{-- TOMBOL HAMBURGER: Hanya muncul di Mobile --}}
+            <button @click="mobileMenu = !mobileMenu"
+                class="lg:hidden p-2 rounded-lg bg-[#1A305E]/5 dark:bg-white/10 text-[#1A305E] dark:text-white">
+                <svg x-show="!mobileMenu" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+                <svg x-show="mobileMenu" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
         </div>
     </div>
 
     {{-- 2. NAVIGATION BAR --}}
     <nav class="bg-[#1A305E] shadow-md transition-all duration-300 relative"
-         :class="mobileMenu ? 'block' : 'hidden lg:block'">
-        
+        :class="mobileMenu ? 'block' : 'hidden lg:block'">
+
         {{-- Gold Line Accent --}}
         <div class="absolute top-0 left-0 w-full h-[2px] bg-[#D4AF37]"></div>
 
         <div class="container mx-auto px-0 lg:px-4 py-4">
-            <ul class="flex flex-col lg:flex-row items-stretch justify-center lg:items-center text-xs lg:text-sm font-medium text-white/90">
-                
+            <ul
+                class="flex flex-col lg:flex-row items-stretch justify-center lg:items-center text-xs lg:text-sm font-medium text-white/90">
+
                 {{-- SEARCH (Mobile Only) --}}
                 <li class="lg:hidden px-6 py-4 border-b border-white/10">
                     <form action="/search" method="GET" class="relative">
-                        <input 
-                            type="text" 
-                            name="query" 
-                            placeholder="Cari informasi..." 
-                            class="w-full py-2 pl-4 pr-10 rounded-lg bg-white/10 border-2 border-white/30 text-white placeholder-white/70 text-sm focus:bg-white/20 focus:border-[#D4AF37] focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/30"
-                        >
-                        <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 text-white/70 hover:text-[#D4AF37]">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <input type="text" name="query" placeholder="{{ __('messages.common.search_info') }}"
+                            class="w-full py-2 pl-4 pr-10 rounded-lg bg-white/10 border-2 border-white/30 text-white placeholder-white/70 text-sm focus:bg-white/20 focus:border-[#D4AF37] focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/30">
+                        <button type="submit"
+                            class="absolute right-2 top-1/2 -translate-y-1/2 text-white/70 hover:text-[#D4AF37]">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
                                 <circle cx="11" cy="11" r="8"></circle>
                                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                             </svg>
                         </button>
                     </form>
                 </li>
-                
+
                 {{-- BERANDA --}}
                 <li class="border-b lg:border-none border-white/10">
                     <a href="/" class="block px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all relative group">
                         {{ __('messages.header.home') }}
-                        <span class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block"></span>
+                        <span
+                            class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block"></span>
                     </a>
                 </li>
-                
+
                 {{-- Dropdown Profil --}}
                 <li class="relative border-b lg:border-none border-white/10 group"
-                    @mouseenter="if(window.innerWidth >= 1024) openProfil = true" 
+                    @mouseenter="if(window.innerWidth >= 1024) openProfil = true"
                     @mouseleave="if(window.innerWidth >= 1024) openProfil = false">
-                    <div @click="if(window.innerWidth < 1024) openProfil = !openProfil" 
-                         class="flex items-center justify-between px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all cursor-pointer relative">
+                    <div @click="if(window.innerWidth < 1024) openProfil = !openProfil"
+                        class="flex items-center justify-between px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all cursor-pointer relative">
                         <span>{{ __('messages.header.profile') }}</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform text-[#D4AF37]" :class="openProfil ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="m6 9 6 6 6-6"/></svg>
-                        <span class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block"></span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform text-[#D4AF37]"
+                            :class="openProfil ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path d="m6 9 6 6 6-6" />
+                        </svg>
+                        <span
+                            class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block"></span>
                     </div>
-                    <ul x-show="openProfil" 
-                        x-transition:enter="transition ease-out duration-300 transform origin-top"
+                    <ul x-show="openProfil" x-transition:enter="transition ease-out duration-300 transform origin-top"
                         x-transition:enter-start="opacity-0 -translate-y-2 scale-95"
                         x-transition:enter-end="opacity-100 translate-y-0 scale-100"
                         x-transition:leave="transition ease-in duration-200 transform origin-top"
                         x-transition:leave-start="opacity-100 translate-y-0 scale-100"
                         x-transition:leave-end="opacity-0 -translate-y-2 scale-95"
                         class="lg:absolute lg:left-0 lg:top-full w-full lg:w-64 bg-white dark:bg-slate-800 lg:shadow-xl text-[#1A305E] dark:text-gray-200 py-2 lg:rounded-b-lg lg:border-t-4 lg:border-[#D4AF37] z-50">
-                        <li><a href="/profil-ppid" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] transition-colors border-l-4 border-transparent hover:border-[#D4AF37]">Profil PPID</a></li>
-                        <li><a href="/sambutan" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] transition-colors border-l-4 border-transparent hover:border-[#D4AF37]">Sambutan</a></li>
-                        <li><a href="/struktur-organisasi" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] transition-colors border-l-4 border-transparent hover:border-[#D4AF37]">Struktur Organisasi</a></li>
-                        <li><a href="/visi-misi" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] transition-colors border-l-4 border-transparent hover:border-[#D4AF37]">Visi Misi</a></li>
-                        <li><a href="/tupoksi" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] transition-colors border-l-4 border-transparent hover:border-[#D4AF37]">Tupoksi</a></li>
-                        <li><a href="/maklumat-pelayanan" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] transition-colors border-l-4 border-transparent hover:border-[#D4AF37]">Maklumat</a></li>
-                        <li><a href="/profil-pemprov" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] transition-colors border-l-4 border-transparent hover:border-[#D4AF37]">Profil Pemerintah Sulsel</a></li>
+                        <li><a href="/profil-ppid"
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] transition-colors border-l-4 border-transparent hover:border-[#D4AF37]">{{ __('messages.menu.ppid_profile') }}</a>
+                        </li>
+                        <li><a href="/sambutan"
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] transition-colors border-l-4 border-transparent hover:border-[#D4AF37]">{{ __('messages.menu.greeting') }}</a>
+                        </li>
+                        <li><a href="/struktur-organisasi"
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] transition-colors border-l-4 border-transparent hover:border-[#D4AF37]">{{ __('messages.menu.org_structure') }}</a>
+                        </li>
+                        <li><a href="/visi-misi"
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] transition-colors border-l-4 border-transparent hover:border-[#D4AF37]">{{ __('messages.menu.vision_mission') }}</a>
+                        </li>
+                        <li><a href="/tupoksi"
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] transition-colors border-l-4 border-transparent hover:border-[#D4AF37]">{{ __('messages.menu.duties_functions') }}</a>
+                        </li>
+                        <li><a href="/maklumat-pelayanan"
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] transition-colors border-l-4 border-transparent hover:border-[#D4AF37]">{{ __('messages.menu.service_declaration') }}</a>
+                        </li>
+                        <li><a href="/profil-pemprov"
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] transition-colors border-l-4 border-transparent hover:border-[#D4AF37]">{{ __('messages.menu.government_profile') }}</a>
+                        </li>
                     </ul>
                 </li>
 
                 {{-- BERITA --}}
                 <li class="border-b lg:border-none border-white/10">
-                    <a href="/berita" class="block px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all relative group">
+                    <a href="/berita"
+                        class="block px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all relative group">
                         {{ __('messages.header.news') }}
-                         <span class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block"></span>
+                        <span
+                            class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block"></span>
                     </a>
                 </li>
 
                 {{-- Dropdown Data Informasi Publik (Formerly Daftar) --}}
                 <li class="relative border-b lg:border-none border-white/10 group"
-                    @mouseenter="if(window.innerWidth >= 1024) openDaftar = true" 
+                    @mouseenter="if(window.innerWidth >= 1024) openDaftar = true"
                     @mouseleave="if(window.innerWidth >= 1024) openDaftar = false">
-                    <div @click="if(window.innerWidth < 1024) openDaftar = !openDaftar" 
-                         class="flex items-center justify-between px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all cursor-pointer relative">
+                    <div @click="if(window.innerWidth < 1024) openDaftar = !openDaftar"
+                        class="flex items-center justify-between px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all cursor-pointer relative">
                         <span>{{ __('messages.header.data_info') }}</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform text-[#D4AF37]" :class="openDaftar ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="m6 9 6 6 6-6"/></svg>
-                        <span class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block"></span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform text-[#D4AF37]"
+                            :class="openDaftar ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path d="m6 9 6 6 6-6" />
+                        </svg>
+                        <span
+                            class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block"></span>
                     </div>
-                    <ul x-show="openDaftar" 
-                        x-transition:enter="transition ease-out duration-300 transform origin-top"
+                    <ul x-show="openDaftar" x-transition:enter="transition ease-out duration-300 transform origin-top"
                         x-transition:enter-start="opacity-0 -translate-y-2 scale-95"
                         x-transition:enter-end="opacity-100 translate-y-0 scale-100"
                         x-transition:leave="transition ease-in duration-200 transform origin-top"
                         x-transition:leave-start="opacity-100 translate-y-0 scale-100"
                         x-transition:leave-end="opacity-0 -translate-y-2 scale-95"
                         class="lg:absolute lg:left-0 lg:top-full w-full lg:w-64 bg-white dark:bg-slate-800 lg:shadow-xl text-[#1A305E] dark:text-gray-200 py-2 lg:rounded-b-lg lg:border-t-4 lg:border-[#D4AF37] z-50">
-                        <li><a href="/informasi-publik/2023" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Informasi Publik Tahun 2023</a></li>
-                        <li><a href="/informasi-publik/2024" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Informasi Publik Tahun 2024</a></li>
-                        <li><a href="/informasi-publik/2025" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Informasi Publik Tahun 2025</a></li>
-                        <li><a href="/informasi-publik/pengadaan" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Informasi Pengadaan Barang Dan Jasa</a></li>
+                        <li><a href="/informasi-publik/2023"
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">{{ __('messages.menu.data_info_2023') }}</a>
+                        </li>
+                        <li><a href="/informasi-publik/2024"
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">{{ __('messages.menu.data_info_2024') }}</a>
+                        </li>
+                        <li><a href="/informasi-publik/2025"
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">{{ __('messages.menu.data_info_2025') }}</a>
+                        </li>
+                        <li><a href="/informasi-publik/pengadaan"
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">{{ __('messages.menu.procurement_info') }}</a>
+                        </li>
                     </ul>
                 </li>
 
                 {{-- Dropdown Informasi Publik --}}
                 <li class="relative border-b lg:border-none border-white/10 group"
-                    @mouseenter="if(window.innerWidth >= 1024) openInformasi = true" 
+                    @mouseenter="if(window.innerWidth >= 1024) openInformasi = true"
                     @mouseleave="if(window.innerWidth >= 1024) openInformasi = false">
-                    <div @click="if(window.innerWidth < 1024) openInformasi = !openInformasi" 
-                         class="flex items-center justify-between px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all cursor-pointer relative">
+                    <div @click="if(window.innerWidth < 1024) openInformasi = !openInformasi"
+                        class="flex items-center justify-between px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all cursor-pointer relative">
                         <span>{{ __('messages.header.public_info') }}</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform text-[#D4AF37]" :class="openInformasi ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="m6 9 6 6 6-6"/></svg>
-                        <span class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block"></span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform text-[#D4AF37]"
+                            :class="openInformasi ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path d="m6 9 6 6 6-6" />
+                        </svg>
+                        <span
+                            class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block"></span>
                     </div>
-                    <ul x-show="openInformasi" 
+                    <ul x-show="openInformasi"
                         x-transition:enter="transition ease-out duration-300 transform origin-top"
                         x-transition:enter-start="opacity-0 -translate-y-2 scale-95"
                         x-transition:enter-end="opacity-100 translate-y-0 scale-100"
@@ -231,101 +279,132 @@
                         x-transition:leave-start="opacity-100 translate-y-0 scale-100"
                         x-transition:leave-end="opacity-0 -translate-y-2 scale-95"
                         class="lg:absolute lg:left-0 lg:top-full w-full lg:w-72 bg-white dark:bg-slate-800 lg:shadow-xl text-[#1A305E] dark:text-gray-200 py-2 lg:rounded-b-lg lg:border-t-4 lg:border-[#D4AF37] z-50">
-                        <li><a href="/informasi-publik/serta-merta" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Informasi Serta Merta</a></li>
-                        <li><a href="/informasi-publik/setiap-saat" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Informasi Setiap Saat</a></li>
-                        <li><a href="/informasi-publik/dikecualikan" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Daftar Informasi Dikecualikan</a></li>
-                        <li><a href="/informasi-publik" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Daftar Informasi Publik</a></li>
-                        <li><a href="/informasi-publik/berkala" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Informasi Berkala</a></li>
+                        <li><a href="/informasi-publik/serta-merta"
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">{{ __('messages.menu.immediate_info') }}</a>
+                        </li>
+                        <li><a href="/informasi-publik/setiap-saat"
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">{{ __('messages.menu.anytime_info') }}</a>
+                        </li>
+                        <li><a href="/informasi-publik/dikecualikan"
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">{{ __('messages.menu.excluded_info') }}</a>
+                        </li>
+                        <li><a href="/informasi-publik"
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">{{ __('messages.menu.public_info_list') }}</a>
+                        </li>
+                        <li><a href="/informasi-publik/berkala"
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">{{ __('messages.menu.periodic_info') }}</a>
+                        </li>
                     </ul>
                 </li>
 
                 <li class="border-b lg:border-none border-white/10">
-                    <a href="/ppid-pelaksana" class="block px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all relative group">
+                    <a href="/ppid-pelaksana"
+                        class="block px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all relative group">
                         {{ __('messages.header.ppid_implementing') }}
-                        <span class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block"></span>
+                        <span
+                            class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block"></span>
                     </a>
                 </li>
 
                 {{-- Dropdown Layanan --}}
                 <li class="relative border-b lg:border-none border-white/10 group"
-                    @mouseenter="if(window.innerWidth >= 1024) openLayanan = true" 
+                    @mouseenter="if(window.innerWidth >= 1024) openLayanan = true"
                     @mouseleave="if(window.innerWidth >= 1024) openLayanan = false">
-    <div @click="if(window.innerWidth < 1024) openLayanan = !openLayanan" 
-            class="flex items-center justify-between px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all cursor-pointer relative">
-        <span>{{ __('messages.header.services') }}</span>
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform text-[#D4AF37]" :class="openLayanan ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="m6 9 6 6 6-6"/></svg>
-        <span class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block"></span>
-    </div>
-    {{-- Kode Baru (Perbaikan) --}}
-<ul x-show="openLayanan" 
-    x-transition:enter="transition ease-out duration-300 transform origin-top"
-    x-transition:enter-start="opacity-0 -translate-y-2 scale-95"
-    x-transition:enter-end="opacity-100 translate-y-0 scale-100"
-    x-transition:leave="transition ease-in duration-200 transform origin-top"
-    x-transition:leave-start="opacity-100 translate-y-0 scale-100"
-    x-transition:leave-end="opacity-0 -translate-y-2 scale-95"
-    class="lg:absolute lg:left-0 lg:top-full w-full lg:w-64 bg-white dark:bg-slate-800 lg:shadow-xl text-[#1A305E] dark:text-gray-200 py-2 lg:rounded-b-lg lg:border-t-4 lg:border-[#D4AF37] z-50">
-    
-    <li>
-        <a href="/layanan/permohonan-informasi" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">
-            Permohonan Informasi
-        </a>
-    </li>
-    
-    <li>
-        <a href="/layanan/pengajuan-keberatan" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">
-            Pengajuan Keberatan
-        </a>
-    </li>
-    
-    <li>
-        <a href="{{ route('layanan.cek-status-permohonan') }}" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">
-            Cek Status Permohonan
-        </a>
-    </li>
-    
-    <li>
-        <a href="/layanan/sop" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">
-            SOP
-        </a>
-    </li>
+                    <div @click="if(window.innerWidth < 1024) openLayanan = !openLayanan"
+                        class="flex items-center justify-between px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all cursor-pointer relative">
+                        <span>{{ __('messages.header.services') }}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform text-[#D4AF37]"
+                            :class="openLayanan ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path d="m6 9 6 6 6-6" />
+                        </svg>
+                        <span
+                            class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block"></span>
+                    </div>
+                    {{-- Kode Baru (Perbaikan) --}}
+                    <ul x-show="openLayanan" x-transition:enter="transition ease-out duration-300 transform origin-top"
+                        x-transition:enter-start="opacity-0 -translate-y-2 scale-95"
+                        x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                        x-transition:leave="transition ease-in duration-200 transform origin-top"
+                        x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+                        x-transition:leave-end="opacity-0 -translate-y-2 scale-95"
+                        class="lg:absolute lg:left-0 lg:top-full w-full lg:w-64 bg-white dark:bg-slate-800 lg:shadow-xl text-[#1A305E] dark:text-gray-200 py-2 lg:rounded-b-lg lg:border-t-4 lg:border-[#D4AF37] z-50">
 
-</ul>
+                        <li>
+                            <a href="/layanan/permohonan-informasi"
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">
+                                {{ __('messages.menu.info_request_service') }}
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/layanan/pengajuan-keberatan"
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">
+                                {{ __('messages.menu.objection_service') }}
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{{ route('layanan.cek-status-permohonan') }}"
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">
+                                {{ __('messages.menu.status_check') }}
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/layanan/sop"
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">
+                                {{ __('messages.menu.sop') }}
+                            </a>
+                        </li>
+
+                    </ul>
                 </li>
 
                 {{-- Dropdown Survey --}}
                 <li class="relative border-b lg:border-none border-white/10 group"
-                    @mouseenter="if(window.innerWidth >= 1024) openService = true" 
+                    @mouseenter="if(window.innerWidth >= 1024) openService = true"
                     @mouseleave="if(window.innerWidth >= 1024) openService = false">
-                    <div @click="if(window.innerWidth < 1024) openService = !openService" 
-                         class="flex items-center justify-between px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all cursor-pointer relative">
+                    <div @click="if(window.innerWidth < 1024) openService = !openService"
+                        class="flex items-center justify-between px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all cursor-pointer relative">
                         <span>{{ __('messages.header.survey') }}</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform text-[#D4AF37]" :class="openService ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="m6 9 6 6 6-6"/></svg>
-                         <span class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block"></span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform text-[#D4AF37]"
+                            :class="openService ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path d="m6 9 6 6 6-6" />
+                        </svg>
+                        <span
+                            class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block"></span>
                     </div>
-                    <ul x-show="openService" 
-                        x-transition:enter="transition ease-out duration-300 transform origin-top"
+                    <ul x-show="openService" x-transition:enter="transition ease-out duration-300 transform origin-top"
                         x-transition:enter-start="opacity-0 -translate-y-2 scale-95"
                         x-transition:enter-end="opacity-100 translate-y-0 scale-100"
                         x-transition:leave="transition ease-in duration-200 transform origin-top"
                         x-transition:leave-start="opacity-100 translate-y-0 scale-100"
                         x-transition:leave-end="opacity-0 -translate-y-2 scale-95"
                         class="lg:absolute lg:left-0 lg:top-full w-full lg:w-56 bg-white dark:bg-slate-800 lg:shadow-xl text-[#1A305E] dark:text-gray-200 py-2 lg:rounded-b-lg lg:border-t-4 lg:border-[#D4AF37] z-50">
-                        <li><a href="/survey/isi-survey" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Isi Survey</a></li>
-                        <li><a href="/survey/hasil-survey" class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">Hasil Survey</a></li>
+                        <li><a href="/survey/isi-survey"
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">{{ __('messages.menu.fill_survey') }}</a>
+                        </li>
+                        <li><a href="/survey/hasil-survey"
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">{{ __('messages.menu.survey_results') }}</a>
+                        </li>
                     </ul>
                 </li>
 
                 {{-- Contact Mobile Only --}}
                 <li class="lg:hidden border-b border-white/10">
-                    <a href="/contact" class="block px-6 py-4 hover:bg-white/10 hover:text-white">{{ __('messages.header.contact') }}</a>
+                    <a href="/contact"
+                        class="block px-6 py-4 hover:bg-white/10 hover:text-white">{{ __('messages.header.contact') }}</a>
                 </li>
-                
+
                 {{-- Login Mobile Only --}}
                 <li class="lg:hidden border-b border-white/10">
                     <a href="/login" class="flex items-center gap-2 px-6 py-4 hover:bg-white/10 hover:text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
                         </svg>
                         Login
                     </a>

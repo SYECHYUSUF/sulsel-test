@@ -14,7 +14,7 @@
         </div>
 
         {{-- News Grid --}}
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-[34px] max-w-7xl mx-auto">
+        <div class="flex lg:grid overflow-x-auto lg:overflow-x-visible gap-6 md:gap-[34px] max-w-7xl mx-auto lg:grid-cols-3 pb-4 lg:pb-0 snap-x snap-mandatory scrollbar-hide">
 @php
                 use App\Models\Berita;
                 $news = Berita::with('skpd')
@@ -24,7 +24,7 @@
             @endphp
 
             @foreach($news as $index => $item)
-            <div data-aos="fade-up" data-aos-delay="{{ $index * 150 }}" class="group bg-white dark:bg-slate-800 rounded-[21px] overflow-hidden border border-gray-100 dark:border-slate-700 shadow-sm hover:shadow-[0_20px_50px_-10px_rgba(26,48,94,0.15)] transition-all duration-500 hover:-translate-y-2 flex flex-col">
+            <div data-aos="fade-up" data-aos-delay="{{ $index * 150 }}" class="group bg-white dark:bg-slate-800 rounded-[21px] overflow-hidden border border-gray-100 dark:border-slate-700 shadow-sm hover:shadow-[0_20px_50px_-10px_rgba(26,48,94,0.15)] transition-all duration-500 hover:-translate-y-2 flex flex-col min-w-[280px] lg:min-w-0 snap-start">
                 <div class="relative aspect-[1.618/1] overflow-hidden">
                     @if($item->img_berita)
                         <img src="{{ asset('storage/img_berita/' . $item->img_berita) }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="{{ $item->judul }}">
@@ -39,7 +39,7 @@
                     
                     <div class="absolute top-4 left-4 md:top-[21px] md:left-[21px]">
                         <span class="px-3 py-1.5 md:px-4 md:py-2 bg-[#D4AF37] text-white text-[9px] md:text-[10px] font-bold rounded-lg shadow-lg">
-                            {{ $item->skpd->nm_skpd ?? 'Umum' }}
+                            {{ $item->skpd->nm_skpd ?? __('messages.common.general') }}
                         </span>
                     </div>
                 </div>

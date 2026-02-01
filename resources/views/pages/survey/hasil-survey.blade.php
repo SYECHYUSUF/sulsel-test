@@ -10,19 +10,19 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
                 </a>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-gray-400"><path d="m9 18 6-6-6-6"/></svg>
-                <span class="text-[#1A305E] dark:text-white font-medium">Survey</span>
+                <span class="text-[#1A305E] dark:text-white font-medium">{{ __('messages.breadcrumb.survey') }}</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-gray-400"><path d="m9 18 6-6-6-6"/></svg>
-                <span class="text-[#1A305E] dark:text-white font-medium">Hasil Survey</span>
+                <span class="text-[#1A305E] dark:text-white font-medium">{{ __('messages.survey_pages.hasil_title') }}</span>
             </div>
           
             {{-- Title --}}
             <div class="flex items-end justify-between">
                 <div>
                     <h1 class="text-3xl md:text-4xl font-bold text-[#1A305E] dark:text-white mb-2">
-                        Hasil Survey
+                        {{ __('messages.survey_pages.hasil_title') }}
                     </h1>
                     <p class="text-gray-600 dark:text-gray-300">
-                        Indeks Kepuasan Masyarakat (IKM)
+                        {{ __('messages.survey_pages.hasil_subtitle') }}
                     </p>
                 </div>
                 <div class="hidden md:block">
@@ -39,9 +39,9 @@
             
                 <div class="grid md:grid-cols-2 gap-8 items-center">
                     <div>
-                        <h2 class="text-2xl font-bold text-[#1A305E] dark:text-white mb-4">Indeks Kepuasan Masyarakat</h2>
+                        <h2 class="text-2xl font-bold text-[#1A305E] dark:text-white mb-4">{{ __('messages.survey_result.ikm_title') }}</h2>
                         <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
-                            Hasil survei kepuasan masyarakat terhadap pelayanan informasi publik di lingkungan Pemerintah Provinsi Sulawesi Selatan menunjukkan kategori <strong>SANGAT BAIK</strong>. Kami terus berkomitmen untuk meningkatkan kualitas pelayanan publik.
+                            {{ __('messages.survey_result.ikm_desc') }} <strong>{{ __('messages.survey_result.very_good_category') }}</strong>. {{ __('messages.survey_result.ikm_desc_suffix') }}
                         </p>
                         
                         <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-6">
@@ -52,26 +52,26 @@
                             <div class="w-full bg-gray-200 rounded-full h-2.5 mb-2">
                                 <div class="bg-[#1A305E] h-2.5 rounded-full" style="width: 88.5%"></div>
                             </div>
-                            <p class="text-sm font-medium text-[#1A305E] dark:text-white">Kategori: SANGAT BAIK</p>
+                            <p class="text-sm font-medium text-[#1A305E] dark:text-white">{{ __('messages.survey_result.category_label') }} {{ __('messages.survey_result.very_good_category') }}</p>
                         </div>
                     </div>
                     <div>
                         <div class="grid grid-cols-2 gap-4">
                             <div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-gray-100 text-center">
                                 <h3 class="text-4xl font-bold text-[#1A305E] dark:text-white mb-1">1,240</h3>
-                                <p class="text-sm text-gray-500">Responden</p>
+                                <p class="text-sm text-gray-500">{{ __('messages.survey_result.respondents') }}</p>
                             </div>
                             <div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-gray-100 text-center">
                                 <h3 class="text-4xl font-bold text-[#1A305E] dark:text-white mb-1">92%</h3>
-                                <p class="text-sm text-gray-500">Tingkat Penyelesaian</p>
+                                <p class="text-sm text-gray-500">{{ __('messages.survey_result.completion_rate') }}</p>
                             </div>
                             <div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-gray-100 text-center">
                                 <h3 class="text-4xl font-bold text-[#1A305E] dark:text-white mb-1">4.8</h3>
-                                <p class="text-sm text-gray-500">Rating Rata-rata</p>
+                                <p class="text-sm text-gray-500">{{ __('messages.survey_result.avg_rating') }}</p>
                             </div>
                              <div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-gray-100 text-center">
                                 <h3 class="text-4xl font-bold text-[#1A305E] dark:text-white mb-1">24h</h3>
-                                <p class="text-sm text-gray-500">Waktu Respon</p>
+                                <p class="text-sm text-gray-500">{{ __('messages.survey_result.response_time') }}</p>
                             </div>
                         </div>
                     </div>
@@ -88,7 +88,7 @@
                                         {{ $result['question']->urutan }}
                                     </span>
                                     <h4 class="text-lg font-bold text-white leading-relaxed pt-1">
-                                        {{ $result['question']->soal }}
+                                        {{ __('messages.survey_questions.q' . $result['question']->urutan) }}
                                     </h4>
                                 </div>
                             </div>
@@ -103,11 +103,20 @@
                                                     {{ chr(65 + $index) }}
                                                 </span>
                                                 <span class="text-base font-semibold text-gray-800 dark:text-gray-200">
-                                                    {{ $stat['option'] }}
+                                                    @php
+                                                        $optionKey = match($stat['option']) {
+                                                            'Sangat Baik' => 'very_good',
+                                                            'Baik' => 'good',
+                                                            'Cukup' => 'fair',
+                                                            'Buruk', 'Kurang' => 'poor',
+                                                            default => 'good'
+                                                        };
+                                                    @endphp
+                                                    {{ __('messages.survey_form.' . $optionKey) }}
                                                 </span>
                                             </div>
                                             <div class="flex items-center gap-2">
-                                                <span class="text-sm text-gray-600 dark:text-gray-400">{{ $stat['count'] }} responden</span>
+                                                <span class="text-sm text-gray-600 dark:text-gray-400">{{ $stat['count'] }} {{ __('messages.survey_result.respondents') }}</span>
                                                 <span class="text-xl font-bold text-[#673AB7]">{{ $stat['percentage'] }}%</span>
                                             </div>
                                         </div>
@@ -126,8 +135,8 @@
                             {{-- Footer Stats --}}
                             <div class="bg-gradient-to-r from-blue-50 to-amber-50 dark:from-slate-800 dark:to-slate-700 px-6 py-4 border-t-2 border-gray-200 dark:border-slate-600">
                                 <div class="flex items-center justify-between text-sm">
-                                    <span class="text-gray-600 dark:text-gray-400 font-medium">Total Responden</span>
-                                    <span class="text-[#1A305E] dark:text-[#D4AF37] font-bold text-base">{{ collect($result['stats'])->sum('count') }} orang</span>
+                                    <span class="text-gray-600 dark:text-gray-400 font-medium">{{ __('messages.survey_result.total_respondents') }}</span>
+                                    <span class="text-[#1A305E] dark:text-[#D4AF37] font-bold text-base">{{ collect($result['stats'])->sum('count') }} {{ __('messages.survey_result.people') }}</span>
                                 </div>
                             </div>
                         </div>
