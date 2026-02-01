@@ -1,9 +1,10 @@
 <div x-data="{ 
     isOpen: false,
     isDragging: false,
+    hasMoved: false,
     pos: { 
-        x: localStorage.getItem('acc-pos-x') || 24, 
-        y: localStorage.getItem('acc-pos-y') || window.innerHeight - 100 
+        x: parseInt(localStorage.getItem('acc-pos-x')) || 24, 
+        y: parseInt(localStorage.getItem('acc-pos-y')) || window.innerHeight - 100 
     },
     settings: {
         contrast: localStorage.getItem('acc-contrast') === 'true',
@@ -32,6 +33,12 @@
 
         const move = (event) => {
             if (!this.isDragging) return;
+            
+            // Prevent default for touch to avoid scrolling
+            if (event.type === 'touchmove') {
+                event.preventDefault();
+            }
+            
             const clientX = event.type === 'touchmove' ? event.touches[0].clientX : event.clientX;
             const clientY = event.type === 'touchmove' ? event.touches[0].clientY : event.clientY;
             
@@ -61,12 +68,12 @@
             
             window.removeEventListener('mousemove', move);
             window.removeEventListener('mouseup', stop);
-            window.removeEventListener('touchmove', move);
+            window.removeEventListener('touchmove', move, { passive: false });
             window.removeEventListener('touchend', stop);
         };
         window.addEventListener('mousemove', move);
         window.addEventListener('mouseup', stop);
-        window.addEventListener('touchmove', move);
+        window.addEventListener('touchmove', move, { passive: false });
         window.addEventListener('touchend', stop);
     },
 
@@ -74,6 +81,11 @@
         this.settings[key] = !this.settings[key];
         localStorage.setItem('acc-' + key, this.settings[key]);
         this.applyToBody();
+        
+        // Handle speech mode separately
+        if (key === 'speech') {
+            this.initSpeech();
+        }
     },
     adjustFont(val) {
         const root = document.documentElement;
@@ -198,7 +210,6 @@
 
     {{-- 1. TOMBOL AKSESIBILITAS (Movable) --}}
     <button 
-        x-data="{ hasMoved: false }"
         @mousedown="startDragging($event)" 
         @touchstart="startDragging($event)"
         @click="if(!hasMoved) isOpen = !isOpen"

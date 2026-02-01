@@ -37,10 +37,6 @@
             <!-- Main Form Card -->
             <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden font-['Plus_Jakarta_Sans'] relative" x-data="{ showGuide: false }">
                 
-                <!-- Help Button (Absolute Top Right) -->
-                <button @click="showGuide = true" class="absolute top-6 right-6 text-gray-400 hover:text-[#D1001F] transition-colors p-2" title="Panduan Pengisian">
-                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>
-                </button>
 
                 <!-- Form Heading (Clean Style) -->
                 <div class="pt-10 pb-6 px-6 text-center">
@@ -73,30 +69,15 @@
                     @endif
                     
                     <!-- Classification Tabs (Static for Visual) -->
-                    <div class="flex border-b border-gray-200 mb-8 overflow-x-auto">
+                    <div class="flex justify-center items-center border-b border-gray-200 mb-8 overflow-x-auto">
                          <button class="px-6 py-3 text-[#D1001F] border-b-2 border-[#D1001F] font-semibold text-sm focus:outline-none flex items-center gap-2 whitespace-nowrap">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" /></svg>
                             Pengajuan Keberatan
                          </button>
-                         <!-- Other inactive tabs for aesthetic -->
-                         <button class="px-6 py-3 text-gray-400 font-medium text-sm cursor-default hover:text-gray-500 hidden md:flex items-center gap-2 whitespace-nowrap">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /><path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z" /></svg>
-                            Aspirasi
-                         </button>
-                         <button class="px-6 py-3 text-gray-400 font-medium text-sm cursor-default hover:text-gray-500 hidden md:flex items-center gap-2 whitespace-nowrap">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" /></svg>
-                            Permintaan Informasi
-                         </button>
+                    
                     </div>
 
-                    <div class="mb-6 bg-slate-50 p-4 border border-slate-200 rounded text-sm text-slate-600 flex gap-3">
-                        <div class="text-[#D1001F]">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" /></svg>
-                        </div>
-                        <div>
-                            Perhatikan Cara Menyampaikan Pengajuan Yang Baik dan Benar. Silahkan klik tombol <span class="font-bold cursor-pointer underline decoration-dotted" @click="showGuide = true">Panduan (?)</span> diatas.
-                        </div>
-                    </div>
+
 
                     <form action="{{ route('layanan.pengajuan-keberatan.store') }}" method="POST" class="space-y-6">
                         @csrf
@@ -105,7 +86,7 @@
                         <div class="space-y-6">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
-                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Nomor Pendaftaran Permohonan Informasi</label>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Nomor Pendaftaran Pengajuan Keberatan</label>
                                     <input type="text" name="no_pendaftaran" value="{{ old('no_pendaftaran') }}" class="w-full rounded-md border-gray-300 shadow-sm focus:border-[#D1001F] focus:ring focus:ring-[#D1001F]/20 py-3 px-4" placeholder="Masukkan nomor pendaftaran...">
                                 </div>
                                 <div>
@@ -131,8 +112,15 @@
                                         <input type="text" name="no_telp_pemohon" value="{{ old('no_telp_pemohon') }}" class="w-full rounded-md border-gray-300 shadow-sm focus:border-[#D1001F] focus:ring focus:ring-[#D1001F]/20 py-3 px-4" placeholder="08xxxxxxxxxx">
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-semibold text-gray-700 mb-2">Pekerjaan</label>
-                                        <input type="text" name="pekerjaan_pemohon" value="{{ old('pekerjaan_pemohon') }}" class="w-full rounded-md border-gray-300 shadow-sm focus:border-[#D1001F] focus:ring focus:ring-[#D1001F]/20 py-3 px-4">
+                                        <label class="block text-sm font-semibold text-gray-700 mb-2">Pekerjaan <span class="text-red-500">*</span></label>
+                                        <select name="pekerjaan_pemohon" class="w-full rounded-md border-gray-300 shadow-sm focus:border-[#D1001F] focus:ring focus:ring-[#D1001F]/20 py-3 px-4" required>
+                                            <option value="">-- Pilih Pekerjaan --</option>
+                                            @foreach($masterPekerjaan as $pekerjaan)
+                                                <option value="{{ $pekerjaan->nama_pekerjaan }}" {{ old('pekerjaan_pemohon') == $pekerjaan->nama_pekerjaan ? 'selected' : '' }}>
+                                                    {{ $pekerjaan->nama_pekerjaan }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="md:col-span-2">
                                         <label class="block text-sm font-semibold text-gray-700 mb-2">Alamat Lengkap</label>
@@ -158,7 +146,7 @@
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                                     @php
                                         $alasanList = [
-                                            'Permohonan Informasi ditolak',
+                                            'Pengajuan Keberatan ditolak',
                                             'Informasi berkala tidak disediakan',
                                             'Permintaan informasi tidak ditanggapi',
                                             'Permintaan informasi tidak dipenuhi',
@@ -179,26 +167,6 @@
                                 </div>
                             </div>
 
-                            <!-- Response Preference Section (NEW) -->
-                            <div class="pt-4 border-t border-gray-100">
-                                <label class="block text-sm font-semibold text-gray-700 mb-4">Metode Respon / Tanggapan (Wajib)</label>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <label class="relative flex items-center p-4 border border-gray-200 rounded-xl cursor-pointer hover:border-[#D1001F] hover:bg-red-50/30 transition-all has-[:checked]:border-[#D1001F] has-[:checked]:bg-red-50/50">
-                                        <input type="radio" name="metode_respon" value="website" class="h-4 w-4 text-[#D1001F] border-gray-300 focus:ring-[#D1001F]" required>
-                                        <div class="ml-3">
-                                            <span class="block text-sm font-bold text-gray-900">Balas via Website</span>
-                                            <span class="block text-xs text-slate-500">Anda perlu cek status secara berkala di website.</span>
-                                        </div>
-                                    </label>
-                                    <label class="relative flex items-center p-4 border border-gray-200 rounded-xl cursor-pointer hover:border-[#D1001F] hover:bg-red-50/30 transition-all has-[:checked]:border-[#D1001F] has-[:checked]:bg-red-50/50">
-                                        <input type="radio" name="metode_respon" value="whatsapp" class="h-4 w-4 text-[#D1001F] border-gray-300 focus:ring-[#D1001F]" required>
-                                        <div class="ml-3">
-                                            <span class="block text-sm font-bold text-gray-900">Balas via WhatsApp</span>
-                                            <span class="block text-xs text-slate-500">Admin akan menghubungi nomor WA Anda langsung.</span>
-                                        </div>
-                                    </label>
-                                </div>
-                            </div>
 
                             <!-- Checkbox Identitas Kuasa (Optional) -->
                             <div x-data="{ showKuasa: false }" class="pt-4 border-t border-gray-100">
@@ -208,7 +176,7 @@
                                 </label>
                                 
                                 <div x-show="showKuasa" x-transition class="mt-4 p-4 bg-gray-50 rounded-lg space-y-4">
-                                     <div>
+                                    <div>
                                         <label class="block text-sm font-medium text-gray-700">Nama Kuasa</label>
                                         <input type="text" name="nama_kuasa" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#D1001F] focus:ring focus:ring-[#D1001F]/20">
                                     </div>
@@ -217,7 +185,7 @@
                                         <input type="text" name="alamat_kuasa" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#D1001F] focus:ring focus:ring-[#D1001F]/20">
                                     </div>
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                         <div>
+                                        <div>
                                             <label class="block text-sm font-medium text-gray-700">Nomor Telepon Kuasa</label>
                                             <input type="text" name="no_telp_kuasa" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#D1001F] focus:ring focus:ring-[#D1001F]/20">
                                         </div>
@@ -281,7 +249,7 @@
                                     <div class="font-bold text-[#D1001F] text-xl">1</div>
                                     <div>
                                         <h4 class="font-bold text-gray-800">Siapkan Nomor Pendaftaran</h4>
-                                        <p class="text-sm mt-1">Pastikan Anda memiliki Nomor Pendaftaran dari Permohonan Informasi sebelumnya yang ingin Anda ajukan keberatan.</p>
+                                        <p class="text-sm mt-1">Pastikan Anda memiliki Nomor Pendaftaran dari Pengajuan Keberatan sebelumnya yang ingin Anda ajukan keberatan.</p>
                                     </div>
                                 </div>
                                 

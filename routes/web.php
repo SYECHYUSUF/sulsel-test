@@ -142,7 +142,8 @@ Route::middleware(['track.visitors'])->group(function () {
     });
     Route::get('/layanan/cek-status-permohonan', [GuestPermohonanInformasiController::class, 'checkProgressForm'])->name('layanan.cek-status-permohonan');
     Route::get('/layanan/pengajuan-keberatan', function () {
-        return view('pages.layanan.pengajuan-keberatan');
+        $masterPekerjaan = \App\Models\MasterPekerjaan::active()->orderBy('nama_pekerjaan')->get();
+        return view('pages.layanan.pengajuan-keberatan', compact('masterPekerjaan'));
     });
     
     // Rute Permohonan Informasi
