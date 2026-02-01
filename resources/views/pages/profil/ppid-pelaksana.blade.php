@@ -48,7 +48,7 @@
                                        id="searchInput" 
                                        value="{{ $search ?? '' }}"
                                        placeholder="Cari SKPD..." 
-                                       class="flex-1 px-4 py-3 text-base bg-transparent text-gray-800 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none">
+                                       class="flex-1 px-4 py-3 text-base border-0 outline-none focus:outline-none focus:ring-0 focus:border-0 bg-transparent text-gray-800 dark:text-white placeholder-gray-400 dark:placeholder-gray-500">
 
                                 {{-- Action Button --}}
                                 @if($search ?? false)
