@@ -118,14 +118,7 @@ Route::middleware(['track.visitors'])->group(function () {
     Route::get('/layanan/permohonan-informasi', function () {
         return view('pages.layanan.permohonan-informasi');
     });
-<<<<<<< HEAD
-
-    Route::post('/layanan/permohonan-informasi', [GuestPermohonanInformasiController::class, 'store'])
-        ->name('layanan.permohonan-informasi.store');
-
-=======
     Route::get('/layanan/cek-status-permohonan', [GuestPermohonanInformasiController::class, 'checkProgressForm'])->name('layanan.cek-status-permohonan');
->>>>>>> 1a38dfeee9bbb129bdf633d2a284401773ebd2e3
     Route::get('/layanan/pengajuan-keberatan', function () {
         return view('pages.layanan.pengajuan-keberatan');
     });
