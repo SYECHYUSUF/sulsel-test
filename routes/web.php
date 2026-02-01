@@ -93,9 +93,24 @@ Route::middleware(['track.visitors'])->group(function () {
         return view('pages.profil.pemerintah', compact('profil'));
     });
 
-    Route::get('/ppid-pelaksana', function () {
-        $ppidData = Skpd::orderBy('nm_skpd', 'asc')->paginate(12);
-        return view('pages.profil.ppid-pelaksana', compact('ppidData'));
+    Route::get('/ppid-pelaksana', function (Illuminate\Http\Request $request) {
+        $search = $request->input('search');
+        
+        $query = Skpd::orderBy('nm_skpd', 'asc');
+        
+        // Apply search filter if search term exists
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('nm_skpd', 'like', '%' . $search . '%')
+                  ->orWhere('alamat', 'like', '%' . $search . '%')
+                  ->orWhere('email', 'like', '%' . $search . '%')
+                  ->orWhere('website', 'like', '%' . $search . '%');
+            });
+        }
+        
+        $ppidData = $query->paginate(12)->appends(['search' => $search]);
+        
+        return view('pages.profil.ppid-pelaksana', compact('ppidData', 'search'));
     });
 
     // Berita Pages
@@ -116,7 +131,9 @@ Route::middleware(['track.visitors'])->group(function () {
 
     // Layanan Pages
     Route::get('/layanan/permohonan-informasi', function () {
-        return view('pages.layanan.permohonan-informasi');
+        $masterPekerjaan = \App\Models\MasterPekerjaan::active()->orderBy('nama_pekerjaan')->get();
+        $masterDomisili = \App\Models\MasterDomisili::active()->orderBy('nama_daerah')->get();
+        return view('pages.layanan.permohonan-informasi', compact('masterPekerjaan', 'masterDomisili'));
     });
     Route::get('/layanan/cek-status-permohonan', [GuestPermohonanInformasiController::class, 'checkProgressForm'])->name('layanan.cek-status-permohonan');
     Route::get('/layanan/pengajuan-keberatan', function () {
@@ -216,6 +233,10 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 
         // Social Links CRUD
         Route::resource('social-links', SosmedController::class);
+        
+        // Master Data Management
+        Route::resource('master-pekerjaan', \App\Http\Controllers\Admin\MasterPekerjaanController::class);
+        Route::resource('master-domisili', \App\Http\Controllers\Admin\MasterDomisiliController::class);
     });
 });
 

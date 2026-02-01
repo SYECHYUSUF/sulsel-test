@@ -130,112 +130,398 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('layanan.permohonan-informasi.store') }}" method="POST" enctype="multipart/form-data" class="space-y-8">
+                    <form action="{{ route('layanan.permohonan-informasi.store') }}" method="POST" enctype="multipart/form-data" class="space-y-8" id="permohonanForm">
                         @csrf
+                        
                         {{-- Personal Data --}}
                         <div class="space-y-6">
-                            <h3 class="text-lg font-bold text-[#1A305E] dark:text-white flex items-center gap-2 border-b border-gray-100 pb-2">
-                                <span class="w-8 h-8 rounded-full bg-[#D4AF37] text-white flex items-center justify-center text-sm">1</span>
-                                {{ __('messages.form.personal_data') }}
+                            <h3 class="text-lg font-bold text-[#1A305E] dark:text-white flex items-center gap-2 border-b border-gray-200 pb-3">
+                                <span class="w-8 h-8 rounded-full bg-[#D4AF37] text-white flex items-center justify-center text-sm font-bold">1</span>
+                                Data Pribadi
                             </h3>
                             
+                            {{-- Row 1: Nama & NIK --}}
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div class="space-y-2">
-                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">{{ __('messages.form.full_name') }} <span class="text-red-500">*</span></label>
-                                    <input type="text" name="nama" value="{{ old('nama') }}" placeholder="Masukkan nama sesuai KTP" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800" required />
+                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                        Nama Lengkap <span class="text-red-500">*</span>
+                                    </label>
+                                    <input type="text" name="nama" value="{{ old('nama') }}" 
+                                           placeholder="Masukkan nama sesuai KTP" 
+                                           class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800" 
+                                           required />
                                 </div>
+                                
                                 <div class="space-y-2">
-                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">{{ __('messages.form.id_number') }} <span class="text-red-500">*</span></label>
-                                    <input type="text" name="nik" value="{{ old('nik') }}" placeholder="16 digit NIK" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800" required />
+                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                        No. KTP (NIK) <span class="text-red-500">*</span>
+                                    </label>
+                                    <input type="text" name="nik" id="nikInput" value="{{ old('nik') }}" 
+                                           placeholder="16 digit NIK" maxlength="16" 
+                                           class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800" 
+                                           required />
+                                    <p class="text-xs text-gray-500 mt-1">NIK harus 16 digit angka</p>
                                 </div>
                             </div>
 
+                            {{-- Row 2: No. KK & Email --}}
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div class="space-y-2">
-                                    <label class="block text-sm font-semibold text-gray-700">{{ __('messages.form.family_card_number') }}</label>
-                                    <input type="text" name="no_kk" value="{{ old('no_kk') }}" placeholder="{{ __('messages.form.family_card_number') }}" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800" />
+                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                        Nomor KK (Opsional)
+                                    </label>
+                                    <input type="text" name="no_kk" value="{{ old('no_kk') }}" 
+                                           placeholder="Nomor Kartu Keluarga" 
+                                           class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800" />
                                 </div>
+                                
                                 <div class="space-y-2">
-                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Email <span class="text-red-500">*</span></label>
-                                    <input type="email" name="email" value="{{ old('email') }}" placeholder="contoh@email.com" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800" required />
+                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                        Email <span class="text-red-500">*</span>
+                                    </label>
+                                    <input type="email" name="email" value="{{ old('email') }}" 
+                                           placeholder="contoh@email.com" 
+                                           class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800" 
+                                           required />
                                 </div>
                             </div>
 
+                            {{-- Row 3: No. HP & Alamat --}}
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div class="space-y-2">
-                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">No. HP / WhatsApp <span class="text-red-500">*</span></label>
-                                    <input type="text" name="no_hp" value="{{ old('no_hp') }}" placeholder="08xxxxxxxxxx" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800" required />
+                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                        No. HP / WhatsApp <span class="text-red-500">*</span>
+                                    </label>
+                                    <input type="text" name="no_hp" value="{{ old('no_hp') }}" 
+                                           placeholder="08xxxxxxxxxx" 
+                                           class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800" 
+                                           required />
                                 </div>
+                                
                                 <div class="space-y-2">
-                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Alamat <span class="text-red-500">*</span></label>
-                                    <textarea name="alamat" rows="1" placeholder="{{ __('messages.form.address_placeholder') }}" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800 resize-none" required>{{ old('alamat') }}</textarea>
+                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                        Alamat Lengkap <span class="text-red-500">*</span>
+                                    </label>
+                                    <input type="text" name="alamat" value="{{ old('alamat') }}" 
+                                           placeholder="Jl. Contoh No. 123, Kelurahan/Desa" 
+                                           class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800" 
+                                           required />
                                 </div>
                             </div>
-                            
+
+                            {{-- Row 4: Asal/Domisili & Pekerjaan --}}
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {{-- Alamat moved to grid above --}}
                                 <div class="space-y-2">
-                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">{{ __('messages.form.job') }} <span class="text-red-500">*</span></label>
-                                    <input type="text" name="pekerjaan" value="{{ old('pekerjaan') }}" placeholder="{{ __('messages.form.job_placeholder') }}" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800" required />
+                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                        Asal / Domisili <span class="text-red-500">*</span>
+                                    </label>
+                                    <select name="domisili_id" 
+                                            class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800" 
+                                            required>
+                                        <option value="">-- Pilih Kabupaten/Kota --</option>
+                                        @foreach($masterDomisili as $domisili)
+                                            <option value="{{ $domisili->id }}" {{ old('domisili_id') == $domisili->id ? 'selected' : '' }}>
+                                                {{ $domisili->nama_daerah }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <p class="text-xs text-gray-500 mt-1">Pilih kabupaten/kota asal Anda</p>
                                 </div>
+                                <div class="space-y-2">
+                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                        Pekerjaan <span class="text-red-500">*</span>
+                                    </label>
+                                    <select name="pekerjaan_id" 
+                                            class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800" 
+                                            required>
+                                        <option value="">-- Pilih Pekerjaan --</option>
+                                        @foreach($masterPekerjaan as $pekerjaan)
+                                            <option value="{{ $pekerjaan->id }}" {{ old('pekerjaan_id') == $pekerjaan->id ? 'selected' : '' }}>
+                                                {{ $pekerjaan->nama_pekerjaan }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            {{-- Row 5: Upload KTP --}}
+                            <div class="space-y-2">
+                                <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                    Upload Foto KTP <span class="text-red-500">*</span>
+                                </label>
+                                <div class="relative">
+                                    <input type="file" name="foto_ktp" accept="image/jpeg,image/jpg,image/png"
+                                           class="block w-full text-sm text-gray-700 dark:text-gray-300
+                                                  file:mr-4 file:py-3 file:px-6 
+                                                  file:rounded-lg file:border-0 
+                                                  file:text-sm file:font-semibold
+                                                  file:bg-[#1A305E] file:text-white
+                                                  hover:file:bg-[#1A305E]/90
+                                                  cursor-pointer border border-gray-300 rounded-lg bg-white dark:bg-slate-800
+                                                  focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E]" 
+                                           required />
+                                </div>
+                                <p class="text-xs text-gray-500 mt-1">
+                                    <i class="fas fa-info-circle mr-1"></i>
+                                    Format: JPG, JPEG, PNG | Maksimal ukuran: 5MB
+                                </p>
                             </div>
                         </div>
-
-                        {{-- Upload Content --}}
-                        <div class="space-y-6">
-                            <h3 class="text-lg font-bold text-[#1A305E] dark:text-white flex items-center gap-2 border-b border-gray-100 pb-2">
-                                <span class="w-8 h-8 rounded-full bg-[#D4AF37] text-white flex items-center justify-center text-sm">2</span>
-                                {{ __('messages.form.supporting_docs') }}
-                            </h3>
-                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div class="space-y-2">
-                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">{{ __('messages.form.upload_id_card') }} <span class="text-red-500">*</span></label>
-                                    <div class="relative">
-                                        <input type="file" name="foto_ktp" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-[#1A305E]/10 file:text-[#1A305E] dark:text-white hover:file:bg-[#1A305E]/20 cursor-pointer border border-gray-300 rounded-lg" required />
-                                    </div>
-                                    <p class="text-xs text-gray-500 mt-1">{{ __('messages.form.format_hint') }}</p>
-                                </div>
-                            </div>
-                        </div>
-
 
                         {{-- Information Details --}}
                         <div class="space-y-6">
-                             <h3 class="text-lg font-bold text-[#1A305E] dark:text-white flex items-center gap-2 border-b border-gray-100 pb-2">
-                                <span class="w-8 h-8 rounded-full bg-[#D4AF37] text-white flex items-center justify-center text-sm">3</span>
-                                {{ __('messages.form.info_details') }}
+                            <h3 class="text-lg font-bold text-[#1A305E] dark:text-white flex items-center gap-2 border-b border-gray-200 pb-3">
+                                <span class="w-8 h-8 rounded-full bg-[#D4AF37] text-white flex items-center justify-center text-sm font-bold">2</span>
+                                Detail Informasi
                             </h3>
 
+                            {{-- Row 1: Nomor Pengeluaran & Tujuan --}}
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div class="space-y-2">
-                                    <label class="block text-sm font-semibold text-gray-700">{{ __('messages.form.legal_entity_number') }}</label>
-                                    <input type="text" name="nmr_pengesahan" value="{{ old('nmr_pengesahan') }}" placeholder="{{ __('messages.form.legal_entity_number') }}" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800" />
+                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                        Nomor Pengeluaran (Badan Hukum)
+                                    </label>
+                                    <input type="text" name="nmr_pengesahan" value="{{ old('nmr_pengesahan') }}" 
+                                           placeholder="Jika mewakili badan hukum" 
+                                           class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800" />
+                                    <p class="text-xs text-gray-500 mt-1">Kosongkan jika mengajukan sebagai perorangan</p>
                                 </div>
+                                
                                 <div class="space-y-2">
-                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">{{ __('messages.form.purpose') }} <span class="text-red-500">*</span></label>
-                                    <input type="text" name="tujuan" value="{{ old('tujuan') }}" placeholder="{{ __('messages.form.purpose') }}" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800" required />
+                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                        Tujuan Penggunaan Informasi <span class="text-red-500">*</span>
+                                    </label>
+                                    <input type="text" name="tujuan" value="{{ old('tujuan') }}" 
+                                           placeholder="Contoh: Penelitian, Keperluan Pribadi, dll" 
+                                           class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800" 
+                                           required />
                                 </div>
                             </div>
 
+                            {{-- Row 2: Rincian Informasi --}}
                             <div class="space-y-2">
-                                <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">{{ __('messages.form.details_needed') }} <span class="text-red-500">*</span></label>
-                                <textarea name="rincian" rows="4" placeholder="{{ __('messages.form.details_placeholder') }}" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-gray-50 dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-800 resize-none" required>{{ old('rincian') }}</textarea>
+                                <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                    Rincian Informasi Yang Dibutuhkan <span class="text-red-500">*</span>
+                                </label>
+                                <textarea name="rincian" rows="5" 
+                                          placeholder="Deskripsikan secara detail informasi yang Anda butuhkan..." 
+                                          class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800 resize-none" 
+                                          required>{{ old('rincian') }}</textarea>
+                                <p class="text-xs text-gray-500 mt-1">
+                                    <i class="fas fa-lightbulb mr-1"></i>
+                                    Jelaskan informasi yang dibutuhkan sejelas mungkin
+                                </p>
                             </div>
                         </div>
 
-                        {{-- Submit --}}
-                        <div class="pt-6 flex justify-end">
-                            <button type="submit" class="px-8 py-3.5 bg-[#1A305E] text-white font-bold rounded-lg hover:bg-[#1A305E]/90 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-                                {{ __('messages.form.submit_request') }}
-                            </button>
+                        {{-- Submit Button --}}
+                        <div class="pt-6 border-t border-gray-200">
+                            <div class="flex flex-col sm:flex-row gap-4 justify-end">
+                                <button type="reset" class="px-6 py-3 bg-gray-100 text-gray-700 font-semibold rounded-lg hover:bg-gray-200 transition-all flex items-center justify-center gap-2">
+                                    <i class="fas fa-redo"></i>
+                                    Reset Form
+                                </button>
+                                <button type="submit" class="px-8 py-3.5 bg-[#1A305E] text-white font-bold rounded-lg hover:bg-[#1A305E]/90 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="22" x2="11" y1="2" y2="13"/>
+                                        <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                                    </svg>
+                                    Kirim Permohonan
+                                </button>
+                            </div>
                         </div>
                     </form>
+
+                    {{-- File Upload with Drag & Drop and NIK Validation Script --}}
+                    <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const fotoKtpInput = document.getElementById('fotoKtpInput');
+                        const nikInput = document.getElementById('nikInput');
+                        const form = document.getElementById('permohonanForm');
+                        const dropZone = document.getElementById('ktpDropZone');
+                        const dropText = document.getElementById('ktpDropText');
+                        const preview = document.getElementById('ktpPreview');
+                        const previewImage = document.getElementById('ktpPreviewImage');
+                        const fileName = document.getElementById('ktpFileName');
+                        const fileSize = document.getElementById('ktpFileSize');
+                        const removeBtn = document.getElementById('ktpRemoveBtn');
+                        
+                        // NIK validation - only allow numbers and limit to 16 digits
+                        if (nikInput) {
+                            nikInput.addEventListener('input', function(e) {
+                                this.value = this.value.replace(/[^0-9]/g, '');
+                                if (this.value.length > 16) {
+                                    this.value = this.value.slice(0, 16);
+                                }
+                            });
+                        }
+                        
+                        // File validation function
+                        function validateFile(file) {
+                            const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+                            const maxSize = 5 * 1024 * 1024; // 5MB
+                            
+                            if (!allowedTypes.includes(file.type)) {
+                                alert('Format file tidak valid! Hanya file JPG, JPEG, dan PNG yang diperbolehkan.');
+                                return false;
+                            }
+                            
+                            if (file.size > maxSize) {
+                                alert('Ukuran file terlalu besar! Maksimal 5MB.');
+                                return false;
+                            }
+                            
+                            return true;
+                        }
+                        
+                        // Format file size
+                        function formatFileSize(bytes) {
+                            if (bytes < 1024) return bytes + ' B';
+                            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+                            return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+                        }
+                        
+                        // Show file preview
+                        function showPreview(file) {
+                            const reader = new FileReader();
+                            reader.onload = function(e) {
+                                previewImage.src = e.target.result;
+                                fileName.textContent = file.name;
+                                fileSize.textContent = formatFileSize(file.size);
+                                dropText.classList.add('hidden');
+                                preview.classList.remove('hidden');
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                        
+                        // Handle file selection
+                        function handleFile(file) {
+                            if (validateFile(file)) {
+                                showPreview(file);
+                            } else {
+                                fotoKtpInput.value = '';
+                            }
+                        }
+                        
+                        // Click to upload
+                        dropZone.addEventListener('click', function(e) {
+                            if (e.target !== removeBtn && !removeBtn.contains(e.target)) {
+                                fotoKtpInput.click();
+                            }
+                        });
+                        
+                        // File input change
+                        fotoKtpInput.addEventListener('change', function(e) {
+                            const file = e.target.files[0];
+                            if (file) {
+                                handleFile(file);
+                            }
+                        });
+                        
+                        // Drag and drop events
+                        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                            dropZone.addEventListener(eventName, preventDefaults, false);
+                        });
+                        
+                        function preventDefaults(e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                        }
+                        
+                        // Highlight on drag
+                        ['dragenter', 'dragover'].forEach(eventName => {
+                            dropZone.addEventListener(eventName, function() {
+                                dropZone.classList.add('border-[#D4AF37]', 'bg-gradient-to-br', 'from-yellow-50', 'to-amber-50');
+                            });
+                        });
+                        
+                        ['dragleave', 'drop'].forEach(eventName => {
+                            dropZone.addEventListener(eventName, function() {
+                                dropZone.classList.remove('border-[#D4AF37]', 'bg-gradient-to-br', 'from-yellow-50', 'to-amber-50');
+                            });
+                        });
+                        
+                        // Handle drop
+                        dropZone.addEventListener('drop', function(e) {
+                            const dt = e.dataTransfer;
+                            const files = dt.files;
+                            
+                            if (files.length > 0) {
+                                const file = files[0];
+                                
+                                // Create a new FileList-like object
+                                const dataTransfer = new DataTransfer();
+                                dataTransfer.items.add(file);
+                                fotoKtpInput.files = dataTransfer.files;
+                                
+                                handleFile(file);
+                            }
+                        });
+                        
+                        // Remove file
+                        removeBtn.addEventListener('click', function(e) {
+                            e.stopPropagation();
+                            fotoKtpInput.value = '';
+                            preview.classList.add('hidden');
+                            dropText.classList.remove('hidden');
+                            previewImage.src = '';
+                        });
+                        
+                        // Form submit validation
+                        form.addEventListener('submit', function(e) {
+                            const file = fotoKtpInput.files[0];
+                            
+                            if (!file) {
+                                e.preventDefault();
+                                alert('Foto KTP wajib diupload!');
+                                dropZone.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                return;
+                            }
+                            
+                            if (!validateFile(file)) {
+                                e.preventDefault();
+                                fotoKtpInput.value = '';
+                                preview.classList.add('hidden');
+                                dropText.classList.remove('hidden');
+                            }
+                        });
+                    });
+                    </script>
                 </div>
 
             </div>
         </div>
     </main>
+
+    {{-- NIK Validation Script --}}
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const nikInput = document.getElementById('nikInput');
+        
+        if (nikInput) {
+            nikInput.addEventListener('input', function(e) {
+                // Remove non-numeric characters
+                let value = e.target.value.replace(/\D/g, '');
+                
+                // Limit to 16 digits
+                if (value.length > 16) {
+                    value = value.substring(0, 16);
+                }
+                
+                e.target.value = value;
+            });
+            
+            // Validate on form submit
+            nikInput.closest('form').addEventListener('submit', function(e) {
+                if (nikInput.value.length !== 16) {
+                    e.preventDefault();
+                    alert('NIK harus terdiri dari 16 digit angka!');
+                    nikInput.focus();
+                }
+            });
+        }
+    });
+    </script>
 
     <x-footer />
 </x-layout>
