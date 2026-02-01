@@ -149,23 +149,38 @@
                                     </div>
                                     
                                     <div class="mt-4">
-                                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                                            Tanggapan / Jawaban
-                                        </label>
-                                        <textarea name="feedback" rows="4" class="w-full rounded-md border-slate-300 dark:border-slate-700 dark:bg-slate-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Tulis tanggapan anda disini..." x-model="feedbackText" required></textarea>
+                                        <p class="text-sm text-slate-500 dark:text-slate-400 mb-2">
+                                            Respon pengajuan ini melalui WhatsApp:
+                                        </p>
+                                        <div class="flex items-center gap-2 p-3 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-100 dark:border-emerald-800 rounded-lg">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.374-5.03c0-5.445 4.43-9.873 9.878-9.873 2.636 0 5.115 1.026 6.977 2.891a9.825 9.825 0 012.895 6.974c-.003 5.449-4.434 9.877-9.882 9.877h.001z"/>
+                                            </svg>
+                                            <div class="flex-1">
+                                                <div class="text-sm font-medium text-slate-900 dark:text-slate-100" x-text="detailItem.nama_pemohon"></div>
+                                                <div class="text-xs text-slate-500 dark:text-slate-400" x-text="formatPhone(detailItem.no_telp_pemohon)"></div>
+                                            </div>
+                                            <a :href="getWhatsAppLink(detailItem)" target="_blank" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium rounded shadow-sm transition-colors flex items-center gap-1">
+                                                <span>Chat</span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                                </svg>
+                                            </a>
+                                        </div>
                                     </div>
-                                    <div class="mt-2 text-xs text-slate-400" x-show="existingFeedback">
-                                        Last Feedback: <span x-text="existingFeedback"></span>
+
+                                    <!-- Hidden Feedback Form if needed for manual logging later -->
+                                    <div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-700">
+                                        <p class="text-xs text-slate-400">
+                                            Catatan: Klik tombol Chat untuk membuka WhatsApp.
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="bg-slate-50 dark:bg-slate-700/50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                            <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
-                                Kirim Tanggapan
-                            </button>
-                            <button type="button" @click="showFeedbackModal = false" class="mt-3 w-full inline-flex justify-center rounded-md border border-slate-300 dark:border-slate-600 shadow-sm px-4 py-2 bg-white dark:bg-slate-800 text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
-                                Batal
+                            <button type="button" @click="showFeedbackModal = false" class="w-full inline-flex justify-center rounded-md border border-slate-300 dark:border-slate-600 shadow-sm px-4 py-2 bg-white dark:bg-slate-800 text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
+                                Tutup
                             </button>
                         </div>
                     </form>
@@ -259,7 +274,8 @@
                             no_pendaftaran: data.no_pendaftaran,
                             nama_pemohon: data.nama_pemohon,
                             alasan: data.alasan,
-                            kasus: data.kasus
+                            kasus: data.kasus,
+                            no_telp_pemohon: data.no_telp_pemohon // Make sure this is returned by controller
                         };
 
                         if(data.feedback) {
@@ -269,6 +285,26 @@
                     } catch(e) {
                         console.error("Failed to load feedback details", e);
                     }
+                },
+
+                // Helper for phone formatting
+                formatPhone(number) {
+                    if (!number) return '-';
+                    return number;
+                },
+
+                getWhatsAppLink(item) {
+                    if (!item || !item.no_telp_pemohon) return '#';
+                    
+                    let phone = item.no_telp_pemohon.trim();
+                    if (phone.startsWith('0')) {
+                        phone = '62' + phone.substring(1);
+                    } else if (phone.startsWith('+62')) {
+                        phone = phone.substring(1);
+                    }
+
+                    const message = `Halo Sdr/i ${item.nama_pemohon}, menanggapi pengajuan keberatan anda dengan Nomor Pendaftaran: ${item.no_pendaftaran}...`;
+                    return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
                 }
             }
         }

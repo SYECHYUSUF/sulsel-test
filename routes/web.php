@@ -135,10 +135,21 @@ Route::middleware(['track.visitors'])->group(function () {
         $masterDomisili = \App\Models\MasterDomisili::active()->orderBy('nama_daerah')->get();
         return view('pages.layanan.permohonan-informasi', compact('masterPekerjaan', 'masterDomisili'));
     });
+<<<<<<< HEAD
+
+    Route::post('/layanan/permohonan-informasi', [GuestPermohonanInformasiController::class, 'store'])
+        ->name('layanan.permohonan-informasi.store');
+
+=======
     Route::get('/layanan/cek-status-permohonan', [GuestPermohonanInformasiController::class, 'checkProgressForm'])->name('layanan.cek-status-permohonan');
+>>>>>>> 1a38dfeee9bbb129bdf633d2a284401773ebd2e3
     Route::get('/layanan/pengajuan-keberatan', function () {
         return view('pages.layanan.pengajuan-keberatan');
     });
+    
+    // Rute Permohonan Informasi
+    Route::post('/layanan/permohonan-informasi', [App\Http\Controllers\PermohonanInformasiController::class, 'store'])->name('layanan.permohonan-informasi.store');
+    
     Route::post('/layanan/pengajuan-keberatan', [GuestPengajuanKeberatanController::class, 'store'])->name('layanan.pengajuan-keberatan.store');
 
     // Check Status Routes
@@ -146,6 +157,7 @@ Route::middleware(['track.visitors'])->group(function () {
 
     Route::get('/layanan/sop', [GuestSopController::class, 'index'])->name('layanan.sop');
     Route::get('/layanan/sop/download/{id}', [GuestSopController::class, 'download'])->name('layanan.sop.download');
+    
 
     // Survey Pages
     Route::get('/survey/isi-survey', [\App\Http\Controllers\SurveyController::class, 'create']);

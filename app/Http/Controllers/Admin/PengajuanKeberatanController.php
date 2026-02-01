@@ -78,6 +78,8 @@ class PengajuanKeberatanController extends Controller
         return response()->json([
             'no_pendaftaran' => $pengajuan->no_pendaftaran,
             'nama_pemohon' => $pengajuan->nama_pemohon,
+            'no_telp_pemohon' => $pengajuan->no_telp_pemohon,
+            'metode_respon' => $pengajuan->metode_respon, // Add this
             'alasan' => $pengajuan->alasanPengajuan->pluck('alasan'),
             'kasus' => $pengajuan->kasus,
             'feedback' => $pengajuan->feedback,
