@@ -215,32 +215,120 @@
                                     <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
                                         Asal / Domisili <span class="text-red-500">*</span>
                                     </label>
-                                    <select name="domisili_id" 
-                                            class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800" 
-                                            required>
-                                        <option value="">-- Pilih Kabupaten/Kota --</option>
-                                        @foreach($masterDomisili as $domisili)
-                                            <option value="{{ $domisili->id }}" {{ old('domisili_id') == $domisili->id ? 'selected' : '' }}>
-                                                {{ $domisili->nama_daerah }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                    
+                                    <div x-data="{
+                                        open: false,
+                                        search: '',
+                                        selectedId: '{{ old('domisili_id') }}',
+                                        selectedName: '',
+                                        options: [
+                                            @foreach($masterDomisili as $domisili)
+                                                { id: '{{ $domisili->id }}', name: '{{ $domisili->nama_daerah }}' },
+                                            @endforeach
+                                        ],
+                                        init() {
+                                            if(this.selectedId) {
+                                                const found = this.options.find(o => o.id == this.selectedId);
+                                                if(found) this.selectedName = found.name;
+                                            }
+                                        },
+                                        get filteredOptions() {
+                                            if (this.search === '') return this.options;
+                                            return this.options.filter(option => 
+                                                option.name.toLowerCase().includes(this.search.toLowerCase())
+                                            );
+                                        }
+                                    }" class="relative">
+                                        <input type="hidden" name="domisili_id" :value="selectedId" required>
+                                        
+                                        <button type="button" @click="open = !open; if(open) $nextTick(() => $refs.searchInput.focus())"
+                                            class="w-full px-4 py-3 text-left rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800 flex justify-between items-center"
+                                            :class="{'ring-2 ring-[#1A305E] border-[#1A305E]': open}">
+                                            <span x-text="selectedName || '-- Pilih Kabupaten/Kota --'" :class="{'text-gray-500': !selectedName}"></span>
+                                            <svg class="w-4 h-4 text-gray-400 transition-transform" :class="{'rotate-180': open}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                        </button>
+                                        
+                                        <div x-show="open" @click.away="open = false" 
+                                            class="absolute z-50 w-full mt-1 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg shadow-lg max-h-60 overflow-hidden flex flex-col"
+                                            style="display: none;">
+                                            <div class="p-2 border-b border-gray-100 dark:border-slate-700">
+                                                <input x-ref="searchInput" x-model="search" type="text" placeholder="Cari kabupaten/kota..." 
+                                                    class="w-full px-3 py-2 text-sm rounded-md border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-[#1A305E]">
+                                            </div>
+                                            <ul class="overflow-y-auto flex-1 custom-scrollbar">
+                                                <template x-for="option in filteredOptions" :key="option.id">
+                                                    <li @click="selectedId = option.id; selectedName = option.name; open = false; search = ''"
+                                                        class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-slate-700 cursor-pointer text-sm text-gray-700 dark:text-gray-200"
+                                                        :class="{'bg-gray-50 dark:bg-slate-700 font-semibold text-[#1A305E] dark:text-white': selectedId == option.id}">
+                                                        <span x-text="option.name"></span>
+                                                    </li>
+                                                </template>
+                                                <li x-show="filteredOptions.length === 0" class="px-4 py-3 text-sm text-gray-500 text-center">
+                                                    Tidak ada hasil ditemukan
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                     <p class="text-xs text-gray-500 mt-1">Pilih kabupaten/kota asal Anda</p>
                                 </div>
                                 <div class="space-y-2">
                                     <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
                                         Pekerjaan <span class="text-red-500">*</span>
                                     </label>
-                                    <select name="pekerjaan_id" 
-                                            class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800" 
-                                            required>
-                                        <option value="">-- Pilih Pekerjaan --</option>
-                                        @foreach($masterPekerjaan as $pekerjaan)
-                                            <option value="{{ $pekerjaan->id }}" {{ old('pekerjaan_id') == $pekerjaan->id ? 'selected' : '' }}>
-                                                {{ $pekerjaan->nama_pekerjaan }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                    
+                                    <div x-data="{
+                                        open: false,
+                                        search: '',
+                                        selectedId: '{{ old('pekerjaan_id') }}',
+                                        selectedName: '',
+                                        options: [
+                                            @foreach($masterPekerjaan as $pekerjaan)
+                                                { id: '{{ $pekerjaan->id }}', name: '{{ $pekerjaan->nama_pekerjaan }}' },
+                                            @endforeach
+                                        ],
+                                        init() {
+                                            if(this.selectedId) {
+                                                const found = this.options.find(o => o.id == this.selectedId);
+                                                if(found) this.selectedName = found.name;
+                                            }
+                                        },
+                                        get filteredOptions() {
+                                            if (this.search === '') return this.options;
+                                            return this.options.filter(option => 
+                                                option.name.toLowerCase().includes(this.search.toLowerCase())
+                                            );
+                                        }
+                                    }" class="relative">
+                                        <input type="hidden" name="pekerjaan_id" :value="selectedId" required>
+                                        
+                                        <button type="button" @click="open = !open; if(open) $nextTick(() => $refs.searchInput.focus())"
+                                            class="w-full px-4 py-3 text-left rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800 flex justify-between items-center"
+                                            :class="{'ring-2 ring-[#1A305E] border-[#1A305E]': open}">
+                                            <span x-text="selectedName || '-- Pilih Pekerjaan --'" :class="{'text-gray-500': !selectedName}"></span>
+                                            <svg class="w-4 h-4 text-gray-400 transition-transform" :class="{'rotate-180': open}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                        </button>
+                                        
+                                        <div x-show="open" @click.away="open = false" 
+                                            class="absolute z-50 w-full mt-1 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg shadow-lg max-h-60 overflow-hidden flex flex-col"
+                                            style="display: none;">
+                                            <div class="p-2 border-b border-gray-100 dark:border-slate-700">
+                                                <input x-ref="searchInput" x-model="search" type="text" placeholder="Cari pekerjaan..." 
+                                                    class="w-full px-3 py-2 text-sm rounded-md border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-[#1A305E]">
+                                            </div>
+                                            <ul class="overflow-y-auto flex-1 custom-scrollbar">
+                                                <template x-for="option in filteredOptions" :key="option.id">
+                                                    <li @click="selectedId = option.id; selectedName = option.name; open = false; search = ''"
+                                                        class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-slate-700 cursor-pointer text-sm text-gray-700 dark:text-gray-200"
+                                                        :class="{'bg-gray-50 dark:bg-slate-700 font-semibold text-[#1A305E] dark:text-white': selectedId == option.id}">
+                                                        <span x-text="option.name"></span>
+                                                    </li>
+                                                </template>
+                                                <li x-show="filteredOptions.length === 0" class="px-4 py-3 text-sm text-gray-500 text-center">
+                                                    Tidak ada hasil ditemukan
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 

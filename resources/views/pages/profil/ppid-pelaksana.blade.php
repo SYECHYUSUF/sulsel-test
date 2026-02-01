@@ -86,9 +86,11 @@
                 </div>
 
                 {{-- SKPD Cards Grid --}}
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" id="skpdGrid">
+                {{-- SKPD Cards Grid --}}
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="skpdGrid">
                     @foreach($ppidData as $ppid)
-                        <div class="group relative bg-white dark:bg-slate-800 rounded-2xl shadow-md hover:shadow-2xl border-2 border-gray-100 dark:border-slate-700 hover:border-[#D4AF37] p-8 transition-all duration-300 hover:-translate-y-2 overflow-hidden">
+                        <a href="{{ route('ppid-pelaksana.detail', $ppid->id_skpd) }}" 
+                           class="group relative bg-white dark:bg-slate-800 rounded-2xl shadow-md hover:shadow-2xl border-2 border-gray-100 dark:border-slate-700 hover:border-[#D4AF37] p-8 transition-all duration-300 hover:-translate-y-2 overflow-hidden block h-full flex flex-col">
                             
                             {{-- Gradient Overlay on Hover --}}
                             <div class="absolute inset-0 bg-gradient-to-br from-[#1A305E]/0 via-transparent to-[#D4AF37]/0 group-hover:from-[#1A305E]/5 group-hover:to-[#D4AF37]/5 transition-all duration-500 pointer-events-none"></div>
@@ -97,85 +99,45 @@
                             <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#1A305E] via-[#D4AF37] to-[#1A305E] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center"></div>
 
                             {{-- Logo with Animated Ring --}}
-                            <div class="flex justify-center mb-6 relative">
-                                <div class="relative">
-                                    <div class="absolute inset-0 bg-gradient-to-br from-[#1A305E] to-[#D4AF37] rounded-full opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500"></div>
-                                    <div class="relative w-24 h-24 bg-gradient-to-br from-[#1A305E]/10 to-[#D4AF37]/10 dark:from-slate-700 dark:to-slate-600 rounded-full flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 border-4 border-white dark:border-slate-800 group-hover:border-[#D4AF37]/50">
-                                        @if($ppid->logo)
-                                            <img src="{{ asset('storage/logo-skpd/' . $ppid->logo) }}" 
-                                                alt="Logo {{ $ppid->nama_skpd }}" 
-                                                class="w-16 h-16 object-contain group-hover:scale-110 transition-transform duration-300">
-                                        @else
-                                            <img src="{{ asset('images/logo-sulsel.png') }}" 
-                                                alt="Logo Sulsel" 
-                                                class="w-16 h-16 object-contain group-hover:scale-110 transition-transform duration-300">
-                                        @endif
-                                    </div>
+                            <div class="relative w-24 h-24 mx-auto mb-6 transform group-hover:scale-105 transition-transform duration-500 flex-shrink-0">
+                                <div class="absolute inset-0 bg-gradient-to-br from-[#1A305E] to-[#D4AF37] rounded-full opacity-0 group-hover:opacity-10 dark:group-hover:opacity-30 blur-xl transition-opacity duration-500"></div>
+                                <div class="relative w-full h-full bg-white dark:bg-slate-700 rounded-full flex items-center justify-center shadow-lg border-4 border-white dark:border-slate-600 group-hover:border-[#D4AF37]/30 transition-colors duration-300">
+                                    <img src="{{ $ppid->logo ? asset('storage/logo-skpd/' . $ppid->logo) : asset('images/logo-sulsel.png') }}" 
+                                         alt="Logo {{ $ppid->nm_skpd }}" 
+                                         class="w-14 h-14 object-contain">
                                 </div>
                             </div>
 
-                            {{-- SKPD Name --}}
-                            <h3 class="text-center font-bold text-[#1A305E] dark:text-white mb-4 text-lg leading-snug min-h-[60px] flex items-center justify-center px-2 group-hover:text-[#D4AF37] dark:group-hover:text-[#D4AF37] transition-colors duration-300">
-                                {{ $ppid->nm_skpd }}
-                            </h3>
+                            {{-- Content --}}
+                            <div class="text-center space-y-4 flex flex-col flex-grow">
+                                {{-- Name --}}
+                                <div class="min-h-[3.5rem] flex items-center justify-center">
+                                    <h3 class="text-lg md:text-xl font-bold text-[#1A305E] dark:text-white leading-tight group-hover:text-[#D4AF37] transition-colors duration-300">
+                                        {{ $ppid->nm_skpd }}
+                                    </h3>
+                                </div>
 
-                            {{-- Animated Divider --}}
-                            <div class="relative mb-6 h-px">
-                                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-gray-200 dark:via-slate-600 to-transparent"></div>
-                                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
-                            </div>
+                                {{-- Divider --}}
+                                <div class="w-12 h-1 bg-gradient-to-r from-[#1A305E] to-[#D4AF37] mx-auto rounded-full opacity-50 group-hover:opacity-100 transition-opacity flex-shrink-0"></div>
 
-                            {{-- Contact Information --}}
-                            <div class="space-y-4 relative z-10">
-                                {{-- Address --}}
-                                <div class="flex items-start gap-3 group/item">
-                                   <div class="w-9 h-9 rounded-xl bg-[#1A305E]/10 dark:bg-slate-700 text-[#1A305E] dark:text-gray-200 flex items-center justify-center flex-shrink-0 group-hover/item:bg-gradient-to-br group-hover/item:from-[#1A305E] group-hover/item:to-[#D4AF37] group-hover/item:text-white transition-all duration-300 shadow-sm">
-                                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-                                   </div>
-                                    <div class="flex-1 min-w-0">
-                                        <p class="font-bold text-gray-500 dark:text-gray-400 text-xs uppercase mb-1 tracking-wide">Alamat</p>
-                                        <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">{{ $ppid->alamat ?? 'Belum tersedia' }}</p>
+                                {{-- Info Grid --}}
+                                <div class="grid grid-cols-1 gap-3 pt-2 flex-grow">
+                                    {{-- Address --}}
+                                    <div class="flex items-start justify-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 mt-0.5 text-[#D4AF37]"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                                        <span class="line-clamp-2 text-left">{{ $ppid->alamat ?? 'Alamat belum tersedia' }}</span>
                                     </div>
                                 </div>
 
-                                {{-- Phone --}}
-                                <div class="flex items-start gap-3 group/item">
-                                     <div class="w-9 h-9 rounded-xl bg-[#1A305E]/10 dark:bg-slate-700 text-[#1A305E] dark:text-gray-200 flex items-center justify-center flex-shrink-0 group-hover/item:bg-gradient-to-br group-hover/item:from-[#1A305E] group-hover/item:to-[#D4AF37] group-hover/item:text-white transition-all duration-300 shadow-sm">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                                     </div>
-                                    <div class="flex-1 min-w-0">
-                                        <p class="font-bold text-gray-500 dark:text-gray-400 text-xs uppercase mb-1 tracking-wide">Telepon</p>
-                                        <p class="text-gray-700 dark:text-gray-300 text-sm font-medium">{{ $ppid->no_telp ?? '-' }}</p>
-                                    </div>
-                                </div>
-
-                                {{-- Email --}}
-                                <div class="flex items-start gap-3 group/item">
-                                     <div class="w-9 h-9 rounded-xl bg-[#1A305E]/10 dark:bg-slate-700 text-[#1A305E] dark:text-gray-200 flex items-center justify-center flex-shrink-0 group-hover/item:bg-gradient-to-br group-hover/item:from-[#1A305E] group-hover/item:to-[#D4AF37] group-hover/item:text-white transition-all duration-300 shadow-sm">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                                     </div>
-                                    <div class="flex-1 min-w-0">
-                                        <p class="font-bold text-gray-500 dark:text-gray-400 text-xs uppercase mb-1 tracking-wide">Email</p>
-                                        <a href="mailto:{{ $ppid->email }}" class="text-[#1A305E] dark:text-[#D4AF37] hover:underline text-sm font-medium truncate block group-hover/item:text-[#D4AF37] transition-colors">
-                                            {{ $ppid->email ?? '-' }}
-                                        </a>
-                                    </div>
-                                </div>
-
-                                {{-- Website --}}
-                                <div class="flex items-start gap-3 group/item">
-                                     <div class="w-9 h-9 rounded-xl bg-[#1A305E]/10 dark:bg-slate-700 text-[#1A305E] dark:text-gray-200 flex items-center justify-center flex-shrink-0 group-hover/item:bg-gradient-to-br group-hover/item:from-[#1A305E] group-hover/item:to-[#D4AF37] group-hover/item:text-white transition-all duration-300 shadow-sm">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"/></svg>
-                                     </div>
-                                    <div class="flex-1 min-w-0">
-                                        <p class="font-bold text-gray-500 dark:text-gray-400 text-xs uppercase mb-1 tracking-wide">Website</p>
-                                        <a href="{{ $ppid->website }}" target="_blank" rel="noopener noreferrer" class="text-[#1A305E] dark:text-[#D4AF37] hover:underline text-sm font-medium truncate block group-hover/item:text-[#D4AF37] transition-colors">
-                                            {{ $ppid->website ?? '-' }}
-                                        </a>
+                                {{-- Actions --}}
+                                <div class="pt-4 mt-auto">
+                                    <div class="inline-flex items-center gap-2 text-[#1A305E] dark:text-[#D4AF37] font-bold text-sm bg-[#1A305E]/5 dark:bg-[#D4AF37]/10 px-4 py-2 rounded-full group-hover:bg-[#1A305E] group-hover:text-white dark:group-hover:text-white transition-all duration-300">
+                                        Lihat Detail
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-1 transition-transform"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     @endforeach
                 </div>
 

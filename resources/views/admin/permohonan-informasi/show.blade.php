@@ -195,11 +195,15 @@
                         @endif
 
                         <div class="mt-4">
-                            <a href="{{ route('admin.permohonan-informasi.disposisi', $permohonan->id_permohonan) }}"
-                               class="w-full block text-center py-2.5 bg-white dark:bg-slate-700 border-2 border-purple-200 dark:border-purple-800 text-purple-700 dark:text-purple-300 rounded-lg font-medium hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-all">
-                                + Tambah Disposisi Lain
-                            </a>
-                            <p class="text-xs text-slate-500 mt-2 text-center">Tambahkan OPD lain jika diperlukan.</p>
+                            <button type="button"
+                                @click="processModalOpen = true; activeTab = 'disposisi'"
+                                class="w-full flex items-center justify-center gap-2 py-3 bg-purple-600 hover:bg-purple-700 active:bg-purple-800 text-white rounded-lg font-bold shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 active:scale-95">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path>
+                                </svg>
+                                Tambah Disposisi Lain
+                            </button>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 text-center">Klik untuk menambahkan OPD lain yang perlu menerima disposisi.</p>
                         </div>
 
                     {{-- Status: SELESAI (2), TOLAK (3), BATAL (4) --}}
@@ -238,14 +242,16 @@
                     
                     <!-- Tabs -->
                     <div class="flex space-x-1 rounded-xl bg-slate-100 dark:bg-slate-700/50 p-1 mb-6">
-                        <button @click="activeTab = 'jawab'" 
-                            :class="activeTab === 'jawab' ? 'bg-white dark:bg-slate-600 shadow text-blue-700 dark:text-blue-300' : 'text-slate-600 dark:text-slate-400 hover:bg-white/[0.12] hover:text-white'"
-                            class="w-full rounded-lg py-2.5 text-sm font-medium leading-5 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 transition-all">
-                            Jawab (Admin)
-                        </button>
+                        @if($permohonan->status != 5)
+                            <button @click="activeTab = 'jawab'" 
+                                :class="activeTab === 'jawab' ? 'bg-white dark:bg-slate-600 shadow text-blue-700 dark:text-blue-300' : 'text-slate-600 dark:text-slate-400 hover:bg-white/[0.12] hover:text-white'"
+                                class="w-full rounded-lg py-2.5 text-sm font-medium leading-5 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 transition-all">
+                                Jawab (Admin)
+                            </button>
+                        @endif
                         <button @click="activeTab = 'disposisi'" 
-                            :class="activeTab === 'disposisi' ? 'bg-white dark:bg-slate-600 shadow text-blue-700 dark:text-blue-300' : 'text-slate-600 dark:text-slate-400 hover:bg-white/[0.12] hover:text-white'"
-                            class="w-full rounded-lg py-2.5 text-sm font-medium leading-5 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 transition-all">
+                            :class="activeTab === 'disposisi' ? 'bg-white dark:bg-slate-600 shadow text-purple-700 dark:text-purple-300' : 'text-slate-600 dark:text-slate-400 hover:bg-white/[0.12] hover:text-white'"
+                            class="w-full rounded-lg py-2.5 text-sm font-medium leading-5 ring-white ring-opacity-60 ring-offset-2 ring-offset-purple-400 focus:outline-none focus:ring-2 transition-all">
                             Disposisi (OPD)
                         </button>
                     </div>
@@ -279,30 +285,208 @@
 
                     <!-- Disposisi Form -->
                     <div x-show="activeTab === 'disposisi'">
-                        <div class="text-center py-8">
-                            <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <svg class="w-8 h-8 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                </svg>
-                            </div>
-                            <h4 class="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Pilih OPD Tujuan Disposisi</h4>
-                            <p class="text-slate-600 dark:text-slate-400 mb-6 text-sm">Anda akan dialihkan ke halaman pemilihan OPD untuk disposisi</p>
+                        <form action="{{ route('admin.permohonan-informasi.disposisi', $permohonan->id_permohonan) }}" method="POST"
+                            x-data="{ 
+                                selectedSkpds: [], 
+                                showHelp: false,
+                                searchQuery: '',
+                                toggleSkpd(id) {
+                                    if (this.selectedSkpds.includes(id)) {
+                                        this.selectedSkpds = this.selectedSkpds.filter(s => s !== id);
+                                    } else {
+                                        this.selectedSkpds.push(id);
+                                    }
+                                }
+                            }">
+                            @csrf
                             
-                            <div class="flex gap-3 justify-center">
-                                <button type="button" @click="processModalOpen = false"
-                                    class="px-4 py-2 rounded-md border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-600 font-medium text-sm">
-                                    Batal
-                                </button>
-                                <a href="{{ route('admin.permohonan-informasi.disposisi', $permohonan->id_permohonan) }}"
-                                    class="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-purple-600 text-white hover:bg-purple-700 font-medium text-sm shadow-sm">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-                                    </svg>
-                                    Lanjut ke Halaman Disposisi
-                                </a>
+                            <!-- Info Banner -->
+                            <div class="mb-6 p-4 bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 border border-purple-200 dark:border-purple-800 rounded-xl">
+                                <div class="flex items-start gap-3">
+                                    <div class="flex-shrink-0">
+                                        <svg class="w-5 h-5 text-purple-600 dark:text-purple-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="text-sm font-semibold text-purple-900 dark:text-purple-100 mb-1">Disposisi Permohonan</h4>
+                                        <p class="text-xs text-purple-700 dark:text-purple-300">Teruskan permohonan ini ke OPD terkait untuk diproses lebih lanjut. Anda dapat memilih lebih dari satu OPD sekaligus.</p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                            
+                            <div class="space-y-5">
+                                <!-- SKPD Checkbox Grid Card -->
+                                <div class="bg-white dark:bg-slate-700/50 rounded-xl border border-slate-200 dark:border-slate-600 p-5 shadow-sm">
+                                    <div class="flex items-start justify-between mb-4">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-10 h-10 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center">
+                                                <svg class="w-5 h-5 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                                                </svg>
+                                            </div>
+                                            <div>
+                                                <label class="block text-sm font-bold text-slate-800 dark:text-slate-100">
+                                                    Pilih OPD Tujuan <span class="text-red-500">*</span>
+                                                </label>
+                                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Centang satu atau lebih OPD penerima disposisi</p>
+                                            </div>
+                                        </div>
+                                        <button type="button" @click="showHelp = !showHelp" 
+                                            class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+
+                                    <!-- Help Text -->
+                                    <div x-show="showHelp" x-transition class="mb-4 p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+                                        <p class="text-xs text-blue-700 dark:text-blue-300">
+                                            <strong>Tips:</strong> Gunakan kotak pencarian untuk menemukan OPD dengan cepat. Centang kotak untuk memilih. OPD yang sudah menerima disposisi tidak dapat dipilih lagi.
+                                        </p>
+                                    </div>
+
+                                    <!-- Search Box -->
+                                    <div class="mb-4">
+                                        <div class="relative">
+                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <svg class="h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                                </svg>
+                                            </div>
+                                            <input type="text" x-model="searchQuery" 
+                                                placeholder="🔍 Cari OPD..."
+                                                class="block w-full pl-10 pr-3 py-2.5 border-2 border-slate-300 dark:border-slate-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all">
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- OPD Checkbox Grid -->
+                                    <div class="max-h-96 overflow-y-auto pr-2 space-y-2 custom-scrollbar">
+                                        @foreach($allSkpd as $skpd)
+                                            @php
+                                                $isDisposisied = $permohonan->disposisi->pluck('id_skpd')->contains($skpd->id_skpd);
+                                            @endphp
+                                            <div x-show="'{{ strtolower($skpd->nm_skpd) }}'.includes(searchQuery.toLowerCase())" 
+                                                class="group/card relative">
+                                                <label class="flex items-center gap-3 p-3 rounded-lg border-2 transition-all cursor-pointer
+                                                    {{ $isDisposisied ? 'bg-green-50 dark:bg-green-900/10 border-green-200 dark:border-green-800 opacity-60 cursor-not-allowed' : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-600 hover:border-purple-300 dark:hover:border-purple-600 hover:shadow-md' }}"
+                                                    :class="{ 'border-purple-500 dark:border-purple-500 bg-purple-50 dark:bg-purple-900/20 shadow-md': selectedSkpds.includes('{{ $skpd->id_skpd }}') && !{{ $isDisposisied ? 'true' : 'false' }} }">
+                                                    
+                                                    @if($isDisposisied)
+                                                        <!-- Already Disposed Checkmark -->
+                                                        <div class="flex-shrink-0 w-5 h-5 rounded bg-green-500 flex items-center justify-center">
+                                                            <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                                            </svg>
+                                                        </div>
+                                                    @else
+                                                        <!-- Selectable Checkbox -->
+                                                        <input type="checkbox" 
+                                                            name="skpd_ids[]" 
+                                                            value="{{ $skpd->id_skpd }}"
+                                                            @click="toggleSkpd('{{ $skpd->id_skpd }}')"
+                                                            class="w-5 h-5 text-purple-600 bg-white dark:bg-slate-700 border-2 border-slate-300 dark:border-slate-500 rounded focus:ring-2 focus:ring-purple-500 focus:ring-offset-0 transition-all cursor-pointer">
+                                                    @endif
+                                                    
+                                                    <!-- OPD Info -->
+                                                    <div class="flex-1 min-w-0">
+                                                        <div class="flex items-center gap-2">
+                                                            <svg class="w-4 h-4 flex-shrink-0 {{ $isDisposisied ? 'text-green-600 dark:text-green-400' : 'text-purple-600 dark:text-purple-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                                                            </svg>
+                                                            <span class="text-sm font-medium text-slate-800 dark:text-slate-100 truncate">
+                                                                {{ $skpd->nm_skpd }}
+                                                            </span>
+                                                            @if($isDisposisied)
+                                                                <span class="ml-auto flex-shrink-0 px-2 py-0.5 text-xs font-semibold text-green-700 dark:text-green-300 bg-green-100 dark:bg-green-900/30 rounded-full">
+                                                                    Sudah Didisposisikan
+                                                                </span>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </label>
+                                                
+                                                <!-- Tooltip on card hover -->
+                                                <div class="absolute left-3 top-full mt-2 px-3 py-2 bg-slate-900 dark:bg-slate-700 text-white text-sm rounded-lg shadow-2xl z-[9999] whitespace-nowrap opacity-0 invisible group-hover/card:opacity-100 group-hover/card:visible transition-all duration-200 pointer-events-none">
+                                                    <div class="font-medium">{{ $skpd->nm_skpd }}</div>
+                                                    <div class="absolute -top-1.5 left-6 w-3 h-3 bg-slate-900 dark:bg-slate-700 transform rotate-45"></div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    
+                                    <!-- Selection Counter -->
+                                    <div class="mt-4 flex items-center justify-between p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-200 dark:border-purple-800">
+                                        <div class="flex items-center gap-2 text-sm">
+                                            <svg class="w-5 h-5 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                            <span class="font-semibold text-purple-900 dark:text-purple-100">
+                                                <span x-text="selectedSkpds.length">0</span> OPD dipilih
+                                            </span>
+                                        </div>
+                                        <span class="text-xs text-purple-700 dark:text-purple-300">
+                                            Minimal 1 OPD harus dipilih
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- Catatan Disposisi Card -->
+                                <div class="bg-white dark:bg-slate-700/50 rounded-xl border border-slate-200 dark:border-slate-600 p-5 shadow-sm">
+                                    <div class="flex items-center gap-2 mb-4">
+                                        <div class="w-10 h-10 bg-amber-100 dark:bg-amber-900/30 rounded-lg flex items-center justify-center">
+                                            <svg class="w-5 h-5 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-bold text-slate-800 dark:text-slate-100">
+                                                Catatan Disposisi
+                                            </label>
+                                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Instruksi atau pesan untuk OPD penerima (opsional)</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <textarea name="catatan" rows="4"
+                                        class="w-full px-4 py-3 border-2 border-slate-300 dark:border-slate-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 sm:text-sm resize-none transition-all"
+                                        placeholder="Contoh: Mohon segera ditindaklanjuti dan berkoordinasi dengan bagian terkait..."></textarea>
+                                    
+                                    <div class="flex items-center gap-2 mt-2 text-xs text-slate-400">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                        <span>Catatan akan terlihat oleh semua OPD yang menerima disposisi</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Action Buttons with Better Visibility -->
+                            <div class="mt-6 pt-4 border-t-2 border-slate-300 dark:border-slate-600 flex flex-col-reverse sm:flex-row gap-3">
+                                <button type="button" @click="processModalOpen = false"
+                                    class="flex-1 sm:flex-none px-6 py-3.5 rounded-xl border-2 border-slate-400 dark:border-slate-500 bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-slate-100 font-bold hover:bg-slate-200 dark:hover:bg-slate-600 hover:border-slate-500 dark:hover:border-slate-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500 transition-all shadow-md hover:shadow-lg">
+                                    <span class="flex items-center justify-center gap-2">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                                        </svg>
+                                        Batal
+                                    </span>
+                                </button>
+                                <button type="submit"
+                                    x-bind:disabled="selectedSkpds.length === 0"
+                                    x-bind:class="selectedSkpds.length === 0 ? 'bg-slate-300 dark:bg-slate-600 text-slate-500 dark:text-slate-400 cursor-not-allowed' : 'bg-purple-600 text-white hover:bg-purple-700 transform hover:-translate-y-0.5 hover:shadow-2xl active:scale-95'"
+                                    class="flex-1 px-6 py-3.5 rounded-xl font-bold shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-all">
+                                    <span class="flex items-center justify-center gap-2">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                                        </svg>
+                                        Kirim Disposisi
+                                    </span>
+                                </button>
+                            </div>
+                        </form>
                     </div>
+
 
                 </div>
             </div>
@@ -418,4 +602,47 @@
 
 
     </div>
+
+    @push('styles')
+    <style>
+        /* Custom Scrollbar for OPD List */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgb(241 245 249);
+            border-radius: 10px;
+        }
+        
+        .dark .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgb(15 23 42);
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #9333EA 0%, #6366F1 100%);
+            border-radius: 10px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #7C3AED 0%, #4F46E5 100%);
+        }
+        
+        /* Smooth checkbox animations */
+        input[type="checkbox"] {
+            transition: all 0.2s ease-in-out;
+        }
+        
+        input[type="checkbox"]:checked {
+            transform: scale(1.05);
+        }
+    </style>
+    @endpush
+
+    @push('scripts')
+    <script>
+        // No additional scripts needed - pure Alpine.js implementation
+    </script>
+    @endpush
+
 </x-admin-layout>

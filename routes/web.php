@@ -113,6 +113,11 @@ Route::middleware(['track.visitors'])->group(function () {
         return view('pages.profil.ppid-pelaksana', compact('ppidData', 'search'));
     });
 
+    Route::get('/ppid-pelaksana/{id}', function ($id) {
+        $skpd = Skpd::where('id_skpd', $id)->firstOrFail();
+        return view('pages.profil.ppid-pelaksana-detail', compact('skpd'));
+    })->name('ppid-pelaksana.detail');
+
     // Berita Pages
     Route::get('/berita', [GuestBeritaController::class, 'index']);
     Route::get('/berita/{slug}', [GuestBeritaController::class, 'show'])->name('berita.show');
