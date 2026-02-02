@@ -1,38 +1,59 @@
 @props([
-    'trigger',                  // Nama variabel AlpineJS untuk show/hide (Wajib)
-    'status' => 'success',      // Options: 'success', 'error', 'info'
-    'title' => null,            // Opsional, jika null akan pakai default based on status
-    'description' => null,      // Opsional
+    'show' => false,
+    'message' => '',
+    'theme' => 'success',  // Options: 'success', 'error', 'warning', 'info'
+    'autoClose' => true,
+    'duration' => 8000,
 ])
 
 @php
-    // Konfigurasi Tampilan Berdasarkan Status
-    switch ($status) {
+    switch ($theme) {
         case 'error':
-            $theme = [
-                'gradient' => 'from-red-600 to-rose-400', // Warna Blob Merah
-                'btn_primary' => 'from-red-600 to-rose-500 hover:to-rose-400',
-                'btn_shadow' => 'shadow-red-500/30',
-                'default_title' => 'Gagal!',
-                'icon' => 'M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z' // X Circle
+            $colors = [
+                'gradient' => 'from-red-500 to-rose-600',
+                'bg' => 'rgba(239, 68, 68, 0.15) 0%, rgba(220, 38, 38, 0.10) 100%',
+                'border' => 'rgba(239, 68, 68, 0.3)',
+                'overlay' => 'from-red-500/10 via-transparent to-rose-500/10',
+                'icon_bg' => 'from-red-500 to-rose-600',
+                'text' => 'text-red-900 dark:text-red-100',
+                'icon_color' => 'text-red-600 dark:text-red-400',
+                'icon' => 'M6 18L18 6M6 6l12 12' // X icon
+            ];
+            break;
+        case 'warning':
+            $colors = [
+                'gradient' => 'from-amber-500 to-orange-600',
+                'bg' => 'rgba(251, 146, 60, 0.15) 0%, rgba(249, 115, 22, 0.10) 100%',
+                'border' => 'rgba(251, 146, 60, 0.3)',
+                'overlay' => 'from-amber-500/10 via-transparent to-orange-500/10',
+                'icon_bg' => 'from-amber-500 to-orange-600',
+                'text' => 'text-amber-900 dark:text-amber-100',
+                'icon_color' => 'text-amber-600 dark:text-amber-400',
+                'icon' => 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z' // Triangle warning
             ];
             break;
         case 'info':
-            $theme = [
-                'gradient' => 'from-sky-500 to-indigo-500', // Warna Blob Biru Langit
-                'btn_primary' => 'from-sky-500 to-indigo-500 hover:to-indigo-400',
-                'btn_shadow' => 'shadow-sky-500/30',
-                'default_title' => 'Informasi',
-                'icon' => 'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z' // Info Circle
+            $colors = [
+                'gradient' => 'from-blue-500 to-indigo-600',
+                'bg' => 'rgba(59, 130, 246, 0.15) 0%, rgba(79, 70, 229, 0.10) 100%',
+                'border' => 'rgba(59, 130, 246, 0.3)',
+                'overlay' => 'from-blue-500/10 via-transparent to-indigo-500/10',
+                'icon_bg' => 'from-blue-500 to-indigo-600',
+                'text' => 'text-blue-900 dark:text-blue-100',
+                'icon_color' => 'text-blue-600 dark:text-blue-400',
+                'icon' => 'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z' // Info circle
             ];
             break;
         default: // success
-            $theme = [
-                'gradient' => 'from-[#1A305E] to-blue-500', // Warna Blob Original (Biru Tua)
-                'btn_primary' => 'from-[#1A305E] to-blue-600 hover:to-blue-500',
-                'btn_shadow' => 'shadow-blue-500/30',
-                'default_title' => 'Berhasil!',
-                'icon' => 'M5 13l4 4L19 7' // Check
+            $colors = [
+                'gradient' => 'from-emerald-500 to-green-600',
+                'bg' => 'rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.10) 100%',
+                'border' => 'rgba(16, 185, 129, 0.3)',
+                'overlay' => 'from-emerald-500/10 via-transparent to-green-500/10',
+                'icon_bg' => 'from-emerald-500 to-green-600',
+                'text' => 'text-emerald-900 dark:text-emerald-100',
+                'icon_color' => 'text-emerald-600 dark:text-emerald-400',
+                'icon' => 'M5 13l4 4L19 7' // Checkmark
             ];
             break;
     }
@@ -124,4 +145,4 @@
             </div>
         </div>
     </div>
-</div>
+@endif

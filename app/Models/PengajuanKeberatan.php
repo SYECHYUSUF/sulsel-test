@@ -9,6 +9,7 @@ class PengajuanKeberatan extends Model
     protected $table = 'tbl_pengajuan';
     protected $primaryKey = 'id_pengajuan';
     protected $guarded = [];
+    protected $appends = ['status_label', 'status_color'];
 
     public function skpd()
     {
@@ -20,8 +21,39 @@ class PengajuanKeberatan extends Model
         return $this->hasMany(AlasanPengajuan::class, 'id_pengajuan', 'id_pengajuan');
     }
 
+    public function disposisi()
+    {
+        return $this->hasMany(PengajuanDisposisi::class, 'id_pengajuan', 'id_pengajuan');
+    }
+
     public function feedbackBy()
     {
         return $this->belongsTo(User::class, 'feedback_by');
+    }
+
+    // Status Accessor for Label
+    public function getStatusLabelAttribute()
+    {
+        return match ($this->status) {
+            'p' => 'Menunggu Verifikasi',
+            'd' => 'Disposisi',
+            'a' => 'Dijawab',
+            't' => 'Ditolak',
+            'y' => 'Disetujui',
+            default => 'Proses',
+        };
+    }
+
+    // Status Accessor for Color Class
+    public function getStatusColorAttribute()
+    {
+        return match ($this->status) {
+            'p' => 'bg-yellow-100 text-yellow-800',
+            'd' => 'bg-purple-100 text-purple-800',
+            'a' => 'bg-blue-100 text-blue-800',
+            't' => 'bg-red-100 text-red-800',
+            'y' => 'bg-green-100 text-green-800',
+            default => 'bg-slate-100 text-slate-800',
+        };
     }
 }

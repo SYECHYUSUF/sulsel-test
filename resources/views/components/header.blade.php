@@ -364,6 +364,13 @@
                         </li>
 
                         <li>
+                            <a href="{{ route('layanan.pengajuan-keberatan.check-status') }}"
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">
+                                Cek Status Pengajuan
+                            </a>
+                        </li>
+
+                        <li>
                             <a href="/layanan/sop"
                                 class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37] {{ request()->is('layanan/sop') ? 'text-[#D4AF37] border-[#D4AF37] bg-[#1A305E]/5' : '' }}">
                                 {{ __('messages.menu.sop') }}

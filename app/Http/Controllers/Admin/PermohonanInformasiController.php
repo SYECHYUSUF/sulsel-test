@@ -42,6 +42,11 @@ class PermohonanInformasiController extends Controller
             });
         }
 
+        // Filter Status
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
         // Pagination & Sorting
         $permohonan = $query->latest()->paginate(10);
 

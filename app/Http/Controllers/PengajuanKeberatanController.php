@@ -61,20 +61,57 @@ class PengajuanKeberatanController extends Controller
     public function checkStatus(Request $request)
     {
         $request->validate([
-            'no_pendaftaran' => 'required',
-            'email' => 'required|email'
+            'email' => 'required|email',
         ]);
 
         $pengajuan = \App\Models\PengajuanKeberatan::with(['feedbackBy', 'alasanPengajuan'])
-            ->where('no_pendaftaran', $request->no_pendaftaran)
             ->where('email_pemohon', $request->email)
-            ->first();
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-        if (!$pengajuan) {
-            return back()->with('error', 'Data pengajuan tidak ditemukan. Periksa kembali Nomor Pendaftaran dan Email Anda.');
+        if ($pengajuan->isEmpty()) {
+            if ($request->expectsJson() || $request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Tidak ada pengajuan keberatan ditemukan dengan email tersebut.'
+                ], 404);
+            }
+            return redirect()->back()->with('error', 'Tidak ada pengajuan keberatan ditemukan dengan email tersebut.');
         }
 
-        return view('pages.layanan.detail-status-keberatan', compact('pengajuan'));
+        // Transform data untuk menyertakan label status
+        if ($request->expectsJson() || $request->ajax()) {
+            $pengajuan->transform(function ($item) {
+                // Mapping status untuk pengajuan keberatan
+                // Status: 'p' = pending/proses, 'y' = disetujui, 't' = ditolak, 'a' = dijawab
+                $labels = [
+                    'p' => 'Dalam Proses',
+                    'y' => 'Disetujui',
+                    't' => 'Ditolak',
+                    'a' => 'Dijawab',
+                ];
+                
+                // Check if feedback is empty/null - override status label
+                if (empty($item->feedback) && $item->status != 't') {
+                    $item->status_label = 'Belum Direspon';
+                    $item->display_status = 'belum_direspon'; // Custom status for frontend
+                } else {
+                    $item->status_label = $labels[$item->status] ?? 'Status Tidak Diketahui';
+                    $item->display_status = $item->status;
+                }
+                
+                $item->formatted_date = $item->created_at->translatedFormat('d F Y H:i') . ' WITA';
+                
+                return $item;
+            });
+
+            return response()->json([
+                'success' => true,
+                'data' => $pengajuan
+            ]);
+        }
+
+        return view('pages.layanan.cek-status-keberatan', compact('pengajuan'));
     }
 
     public function formCheckStatus()

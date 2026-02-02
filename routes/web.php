@@ -150,7 +150,7 @@ Route::middleware(['track.visitors'])->group(function () {
         $masterPekerjaan = \App\Models\MasterPekerjaan::active()->orderBy('nama_pekerjaan')->get();
         $alasanPengajuans = \App\Models\AlasanPengajuan::orderBy('alasan')->get();
         return view('pages.layanan.pengajuan-keberatan', compact('masterPekerjaan', 'alasanPengajuans'));
-    });
+    })->name('layanan.pengajuan-keberatan');
 
     // Rute Permohonan Informasi
     Route::post('/layanan/permohonan-informasi', [App\Http\Controllers\PermohonanInformasiController::class, 'store'])->name('layanan.permohonan-informasi.store');
@@ -222,6 +222,9 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::resource('pengajuan-keberatan', PengajuanKeberatanController::class);
         Route::post('pengajuan-keberatan/{id}/feedback', [PengajuanKeberatanController::class, 'storeFeedback'])->name('pengajuan-keberatan.storeFeedback');
         Route::get('pengajuan-keberatan/{id}/feedback', [PengajuanKeberatanController::class, 'loadFeedback'])->name('pengajuan-keberatan.loadFeedback');
+        Route::get('pengajuan-keberatan/{id}/disposisi', [PengajuanKeberatanController::class, 'disposisiForm'])->name('pengajuan-keberatan.disposisi');
+        Route::post('pengajuan-keberatan/{id}/disposisi', [PengajuanKeberatanController::class, 'disposisiStore'])->name('pengajuan-keberatan.disposisi.store');
+        Route::post('pengajuan-keberatan/disposisi/{disposisiId}/respon', [PengajuanKeberatanController::class, 'responStore'])->name('pengajuan-keberatan.respon.store');
 
         Route::resource('dokumen-publik', DokumenPublikController::class);
         Route::post('dokumen-publik/bulk-delete', [DokumenPublikController::class, 'bulkDelete'])->name('dokumen-publik.bulk-delete');
