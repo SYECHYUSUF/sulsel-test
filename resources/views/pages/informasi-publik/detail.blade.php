@@ -19,14 +19,13 @@
                     class="w-4 h-4 text-gray-400">
                     <path d="m9 18 6-6-6-6" />
                 </svg>
-                <a href="/informasi-publik" class="hover:text-[#1A305E] dark:text-white transition-colors">Informasi
-                    Publik</a>
+                <a href="/informasi-publik" class="hover:text-[#1A305E] dark:text-white transition-colors">{{ __('messages.breadcrumb.public_info') }}</a>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="w-4 h-4 text-gray-400">
                     <path d="m9 18 6-6-6-6" />
                 </svg>
-                <span class="text-[#1A305E] dark:text-white font-medium">Detail Informasi</span>
+                <span class="text-[#1A305E] dark:text-white font-medium">{{ __('messages.public_info_pages.detail_title') }}</span>
             </div>
 
             {{-- Title --}}
@@ -36,7 +35,7 @@
                         {{ $informasi->judul }}
                     </h1>
                     <p class="text-gray-600 dark:text-gray-300">
-                        Detail lengkap informasi publik
+                        {{ __('messages.public_info_pages.detail_subtitle') }}
                     </p>
                 </div>
                 <div class="hidden md:block">

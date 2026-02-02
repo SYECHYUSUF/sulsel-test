@@ -327,6 +327,12 @@ return [
         
         'daftar_title' => 'Public Information List',
         'daftar_subtitle' => 'Complete Public Information Index',
+        
+        'index_title' => 'Public Information List',
+        'index_subtitle' => 'Complete List of Public Information for South Sulawesi Province',
+        
+        'detail_title' => 'Information Detail',
+        'detail_subtitle' => 'Complete details of public information',
     ],
     'ppid_pelaksana' => [
         'title' => 'Implementing PPID',
