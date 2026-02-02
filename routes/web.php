@@ -155,7 +155,9 @@ Route::middleware(['track.visitors'])->group(function () {
     // Rute Permohonan Informasi
     Route::post('/layanan/permohonan-informasi', [App\Http\Controllers\PermohonanInformasiController::class, 'store'])->name('layanan.permohonan-informasi.store');
 
-    Route::post('/layanan/pengajuan-keberatan', [GuestPengajuanKeberatanController::class, 'store'])->name('layanan.pengajuan-keberatan.store');
+    Route::post('/layanan/pengajuan-keberatan', [GuestPengajuanKeberatanController::class, 'store'])
+        ->middleware(['honeypot', 'throttle:public-form'])
+        ->name('layanan.pengajuan-keberatan.store');
 
     // Check Status Routes
     Route::get('/layanan/pengajuan-keberatan/cek-status', [GuestPengajuanKeberatanController::class, 'formCheckStatus'])->name('layanan.pengajuan-keberatan.check-status');
@@ -169,13 +171,19 @@ Route::middleware(['track.visitors'])->group(function () {
     Route::get('/survey/hasil-survey', [\App\Http\Controllers\SurveyController::class, 'showResults']);
 });
 
-Route::post('/layanan/permohonan-informasi', [GuestPermohonanInformasiController::class, 'store'])->name('layanan.permohonan-informasi.store');
+Route::post('/layanan/permohonan-informasi', [GuestPermohonanInformasiController::class, 'store'])
+    ->middleware(['honeypot', 'throttle:public-form'])
+    ->name('layanan.permohonan-informasi.store');
 
-Route::post('/layanan/cek-status-permohonan', [GuestPermohonanInformasiController::class, 'checkProgress']);
+Route::post('/layanan/cek-status-permohonan', [GuestPermohonanInformasiController::class, 'checkProgress'])
+    ->middleware(['throttle:check-status']);
 
-Route::post('/layanan/pengajuan-keberatan/cek-status', [GuestPengajuanKeberatanController::class, 'checkStatus']);
+Route::post('/layanan/pengajuan-keberatan/cek-status', [GuestPengajuanKeberatanController::class, 'checkStatus'])
+    ->middleware(['throttle:check-status']);
 
-Route::post('/survey/isi-survey', [\App\Http\Controllers\SurveyController::class, 'store'])->name('survey.store');
+Route::post('/survey/isi-survey', [\App\Http\Controllers\SurveyController::class, 'store'])
+    ->middleware(['honeypot', 'throttle:public-form'])
+    ->name('survey.store');
 
 
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {

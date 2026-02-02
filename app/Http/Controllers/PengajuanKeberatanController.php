@@ -2,59 +2,47 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePengajuanKeberatanRequest;
 use Illuminate\Http\Request;
 
 class PengajuanKeberatanController extends Controller
 {
-    public function store(Request $request)
+    public function store(StorePengajuanKeberatanRequest $request)
     {
-        $request->validate([
-            'no_pendaftaran' => 'required',
-            'tujuan' => 'required',
-            'nama_pemohon' => 'required',
-            'alamat_pemohon' => 'required',
-            'address_pemohon' => 'required',
-            'city_pemohon' => 'required',
-            'state_pemohon' => 'required',
-            'pekerjaan_pemohon' => 'required',
-            'no_telp_pemohon' => 'required',
-            'email_pemohon' => 'required|email',
-            'alasan' => 'required|array|min:1',
-            'kasus' => 'required',
-            'metode_respon' => 'required|in:website,whatsapp', // Add Validation
-        ]);
+        // Validation and sanitization already handled by Form Request
+        $validated = $request->validated();
 
         // Cari Data Permohonan Asli untuk mendapatkan ID SKPD
-        $permohonan = \App\Models\PermohonanInformasi::where('no_pendaftaran', $request->no_pendaftaran)->first();
+        $permohonan = \App\Models\PermohonanInformasi::where('no_pendaftaran', $validated['no_pendaftaran'])->first();
         $id_skpd = $permohonan ? $permohonan->id_skpd : null;
 
         $pengajuan = \App\Models\PengajuanKeberatan::create([
-            'no_pendaftaran' => $request->no_pendaftaran,
-            'id_skpd' => $id_skpd, // Save ID SKPD
-            'tujuan' => $request->tujuan,
-            'nama_pemohon' => $request->nama_pemohon,
-            'alamat_pemohon' => $request->alamat_pemohon,
-            'address_pemohon' => $request->address_pemohon,
-            'apt_pemohon' => $request->apt_pemohon,
-            'city_pemohon' => $request->city_pemohon,
-            'state_pemohon' => $request->state_pemohon,
-            'pekerjaan_pemohon' => $request->pekerjaan_pemohon,
-            'no_telp_pemohon' => $request->no_telp_pemohon,
-            'email_pemohon' => $request->email_pemohon,
+            'no_pendaftaran' => $validated['no_pendaftaran'],
+            'id_skpd' => $id_skpd,
+            'tujuan' => $validated['tujuan'],
+            'nama_pemohon' => $validated['nama_pemohon'],
+            'alamat_pemohon' => $validated['alamat_pemohon'],
+            'address_pemohon' => $validated['address_pemohon'],
+            'apt_pemohon' => $validated['apt_pemohon'] ?? null,
+            'city_pemohon' => $validated['city_pemohon'],
+            'state_pemohon' => $validated['state_pemohon'],
+            'pekerjaan_pemohon' => $validated['pekerjaan_pemohon'],
+            'no_telp_pemohon' => $validated['no_telp_pemohon'],
+            'email_pemohon' => $validated['email_pemohon'],
             // Kuasa (Optional)
-            'nama_kuasa' => $request->nama_kuasa,
-            'alamat_kuasa' => $request->alamat_kuasa,
-            'address_kuasa' => $request->address_kuasa,
-            'apt_kuasa' => $request->apt_kuasa,
-            'city_kuasa' => $request->city_kuasa,
-            'state_kuasa' => $request->state_kuasa,
-            'no_telp_kuasa' => $request->no_telp_kuasa,
-            'kasus' => $request->kasus,
+            'nama_kuasa' => $validated['nama_kuasa'] ?? null,
+            'alamat_kuasa' => $validated['alamat_kuasa'] ?? null,
+            'address_kuasa' => $validated['address_kuasa'] ?? null,
+            'apt_kuasa' => $validated['apt_kuasa'] ?? null,
+            'city_kuasa' => $validated['city_kuasa'] ?? null,
+            'state_kuasa' => $validated['state_kuasa'] ?? null,
+            'no_telp_kuasa' => $validated['no_telp_kuasa'] ?? null,
+            'kasus' => $validated['kasus'],
             'status' => 'n', // New
-            'metode_respon' => $request->metode_respon, // Save Preference
+            'metode_respon' => $validated['metode_respon'],
         ]);
 
-        foreach ($request->alasan as $alasan) {
+        foreach ($validated['alasan'] as $alasan) {
             \App\Models\AlasanPengajuan::create([
                 'id_pengajuan' => $pengajuan->id_pengajuan,
                 'alasan' => $alasan,
@@ -62,7 +50,7 @@ class PengajuanKeberatanController extends Controller
         }
 
         $msg = 'Pengajuan keberatan berhasil dikirim.';
-        if($request->metode_respon == 'whatsapp') {
+        if($validated['metode_respon'] == 'whatsapp') {
             $msg .= ' Tanggapan akan dikirimkan melalui WhatsApp ke nomor yang Anda daftarkan.';
         } else {
             $msg .= ' Silakan cek status pengajuan secara berkala melalui menu "Cek Status".';

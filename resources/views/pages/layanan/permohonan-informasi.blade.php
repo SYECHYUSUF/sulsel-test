@@ -133,6 +133,13 @@
                     <form action="{{ route('layanan.permohonan-informasi.store') }}" method="POST" enctype="multipart/form-data" class="space-y-8" id="permohonanForm">
                         @csrf
                         
+                        {{-- Honeypot field for bot detection (hidden, must remain empty) --}}
+                        <div style="position: absolute; left: -9999px; opacity: 0;" aria-hidden="true">
+                            <input type="text" name="website" tabindex="-1" autocomplete="off" />
+                        </div>
+                        {{-- Timestamp for bot detection --}}
+                        <input type="hidden" name="_form_timestamp" value="{{ time() }}" />
+                        
                         {{-- Personal Data --}}
                         <div class="space-y-6">
                             <h3 class="text-lg font-bold text-[#1A305E] dark:text-white flex items-center gap-2 border-b border-gray-200 pb-3">

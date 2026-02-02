@@ -82,6 +82,13 @@
                     <form action="{{ route('layanan.pengajuan-keberatan.store') }}" method="POST" class="space-y-6">
                         @csrf
                         
+                        {{-- Honeypot field for bot detection (hidden, must remain empty) --}}
+                        <div style="position: absolute; left: -9999px; opacity: 0;" aria-hidden="true">
+                            <input type="text" name="website" tabindex="-1" autocomplete="off" />
+                        </div>
+                        {{-- Timestamp for bot detection --}}
+                        <input type="hidden" name="_form_timestamp" value="{{ time() }}" />
+                        
                         <!-- Core Form Fields -->
                         <div class="space-y-6">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
