@@ -8,6 +8,7 @@ use App\Http\Controllers\MatriksDipController as GuestMatriksDipController;
 use App\Http\Controllers\SopController as GuestSopController;
 use App\Http\Controllers\PengajuanKeberatanController as GuestPengajuanKeberatanController;
 use App\Http\Controllers\PermohonanInformasiController as GuestPermohonanInformasiController;
+use Illuminate\Cache\RateLimiting\Limit;
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\BeritaController;
@@ -95,21 +96,21 @@ Route::middleware(['track.visitors'])->group(function () {
 
     Route::get('/ppid-pelaksana', function (Illuminate\Http\Request $request) {
         $search = $request->input('search');
-        
+
         $query = Skpd::orderBy('nm_skpd', 'asc');
-        
+
         // Apply search filter if search term exists
         if ($search) {
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('nm_skpd', 'like', '%' . $search . '%')
-                  ->orWhere('alamat', 'like', '%' . $search . '%')
-                  ->orWhere('email', 'like', '%' . $search . '%')
-                  ->orWhere('website', 'like', '%' . $search . '%');
+                    ->orWhere('alamat', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%')
+                    ->orWhere('website', 'like', '%' . $search . '%');
             });
         }
-        
+
         $ppidData = $query->paginate(12)->appends(['search' => $search]);
-        
+
         return view('pages.profil.ppid-pelaksana', compact('ppidData', 'search'));
     });
 
@@ -143,12 +144,13 @@ Route::middleware(['track.visitors'])->group(function () {
     Route::get('/layanan/cek-status-permohonan', [GuestPermohonanInformasiController::class, 'checkProgressForm'])->name('layanan.cek-status-permohonan');
     Route::get('/layanan/pengajuan-keberatan', function () {
         $masterPekerjaan = \App\Models\MasterPekerjaan::active()->orderBy('nama_pekerjaan')->get();
-        return view('pages.layanan.pengajuan-keberatan', compact('masterPekerjaan'));
+        $alasanPengajuans = \App\Models\AlasanPengajuan::orderBy('alasan')->get();
+        return view('pages.layanan.pengajuan-keberatan', compact('masterPekerjaan', 'alasanPengajuans'));
     });
-    
+
     // Rute Permohonan Informasi
     Route::post('/layanan/permohonan-informasi', [App\Http\Controllers\PermohonanInformasiController::class, 'store'])->name('layanan.permohonan-informasi.store');
-    
+
     Route::post('/layanan/pengajuan-keberatan', [GuestPengajuanKeberatanController::class, 'store'])->name('layanan.pengajuan-keberatan.store');
 
     // Check Status Routes
@@ -156,7 +158,7 @@ Route::middleware(['track.visitors'])->group(function () {
 
     Route::get('/layanan/sop', [GuestSopController::class, 'index'])->name('layanan.sop');
     Route::get('/layanan/sop/download/{id}', [GuestSopController::class, 'download'])->name('layanan.sop.download');
-    
+
 
     // Survey Pages
     Route::get('/survey/isi-survey', [\App\Http\Controllers\SurveyController::class, 'create']);
@@ -224,6 +226,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::post('permohonan-informasi/disposisi/{disposisiId}/respon', [PermohonanInformasiController::class, 'responStore'])->name('permohonan-informasi.respon.store');
 
         Route::resource('permohonan-informasi', PermohonanInformasiController::class);
+        Route::resource('ikphns', \App\Http\Controllers\Admin\IkphnController::class);
     });
 
     // Rute khusus Super Admin (Tanpa check_skpd karena mengelola semua SKPD)
@@ -244,10 +247,38 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 
         // Social Links CRUD
         Route::resource('social-links', SosmedController::class);
-        
-        // Master Data Management
+
+        // Create Alasan Pengajuan Resource
+        Route::resource('alasan-pengajuan', \App\Http\Controllers\Admin\AlasanPengajuanController::class)->except(['show']);
+
+        // Unified Master Data Management
+        Route::get('master-data', [\App\Http\Controllers\Admin\MasterDataController::class, 'index'])->name('master-data.index');
+
+        // CRUD Routes for Master Data components (used by forms)
+        Route::post('master-data/kategori', [\App\Http\Controllers\Admin\KategoriInformasiController::class, 'store'])->name('master-data.kategori.store');
+        Route::put('master-data/kategori/{id}', [\App\Http\Controllers\Admin\KategoriInformasiController::class, 'update'])->name('master-data.kategori.update');
+        Route::delete('master-data/kategori/{id}', [\App\Http\Controllers\Admin\KategoriInformasiController::class, 'destroy'])->name('master-data.kategori.destroy');
+
+        Route::post('master-data/tahun', [\App\Http\Controllers\Admin\MasterTahunController::class, 'store'])->name('master-data.tahun.store');
+        Route::put('master-data/tahun/{id}', [\App\Http\Controllers\Admin\MasterTahunController::class, 'update'])->name('master-data.tahun.update');
+        Route::delete('master-data/tahun/{id}', [\App\Http\Controllers\Admin\MasterTahunController::class, 'destroy'])->name('master-data.tahun.destroy');
+
+        Route::post('master-data/domisili', [\App\Http\Controllers\Admin\MasterDomisiliController::class, 'store'])->name('master-data.domisili.store');
+        Route::put('master-data/domisili/{id}', [\App\Http\Controllers\Admin\MasterDomisiliController::class, 'update'])->name('master-data.domisili.update');
+        Route::delete('master-data/domisili/{id}', [\App\Http\Controllers\Admin\MasterDomisiliController::class, 'destroy'])->name('master-data.domisili.destroy');
+
+        Route::post('master-data/pekerjaan', [\App\Http\Controllers\Admin\MasterPekerjaanController::class, 'store'])->name('master-data.pekerjaan.store');
+        Route::put('master-data/pekerjaan/{id}', [\App\Http\Controllers\Admin\MasterPekerjaanController::class, 'update'])->name('master-data.pekerjaan.update');
+        Route::delete('master-data/pekerjaan/{id}', [\App\Http\Controllers\Admin\MasterPekerjaanController::class, 'destroy'])->name('master-data.pekerjaan.destroy');
+
+        Route::post('master-data/alasan-pengajuan', [\App\Http\Controllers\Admin\AlasanPengajuanController::class, 'store'])->name('master-data.alasan-pengajuan.store');
+        Route::put('master-data/alasan-pengajuan/{id}', [\App\Http\Controllers\Admin\AlasanPengajuanController::class, 'update'])->name('master-data.alasan-pengajuan.update');
+        Route::delete('master-data/alasan-pengajuan/{id}', [\App\Http\Controllers\Admin\AlasanPengajuanController::class, 'destroy'])->name('master-data.alasan-pengajuan.destroy');
+
+        // Keep existing individual routes for backward compatibility
         Route::resource('master-pekerjaan', \App\Http\Controllers\Admin\MasterPekerjaanController::class);
         Route::resource('master-domisili', \App\Http\Controllers\Admin\MasterDomisiliController::class);
+        Route::resource('master-tahun', \App\Http\Controllers\Admin\MasterTahunController::class);
     });
 });
 

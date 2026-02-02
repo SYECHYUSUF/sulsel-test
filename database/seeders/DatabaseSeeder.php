@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\MasterTahun;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -16,6 +17,7 @@ class DatabaseSeeder extends Seeder
             FaqSeeder::class,
             SurveySeeder::class,
             SurveyResponseSeeder::class,
+            TahunSeeder::class,
         ]);
 
         // --- Konfigurasi User Admin 2 ---

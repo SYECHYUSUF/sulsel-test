@@ -39,11 +39,8 @@
         this.open = false;
         this.search = '';
 
-        this.$nextTick(() => {
-            if (this.$el.closest('form')) {
-                this.$el.closest('form').submit();
-            }
-        });
+        // Form submission removed to prevent unwanted submissions in standard forms
+
     }
 }" 
 class="relative" 

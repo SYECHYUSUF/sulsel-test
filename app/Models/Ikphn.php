@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ikphn extends Model
 {
-    protected $guarded = [];
+    protected $guarded = ['id'];
+
+    public function skpd()
+    {
+        return $this->belongsTo(Skpd::class, 'id_skpd', 'id_skpd');
+    }
 }

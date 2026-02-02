@@ -144,26 +144,20 @@
                             <div class="pt-4 border-t border-gray-100">
                                 <label class="block text-sm font-semibold text-gray-700 mb-4">Alasan Keberatan (Pilih yang sesuai)</label>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                    @php
-                                        $alasanList = [
-                                            'Pengajuan Keberatan ditolak',
-                                            'Informasi berkala tidak disediakan',
-                                            'Permintaan informasi tidak ditanggapi',
-                                            'Permintaan informasi tidak dipenuhi',
-                                            'Biaya yang dikenakan tidak wajar',
-                                            'Informasi tidak disampaikan tepat waktu'
-                                        ];
-                                    @endphp
-                                    @foreach($alasanList as $key => $alasan)
+                                    @forelse($alasanPengajuans as $alasan)
                                     <label class="relative flex items-start p-3 border rounded-lg hover:bg-slate-50 cursor-pointer group transition-all">
                                         <div class="flex items-center h-5">
-                                            <input type="checkbox" name="alasan[]" value="{{ $alasan }}" class="h-4 w-4 text-[#D1001F] border-gray-300 rounded focus:ring-[#D1001F]">
+                                            <input type="checkbox" name="alasan[]" value="{{ $alasan->alasan }}" class="h-4 w-4 text-[#D1001F] border-gray-300 rounded focus:ring-[#D1001F]">
                                         </div>
                                         <div class="ml-3 text-sm">
-                                            <span class="font-medium text-gray-700 group-hover:text-gray-900">{{ $alasan }}</span>
+                                            <span class="font-medium text-gray-700 group-hover:text-gray-900">{{ $alasan->alasan }}</span>
                                         </div>
                                     </label>
-                                    @endforeach
+                                    @empty
+                                    <div class="col-span-2 text-center py-4 text-gray-500">
+                                        <p>Belum ada data alasan pengajuan. Silakan hubungi administrator.</p>
+                                    </div>
+                                    @endforelse
                                 </div>
                             </div>
 
