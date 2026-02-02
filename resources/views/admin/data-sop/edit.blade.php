@@ -24,8 +24,8 @@
             </div>
         </div>
 
-        <form action="{{ route('admin.data-sop.update', $sop->id) }}" method="POST" enctype="multipart/form-data"
-            class="space-y-6">
+        <form id="editForm" action="{{ route('admin.data-sop.update', $sop->id) }}" method="POST" enctype="multipart/form-data"
+            class="space-y-6" x-data="{ showConfirm: false }" @confirm="document.getElementById('editForm').submit()">
             @csrf
             @method('PUT')
             <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 shadow-sm space-y-6">
@@ -69,10 +69,13 @@
             <div class="flex items-center justify-end gap-3">
                 <a href="{{ route('admin.data-sop.index') }}"
                     class="px-6 py-2.5 border border-slate-200 dark:border-slate-600 rounded-xl text-sm font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all">Batal</a>
-                <button type="submit"
+                <button type="button" @click="showConfirm = true"
                     class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-semibold shadow-sm transition-all focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Perbarui
                     SOP</button>
             </div>
+
+            <x-confirmation-dialog trigger="showConfirm" title="Simpan Perubahan?"
+                description="Apakah Anda yakin ingin menyimpan perubahan SOP ini?" confirmText="Ya, Simpan" theme="primary" />
         </form>
     </div>
 

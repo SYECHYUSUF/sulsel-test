@@ -37,6 +37,10 @@
                 document.documentElement.classList.remove('dark');
             }
         },
+        
+        // Global Notification State
+        notificationOpen: {{ session('success') || session('error') ? 'true' : 'false' }},
+        
         init() {
             if (this.darkMode) {
                 document.documentElement.classList.add('dark');
@@ -101,7 +105,7 @@
             <x-admin-header />
 
             <!-- Main Content -->
-            <main class="w-full grow p-6 lg:p-8 lg:pt-4">
+            <main class="w-full grow p-6 lg:p-8">
                 <div class="w-full mx-auto max-w-7xl">
                     {{ $slot }}
                 </div>
@@ -117,5 +121,12 @@
     @isset($extra_script)
         {{ $extra_script }}
     @endisset
+    <!-- Global Notification Modal -->
+    <x-notification-modal 
+        trigger="notificationOpen" 
+        :status="session('error') ? 'error' : 'success'" 
+        :title="session('error') ? 'Gagal!' : 'Berhasil!'" 
+        :description="session('error') ?? session('success')" 
+    />
 </body>
 </html>

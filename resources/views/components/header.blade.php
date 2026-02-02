@@ -1,5 +1,6 @@
 <header
-    class="fixed top-0 left-0 w-full z-50 bg-white dark:bg-slate-900 shadow-sm font-['Plus_Jakarta_Sans'] transition-colors duration-300"
+    class="fixed top-0 left-0 w-full z-50 font-['Plus_Jakarta_Sans'] transition-all duration-300"
+    :class="scrolled ? 'bg-transparent shadow-none' : 'bg-white dark:bg-slate-900 shadow-sm'"
     x-data="{ 
             mobileMenu: false,
             openProfil: false, 
@@ -10,14 +11,22 @@
             openLang: false,
             lang: '{{ session('locale', 'id') }}'.toUpperCase(),
             darkMode: localStorage.getItem('theme') === 'dark',
+            scrolled: false,
             init() {
                 if (this.darkMode) document.documentElement.classList.add('dark');
                 else document.documentElement.classList.remove('dark');
+                
+                // Listen to scroll events
+                window.addEventListener('scroll', () => {
+                    this.scrolled = window.scrollY > 50;
+                });
             }
         }">
 
     {{-- 1. TOP BAR: LOGO & BAHASA --}}
-    <div class="container mx-auto px-4 py-4 md:py-6 flex items-center justify-between">
+    <div id="topbar" 
+         class="container mx-auto px-4 flex items-center justify-between transition-all duration-300 bg-white dark:bg-slate-900"
+         :class="scrolled ? 'max-h-0 py-0 opacity-0 invisible' : 'max-h-32 py-4 md:py-6 opacity-100 visible'">
         <a href="/" class="flex items-center gap-3 group">
             {{-- Logo Image --}}
             <img src="{{ asset('images/ppid-2.png') }}" alt="Logo PPID Sulawesi Selatan"
@@ -41,10 +50,6 @@
                 class="hidden lg:flex items-center gap-1.5 text-sm font-medium text-[#4A5568] dark:text-gray-300 hover:text-[#D4AF37] transition-colors">
                 Login
             </a>
-            {{-- Contact Desktop --}}
-            <a href="/contact"
-                class="hidden lg:block text-sm font-medium text-[#4A5568] dark:text-gray-300 hover:text-[#D4AF37] transition-colors">{{ __('messages.header.contact') }}</a>
-
 
             {{-- Search Trigger Button --}}
             <button @click="$dispatch('open-search')"
@@ -156,10 +161,10 @@
 
                 {{-- BERANDA --}}
                 <li class="border-b lg:border-none border-white/10">
-                    <a href="/" class="block px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all relative group">
+                    <a href="/" class="block px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all relative group {{ request()->is('/') ? 'text-[#D4AF37]' : '' }}">
                         {{ __('messages.header.home') }}
                         <span
-                            class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block"></span>
+                            class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block {{ request()->is('/') ? 'scale-x-100' : '' }}"></span>
                     </a>
                 </li>
 
@@ -168,7 +173,7 @@
                     @mouseenter="if(window.innerWidth >= 1024) openProfil = true"
                     @mouseleave="if(window.innerWidth >= 1024) openProfil = false">
                     <div @click="if(window.innerWidth < 1024) openProfil = !openProfil"
-                        class="flex items-center justify-between px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all cursor-pointer relative">
+                        class="flex items-center justify-between px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all cursor-pointer relative {{ request()->is('profil-ppid*', 'sambutan*', 'struktur-organisasi*', 'visi-misi*', 'tupoksi*', 'maklumat-pelayanan*', 'profil-pemprov*') ? 'text-[#D4AF37]' : '' }}">
                         <span>{{ __('messages.header.profile') }}</span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform text-[#D4AF37]"
                             :class="openProfil ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24"
@@ -176,7 +181,7 @@
                             <path d="m6 9 6 6 6-6" />
                         </svg>
                         <span
-                            class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block"></span>
+                            class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block {{ request()->is('profil-ppid*', 'sambutan*', 'struktur-organisasi*', 'visi-misi*', 'tupoksi*', 'maklumat-pelayanan*', 'profil-pemprov*') ? 'scale-x-100' : '' }}"></span>
                     </div>
                     <ul x-show="openProfil" x-transition:enter="transition ease-out duration-300 transform origin-top"
                         x-transition:enter-start="opacity-0 -translate-y-2 scale-95"
@@ -186,25 +191,25 @@
                         x-transition:leave-end="opacity-0 -translate-y-2 scale-95"
                         class="lg:absolute lg:left-0 lg:top-full w-full lg:w-64 bg-white dark:bg-slate-800 lg:shadow-xl text-[#1A305E] dark:text-gray-200 py-2 lg:rounded-b-lg lg:border-t-4 lg:border-[#D4AF37] z-50">
                         <li><a href="/profil-ppid"
-                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] transition-colors border-l-4 border-transparent hover:border-[#D4AF37]">{{ __('messages.menu.ppid_profile') }}</a>
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] transition-colors border-l-4 border-transparent hover:border-[#D4AF37] {{ request()->is('profil-ppid') ? 'text-[#D4AF37] border-[#D4AF37] bg-[#1A305E]/5' : '' }}">{{ __('messages.menu.ppid_profile') }}</a>
                         </li>
                         <li><a href="/sambutan"
-                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] transition-colors border-l-4 border-transparent hover:border-[#D4AF37]">{{ __('messages.menu.greeting') }}</a>
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] transition-colors border-l-4 border-transparent hover:border-[#D4AF37] {{ request()->is('sambutan') ? 'text-[#D4AF37] border-[#D4AF37] bg-[#1A305E]/5' : '' }}">{{ __('messages.menu.greeting') }}</a>
                         </li>
                         <li><a href="/struktur-organisasi"
-                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] transition-colors border-l-4 border-transparent hover:border-[#D4AF37]">{{ __('messages.menu.org_structure') }}</a>
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] transition-colors border-l-4 border-transparent hover:border-[#D4AF37] {{ request()->is('struktur-organisasi') ? 'text-[#D4AF37] border-[#D4AF37] bg-[#1A305E]/5' : '' }}">{{ __('messages.menu.org_structure') }}</a>
                         </li>
                         <li><a href="/visi-misi"
-                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] transition-colors border-l-4 border-transparent hover:border-[#D4AF37]">{{ __('messages.menu.vision_mission') }}</a>
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] transition-colors border-l-4 border-transparent hover:border-[#D4AF37] {{ request()->is('visi-misi') ? 'text-[#D4AF37] border-[#D4AF37] bg-[#1A305E]/5' : '' }}">{{ __('messages.menu.vision_mission') }}</a>
                         </li>
                         <li><a href="/tupoksi"
-                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] transition-colors border-l-4 border-transparent hover:border-[#D4AF37]">{{ __('messages.menu.duties_functions') }}</a>
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] transition-colors border-l-4 border-transparent hover:border-[#D4AF37] {{ request()->is('tupoksi') ? 'text-[#D4AF37] border-[#D4AF37] bg-[#1A305E]/5' : '' }}">{{ __('messages.menu.duties_functions') }}</a>
                         </li>
                         <li><a href="/maklumat-pelayanan"
-                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] transition-colors border-l-4 border-transparent hover:border-[#D4AF37]">{{ __('messages.menu.service_declaration') }}</a>
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] transition-colors border-l-4 border-transparent hover:border-[#D4AF37] {{ request()->is('maklumat-pelayanan') ? 'text-[#D4AF37] border-[#D4AF37] bg-[#1A305E]/5' : '' }}">{{ __('messages.menu.service_declaration') }}</a>
                         </li>
                         <li><a href="/profil-pemprov"
-                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] transition-colors border-l-4 border-transparent hover:border-[#D4AF37]">{{ __('messages.menu.government_profile') }}</a>
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] transition-colors border-l-4 border-transparent hover:border-[#D4AF37] {{ request()->is('profil-pemprov') ? 'text-[#D4AF37] border-[#D4AF37] bg-[#1A305E]/5' : '' }}">{{ __('messages.menu.government_profile') }}</a>
                         </li>
                     </ul>
                 </li>
@@ -212,10 +217,10 @@
                 {{-- BERITA --}}
                 <li class="border-b lg:border-none border-white/10">
                     <a href="/berita"
-                        class="block px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all relative group">
+                        class="block px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all relative group {{ request()->is('berita*') ? 'text-[#D4AF37]' : '' }}">
                         {{ __('messages.header.news') }}
                         <span
-                            class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block"></span>
+                            class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block {{ request()->is('berita*') ? 'scale-x-100' : '' }}"></span>
                     </a>
                 </li>
 
@@ -224,7 +229,7 @@
                     @mouseenter="if(window.innerWidth >= 1024) openDaftar = true"
                     @mouseleave="if(window.innerWidth >= 1024) openDaftar = false">
                     <div @click="if(window.innerWidth < 1024) openDaftar = !openDaftar"
-                        class="flex items-center justify-between px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all cursor-pointer relative">
+                        class="flex items-center justify-between px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all cursor-pointer relative {{ request()->is('informasi-publik/20*', 'informasi-publik/pengadaan*') ? 'text-[#D4AF37]' : '' }}">
                         <span>{{ __('messages.header.data_info') }}</span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform text-[#D4AF37]"
                             :class="openDaftar ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24"
@@ -232,8 +237,16 @@
                             <path d="m6 9 6 6 6-6" />
                         </svg>
                         <span
-                            class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block"></span>
+                            class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block {{ request()->is('informasi-publik/20*', 'informasi-publik/pengadaan*') ? 'scale-x-100' : '' }}"></span>
                     </div>
+
+                    {{-- Mengambil Data Tahun (Hanya dijalankan saat file ini dimuat) --}}
+                    @php
+                        $daftarTahun = \App\Models\MasterTahun::whereNotNull('waktu')
+                                        ->orderBy('waktu', 'desc')
+                                        ->get();
+                    @endphp
+                    
                     <ul x-show="openDaftar" x-transition:enter="transition ease-out duration-300 transform origin-top"
                         x-transition:enter-start="opacity-0 -translate-y-2 scale-95"
                         x-transition:enter-end="opacity-100 translate-y-0 scale-100"
@@ -241,17 +254,13 @@
                         x-transition:leave-start="opacity-100 translate-y-0 scale-100"
                         x-transition:leave-end="opacity-0 -translate-y-2 scale-95"
                         class="lg:absolute lg:left-0 lg:top-full w-full lg:w-64 bg-white dark:bg-slate-800 lg:shadow-xl text-[#1A305E] dark:text-gray-200 py-2 lg:rounded-b-lg lg:border-t-4 lg:border-[#D4AF37] z-50">
-                        <li><a href="/informasi-publik/2023"
-                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">{{ __('messages.menu.data_info_2023') }}</a>
+                        @foreach($daftarTahun as $tahun)
+                        <li><a href="/informasi-publik/{{ $tahun->waktu }}"
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37] {{ request()->is('informasi-publik/'.$tahun->waktu) ? 'text-[#D4AF37] border-[#D4AF37] bg-[#1A305E]/5' : '' }}">{{ __('messages.menu.data_info_prefix') }} {{ $tahun->waktu }}</a>
                         </li>
-                        <li><a href="/informasi-publik/2024"
-                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">{{ __('messages.menu.data_info_2024') }}</a>
-                        </li>
-                        <li><a href="/informasi-publik/2025"
-                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">{{ __('messages.menu.data_info_2025') }}</a>
-                        </li>
+                        @endforeach
                         <li><a href="/informasi-publik/pengadaan"
-                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">{{ __('messages.menu.procurement_info') }}</a>
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37] {{ request()->is('informasi-publik/pengadaan') ? 'text-[#D4AF37] border-[#D4AF37] bg-[#1A305E]/5' : '' }}">{{ __('messages.menu.procurement_info') }}</a>
                         </li>
                     </ul>
                 </li>
@@ -261,7 +270,7 @@
                     @mouseenter="if(window.innerWidth >= 1024) openInformasi = true"
                     @mouseleave="if(window.innerWidth >= 1024) openInformasi = false">
                     <div @click="if(window.innerWidth < 1024) openInformasi = !openInformasi"
-                        class="flex items-center justify-between px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all cursor-pointer relative">
+                        class="flex items-center justify-between px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all cursor-pointer relative {{ request()->is('informasi-publik/serta-merta*', 'informasi-publik/setiap-saat*', 'informasi-publik/dikecualikan*', 'informasi-publik/berkala*', 'informasi-publik') ? 'text-[#D4AF37]' : '' }}">
                         <span>{{ __('messages.header.public_info') }}</span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform text-[#D4AF37]"
                             :class="openInformasi ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24"
@@ -269,8 +278,16 @@
                             <path d="m6 9 6 6 6-6" />
                         </svg>
                         <span
-                            class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block"></span>
+                            class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block {{ request()->is('informasi-publik/serta-merta*', 'informasi-publik/setiap-saat*', 'informasi-publik/dikecualikan*', 'informasi-publik/berkala*', 'informasi-publik') ? 'scale-x-100' : '' }}"></span>
                     </div>
+
+                    {{-- Mengambil Data Kategori (Hanya dijalankan saat file ini dimuat) --}}
+                    @php
+                        $kategoriInfo = \App\Models\KategoriInformasi::where('is_active', 1)
+                                        ->orderBy('nm_kat_info', 'asc')
+                                        ->get();
+                    @endphp
+
                     <ul x-show="openInformasi"
                         x-transition:enter="transition ease-out duration-300 transform origin-top"
                         x-transition:enter-start="opacity-0 -translate-y-2 scale-95"
@@ -279,30 +296,25 @@
                         x-transition:leave-start="opacity-100 translate-y-0 scale-100"
                         x-transition:leave-end="opacity-0 -translate-y-2 scale-95"
                         class="lg:absolute lg:left-0 lg:top-full w-full lg:w-72 bg-white dark:bg-slate-800 lg:shadow-xl text-[#1A305E] dark:text-gray-200 py-2 lg:rounded-b-lg lg:border-t-4 lg:border-[#D4AF37] z-50">
-                        <li><a href="/informasi-publik/serta-merta"
-                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">{{ __('messages.menu.immediate_info') }}</a>
-                        </li>
-                        <li><a href="/informasi-publik/setiap-saat"
-                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">{{ __('messages.menu.anytime_info') }}</a>
-                        </li>
-                        <li><a href="/informasi-publik/dikecualikan"
-                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">{{ __('messages.menu.excluded_info') }}</a>
-                        </li>
+                        @foreach ($kategoriInfo as $kategori)
+                            <li><a href="/informasi-publik/{{ \Illuminate\Support\Str::slug($kategori->nm_kat_info) }}"
+                                    class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37] {{ request()->is('informasi-publik/'.\Illuminate\Support\Str::slug($kategori->nm_kat_info)) ? 'text-[#D4AF37] border-[#D4AF37] bg-[#1A305E]/5' : '' }}">
+                                    {{ $kategori->nm_kat_info }}
+                                </a>
+                            </li>
+                        @endforeach
                         <li><a href="/informasi-publik"
-                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">{{ __('messages.menu.public_info_list') }}</a>
-                        </li>
-                        <li><a href="/informasi-publik/berkala"
-                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">{{ __('messages.menu.periodic_info') }}</a>
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37] {{ request()->is('informasi-publik') ? 'text-[#D4AF37] border-[#D4AF37] bg-[#1A305E]/5' : '' }}">{{ __('messages.menu.public_info_list') }}</a>
                         </li>
                     </ul>
                 </li>
 
                 <li class="border-b lg:border-none border-white/10">
                     <a href="/ppid-pelaksana"
-                        class="block px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all relative group">
+                        class="block px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all relative group {{ request()->is('ppid-pelaksana*') ? 'text-[#D4AF37]' : '' }}">
                         {{ __('messages.header.ppid_implementing') }}
                         <span
-                            class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block"></span>
+                            class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block {{ request()->is('ppid-pelaksana*') ? 'scale-x-100' : '' }}"></span>
                     </a>
                 </li>
 
@@ -311,7 +323,7 @@
                     @mouseenter="if(window.innerWidth >= 1024) openLayanan = true"
                     @mouseleave="if(window.innerWidth >= 1024) openLayanan = false">
                     <div @click="if(window.innerWidth < 1024) openLayanan = !openLayanan"
-                        class="flex items-center justify-between px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all cursor-pointer relative">
+                        class="flex items-center justify-between px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all cursor-pointer relative {{ request()->is('layanan*', 'contact*') ? 'text-[#D4AF37]' : '' }}">
                         <span>{{ __('messages.header.services') }}</span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform text-[#D4AF37]"
                             :class="openLayanan ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24"
@@ -319,7 +331,7 @@
                             <path d="m6 9 6 6 6-6" />
                         </svg>
                         <span
-                            class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block"></span>
+                            class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block {{ request()->is('layanan*', 'contact*') ? 'scale-x-100' : '' }}"></span>
                     </div>
                     {{-- Kode Baru (Perbaikan) --}}
                     <ul x-show="openLayanan" x-transition:enter="transition ease-out duration-300 transform origin-top"
@@ -332,21 +344,21 @@
 
                         <li>
                             <a href="/layanan/permohonan-informasi"
-                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37] {{ request()->is('layanan/permohonan-informasi') ? 'text-[#D4AF37] border-[#D4AF37] bg-[#1A305E]/5' : '' }}">
                                 {{ __('messages.menu.info_request_service') }}
                             </a>
                         </li>
 
                         <li>
                             <a href="/layanan/pengajuan-keberatan"
-                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37] {{ request()->is('layanan/pengajuan-keberatan') ? 'text-[#D4AF37] border-[#D4AF37] bg-[#1A305E]/5' : '' }}">
                                 {{ __('messages.menu.objection_service') }}
                             </a>
                         </li>
 
                         <li>
                             <a href="{{ route('layanan.cek-status-permohonan') }}"
-                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37] {{ request()->is('layanan/cek-status-permohonan') ? 'text-[#D4AF37] border-[#D4AF37] bg-[#1A305E]/5' : '' }}">
                                 {{ __('messages.menu.status_check') }}
                             </a>
                         </li>
@@ -360,8 +372,15 @@
 
                         <li>
                             <a href="/layanan/sop"
-                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37] {{ request()->is('layanan/sop') ? 'text-[#D4AF37] border-[#D4AF37] bg-[#1A305E]/5' : '' }}">
                                 {{ __('messages.menu.sop') }}
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/contact"
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37] {{ request()->is('contact') ? 'text-[#D4AF37] border-[#D4AF37] bg-[#1A305E]/5' : '' }}">
+                                {{ __('messages.header.contact') }}
                             </a>
                         </li>
 
@@ -373,7 +392,7 @@
                     @mouseenter="if(window.innerWidth >= 1024) openService = true"
                     @mouseleave="if(window.innerWidth >= 1024) openService = false">
                     <div @click="if(window.innerWidth < 1024) openService = !openService"
-                        class="flex items-center justify-between px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all cursor-pointer relative">
+                        class="flex items-center justify-between px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all cursor-pointer relative {{ request()->is('survey*') ? 'text-[#D4AF37]' : '' }}">
                         <span>{{ __('messages.header.survey') }}</span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform text-[#D4AF37]"
                             :class="openService ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24"
@@ -381,7 +400,7 @@
                             <path d="m6 9 6 6 6-6" />
                         </svg>
                         <span
-                            class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block"></span>
+                            class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block {{ request()->is('survey*') ? 'scale-x-100' : '' }}"></span>
                     </div>
                     <ul x-show="openService" x-transition:enter="transition ease-out duration-300 transform origin-top"
                         x-transition:enter-start="opacity-0 -translate-y-2 scale-95"
@@ -391,19 +410,16 @@
                         x-transition:leave-end="opacity-0 -translate-y-2 scale-95"
                         class="lg:absolute lg:left-0 lg:top-full w-full lg:w-56 bg-white dark:bg-slate-800 lg:shadow-xl text-[#1A305E] dark:text-gray-200 py-2 lg:rounded-b-lg lg:border-t-4 lg:border-[#D4AF37] z-50">
                         <li><a href="/survey/isi-survey"
-                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">{{ __('messages.menu.fill_survey') }}</a>
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37] {{ request()->is('survey/isi-survey') ? 'text-[#D4AF37] border-[#D4AF37] bg-[#1A305E]/5' : '' }}">{{ __('messages.menu.fill_survey') }}</a>
                         </li>
                         <li><a href="/survey/hasil-survey"
-                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">{{ __('messages.menu.survey_results') }}</a>
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37] {{ request()->is('survey/hasil-survey') ? 'text-[#D4AF37] border-[#D4AF37] bg-[#1A305E]/5' : '' }}">{{ __('messages.menu.survey_results') }}</a>
                         </li>
                     </ul>
                 </li>
 
-                {{-- Contact Mobile Only --}}
-                <li class="lg:hidden border-b border-white/10">
-                    <a href="/contact"
-                        class="block px-6 py-4 hover:bg-white/10 hover:text-white">{{ __('messages.header.contact') }}</a>
-                </li>
+
+
 
                 {{-- Login Mobile Only --}}
                 <li class="lg:hidden border-b border-white/10">

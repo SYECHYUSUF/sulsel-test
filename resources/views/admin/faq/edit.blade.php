@@ -19,7 +19,8 @@
             <h3 class="text-lg font-bold text-[#1A305E] dark:text-blue-400">Form Edit FAQ</h3>
         </div>
 
-        <form action="{{ route('admin.faq.update', $faq->id_faq) }}" method="POST" class="p-6 pt-0 space-y-6">
+        <form id="editForm" action="{{ route('admin.faq.update', $faq->id_faq) }}" method="POST"
+            class="p-6 pt-0 space-y-6" x-data="{ showConfirm: false }" @confirm="document.getElementById('editForm').submit()">
             @csrf
             @method('PUT')
 
@@ -77,11 +78,14 @@
                     class="px-4 py-2 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-200 rounded-lg text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-600 transition-colors">
                     Batal
                 </a>
-                <button type="submit"
+                <button type="button" @click="showConfirm = true"
                     class="px-4 py-2 bg-[#1A305E] dark:bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-ppid-dark dark:hover:bg-blue-700 transition-colors">
                     Simpan Perubahan
                 </button>
             </div>
+
+            <x-confirmation-dialog trigger="showConfirm" title="Simpan Perubahan?"
+                description="Apakah Anda yakin ingin menyimpan perubahan FAQ ini?" confirmText="Ya, Simpan" theme="primary" />
         </form>
     </div>
 

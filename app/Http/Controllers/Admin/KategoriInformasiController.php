@@ -45,7 +45,7 @@ class KategoriInformasiController extends Controller
 
         KategoriInformasi::create($validated);
 
-        return redirect()->route('admin.kategori-informasi.index')
+        return redirect()->route('admin.master-data.index', ['tab' => 'kategori'])
             ->with('success', 'Kategori Informasi berhasil ditambahkan.');
     }
 
@@ -73,7 +73,7 @@ class KategoriInformasiController extends Controller
 
         $kategori->update($validated);
 
-        return redirect()->route('admin.kategori-informasi.index')
+        return redirect()->route('admin.master-data.index', ['tab' => 'kategori'])
             ->with('success', 'Kategori Informasi berhasil diperbarui.');
     }
 
@@ -85,7 +85,7 @@ class KategoriInformasiController extends Controller
         $kategori = KategoriInformasi::findOrFail($id);
         $kategori->delete();
 
-        return redirect()->route('admin.kategori-informasi.index')
+        return redirect()->route('admin.master-data.index', ['tab' => 'kategori'])
             ->with('success', 'Kategori Informasi berhasil dihapus.');
     }
 }

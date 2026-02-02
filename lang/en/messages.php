@@ -261,6 +261,8 @@ return [
         'service_declaration' => 'Service Declaration',
         'government_profile' => 'Government Profile',
         'org_structure' => 'Organizational Structure',
+
+        "data_info_prefix" => "Year",
         
         // Data Informasi Publik dropdown
         'data_info_2023' => 'Public Information Year 2023',
@@ -325,6 +327,12 @@ return [
         
         'daftar_title' => 'Public Information List',
         'daftar_subtitle' => 'Complete Public Information Index',
+        
+        'index_title' => 'Public Information List',
+        'index_subtitle' => 'Complete List of Public Information for South Sulawesi Province',
+        
+        'detail_title' => 'Information Detail',
+        'detail_subtitle' => 'Complete details of public information',
     ],
     'ppid_pelaksana' => [
         'title' => 'Implementing PPID',

@@ -261,6 +261,8 @@ return [
         'service_declaration' => 'Maklumat Pelayanan',
         'government_profile' => 'Profil Pemerintah',
         'org_structure' => 'Struktur Organisasi',
+
+        "data_info_prefix" => "Tahun",
         
         // Data Informasi Publik dropdown
         'data_info_2023' => 'Informasi Publik Tahun 2023',
@@ -325,6 +327,12 @@ return [
         
         'daftar_title' => 'Daftar Informasi Publik',
         'daftar_subtitle' => 'Indeks Informasi Publik Lengkap',
+        
+        'index_title' => 'Daftar Informasi Publik',
+        'index_subtitle' => 'Daftar Lengkap Informasi Publik Provinsi Sulawesi Selatan',
+        
+        'detail_title' => 'Detail Informasi',
+        'detail_subtitle' => 'Detail lengkap informasi publik',
     ],
     'ppid_pelaksana' => [
         'title' => 'PPID Pelaksana',

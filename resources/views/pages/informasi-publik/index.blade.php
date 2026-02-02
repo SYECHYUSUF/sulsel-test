@@ -19,7 +19,7 @@
                     class="w-4 h-4 text-gray-400">
                     <path d="m9 18 6-6-6-6" />
                 </svg>
-                <span class="text-[#1A305E] dark:text-white font-medium">Daftar Informasi Publik</span>
+                <span class="text-[#1A305E] dark:text-white font-medium">{{ __('messages.public_info_pages.index_title') }}</span>
             </div>
 
             {{-- Title --}}

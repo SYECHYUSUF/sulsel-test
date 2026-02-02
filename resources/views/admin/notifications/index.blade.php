@@ -26,8 +26,7 @@
                         Tandai Semua Dibaca
                     </button>
                 </form>
-                <form action="{{ route('admin.notifications.delete-all') }}" method="POST"
-                    onsubmit="return confirm('Hapus semua notifikasi?')">
+                <form action="{{ route('admin.notifications.delete-all') }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit"
@@ -63,7 +62,7 @@
                                 </div>
                                 <div class="flex items-center gap-2">
                                     <form action="{{ route('admin.notifications.destroy', $notif->id_notification) }}"
-                                        method="POST" onsubmit="return confirm('Hapus notifikasi ini?')">
+                                        method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit"

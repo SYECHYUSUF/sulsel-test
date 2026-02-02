@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Berita;
 use App\Models\Skpd;
+use App\Models\User;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -91,7 +93,23 @@ class BeritaController extends Controller
         }
 
         // Simpan ke Database
-        Berita::create($data);
+        $berita = Berita::create($data);
+
+        // Notify Admins if created by OPD
+        if (Auth::user()->hasRole('opd')) {
+            $admins = User::whereHasRole('admin')->get();
+            foreach ($admins as $admin) {
+                Notification::send([
+                    'to_user_id' => $admin->id,
+                    'type' => 'info',
+                    'title' => 'Berita Baru',
+                    'message' => 'OPD ' . Auth::user()->skpd->nm_skpd . ' telah menambahkan berita baru: ' . $berita->judul,
+                    'url' => route('admin.berita.edit', $berita->id_berita),
+                    'notifiable_id' => $berita->id_berita,
+                    'notifiable_type' => get_class($berita),
+                ]);
+            }
+        }
 
         return redirect()->route('admin.berita.index')
             ->with('success', 'Berita berhasil ditambahkan.');
@@ -146,6 +164,32 @@ class BeritaController extends Controller
         }
 
         $berita->update($data);
+
+        // Notify OPD user if verify status changed and user is admin
+        if (Auth::user()->hasRole('admin') && $berita->wasChanged('verify')) {
+            $statusText = match ($berita->verify) {
+                'y' => 'Terverifikasi',
+                'n' => 'Pending',
+                't' => 'Ditolak',
+            };
+
+            $type = match ($berita->verify) {
+                'y' => 'success',
+                'n' => 'info',
+                't' => 'error',
+            };
+
+            // Notify the SKPD owner
+            Notification::send([
+                'to_skpd_id' => $berita->id_skpd,
+                'type' => $type,
+                'title' => 'Status Berita: ' . $statusText,
+                'message' => 'Berita "' . $berita->judul . '" telah ' . strtolower($statusText) . ' oleh admin.',
+                'url' => route('admin.berita.edit', $berita->id_berita),
+                'notifiable_id' => $berita->id_berita,
+                'notifiable_type' => get_class($berita),
+            ]);
+        }
 
         return redirect()->route('admin.berita.index')->with('success', 'Berita berhasil diperbarui');
     }

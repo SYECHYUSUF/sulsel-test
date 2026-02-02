@@ -17,9 +17,10 @@
 
     {{-- Form Card --}}
     <div class="max-w-3xl">
-        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-md border border-gray-200 dark:border-slate-700 overflow-hidden">
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-md border border-gray-200 dark:border-slate-700 overflow-hidden"
+            x-data="{ showConfirm: false }" @confirm="document.getElementById('createForm').submit()">
             <div class="p-6">
-                <form action="{{ route('admin.survey-questions.store') }}" method="POST" class="space-y-6">
+                <form id="createForm" action="{{ route('admin.survey-questions.store') }}" method="POST" class="space-y-6">
                     @csrf
 
                     {{-- Urutan --}}
@@ -92,11 +93,15 @@
                         <a href="{{ route('admin.survey-questions.index') }}" class="px-6 py-3 text-gray-700 dark:text-gray-300 font-semibold hover:text-gray-900 dark:hover:text-white transition-colors">
                             Batal
                         </a>
-                        <button type="submit" class="px-8 py-3 bg-gradient-to-r from-[#1A305E] to-[#2A4A7E] text-white font-bold rounded-lg hover:from-[#2A4A7E] hover:to-[#1A305E] transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                        <button type="button" @click="showConfirm = true"
+                            class="px-8 py-3 bg-gradient-to-r from-[#1A305E] to-[#2A4A7E] text-white font-bold rounded-lg hover:from-[#2A4A7E] hover:to-[#1A305E] transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
                             Simpan Pertanyaan
                         </button>
                     </div>
                 </form>
+                
+                <x-confirmation-dialog trigger="showConfirm" title="Simpan Pertanyaan?"
+                    description="Apakah anda yakin ingin menyimpan pertanyaan ini?" confirmText="Ya, Simpan" theme="primary" />
             </div>
         </div>
     </div>

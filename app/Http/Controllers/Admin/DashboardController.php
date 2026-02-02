@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Berita;
+use App\Models\Ikphn;
 use App\Models\Informasi;
 use App\Models\LogLogin;
 use App\Models\PengajuanKeberatan;
@@ -46,6 +47,20 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
+        // Ambil Berita yang menunggu verifikasi
+        $pendingBerita = Berita::with('skpd')
+            ->where('verify', 'n')
+            ->latest('created_at')
+            ->take(5)
+            ->get();
+
+        // Ambil IKPHN yang menunggu verifikasi
+        $pendingIkphn = Ikphn::with('skpd')
+            ->where('verify', 'n')
+            ->latest('created_at')
+            ->take(5)
+            ->get();
+
         // Ambil notifikasi terbaru untuk Admin
         $notifications = \App\Models\Notification::where('to_user_id', Auth::id())
             ->latest()
@@ -58,7 +73,10 @@ class DashboardController extends Controller
             'recentActivities',
             'permohonanByStatus',
             'recentLogins',
+            'recentLogins',
             'pendingDokumen',
+            'pendingBerita',
+            'pendingIkphn',
             'notifications'
         ));
     }

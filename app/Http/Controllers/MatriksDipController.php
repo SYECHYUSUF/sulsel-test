@@ -43,12 +43,9 @@ class MatriksDipController extends Controller
 
     public function pengadaan()
     {
-        $matriksDip = MatriksDip::where(function ($q) {
-            $q->where('a', 'LIKE', '%Pengadaan%')
-                ->orWhere('b', 'LIKE', '%Pengadaan%');
-        })
-            ->where('is_active', 1)
+        $ikphns = \App\Models\Ikphn::where('verify', 'y')
             ->paginate(10);
-        return view('pages.informasi-publik.pengadaan', compact('matriksDip'));
+
+        return view('pages.informasi-publik.pengadaan', compact('ikphns'));
     }
 }

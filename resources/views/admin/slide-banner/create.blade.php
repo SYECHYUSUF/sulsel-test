@@ -11,8 +11,8 @@
             <h3 class="text-lg font-bold text-[#1A305E] dark:text-blue-400">Form Tambah Banner</h3>
         </div>
 
-        <form action="{{ route('admin.slide-banner.store') }}" method="POST" enctype="multipart/form-data"
-            class="p-6 pt-0 space-y-6">
+        <form id="createForm" action="{{ route('admin.slide-banner.store') }}" method="POST" enctype="multipart/form-data"
+            class="p-6 pt-0 space-y-6" x-data="{ showConfirm: false }" @confirm="document.getElementById('createForm').submit()">
             @csrf
 
             <!-- Gambar -->
@@ -35,11 +35,14 @@
                     class="px-4 py-2 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-200 rounded-lg text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-600 transition-colors">
                     Batal
                 </a>
-                <button type="submit"
+                <button type="button" @click="showConfirm = true"
                     class="px-4 py-2 bg-[#1A305E] dark:bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-ppid-dark dark:hover:bg-blue-700 transition-colors">
                     Simpan Banner
                 </button>
             </div>
+            
+            <x-confirmation-dialog trigger="showConfirm" title="Simpan Banner?"
+                description="Apakah Anda yakin ingin menyimpan banner ini?" confirmText="Ya, Simpan" theme="primary" />
         </form>
     </div>
 
