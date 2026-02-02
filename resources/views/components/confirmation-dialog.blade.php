@@ -8,6 +8,7 @@
     'url' => '#',               // Action URL untuk form
     'method' => 'DELETE',       // Method spoofing: DELETE, PUT, POST
     'dynamic' => false,         // Whether URL is an Alpine variable
+    'dynamicText' => false,     // Whether Title/Desc are Alpine variables
 ])
 
 @php
@@ -82,12 +83,14 @@
                     </svg>
                 </div>
 
-                <h3 class="text-2xl font-black text-slate-800 dark:text-white mb-2 tracking-tight">
-                    {{ $title }}
+                <h3 class="text-2xl font-black text-slate-800 dark:text-white mb-2 tracking-tight" 
+                    @if($dynamicText) x-text="{{ $title }}" @endif>
+                    @if(!$dynamicText) {{ $title }} @endif
                 </h3>
                 
-                <p class="text-slate-500 dark:text-slate-400 text-sm font-medium leading-relaxed mb-8">
-                    {{ $description }}
+                <p class="text-slate-500 dark:text-slate-400 text-sm font-medium leading-relaxed mb-8"
+                   @if($dynamicText) x-text="{{ $description }}" @endif>
+                    @if(!$dynamicText) {{ $description }} @endif
                 </p>
 
                 <div class="flex gap-3 w-full">

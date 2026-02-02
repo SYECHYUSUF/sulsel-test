@@ -44,7 +44,6 @@ class MatriksDipController extends Controller
     public function pengadaan()
     {
         $ikphns = \App\Models\Ikphn::where('verify', 'y')
-            ->latest('tgl_upload')
             ->paginate(10);
 
         return view('pages.informasi-publik.pengadaan', compact('ikphns'));

@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Ikphn;
+use App\Models\Notification;
 use App\Models\Skpd;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -19,17 +21,59 @@ class IkphnController extends Controller
         $user = Auth::user();
         $query = Ikphn::with('skpd');
 
+        // Filter by SKPD (Role based or Request based)
         if ($user->hasRole('opd')) {
             $query->where('id_skpd', $user->id_skpd);
+        } elseif ($request->filled('id_skpd') && $user->hasRole('admin')) {
+            $query->where('id_skpd', $request->id_skpd);
         }
 
+        // Search
         if ($request->filled('search')) {
             $query->where('nama_jabatan', 'like', '%' . $request->search . '%');
         }
 
-        $items = $query->latest()->paginate(10);
+        // Filter Verify
+        if ($request->filled('verify')) {
+            $query->where('verify', $request->verify);
+        }
 
-        return view('admin.ikphn.index', compact('items'));
+        // Filter Date
+        if ($request->filled('start_date')) {
+            $query->whereDate('created_at', '>=', $request->start_date);
+        }
+        if ($request->filled('end_date')) {
+            $query->whereDate('created_at', '<=', $request->end_date);
+        }
+
+        // Sort
+        if ($request->filled('sort')) {
+            switch ($request->sort) {
+                case 'oldest':
+                    $query->oldest();
+                    break;
+                case 'title_asc':
+                    $query->orderBy('nama_jabatan', 'asc');
+                    break;
+                case 'title_desc':
+                    $query->orderBy('nama_jabatan', 'desc');
+                    break;
+                case 'newest':
+                default:
+                    $query->latest();
+                    break;
+            }
+        } else {
+            $query->latest();
+        }
+
+        $items = $query->paginate(10);
+
+        $skpdList = $user->hasRole('opd')
+            ? Skpd::where('id_skpd', $user->id_skpd)->get()
+            : Skpd::orderBy('nm_skpd')->get();
+
+        return view('admin.ikphn.index', compact('items', 'skpdList'));
     }
 
     /**
@@ -67,7 +111,23 @@ class IkphnController extends Controller
             $data['file'] = $path;
         }
 
-        Ikphn::create($data);
+        $ikphn = Ikphn::create($data);
+
+        // Notify Admins if created by OPD
+        if (Auth::user()->hasRole('opd')) {
+            $admins = User::whereHasRole('admin')->get();
+            foreach ($admins as $admin) {
+                Notification::send([
+                    'to_user_id' => $admin->id,
+                    'type' => 'info',
+                    'title' => 'IKPHN Baru',
+                    'message' => 'OPD ' . Auth::user()->skpd->nm_skpd . ' telah mengunggah IKPHN baru: ' . $ikphn->nama_jabatan,
+                    'url' => route('admin.ikphns.edit', $ikphn->id), // Direct to edit for verification
+                    'notifiable_id' => $ikphn->id,
+                    'notifiable_type' => get_class($ikphn),
+                ]);
+            }
+        }
 
         return redirect()->route('admin.ikphns.index')
             ->with('success', 'Data Informasi Pengadaan berhasil ditambahkan.');
@@ -120,6 +180,34 @@ class IkphnController extends Controller
         }
 
         $item->update($data);
+
+        // Notify OPD user if verify status changed and user is admin
+        if (Auth::user()->hasRole('admin') && $item->wasChanged('verify')) {
+            $statusText = match ($item->verify) {
+                'y' => 'Terverifikasi',
+                'n' => 'Pending',
+                't' => 'Ditolak',
+            };
+
+            $type = match ($item->verify) {
+                'y' => 'success',
+                'n' => 'info',
+                't' => 'error',
+            };
+
+            // Notify the SKPD owner
+            // Assuming we notify by skpd_id since we don't track specific user uploader easily without user_id in table
+            // But we can use to_skpd_id
+            Notification::send([
+                'to_skpd_id' => $item->id_skpd,
+                'type' => $type,
+                'title' => 'Status IKPHN: ' . $statusText,
+                'message' => 'Data IKPHN "' . $item->nama_jabatan . '" telah ' . strtolower($statusText) . ' oleh admin.',
+                'url' => route('admin.ikphns.edit', $item->id),
+                'notifiable_id' => $item->id,
+                'notifiable_type' => get_class($item),
+            ]);
+        }
 
         return redirect()->route('admin.ikphns.index')
             ->with('success', 'Data Informasi Pengadaan berhasil diperbarui.');

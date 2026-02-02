@@ -64,7 +64,7 @@
                                 <path d="m21 21-4.3-4.3" />
                             </svg>
                             <input type="text" placeholder="{{ __('messages.common.search_placeholder') }}"
-                                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1A305E]" />
+                                class="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1A305E] dark:bg-slate-700 dark:text-white dark:focus:ring-blue-500" />
                         </div>
                     </div>
                     <button
@@ -86,13 +86,13 @@
                                     <th class="px-4 py-3 text-sm font-semibold">{{ __('messages.table.action') }}</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-gray-200">
+                            <tbody class="divide-y divide-gray-200 dark:divide-slate-700">
                                 @foreach ($ikphns as $item)
-                                    <tr class="hover:bg-[#1A305E]/5 transition-colors">
+                                    <tr class="hover:bg-[#1A305E]/5 dark:hover:bg-slate-700 transition-colors">
                                         <td class="px-4 py-3 text-sm text-gray-900 dark:text-white">
                                             {{ ($ikphns->currentPage() - 1) * $ikphns->perPage() + $loop->iteration }}
                                         </td>
-                                        <td class="px-4 py-3 text-sm text-gray-700 font-medium">{{ $item->nama_jabatan }}
+                                        <td class="px-4 py-3 text-sm text-gray-700 dark:text-gray-300 font-medium">{{ $item->nama_jabatan }}
                                         </td>
                                         <td class="px-4 py-3 text-center whitespace-nowrap">
                                             <div class="flex items-center gap-2">

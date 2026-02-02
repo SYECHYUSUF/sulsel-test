@@ -57,7 +57,7 @@
                         name="deskripsi" 
                         id="editor"
                         rows="20"
-                        class="w-full px-4 py-3 border-2 border-slate-300 dark:border-slate-600 rounded-xl focus:outline-none focus:border-[#1A305E] bg-white dark:bg-slate-700 text-slate-900 dark:text-white">{{ old('deskripsi', $profil->deskripsi ?? '') }}</textarea>
+                        class="editor w-full px-4 py-3 border-2 border-slate-300 dark:border-slate-600 rounded-xl focus:outline-none focus:border-[#1A305E] bg-white dark:bg-slate-700 text-slate-900 dark:text-white">{{ old('deskripsi', $profil->deskripsi ?? '') }}</textarea>
                     @error('deskripsi')
                         <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
                     @enderror
@@ -95,65 +95,10 @@
     </div>
 </div>
 
-{{-- Summernote Editor --}}
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-
-<style>
-    /* Dark mode support for Summernote */
-    .dark .note-editor {
-        background-color: #1e293b;
-        border-color: #475569;
-    }
-    
-    .dark .note-editor .note-toolbar {
-        background-color: #334155;
-        border-bottom-color: #475569;
-    }
-    
-    .dark .note-editor .note-editable {
-        background-color: #1e293b;
-        color: #f1f5f9;
-    }
-    
-    .dark .note-editor .btn {
-        color: #f1f5f9;
-    }
-    
-    .dark .note-editor .dropdown-menu {
-        background-color: #334155;
-        color: #f1f5f9;
-    }
-    
-    .dark .note-editor .dropdown-item {
-        color: #f1f5f9;
-    }
-    
-    .dark .note-editor .dropdown-item:hover {
-        background-color: #475569;
-    }
-</style>
-
-<script>
-    $(document).ready(function() {
-        $('#editor').summernote({
-            height: 400,
-            placeholder: 'Tulis konten profil PPID di sini...',
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'italic', 'underline', 'clear']],
-                ['fontname', ['fontname']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link']],
-                ['view', ['fullscreen', 'codeview', 'help']]
-            ],
-            styleTags: ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
-            fontNames: ['Arial', 'Times New Roman', 'Verdana', 'Helvetica', 'Georgia', 'Plus Jakarta Sans']
-        });
-    });
-</script>
+<x-slot name="extra_script">
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/tinymce/tinymce.min.js"></script>
+    <script src="/vendor/tinymce/init-editor.js"></script>
+</x-slot>
 
 </x-admin-layout>

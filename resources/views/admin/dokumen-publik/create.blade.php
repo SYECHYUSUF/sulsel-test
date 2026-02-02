@@ -22,12 +22,13 @@
         </div>
     </x-slot>
 
-    <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden max-w-4xl mx-auto">
+    <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden max-w-4xl mx-auto"
+        x-data="{ showConfirm: false }" @confirm="document.getElementById('createForm').submit()">
         <div class="p-6 border-b border-slate-100">
             <h3 class="text-lg font-bold text-[#1A305E]">Form Tambah Informasi</h3>
         </div>
 
-        <form action="{{ route('admin.dokumen-publik.store') }}" method="POST" enctype="multipart/form-data"
+        <form id="createForm" action="{{ route('admin.dokumen-publik.store') }}" method="POST" enctype="multipart/form-data"
             class="p-6 pt-0 space-y-6">
             @csrf
 
@@ -118,12 +119,14 @@
                     class="px-4 py-2 bg-white border border-slate-200 text-slate-700 rounded-lg text-sm font-medium hover:bg-slate-50 transition-colors">
                     Batal
                 </a>
-                <button type="submit"
+                <button type="button" @click="showConfirm = true"
                     class="px-4 py-2 bg-[#1A305E] text-white rounded-lg text-sm font-medium hover:bg-ppid-dark transition-colors">
                     Simpan Informasi
                 </button>
             </div>
         </form>
+        <x-confirmation-dialog trigger="showConfirm" title="Simpan Informasi?"
+            description="Apakah anda yakin ingin menyimpan informasi ini?" confirmText="Ya, Simpan" theme="primary" />
     </div>
 
     <!-- Vendor -->

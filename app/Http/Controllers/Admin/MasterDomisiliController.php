@@ -31,7 +31,8 @@ class MasterDomisiliController extends Controller
 
         MasterDomisili::create($validated);
 
-        return back()->with('success', 'Data domisili berhasil ditambahkan.');
+        return redirect()->route('admin.master-data.index', ['tab' => 'domisili'])
+            ->with('success', 'Data domisili berhasil ditambahkan.');
     }
 
     public function edit($id)
@@ -54,7 +55,8 @@ class MasterDomisiliController extends Controller
 
         $item->update($validated);
 
-        return back()->with('success', 'Data domisili berhasil diperbarui.');
+        return redirect()->route('admin.master-data.index', ['tab' => 'domisili'])
+            ->with('success', 'Data domisili berhasil diperbarui.');
     }
 
     public function destroy($id)
@@ -62,6 +64,7 @@ class MasterDomisiliController extends Controller
         $item = MasterDomisili::findOrFail($id);
         $item->delete();
 
-        return back()->with('success', 'Data domisili berhasil dihapus.');
+        return redirect()->route('admin.master-data.index', ['tab' => 'domisili'])
+            ->with('success', 'Data domisili berhasil dihapus.');
     }
 }

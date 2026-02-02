@@ -27,7 +27,8 @@ class MasterTahunController extends Controller
 
         MasterTahun::create($validated);
 
-        return back()->with('success', 'Data tahun berhasil ditambahkan.');
+        return redirect()->route('admin.master-data.index', ['tab' => 'tahun'])
+            ->with('success', 'Data tahun berhasil ditambahkan.');
     }
 
     public function edit($id)
@@ -46,7 +47,8 @@ class MasterTahunController extends Controller
 
         $item->update($validated);
 
-        return back()->with('success', 'Data tahun berhasil diperbarui.');
+        return redirect()->route('admin.master-data.index', ['tab' => 'tahun'])
+            ->with('success', 'Data tahun berhasil diperbarui.');
     }
 
     public function destroy($id)
@@ -54,6 +56,7 @@ class MasterTahunController extends Controller
         $item = MasterTahun::findOrFail($id);
         $item->delete();
 
-        return back()->with('success', 'Data tahun berhasil dihapus.');
+        return redirect()->route('admin.master-data.index', ['tab' => 'tahun'])
+            ->with('success', 'Data tahun berhasil dihapus.');
     }
 }

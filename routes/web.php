@@ -111,6 +111,10 @@ Route::middleware(['track.visitors'])->group(function () {
 
         $ppidData = $query->paginate(12)->appends(['search' => $search]);
 
+        if ($request->wantsJson() || $request->ajax()) {
+            return response()->json($ppidData);
+        }
+
         return view('pages.profil.ppid-pelaksana', compact('ppidData', 'search'));
     });
 

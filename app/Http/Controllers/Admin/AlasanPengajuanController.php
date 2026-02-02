@@ -27,7 +27,8 @@ class AlasanPengajuanController extends Controller
 
         AlasanPengajuan::create($validated);
 
-        return back()->with('success', 'Alasan pengajuan berhasil ditambahkan.');
+        return redirect()->route('admin.master-data.index', ['tab' => 'alasan'])
+            ->with('success', 'Alasan pengajuan berhasil ditambahkan.');
     }
 
     public function edit($id)
@@ -46,7 +47,8 @@ class AlasanPengajuanController extends Controller
 
         $alasan->update($validated);
 
-        return back()->with('success', 'Alasan pengajuan berhasil diperbarui.');
+        return redirect()->route('admin.master-data.index', ['tab' => 'alasan'])
+            ->with('success', 'Alasan pengajuan berhasil diperbarui.');
     }
 
     public function destroy($id)
@@ -54,6 +56,7 @@ class AlasanPengajuanController extends Controller
         $alasan = AlasanPengajuan::findOrFail($id);
         $alasan->delete();
 
-        return back()->with('success', 'Alasan pengajuan berhasil dihapus.');
+        return redirect()->route('admin.master-data.index', ['tab' => 'alasan'])
+            ->with('success', 'Alasan pengajuan berhasil dihapus.');
     }
 }

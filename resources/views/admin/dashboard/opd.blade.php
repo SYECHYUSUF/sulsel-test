@@ -161,7 +161,7 @@
                                         </button>
                                     @endif
                                     <form action="{{ route('admin.notifications.destroy', $notif->id_notification) }}"
-                                        method="POST" onsubmit="return confirm('Hapus notifikasi ini?')">
+                                        method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit"

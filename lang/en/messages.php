@@ -261,6 +261,8 @@ return [
         'service_declaration' => 'Service Declaration',
         'government_profile' => 'Government Profile',
         'org_structure' => 'Organizational Structure',
+
+        "data_info_prefix" => "Year",
         
         // Data Informasi Publik dropdown
         'data_info_2023' => 'Public Information Year 2023',

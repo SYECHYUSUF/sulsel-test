@@ -120,12 +120,6 @@
                         class="flex-1 px-5 py-3.5 rounded-2xl bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-bold text-sm tracking-wide hover:bg-slate-300 dark:hover:bg-slate-600 transition-all active:scale-95">
                         Tutup
                     </button>
-                    
-                    {{-- Tombol Primary Dynamic --}}
-                    <button @click="{{ $trigger }} = false"
-                        class="flex-1 px-5 py-3.5 rounded-2xl text-white font-bold text-sm tracking-wide shadow-xl transition-all transform hover:scale-105 active:scale-95 bg-gradient-to-r {{ $theme['btn_primary'] }} {{ $theme['btn_shadow'] }}">
-                        {{ $status === 'error' ? 'Coba Lagi' : 'Oke Siap!' }}
-                    </button>
                 </div>
             </div>
         </div>

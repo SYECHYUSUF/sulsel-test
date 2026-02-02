@@ -56,7 +56,7 @@ class NotificationController extends Controller
 
         $notification->delete();
 
-        return back()->with('success', 'Notifikasi berhasil dihapus.');
+        return back();
     }
 
     /**
@@ -88,6 +88,6 @@ class NotificationController extends Controller
                 ->orWhere('to_skpd_id', $user->id_skpd);
         })->delete();
 
-        return redirect()->route('admin.dashboard')->with('success', 'Semua notifikasi telah dihapus.');
+        return redirect()->route('admin.dashboard');
     }
 }
