@@ -3,12 +3,26 @@
 
     <x-slot:extra_head>
         <style>
+            /* Glassmorphism Styles */
+            .glass-card {
+                background: rgba(255, 255, 255, 0.7);
+                backdrop-filter: blur(20px) saturate(180%);
+                -webkit-backdrop-filter: blur(20px) saturate(180%);
+                border: 1px solid rgba(255, 255, 255, 0.3);
+                box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            }
+
+            .glass-header {
+                background: linear-gradient(135deg, #1A305E 0%, #2563eb 50%, #3b82f6 100%);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+            }
+
             .animate-pulse {
                 animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
             }
 
             @keyframes pulse {
-
                 0%,
                 100% {
                     opacity: 1;
@@ -22,22 +36,61 @@
     </x-slot:extra_head>
 
     <div x-data="permohonanDataTable()" x-init="fetchData()" class="space-y-6">
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div>
-                <h1 class="text-2xl font-bold text-slate-900 dark:text-slate-100">Permohonan Informasi</h1>
-                <p class="text-slate-500 dark:text-slate-400 text-sm">Pantau dan kelola permintaan informasi publik dari masyarakat.</p>
-            </div>
-            <div class="flex items-center gap-3">
-                <div class="relative">
-                    <input type="text" x-model="search" @input.debounce.500ms="fetchData()"
-                        placeholder="Cari pemohon..."
-                        class="pl-10 pr-4 py-2 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 w-full md:w-64 text-sm transition-all placeholder-slate-400 dark:placeholder-slate-500">
-                    <div class="absolute left-3 top-2.5 text-slate-400 dark:text-slate-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
+        <!-- Header Section with Gradient -->
+        <div class="glass-header rounded-2xl p-6 text-white shadow-xl">
+            <div class="flex flex-col gap-4">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <h1 class="text-3xl font-bold mb-2 flex items-center gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            Permohonan Informasi
+                        </h1>
+                        <p class="text-white/90 text-sm">Pantau dan kelola permintaan informasi publik dari masyarakat.</p>
+                    </div>
+                </div>
+
+                <!-- Search Section -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <!-- Search Box -->
+                    <div class="relative">
+                        <input 
+                            type="text" 
+                            x-model="search" 
+                            @input.debounce.500ms="fetchData()" 
+                            placeholder="Cari pemohon..." 
+                            class="w-full pl-11 pr-4 py-3 bg-white/20 backdrop-blur-sm border border-white/30 text-white placeholder-white/60 rounded-xl focus:ring-2 focus:ring-blue-300 focus:border-blue-300 text-sm transition-all"
+                        >
+                        <div class="absolute left-3.5 top-1/2 -translate-y-1/2 text-white/70 pointer-events-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Status Filter -->
+                    <div class="relative">
+                        <select 
+                            x-model="statusFilter" 
+                            @change="fetchData()" 
+                            class="w-full pl-11 pr-10 py-3 bg-white/20 backdrop-blur-sm border border-white/30 text-white rounded-xl focus:ring-2 focus:ring-blue-300 focus:border-blue-300 text-sm transition-all appearance-none cursor-pointer">
+                            <option value="" class="bg-slate-800 text-white">Semua Status</option>
+                            <option value="Menunggu Verifikasi" class="bg-slate-800 text-white">Menunggu Verifikasi</option>
+                            <option value="Diproses" class="bg-slate-800 text-white">Diproses</option>
+                            <option value="Selesai" class="bg-slate-800 text-white">Selesai</option>
+                            <option value="Ditolak" class="bg-slate-800 text-white">Ditolak</option>
+                        </select>
+                        <div class="absolute left-3.5 top-1/2 -translate-y-1/2 text-white/70 pointer-events-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                            </svg>
+                        </div>
+                        <div class="absolute right-3.5 top-1/2 -translate-y-1/2 text-white/70 pointer-events-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -230,12 +283,13 @@
                 pagination: {},
                 isAdmin: {{ auth()->user()->hasRole('admin') ? 'true' : 'false' }},
                 search: '',
+                statusFilter: '',
                 deleteModalOpen: false,
                 deleteId: null,
 
                 async fetchData(url = null) {
                     this.loading = true;
-                    const targetUrl = url || `/admin/permohonan-informasi?search=${encodeURIComponent(this.search)}`;
+                    const targetUrl = url || `/admin/permohonan-informasi?search=${encodeURIComponent(this.search)}&status=${encodeURIComponent(this.statusFilter)}`;
 
                     try {
                         const response = await fetch(targetUrl, {

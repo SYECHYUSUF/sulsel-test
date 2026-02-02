@@ -50,23 +50,36 @@
                 <!-- Form Content -->
                 <div class="px-6 pb-8 md:px-10 md:pb-12">
                     
-                    @if(session('success'))
-                        <div class="mb-8 bg-green-50 border border-green-200 rounded-lg p-4 flex gap-4">
-                            <div class="text-green-500 flex-shrink-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    {{-- Success Modal using New Component --}}
+                    <x-success-modal 
+                        :show="session('success') ? true : false"
+                        title="Yey, Berhasil!"
+                        description="Permohonan informasi berhasil dikirim. Nomor pendaftaran:"
+                        registration-number="Kami akan segera memprosesnya."
+                        primary-button-text="Mantap!"
+                        primary-button-url="{{ route('layanan.pengajuan-keberatan.check-status') }}"
+                        secondary-button-text="Tutup"
+                    />
+
+
+                    {{-- Error Notification using Component --}}
+                    @if($errors->any())
+                        <x-notification-modal theme="error" :show="true" :auto-close="false">
+                            <h3 class="text-xl font-bold mb-3">Terdapat Kesalahan Pada Form</h3>
+                            <div class="space-y-2">
+                                @foreach ($errors->all() as $error)
+                                    <div class="flex items-start gap-2 text-sm">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                        <span class="leading-relaxed">{{ $error }}</span>
+                                    </div>
+                                @endforeach
                             </div>
-                            <div>
-                                <h3 class="text-green-800 font-semibold mb-1">Berhasil!</h3>
-                                <p class="text-green-700 text-sm">{{ session('success') }}</p>
-                                <!-- View Status Button -->
-                                <div class="mt-3">
-                                    <a href="{{ route('layanan.pengajuan-keberatan.check-status') }}" class="inline-flex items-center text-sm font-medium text-green-700 hover:text-green-800 underline">
-                                        Cek Status Pengajuan &rarr;
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                            <p class="mt-4 text-xs italic">Silakan perbaiki kesalahan di bawah dan kirim ulang formulir.</p>
+                        </x-notification-modal>
                     @endif
+
                     
                     <!-- Classification Tabs (Static for Visual) -->
                     <div class="flex justify-center items-center border-b border-gray-200 mb-8 overflow-x-auto">
@@ -86,12 +99,12 @@
                         <div class="space-y-6">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
-                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Nomor Pendaftaran Pengajuan Keberatan</label>
-                                    <input type="text" name="no_pendaftaran" value="{{ old('no_pendaftaran') }}" class="w-full rounded-md border-gray-300 shadow-sm focus:border-[#D1001F] focus:ring focus:ring-[#D1001F]/20 py-3 px-4" placeholder="Masukkan nomor pendaftaran...">
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Nomor Pendaftaran Pengajuan Keberatan <span class="text-red-500">*</span></label>
+                                    <input type="text" name="no_pendaftaran" value="{{ old('no_pendaftaran') }}" required class="w-full rounded-md border-gray-300 shadow-sm focus:border-[#D1001F] focus:ring focus:ring-[#D1001F]/20 py-3 px-4" placeholder="Masukkan nomor pendaftaran...">
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Tujuan Penggunaan Informasi</label>
-                                    <input type="text" name="tujuan" value="{{ old('tujuan') }}" class="w-full rounded-md border-gray-300 shadow-sm focus:border-[#D1001F] focus:ring focus:ring-[#D1001F]/20 py-3 px-4" placeholder="Contoh: Penelitian Skripsi...">
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Tujuan Penggunaan Informasi <span class="text-red-500">*</span></label>
+                                    <input type="text" name="tujuan" value="{{ old('tujuan') }}" required class="w-full rounded-md border-gray-300 shadow-sm focus:border-[#D1001F] focus:ring focus:ring-[#D1001F]/20 py-3 px-4" placeholder="Contoh: Penelitian Skripsi...">
                                 </div>
                             </div>
 
@@ -100,31 +113,53 @@
                                 <h3 class="text-lg font-bold text-gray-800 mb-4">Identitas Pemohon</h3>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
-                                        <label class="block text-sm font-semibold text-gray-700 mb-2">Nama Lengkap</label>
-                                        <input type="text" name="nama_pemohon" value="{{ old('nama_pemohon') }}" class="w-full rounded-md border-gray-300 shadow-sm focus:border-[#D1001F] focus:ring focus:ring-[#D1001F]/20 py-3 px-4">
+                                        <label class="block text-sm font-semibold text-gray-700 mb-2">Nama Lengkap <span class="text-red-500">*</span></label>
+                                        <input type="text" name="nama_pemohon" value="{{ old('nama_pemohon') }}" required class="w-full rounded-md border-gray-300 shadow-sm focus:border-[#D1001F] focus:ring focus:ring-[#D1001F]/20 py-3 px-4">
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-semibold text-gray-700 mb-2">Email</label>
-                                        <input type="email" name="email_pemohon" value="{{ old('email_pemohon') }}" class="w-full rounded-md border-gray-300 shadow-sm focus:border-[#D1001F] focus:ring focus:ring-[#D1001F]/20 py-3 px-4">
+                                        <label class="block text-sm font-semibold text-gray-700 mb-2">Email <span class="text-red-500">*</span></label>
+                                        <input type="email" name="email_pemohon" value="{{ old('email_pemohon') }}" required class="w-full rounded-md border-gray-300 shadow-sm focus:border-[#D1001F] focus:ring focus:ring-[#D1001F]/20 py-3 px-4">
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-semibold text-gray-700 mb-2">Nomor Telepon / WhatsApp</label>
-                                        <input type="text" name="no_telp_pemohon" value="{{ old('no_telp_pemohon') }}" class="w-full rounded-md border-gray-300 shadow-sm focus:border-[#D1001F] focus:ring focus:ring-[#D1001F]/20 py-3 px-4" placeholder="08xxxxxxxxxx">
+                                        <label class="block text-sm font-semibold text-gray-700 mb-2">Nomor Telepon / WhatsApp <span class="text-red-500">*</span></label>
+                                        <input type="text" name="no_telp_pemohon" value="{{ old('no_telp_pemohon') }}" required class="w-full rounded-md border-gray-300 shadow-sm focus:border-[#D1001F] focus:ring focus:ring-[#D1001F]/20 py-3 px-4" placeholder="08xxxxxxxxxx">
                                     </div>
-                                    <div>
+                                    <div x-data="{ 
+                                        showOtherJob: {{ old('pekerjaan_pemohon') && !in_array(old('pekerjaan_pemohon'), $masterPekerjaan->pluck('nama_pekerjaan')->toArray()) ? 'true' : 'false' }},
+                                        selectedValue: '{{ old('pekerjaan_pemohon') }}',
+                                        updateValue(event) {
+                                            this.showOtherJob = (event.target.value === 'Lainnya');
+                                            if (event.target.value !== 'Lainnya') {
+                                                this.selectedValue = event.target.value;
+                                            }
+                                        }
+                                    }">
                                         <label class="block text-sm font-semibold text-gray-700 mb-2">Pekerjaan <span class="text-red-500">*</span></label>
-                                        <select name="pekerjaan_pemohon" class="w-full rounded-md border-gray-300 shadow-sm focus:border-[#D1001F] focus:ring focus:ring-[#D1001F]/20 py-3 px-4" required>
+                                        <select @change="updateValue($event)" class="w-full rounded-md border-gray-300 shadow-sm focus:border-[#D1001F] focus:ring focus:ring-[#D1001F]/20 py-3 px-4">
                                             <option value="">-- Pilih Pekerjaan --</option>
                                             @foreach($masterPekerjaan as $pekerjaan)
                                                 <option value="{{ $pekerjaan->nama_pekerjaan }}" {{ old('pekerjaan_pemohon') == $pekerjaan->nama_pekerjaan ? 'selected' : '' }}>
                                                     {{ $pekerjaan->nama_pekerjaan }}
                                                 </option>
                                             @endforeach
+                                            <option value="Lainnya" {{ old('pekerjaan_pemohon') && !in_array(old('pekerjaan_pemohon'), $masterPekerjaan->pluck('nama_pekerjaan')->toArray()) ? 'selected' : '' }}>Lainnya (Isi Manual)</option>
                                         </select>
+                                        
+                                        <!-- Manual input when Lainnya is selected -->
+                                        <div x-show="showOtherJob" x-transition class="mt-3">
+                                            <label class="block text-sm font-medium text-gray-700 mb-2">Sebutkan Pekerjaan Anda</label>
+                                            <input type="text" 
+                                                   x-model="selectedValue" 
+                                                   class="w-full rounded-md border-gray-300 shadow-sm focus:border-[#D1001F] focus:ring focus:ring-[#D1001F]/20 py-3 px-4" 
+                                                   placeholder="Contoh: Freelancer, Wirausaha, dll">
+                                        </div>
+                                        
+                                        <!-- Hidden input that always submits the value -->
+                                        <input type="hidden" name="pekerjaan_pemohon" :value="selectedValue" required>
                                     </div>
                                     <div class="md:col-span-2">
-                                        <label class="block text-sm font-semibold text-gray-700 mb-2">Alamat Lengkap</label>
-                                        <textarea name="alamat_pemohon" rows="2" class="w-full rounded-md border-gray-300 shadow-sm focus:border-[#D1001F] focus:ring focus:ring-[#D1001F]/20 py-3 px-4">{{ old('alamat_pemohon') }}</textarea>
+                                        <label class="block text-sm font-semibold text-gray-700 mb-2">Alamat Lengkap <span class="text-red-500">*</span></label>
+                                        <textarea name="alamat_pemohon" rows="2" required class="w-full rounded-md border-gray-300 shadow-sm focus:border-[#D1001F] focus:ring focus:ring-[#D1001F]/20 py-3 px-4">{{ old('alamat_pemohon') }}</textarea>
                                     </div>
                                     <!-- Hidden Fields for compatibility if needed or user fills them -->
                                     <input type="hidden" name="address_pemohon" value="-">
@@ -136,13 +171,13 @@
 
                             <!-- Kasus Posisi -->
                             <div class="pt-4 border-t border-gray-100">
-                                 <label class="block text-sm font-semibold text-gray-700 mb-2">Kasus Posisi</label>
-                                 <textarea name="kasus" rows="4" class="w-full rounded-md border-gray-300 shadow-sm focus:border-[#D1001F] focus:ring focus:ring-[#D1001F]/20 py-3 px-4" placeholder="Jelaskan secara singkat kasus posisi atau alasan keberatan anda...">{{ old('kasus') }}</textarea>
+                                 <label class="block text-sm font-semibold text-gray-700 mb-2">Kasus Posisi <span class="text-red-500">*</span></label>
+                                 <textarea name="kasus" rows="4" required class="w-full rounded-md border-gray-300 shadow-sm focus:border-[#D1001F] focus:ring focus:ring-[#D1001F]/20 py-3 px-4" placeholder="Jelaskan secara singkat kasus posisi atau alasan keberatan anda...">{{ old('kasus') }}</textarea>
                             </div>
 
                             <!-- Alasan Keberatan Section (Checkboxes) -->
                             <div class="pt-4 border-t border-gray-100">
-                                <label class="block text-sm font-semibold text-gray-700 mb-4">Alasan Keberatan (Pilih yang sesuai)</label>
+                                <label class="block text-sm font-semibold text-gray-700 mb-4">Alasan Keberatan (Pilih  yang sesuai) <span class="text-red-500">*</span></label>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                                     @php
                                         $alasanList = [

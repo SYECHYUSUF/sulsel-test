@@ -9,19 +9,32 @@ class PengajuanKeberatanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'no_pendaftaran' => 'required',
-            'tujuan' => 'required',
-            'nama_pemohon' => 'required',
-            'alamat_pemohon' => 'required',
-            'address_pemohon' => 'required',
-            'city_pemohon' => 'required',
-            'state_pemohon' => 'required',
-            'pekerjaan_pemohon' => 'required',
-            'no_telp_pemohon' => 'required',
-            'email_pemohon' => 'required|email',
+            'no_pendaftaran' => 'required|string|max:255',
+            'tujuan' => 'required|string|max:500',
+            'nama_pemohon' => 'required|string|max:255',
+            'alamat_pemohon' => 'required|string',
+            'address_pemohon' => 'nullable|string',
+            'city_pemohon' => 'nullable|string',
+            'state_pemohon' => 'nullable|string',
+            'pekerjaan_pemohon' => 'required|string|max:255',
+            'no_telp_pemohon' => ['required', 'string', 'regex:/^[0-9+\-\s()]+$/'],
+            'email_pemohon' => 'required|email:rfc,dns',
             'alasan' => 'required|array|min:1',
-            'kasus' => 'required',
-            'metode_respon' => 'required|in:website,whatsapp', // Add Validation
+            'alasan.*' => 'string',
+            'kasus' => 'required|string',
+        ], [
+            'no_pendaftaran.required' => 'Nomor pendaftaran wajib diisi.',
+            'tujuan.required' => 'Tujuan penggunaan informasi wajib diisi.',
+            'nama_pemohon.required' => 'Nama lengkap wajib diisi.',
+            'alamat_pemohon.required' => 'Alamat lengkap wajib diisi.',
+            'pekerjaan_pemohon.required' => 'Pekerjaan wajib dipilih atau diisi.',
+            'no_telp_pemohon.required' => 'Nomor telepon wajib diisi.',
+            'no_telp_pemohon.regex' => 'Nomor telepon hanya boleh berisi angka, +, -, (), dan spasi.',
+            'email_pemohon.required' => 'Email wajib diisi.',
+            'email_pemohon.email' => 'Format email tidak valid.',
+            'alasan.required' => 'Minimal pilih satu alasan keberatan.',
+            'alasan.min' => 'Minimal pilih satu alasan keberatan.',
+            'kasus.required' => 'Kasus posisi wajib diisi.',
         ]);
 
         // Cari Data Permohonan Asli untuk mendapatkan ID SKPD
@@ -50,8 +63,8 @@ class PengajuanKeberatanController extends Controller
             'state_kuasa' => $request->state_kuasa,
             'no_telp_kuasa' => $request->no_telp_kuasa,
             'kasus' => $request->kasus,
-            'status' => 'n', // New
-            'metode_respon' => $request->metode_respon, // Save Preference
+            'status' => 'p', // Changed from 'n' to 'p' (Pending)
+            'metode_respon' => 'website', // Default to website since form doesn't have this field
         ]);
 
         foreach ($request->alasan as $alasan) {
@@ -61,32 +74,81 @@ class PengajuanKeberatanController extends Controller
             ]);
         }
 
-        $msg = 'Pengajuan keberatan berhasil dikirim.';
-        if($request->metode_respon == 'whatsapp') {
-            $msg .= ' Tanggapan akan dikirimkan melalui WhatsApp ke nomor yang Anda daftarkan.';
-        } else {
-            $msg .= ' Silakan cek status pengajuan secara berkala melalui menu "Cek Status".';
+        // Send notification to all admins about new submission
+        $admins = \App\Models\User::whereHas('roles', function ($query) {
+            $query->where('name', 'admin');
+        })->get();
+        foreach ($admins as $admin) {
+            \App\Models\Notification::send([
+                'to_user_id' => $admin->id,
+                'type' => 'warning',
+                'title' => 'Pengajuan Keberatan Baru',
+                'message' => 'Pengajuan keberatan baru dari ' . $request->nama_pemohon . ' (#' . $request->no_pendaftaran . ') menunggu verifikasi.',
+                'url' => route('admin.pengajuan-keberatan.show', $pengajuan->id_pengajuan),
+                'notifiable_type' => 'App\\Models\\PengajuanKeberatan',
+                'notifiable_id' => $pengajuan->id_pengajuan,
+            ]);
         }
 
-        return back()->with('success', $msg);
+        return back()->with('success', 'Pengajuan keberatan berhasil dikirim. Silakan cek status pengajuan secara berkala melalui menu "Cek Status".');
     }
+    /**
+     * Check status by email (supports AJAX and regular requests).
+     */
     public function checkStatus(Request $request)
     {
         $request->validate([
-            'no_pendaftaran' => 'required',
-            'email' => 'required|email'
+            'email' => 'required|email',
         ]);
 
         $pengajuan = \App\Models\PengajuanKeberatan::with(['feedbackBy', 'alasanPengajuan'])
-            ->where('no_pendaftaran', $request->no_pendaftaran)
             ->where('email_pemohon', $request->email)
-            ->first();
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-        if (!$pengajuan) {
-            return back()->with('error', 'Data pengajuan tidak ditemukan. Periksa kembali Nomor Pendaftaran dan Email Anda.');
+        if ($pengajuan->isEmpty()) {
+            if ($request->expectsJson() || $request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Tidak ada pengajuan keberatan ditemukan dengan email tersebut.'
+                ], 404);
+            }
+            return redirect()->back()->with('error', 'Tidak ada pengajuan keberatan ditemukan dengan email tersebut.');
         }
 
-        return view('pages.layanan.detail-status-keberatan', compact('pengajuan'));
+        // Transform data untuk menyertakan label status
+        if ($request->expectsJson() || $request->ajax()) {
+            $pengajuan->transform(function ($item) {
+                // Mapping status untuk pengajuan keberatan
+                // Status: 'p' = pending/proses, 'y' = disetujui, 't' = ditolak, 'a' = dijawab
+                $labels = [
+                    'p' => 'Dalam Proses',
+                    'y' => 'Disetujui',
+                    't' => 'Ditolak',
+                    'a' => 'Dijawab',
+                ];
+                
+                // Check if feedback is empty/null - override status label
+                if (empty($item->feedback) && $item->status != 't') {
+                    $item->status_label = 'Belum Direspon';
+                    $item->display_status = 'belum_direspon'; // Custom status for frontend
+                } else {
+                    $item->status_label = $labels[$item->status] ?? 'Status Tidak Diketahui';
+                    $item->display_status = $item->status;
+                }
+                
+                $item->formatted_date = $item->created_at->translatedFormat('d F Y H:i') . ' WITA';
+                
+                return $item;
+            });
+
+            return response()->json([
+                'success' => true,
+                'data' => $pengajuan
+            ]);
+        }
+
+        return view('pages.layanan.cek-status-keberatan', compact('pengajuan'));
     }
 
     public function formCheckStatus()

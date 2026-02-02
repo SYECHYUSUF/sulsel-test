@@ -56,6 +56,8 @@
                 $quickLinks = [
                     ['label' => 'Permohonan Informasi', 'url' => '/layanan/permohonan-informasi'],
                     ['label' => 'Pengajuan Keberatan', 'url' => '/layanan/pengajuan-keberatan'],
+                    ['label' => 'Cek Status Permohonan', 'url' => '/layanan/cek-status-permohonan'],
+                    ['label' => 'Cek Status Pengajuan', 'url' => '/layanan/pengajuan-keberatan/cek-status'],
                     ['label' => 'Informasi Publik', 'url' => '/informasi-publik'],
                     ['label' => 'SOP Layanan', 'url' => '/layanan/sop'],
                 ];

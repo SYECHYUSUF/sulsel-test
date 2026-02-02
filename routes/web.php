@@ -144,12 +144,12 @@ Route::middleware(['track.visitors'])->group(function () {
     Route::get('/layanan/pengajuan-keberatan', function () {
         $masterPekerjaan = \App\Models\MasterPekerjaan::active()->orderBy('nama_pekerjaan')->get();
         return view('pages.layanan.pengajuan-keberatan', compact('masterPekerjaan'));
-    });
+    })->name('layanan.pengajuan-keberatan');
     
     // Rute Permohonan Informasi
     Route::post('/layanan/permohonan-informasi', [App\Http\Controllers\PermohonanInformasiController::class, 'store'])->name('layanan.permohonan-informasi.store');
     
-    Route::post('/layanan/pengajuan-keberatan', [GuestPengajuanKeberatanController::class, 'store'])->name('layanan.pengajuan-keberatan.store');
+    Route::post('/layanan/pengajuan-keberatan', [\App\Http\Controllers\PengajuanKeberatanController::class, 'store'])->name('layanan.pengajuan-keberatan.store');
 
     // Check Status Routes
     Route::get('/layanan/pengajuan-keberatan/cek-status', [GuestPengajuanKeberatanController::class, 'formCheckStatus'])->name('layanan.pengajuan-keberatan.check-status');
@@ -208,6 +208,9 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::resource('pengajuan-keberatan', PengajuanKeberatanController::class);
         Route::post('pengajuan-keberatan/{id}/feedback', [PengajuanKeberatanController::class, 'storeFeedback'])->name('pengajuan-keberatan.storeFeedback');
         Route::get('pengajuan-keberatan/{id}/feedback', [PengajuanKeberatanController::class, 'loadFeedback'])->name('pengajuan-keberatan.loadFeedback');
+        Route::get('pengajuan-keberatan/{id}/disposisi', [PengajuanKeberatanController::class, 'disposisiForm'])->name('pengajuan-keberatan.disposisi');
+        Route::post('pengajuan-keberatan/{id}/disposisi', [PengajuanKeberatanController::class, 'disposisiStore'])->name('pengajuan-keberatan.disposisi.store');
+        Route::post('pengajuan-keberatan/disposisi/{disposisiId}/respon', [PengajuanKeberatanController::class, 'responStore'])->name('pengajuan-keberatan.respon.store');
 
         Route::resource('dokumen-publik', DokumenPublikController::class);
         Route::post('dokumen-publik/bulk-delete', [DokumenPublikController::class, 'bulkDelete'])->name('dokumen-publik.bulk-delete');
