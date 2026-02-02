@@ -325,6 +325,12 @@ return [
         
         'daftar_title' => 'Daftar Informasi Publik',
         'daftar_subtitle' => 'Indeks Informasi Publik Lengkap',
+        
+        'index_title' => 'Daftar Informasi Publik',
+        'index_subtitle' => 'Daftar Lengkap Informasi Publik Provinsi Sulawesi Selatan',
+        
+        'detail_title' => 'Detail Informasi',
+        'detail_subtitle' => 'Detail lengkap informasi publik',
     ],
     'ppid_pelaksana' => [
         'title' => 'PPID Pelaksana',

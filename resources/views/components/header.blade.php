@@ -1,5 +1,6 @@
 <header
-    class="fixed top-0 left-0 w-full z-50 bg-white dark:bg-slate-900 shadow-sm font-['Plus_Jakarta_Sans'] transition-colors duration-300"
+    class="fixed top-0 left-0 w-full z-50 font-['Plus_Jakarta_Sans'] transition-all duration-300"
+    :class="scrolled ? 'bg-transparent shadow-none' : 'bg-white dark:bg-slate-900 shadow-sm'"
     x-data="{ 
             mobileMenu: false,
             openProfil: false, 
@@ -10,14 +11,22 @@
             openLang: false,
             lang: '{{ session('locale', 'id') }}'.toUpperCase(),
             darkMode: localStorage.getItem('theme') === 'dark',
+            scrolled: false,
             init() {
                 if (this.darkMode) document.documentElement.classList.add('dark');
                 else document.documentElement.classList.remove('dark');
+                
+                // Listen to scroll events
+                window.addEventListener('scroll', () => {
+                    this.scrolled = window.scrollY > 50;
+                });
             }
         }">
 
     {{-- 1. TOP BAR: LOGO & BAHASA --}}
-    <div class="container mx-auto px-4 py-4 md:py-6 flex items-center justify-between">
+    <div id="topbar" 
+         class="container mx-auto px-4 flex items-center justify-between transition-all duration-300 bg-white dark:bg-slate-900"
+         :class="scrolled ? 'max-h-0 py-0 opacity-0 invisible' : 'max-h-32 py-4 md:py-6 opacity-100 visible'">
         <a href="/" class="flex items-center gap-3 group">
             {{-- Logo Image --}}
             <img src="{{ asset('images/ppid-2.png') }}" alt="Logo PPID Sulawesi Selatan"
