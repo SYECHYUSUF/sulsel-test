@@ -24,7 +24,7 @@
             </div>
 
             {{-- 2. CONTENT GRID (Fit Screen on Desktop) --}}
-            <div class="grid lg:grid-cols-12 gap-4 lg:gap-8 h-auto lg:h-[600px]"> {{-- Fixed height on large screens to avoid scroll --}}
+            <div class="grid mb-12 lg:grid-cols-12 gap-4 lg:gap-8 h-auto lg:h-[600px]"> {{-- Fixed height on large screens to avoid scroll --}}
                 
                 {{-- LEFT COLUMN: INFO & MAP (4 Columns) --}}
                 <div class="lg:col-span-4 flex flex-col gap-4 h-full">
@@ -151,7 +151,7 @@
                                 </div>
 
                                 {{-- Submit Action --}}
-                                <div class="pt-2">
+                                <div class="pt-6">
                                     <button type="submit" 
                                         class="w-full bg-[#1A305E] hover:bg-[#D4AF37] text-white font-bold py-3 px-6 rounded-lg shadow-md transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
