@@ -49,6 +49,12 @@
         class="flex h-screen overflow-hidden" 
         x-data="{ 
             sidebarOpen: localStorage.getItem('sidebarOpen') === null ? true : localStorage.getItem('sidebarOpen') === 'true',
+            activeDropdown: null,
+            checkActive(label, isActive) {
+                if (isActive) {
+                    this.activeDropdown = label;
+                }
+            },
             toggleSidebar() {
                 const newState = !this.sidebarOpen;
                 

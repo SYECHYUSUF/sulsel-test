@@ -2,7 +2,7 @@
     class="flex flex-col bg-[#1A305E] text-white z-30 font-sans border-r border-slate-200/10 absolute md:static h-full shadow-xl md:shadow-none inset-y-0 left-0"
     :class="sidebarOpen ? 'w-72 translate-x-0' : 'w-20 -translate-x-full md:translate-x-0 md:w-24'">
 
-    <div class="flex items-center h-20 bg-[#1A305E] "
+    {{-- <div class="flex items-center h-20 bg-[#1A305E] "
         :class="sidebarOpen ? 'px-8 gap-4' : 'px-0 justify-center'">
         <img src="{{ asset('images/ppid-2.png') }}" 
             alt="Logo PPID Sulawesi Selatan"
@@ -15,6 +15,16 @@
             <span class="font-bold text-lg tracking-wide">ADMIN PANEL</span>
             <span class="text-slate-300">PPID Sulsel</span>
         </div>
+    </div> --}}
+
+    <div class="flex justify-between items-center" :class="sidebarOpen ? 'p-6 pr-4 pb-0' : 'p-5 pl-7 pb-0'">
+        <h1 :class="sidebarOpen ? 'font-bold text-xl' : 'hidden'">Admin Panel</h1>
+
+        <button  @click="toggleSidebar()" class="p-2 hover:bg-white/5 rounded-lg text-slate-400 focus:outline-none">
+            <svg :class="sidebarOpen ? 'w-5 h-5' : 'w-6 h-6'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-panel-right-icon lucide-panel-right"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M15 3v18"/></svg>
+            </svg>
+        </button>
     </div>
 
     <nav
@@ -82,7 +92,7 @@
                     :active="request()->is('admin/pengajuan-keberatan*')" label="Pengajuan Keberatan" />
             </x-sidebar-dropdown>
 
-            <x-sidebar-dropdown label="Konten" :active="request()->is('admin/berita*') || request()->is('admin/faq*') || request()->is('admin/slide-banner*')">
+            <x-sidebar-dropdown label="Konten" :active="request()->routeIs('admin.data-sop.*') || request()->is('admin/berita*') || request()->is('admin/faq*') || request()->is('admin/slide-banner*')">
 
                 <x-slot name="icon">
                     {{-- Icon Folder/Layout untuk Konten --}}
@@ -98,11 +108,11 @@
 
                 {{-- Link FAQ & Slide Banner (Hanya untuk Admin) --}}
                 @role('admin')
-                <x-sidebar-dropdown-link :href="route('admin.faq.index')" :active="request()->routeIs('admin.faq.*')"
-                    label="FAQ" />
+                <x-sidebar-dropdown-link href="{{ route('admin.data-sop.index') }}" :active="request()->is('admin/data-sop*')" label="Standar Operasional Prosedur" />
 
-                <x-sidebar-dropdown-link href="/admin/slide-banner" :active="request()->is('admin/slide-banner*')"
-                    label="Slide Banner" />
+                <x-sidebar-dropdown-link :href="route('admin.faq.index')" :active="request()->routeIs('admin.faq.*')" label="FAQ" />
+
+                <x-sidebar-dropdown-link href="/admin/slide-banner" :active="request()->is('admin/slide-banner*')" label="Slide Banner" />
                 @endrole
             </x-sidebar-dropdown>
 
@@ -124,7 +134,7 @@
 
         {{-- Manajemen Informasi --}}
         <div class="px-6 overflow-hidden whitespace-nowrap"
-            :class="sidebarOpen ? 'max-h-10 opacity-100 mb-2 mt-6' : 'max-h-0 opacity-0 mb-0 mt-0'">
+            :class="sidebarOpen ? 'max-h-10 opacity-100 mb-2 mt-4' : 'max-h-0 opacity-0 mb-0 mt-0'">
             <span
                 class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px] whitespace-nowrap">{{ __('Manajemen Informasi') }}</span>
         </div>
@@ -154,13 +164,12 @@
         {{-- Route khusus admin --}}
         @role('admin')
         <div class="px-6 overflow-hidden whitespace-nowrap"
-            :class="sidebarOpen ? 'max-h-10 opacity-100 mb-2 mt-6' : 'max-h-0 opacity-0 mb-0 mt-0'">
+            :class="sidebarOpen ? 'max-h-10 opacity-100 mb-2 mt-4' : 'max-h-0 opacity-0 mb-0 mt-0'">
             <span
                 class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px] whitespace-nowrap">{{ __('Pengaturan Sistem') }}</span>
         </div>
         <ul>
-            <x-sidebar-dropdown label="Pengaturan" :active="request()->is('admin/data-sop*') || request()->routeIs('admin.kategori-informasi.*') || request()->is('admin/skpd*')">
-
+            <x-sidebar-dropdown label="Master" :active="request()->routeIs('admin.kategori-informasi.*') || request()->is('admin/skpd*')">
                 <x-slot name="icon">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -170,15 +179,15 @@
                             d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                     </svg>
                 </x-slot>
+                
+                <x-sidebar-dropdown-link href="{{ route('admin.kategori-informasi.index') }}" :active="request()->routeIs('admin.kategori-informasi.*')" label="Kategori Informasi" />
 
-                <x-sidebar-dropdown-link href="{{ route('admin.data-sop.index') }}"
-                    :active="request()->is('admin/data-sop*')" label="Data SOP" />
+                <x-sidebar-dropdown-link href="{{ route('admin.master-pekerjaan.index') }}" :active="request()->is('admin/master-pekerjaan*')" label="Tahun Informasi" />
 
-                <x-sidebar-dropdown-link href="{{ route('admin.kategori-informasi.index') }}"
-                    :active="request()->routeIs('admin.kategori-informasi.*')" label="Kategori Info" />
+                <x-sidebar-dropdown-link href="{{ route('admin.master-domisili.index') }}" :active="request()->is('admin/master-domisili*')" label="Domisili" />
 
-                <x-sidebar-dropdown-link href="{{ route('admin.skpd.index') }}" :active="request()->is('admin/skpd*')"
-                    label="Data SKPD" />
+                <x-sidebar-dropdown-link href="{{ route('admin.master-pekerjaan.index') }}" :active="request()->is('admin/master-pekerjaan*')" label="Pekerjaan" />
+
             </x-sidebar-dropdown>
 
             <x-sidebar-link href="/admin/users" :active="request()->is('admin/users*')" label="Users">
@@ -189,17 +198,10 @@
                 </svg>
             </x-sidebar-link>
 
-            <x-sidebar-link href="{{ route('admin.master-pekerjaan.index') }}" :active="request()->is('admin/master-pekerjaan*')" label="Master Pekerjaan">
+            <x-sidebar-link href="{{ route('admin.skpd.index') }}" :active="request()->is('admin/skpd*')" label="Data SKPD">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
                     <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
-                </svg>
-            </x-sidebar-link>
-
-            <x-sidebar-link href="{{ route('admin.master-domisili.index') }}" :active="request()->is('admin/master-domisili*')" label="Master Domisili">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
-                    <circle cx="12" cy="10" r="3"/>
                 </svg>
             </x-sidebar-link>
         </ul>
@@ -208,7 +210,7 @@
         {{-- Route khusus opd --}}
         @role('opd')
         <div class="px-6 overflow-hidden whitespace-nowrap"
-            :class="sidebarOpen ? 'max-h-10 opacity-100 mb-2 mt-6' : 'max-h-0 opacity-0 mb-0 mt-0'">
+            :class="sidebarOpen ? 'max-h-10 opacity-100 mb-2 mt-4' : 'max-h-0 opacity-0 mb-0 mt-0'">
             <span
                 class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px] whitespace-nowrap">{{ __('Pengaturan') }}</span>
         </div>

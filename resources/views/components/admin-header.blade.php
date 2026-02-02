@@ -1,13 +1,18 @@
 <header
-    class="z-50 bg-slate-50 dark:bg-slate-800 sticky top-0 h-20 flex items-center justify-between px-8 py-5 transition-colors duration-300 shadow-sm">
+    class="bg-slate-50 dark:bg-slate-800 h-20 flex items-center justify-between px-8 py-5 transition-colors duration-300 shadow-sm">
     <div class="flex-1 flex items-center max-w-2xl gap-4">
-        <button @click="toggleSidebar()"
-            class="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+
+        <button  @click="toggleSidebar()" class="p-2 md:hidden hover:bg-white/5 rounded-lg text-slate-400 focus:outline-none">
+            <svg :class="sidebarOpen ? 'w-5 h-5' : 'w-6 h-6'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-panel-right-icon lucide-panel-right"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M15 3v18"/></svg>
             </svg>
         </button>
+
+        <img src="{{ asset('images/ppid-2.png') }}" 
+            alt="Logo PPID Sulawesi Selatan"
+            class="object-contain transition-all duration-300 h-12 w-auto" 
+            :class="sidebarOpen ? 'h-7 w-7 md:h-12 md:w-auto' : 'h-7 w-7'" 
+        />
 
         @php
             $segments = request()->segments();
@@ -55,101 +60,9 @@
                 ];
             }
         @endphp
-
-        <nav class="flex items-center text-sm font-medium overflow-hidden whitespace-nowrap" aria-label="Breadcrumb">
-            <ol class="flex items-center gap-1.5 md:gap-2">
-                @if(count($breadcrumbs) <= 4)
-                    @foreach($breadcrumbs as $index => $crumb)
-                        <li class="flex items-center gap-1.5 md:gap-2">
-                            @if($index > 0)
-                                <svg class="w-4 h-4 text-slate-300 dark:text-slate-600 flex-shrink-0" fill="none"
-                                    stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            @endif
-
-                            @if($loop->last)
-                                <span class="text-slate-800 dark:text-slate-100 font-bold truncate max-w-[120px] md:max-w-[200px]"
-                                    aria-current="page">
-                                    {{ $crumb['title'] }}
-                                </span>
-                            @else
-                                <a href="{{ $crumb['url'] }}"
-                                    class="text-slate-500 dark:text-slate-400 hover:text-[#D4AF37] dark:hover:text-[#D4AF37] transition-colors truncate max-w-[100px] md:max-w-[150px]">
-                                    {{ $crumb['title'] }}
-                                </a>
-                            @endif
-                        </li>
-                    @endforeach
-                @else
-                    {{-- Show first item --}}
-                    <li class="flex items-center">
-                        <a href="{{ $breadcrumbs[0]['url'] }}"
-                            class="text-slate-500 dark:text-slate-400 hover:text-[#D4AF37] dark:hover:text-[#D4AF37] transition-colors truncate max-w-[100px]">
-                            {{ $breadcrumbs[0]['title'] }}
-                        </a>
-                    </li>
-
-                    {{-- Ellipsis with Dropdown --}}
-                    <li class="flex items-center gap-1.5 md:gap-2">
-                        <svg class="w-4 h-4 text-slate-300 dark:text-slate-600 flex-shrink-0" fill="none"
-                            stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-
-                        <div class="relative" x-data="{ openCrumb: false }" @click.away="openCrumb = false">
-                            <button @click="openCrumb = !openCrumb"
-                                class="p-1 px-1.5 rounded hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-500 transition-colors">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM18 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                                </svg>
-                            </button>
-
-                            <div x-show="openCrumb" x-transition:enter="transition ease-out duration-100"
-                                x-transition:enter-start="transform opacity-0 scale-95"
-                                x-transition:enter-end="transform opacity-100 scale-100"
-                                class="absolute left-0 mt-2 w-48 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl shadow-xl py-1 z-[60] overflow-hidden"
-                                style="display: none;">
-                                @for($i = 1; $i < count($breadcrumbs) - 2; $i++)
-                                    <a href="{{ $breadcrumbs[$i]['url'] }}"
-                                        class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 hover:text-[#D4AF37] transition-colors">
-                                        {{ $breadcrumbs[$i]['title'] }}
-                                    </a>
-                                @endfor
-                            </div>
-                        </div>
-                    </li>
-
-                    {{-- Show last two items --}}
-                    @for($i = count($breadcrumbs) - 2; $i < count($breadcrumbs); $i++)
-                        <li class="flex items-center gap-1.5 md:gap-2">
-                            <svg class="w-4 h-4 text-slate-300 dark:text-slate-600 flex-shrink-0" fill="none"
-                                stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-
-                            @if($i == count($breadcrumbs) - 1)
-                                <span class="text-slate-800 dark:text-slate-100 font-bold truncate max-w-[120px] md:max-w-[200px]"
-                                    aria-current="page">
-                                    {{ $breadcrumbs[$i]['title'] }}
-                                </span>
-                            @else
-                                <a href="{{ $breadcrumbs[$i]['url'] }}"
-                                    class="text-slate-500 dark:text-slate-400 hover:text-[#D4AF37] dark:hover:text-[#D4AF37] transition-colors truncate max-w-[100px] md:max-w-[150px]">
-                                    {{ $breadcrumbs[$i]['title'] }}
-                                </a>
-                            @endif
-                        </li>
-                    @endfor
-                @endif
-            </ol>
-        </nav>
     </div>
 
     <div class="flex items-center gap-4">
-        
-
         {{-- Dark Mode Toggle --}}
         <button @click="toggleDarkMode()"
             class="p-2 rounded-full text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-700 transition-colors"

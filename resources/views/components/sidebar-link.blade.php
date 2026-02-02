@@ -10,8 +10,8 @@
     $iconColor = ($active ?? false) ? 'text-[#1A305E]' : 'text-slate-400 group-hover:text-white';
 @endphp
 
-<li>
-    <a wire:navigate href="{{ $href }}" 
+<li @click="if(!sidebarOpen) sidebarOpen = true">
+    <a href="{{ $href }}" 
        {{ $attributes->except('class') }}
        class="relative flex items-center py-3 text-sm font-semibold transition-all duration-200 overflow-hidden whitespace-nowrap rounded-xl mx-3 group {{ $classes }}"
        :class="sidebarOpen ? 'px-4 justify-start' : 'px-0 justify-center h-12 w-12 mx-auto'"
