@@ -19,13 +19,15 @@
                     class="w-4 h-4 text-gray-400">
                     <path d="m9 18 6-6-6-6" />
                 </svg>
-                <a href="/informasi-publik" class="hover:text-[#1A305E] dark:text-white transition-colors">{{ __('messages.breadcrumb.public_info') }}</a>
+                <a href="/informasi-publik"
+                    class="hover:text-[#1A305E] dark:text-white transition-colors">{{ __('messages.breadcrumb.public_info') }}</a>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="w-4 h-4 text-gray-400">
                     <path d="m9 18 6-6-6-6" />
                 </svg>
-                <span class="text-[#1A305E] dark:text-white font-medium">{{ __('messages.public_info_types.pengadaan') }}</span>
+                <span
+                    class="text-[#1A305E] dark:text-white font-medium">{{ __('messages.public_info_types.pengadaan') }}</span>
             </div>
 
             {{-- Title --}}
@@ -85,18 +87,30 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200">
-                                @foreach ($matriksDip as $item)
+                                @foreach ($ikphns as $item)
                                     <tr class="hover:bg-[#1A305E]/5 transition-colors">
                                         <td class="px-4 py-3 text-sm text-gray-900 dark:text-white">
-                                            {{ ($matriksDip->currentPage() - 1) * $matriksDip->perPage() + $loop->iteration }}
+                                            {{ ($ikphns->currentPage() - 1) * $ikphns->perPage() + $loop->iteration }}
                                         </td>
-                                        <td class="px-4 py-3 text-sm text-gray-700 font-medium">{{ $item->b }}</td>
+                                        <td class="px-4 py-3 text-sm text-gray-700 font-medium">{{ $item->nama_jabatan }}
+                                        </td>
                                         <td class="px-4 py-3 text-center whitespace-nowrap">
                                             <div class="flex items-center gap-2">
-                                                <span
-                                                    class="text-xs font-bold text-[#1A305E] dark:text-white bg-[#1A305E]/10 px-2 py-0.5 rounded">
-                                                    {{ $item->f }}
-                                                </span>
+                                                @if($item->file)
+                                                    <a href="{{ Storage::url($item->file) }}" target="_blank"
+                                                        class="text-xs font-bold text-white bg-[#1A305E] hover:bg-[#142344] px-3 py-1.5 rounded transition-colors inline-flex items-center gap-1">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                                            <polyline points="7 10 12 15 17 10" />
+                                                            <line x1="12" y1="15" x2="12" y2="3" />
+                                                        </svg>
+                                                        Download
+                                                    </a>
+                                                @else
+                                                    <span class="text-gray-400 text-xs">-</span>
+                                                @endif
                                             </div>
                                         </td>
                                     </tr>
@@ -108,7 +122,7 @@
                     {{-- Pagination --}}
                     <div
                         class="border-t border-gray-200 dark:border-slate-700 px-6 py-4 bg-gray-50 dark:bg-slate-900 flex items-center justify-center gap-2">
-                        {{ $matriksDip->links() }}
+                        {{ $ikphns->links() }}
                     </div>
 
                 </div>

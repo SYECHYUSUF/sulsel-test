@@ -30,8 +30,7 @@ class MasterPekerjaanController extends Controller
 
         MasterPekerjaan::create($validated);
 
-        return redirect()->route('admin.master-pekerjaan.index')
-            ->with('success', 'Data pekerjaan berhasil ditambahkan.');
+        return back()->with('success', 'Data pekerjaan berhasil ditambahkan.');
     }
 
     public function edit($id)
@@ -53,8 +52,7 @@ class MasterPekerjaanController extends Controller
 
         $item->update($validated);
 
-        return redirect()->route('admin.master-pekerjaan.index')
-            ->with('success', 'Data pekerjaan berhasil diperbarui.');
+        return back()->with('success', 'Data pekerjaan berhasil diperbarui.');
     }
 
     public function destroy($id)
@@ -62,7 +60,6 @@ class MasterPekerjaanController extends Controller
         $item = MasterPekerjaan::findOrFail($id);
         $item->delete();
 
-        return redirect()->route('admin.master-pekerjaan.index')
-            ->with('success', 'Data pekerjaan berhasil dihapus.');
+        return back()->with('success', 'Data pekerjaan berhasil dihapus.');
     }
 }

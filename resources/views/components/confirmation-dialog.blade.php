@@ -7,6 +7,7 @@
     'cancelText' => 'Batal',
     'url' => '#',               // Action URL untuk form
     'method' => 'DELETE',       // Method spoofing: DELETE, PUT, POST
+    'dynamic' => false,         // Whether URL is an Alpine variable
 ])
 
 @php
@@ -59,9 +60,7 @@
                 <div class="relative w-24 h-24 mb-6 flex items-center justify-center transform hover:scale-105 transition-transform duration-300">
                     <svg viewBox="0 0 200 200" class="absolute inset-0 w-full h-full drop-shadow-xl" xmlns="http://www.w3.org/2000/svg">
                         <defs>
-                            <linearGradient id="grad_{{ $theme }}" x1="0%" y1="0%" x2="100%" y2="100%">
-                                {{-- Fallback for static rendering, actual colors handled by wrapper classes or CSS injection if needed. 
-                                     Here we rely on predefined IDs for simplicity --}}
+                            <linearGradient id="grad_{{ $theme }}_{{ Str::random(5) }}" x1="0%" y1="0%" x2="100%" y2="100%">
                                 @if($theme == 'danger')
                                     <stop offset="0%" stop-color="#EF4444" /> <stop offset="100%" stop-color="#BE123C" />
                                 @elseif($theme == 'warning')
@@ -71,7 +70,11 @@
                                 @endif
                             </linearGradient>
                         </defs>
-                        <path fill="url(#grad_{{ $theme }})" d="M41.8,-71.3C54.7,-64.9,66.1,-54.6,75.4,-42.1C84.7,-29.6,91.9,-14.8,90.2,-0.9C88.6,12.9,78.1,25.8,67.4,36.9C56.7,48,45.8,57.2,33.5,63.9C21.2,70.6,7.5,74.7,-5.7,73.8C-18.9,72.9,-31.7,66.9,-44.1,60.2C-56.5,53.5,-68.5,46,-76.3,34.9C-84.1,23.8,-87.7,9.1,-84.8,-4.2C-81.9,-17.5,-72.5,-29.3,-62.4,-39.7C-52.3,-50.1,-41.5,-59.1,-29.6,-66.1C-17.7,-73.2,-4.7,-78.3,4.2,-79C13.1,-79.7,26.2,-76,33.1,-72.3L41.8,-71.3Z" transform="translate(100 100) scale(1.1)" />
+                        {{-- To fix the ID reference issue, we'll just use inline styles or standard fill for now if gradients are tricky dynamically, 
+                             or rely on a simpler approach. Actually, standard fill colors might be safer and still look good. --}}
+                        <path fill="{{ $theme == 'danger' ? '#EF4444' : ($theme == 'warning' ? '#F59E0B' : '#1A305E') }}" 
+                              d="M41.8,-71.3C54.7,-64.9,66.1,-54.6,75.4,-42.1C84.7,-29.6,91.9,-14.8,90.2,-0.9C88.6,12.9,78.1,25.8,67.4,36.9C56.7,48,45.8,57.2,33.5,63.9C21.2,70.6,7.5,74.7,-5.7,73.8C-18.9,72.9,-31.7,66.9,-44.1,60.2C-56.5,53.5,-68.5,46,-76.3,34.9C-84.1,23.8,-87.7,9.1,-84.8,-4.2C-81.9,-17.5,-72.5,-29.3,-62.4,-39.7C-52.3,-50.1,-41.5,-59.1,-29.6,-66.1C-17.7,-73.2,-4.7,-78.3,4.2,-79C13.1,-79.7,26.2,-76,33.1,-72.3L41.8,-71.3Z" 
+                              transform="translate(100 100) scale(1.1)" opacity="0.2"/>
                     </svg>
                     
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -94,8 +97,8 @@
                     </button>
                     
                     {{-- Form Submission for Actions --}}
-                    @if($url !== '#')
-                        <form action="{{ $url }}" method="POST" class="flex-1">
+                    @if($url !== '#' || $dynamic)
+                        <form @if($dynamic) :action="{{ $url }}" @else action="{{ $url }}" @endif method="POST" class="flex-1">
                             @csrf
                             @method($method)
                             <button type="submit"

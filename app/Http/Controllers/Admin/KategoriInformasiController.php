@@ -85,7 +85,6 @@ class KategoriInformasiController extends Controller
         $kategori = KategoriInformasi::findOrFail($id);
         $kategori->delete();
 
-        return redirect()->route('admin.kategori-informasi.index')
-            ->with('success', 'Kategori Informasi berhasil dihapus.');
+        return back()->with('success', 'Kategori Informasi berhasil dihapus.');
     }
 }
