@@ -2,99 +2,79 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePengajuanKeberatanRequest;
 use Illuminate\Http\Request;
 
 class PengajuanKeberatanController extends Controller
 {
-    public function store(Request $request)
+    public function store(StorePengajuanKeberatanRequest $request)
     {
-        $request->validate([
-            'no_pendaftaran' => 'required|string|max:255',
-            'tujuan' => 'required|string|max:500',
-            'nama_pemohon' => 'required|string|max:255',
-            'alamat_pemohon' => 'required|string',
-            'address_pemohon' => 'nullable|string',
-            'city_pemohon' => 'nullable|string',
-            'state_pemohon' => 'nullable|string',
-            'pekerjaan_pemohon' => 'required|string|max:255',
-            'no_telp_pemohon' => ['required', 'string', 'regex:/^[0-9+\-\s()]+$/'],
-            'email_pemohon' => 'required|email:rfc,dns',
-            'alasan' => 'required|array|min:1',
-            'alasan.*' => 'string',
-            'kasus' => 'required|string',
-        ], [
-            'no_pendaftaran.required' => 'Nomor pendaftaran wajib diisi.',
-            'tujuan.required' => 'Tujuan penggunaan informasi wajib diisi.',
-            'nama_pemohon.required' => 'Nama lengkap wajib diisi.',
-            'alamat_pemohon.required' => 'Alamat lengkap wajib diisi.',
-            'pekerjaan_pemohon.required' => 'Pekerjaan wajib dipilih atau diisi.',
-            'no_telp_pemohon.required' => 'Nomor telepon wajib diisi.',
-            'no_telp_pemohon.regex' => 'Nomor telepon hanya boleh berisi angka, +, -, (), dan spasi.',
-            'email_pemohon.required' => 'Email wajib diisi.',
-            'email_pemohon.email' => 'Format email tidak valid.',
-            'alasan.required' => 'Minimal pilih satu alasan keberatan.',
-            'alasan.min' => 'Minimal pilih satu alasan keberatan.',
-            'kasus.required' => 'Kasus posisi wajib diisi.',
-        ]);
+        // Validation and sanitization already handled by Form Request
+        $validated = $request->validated();
 
-        // Cari Data Permohonan Asli untuk mendapatkan ID SKPD
-        $permohonan = \App\Models\PermohonanInformasi::where('no_pendaftaran', $request->no_pendaftaran)->first();
-        $id_skpd = $permohonan ? $permohonan->id_skpd : null;
+        try {
+            // Cari Data Permohonan Asli untuk mendapatkan ID SKPD
+            $permohonan = \App\Models\PermohonanInformasi::where('no_pendaftaran', $validated['no_pendaftaran'])->first();
+            $id_skpd = $permohonan ? $permohonan->id_skpd : null;
 
-        $pengajuan = \App\Models\PengajuanKeberatan::create([
-            'no_pendaftaran' => $request->no_pendaftaran,
-            'id_skpd' => $id_skpd, // Save ID SKPD
-            'tujuan' => $request->tujuan,
-            'nama_pemohon' => $request->nama_pemohon,
-            'alamat_pemohon' => $request->alamat_pemohon,
-            'address_pemohon' => $request->address_pemohon,
-            'apt_pemohon' => $request->apt_pemohon,
-            'city_pemohon' => $request->city_pemohon,
-            'state_pemohon' => $request->state_pemohon,
-            'pekerjaan_pemohon' => $request->pekerjaan_pemohon,
-            'no_telp_pemohon' => $request->no_telp_pemohon,
-            'email_pemohon' => $request->email_pemohon,
-            // Kuasa (Optional)
-            'nama_kuasa' => $request->nama_kuasa,
-            'alamat_kuasa' => $request->alamat_kuasa,
-            'address_kuasa' => $request->address_kuasa,
-            'apt_kuasa' => $request->apt_kuasa,
-            'city_kuasa' => $request->city_kuasa,
-            'state_kuasa' => $request->state_kuasa,
-            'no_telp_kuasa' => $request->no_telp_kuasa,
-            'kasus' => $request->kasus,
-            'status' => 'p', // Changed from 'n' to 'p' (Pending)
-            'metode_respon' => 'website', // Default to website since form doesn't have this field
-        ]);
-
-        foreach ($request->alasan as $alasan) {
-            \App\Models\AlasanPengajuan::create([
-                'id_pengajuan' => $pengajuan->id_pengajuan,
-                'alasan' => $alasan,
+            $pengajuan = \App\Models\PengajuanKeberatan::create([
+                'no_pendaftaran' => $validated['no_pendaftaran'],
+                'id_skpd' => $id_skpd,
+                'tujuan' => $validated['tujuan'],
+                'nama_pemohon' => $validated['nama_pemohon'],
+                'alamat_pemohon' => $validated['alamat_pemohon'],
+                'address_pemohon' => $validated['address_pemohon'],
+                'apt_pemohon' => $validated['apt_pemohon'] ?? null,
+                'city_pemohon' => $validated['city_pemohon'],
+                'state_pemohon' => $validated['state_pemohon'],
+                'pekerjaan_pemohon' => $validated['pekerjaan_pemohon'],
+                'no_telp_pemohon' => $validated['no_telp_pemohon'],
+                'email_pemohon' => $validated['email_pemohon'],
+                // Kuasa (Optional)
+                'nama_kuasa' => $validated['nama_kuasa'] ?? null,
+                'alamat_kuasa' => $validated['alamat_kuasa'] ?? null,
+                'address_kuasa' => $validated['address_kuasa'] ?? null,
+                'apt_kuasa' => $validated['apt_kuasa'] ?? null,
+                'city_kuasa' => $validated['city_kuasa'] ?? null,
+                'state_kuasa' => $validated['state_kuasa'] ?? null,
+                'no_telp_kuasa' => $validated['no_telp_kuasa'] ?? null,
+                'kasus' => $validated['kasus'],
+                'status' => 'p', // Pending (changed from 'n' to match admin expectations)
             ]);
-        }
 
-        // Send notification to all admins about new submission
-        $admins = \App\Models\User::whereHas('roles', function ($query) {
-            $query->where('name', 'admin');
-        })->get();
-        foreach ($admins as $admin) {
-            \App\Models\Notification::send([
-                'to_user_id' => $admin->id,
-                'type' => 'warning',
-                'title' => 'Pengajuan Keberatan Baru',
-                'message' => 'Pengajuan keberatan baru dari ' . $request->nama_pemohon . ' (#' . $request->no_pendaftaran . ') menunggu verifikasi.',
-                'url' => route('admin.pengajuan-keberatan.show', $pengajuan->id_pengajuan),
-                'notifiable_type' => 'App\\Models\\PengajuanKeberatan',
-                'notifiable_id' => $pengajuan->id_pengajuan,
-            ]);
-        }
+            foreach ($validated['alasan'] as $alasan) {
+                \App\Models\AlasanPengajuan::create([
+                    'id_pengajuan' => $pengajuan->id_pengajuan,
+                    'alasan' => $alasan,
+                ]);
+            }
 
-        return back()->with('success', 'Pengajuan keberatan berhasil dikirim. Silakan cek status pengajuan secara berkala melalui menu "Cek Status".');
+            // Send notification to all admin users
+            $adminUsers = \App\Models\User::whereHas('roles', function ($query) {
+                $query->where('name', 'admin');
+            })->get();
+
+            foreach ($adminUsers as $admin) {
+                \App\Models\Notification::send([
+                    'to_user_id' => $admin->id,
+                    'type' => 'info',
+                    'title' => 'Pengajuan Keberatan Baru',
+                    'message' => 'Pengajuan keberatan baru dari ' . $pengajuan->nama_pemohon . ' (' . $pengajuan->email_pemohon . ')',
+                    'url' => route('admin.pengajuan-keberatan.show', $pengajuan->id_pengajuan),
+                    'notifiable_type' => 'App\\Models\\PengajuanKeberatan',
+                    'notifiable_id' => $pengajuan->id_pengajuan,
+                ]);
+            }
+
+            $msg = 'Pengajuan keberatan berhasil dikirim. Silakan cek status pengajuan secara berkala melalui menu "Cek Status".';
+
+            return redirect()->route('layanan.pengajuan-keberatan')->with('success', $msg);
+
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Pengajuan Keberatan Error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat mengirim pengajuan. Silakan coba lagi.')->withInput();
+        }
     }
-    /**
-     * Check status by email (supports AJAX and regular requests).
-     */
     public function checkStatus(Request $request)
     {
         $request->validate([

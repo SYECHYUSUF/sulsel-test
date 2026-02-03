@@ -8,6 +8,7 @@ use App\Http\Controllers\MatriksDipController as GuestMatriksDipController;
 use App\Http\Controllers\SopController as GuestSopController;
 use App\Http\Controllers\PengajuanKeberatanController as GuestPengajuanKeberatanController;
 use App\Http\Controllers\PermohonanInformasiController as GuestPermohonanInformasiController;
+use App\Http\Controllers\StatusCheckController;
 use Illuminate\Cache\RateLimiting\Limit;
 
 use App\Http\Controllers\Admin\DashboardController;
@@ -30,6 +31,8 @@ use App\Http\Controllers\Admin\SosmedController;
 
 use App\Models\Setting;
 use App\Models\Skpd;
+use App\Models\MasterPekerjaan;
+use App\Models\AlasanPengajuan;
 
 // Language Switcher
 Route::get('/lang/{locale}', function ($locale) {
@@ -49,7 +52,8 @@ RateLimiter::for('login', function ($request) {
 // Group Track Visitors
 Route::middleware(['track.visitors'])->group(function () {
     Route::get('/', function () {
-        return view('welcome');
+        $banners = \App\Models\SlideBanner::active()->orderBy('order')->get();
+        return view('welcome', compact('banners'));
     });
 
     Route::get('/contact', function () {
@@ -138,27 +142,42 @@ Route::middleware(['track.visitors'])->group(function () {
     Route::get('/informasi-publik/berkala', [GuestDokumenPublikController::class, 'berkala']);
     Route::get('/informasi-publik/pengadaan', [GuestMatriksDipController::class, 'pengadaan']);
     Route::get('/informasi-publik/detail/{id}', [GuestDokumenPublikController::class, 'show'])->name('informasi-publik.show');
+    Route::get('/informasi-publik/download/{id}', [GuestDokumenPublikController::class, 'download'])->name('informasi-publik.download');
 
     // Layanan Pages
     Route::get('/layanan/permohonan-informasi', function () {
-        $masterPekerjaan = \App\Models\MasterPekerjaan::active()->orderBy('nama_pekerjaan')->get();
-        $masterDomisili = \App\Models\MasterDomisili::active()->orderBy('nama_daerah')->get();
+        // Fetch ID and Name, then filter to unique names to avoid duplicates in dropdown
+        // Use values() to reset keys ensuring valid JSON array for frontend
+        $masterPekerjaan = MasterPekerjaan::active()->select('id', 'nama_pekerjaan')->orderBy('nama_pekerjaan')->get()->unique('nama_pekerjaan')->values();
+        $masterDomisili = App\Models\MasterDomisili::active()->select('id', 'nama_daerah')->orderBy('nama_daerah')->get()->unique('nama_daerah')->values();
+        
         return view('pages.layanan.permohonan-informasi', compact('masterPekerjaan', 'masterDomisili'));
     });
-    Route::get('/layanan/cek-status-permohonan', [GuestPermohonanInformasiController::class, 'checkProgressForm'])->name('layanan.cek-status-permohonan');
+    // Unified status check route
+    Route::get('/layanan/cek-status', [StatusCheckController::class, 'showForm'])->name('layanan.cek-status');
+    
+    // Redirects from old URLs to new unified page
+    Route::get('/layanan/cek-status-permohonan', function () {
+        return redirect()->route('layanan.cek-status', ['type' => 'permohonan']);
+    })->name('layanan.cek-status-permohonan');
+    
+    Route::get('/layanan/pengajuan-keberatan/cek-status', function () {
+        return redirect()->route('layanan.cek-status', ['type' => 'keberatan']);
+    })->name('layanan.pengajuan-keberatan.check-status');
+    
     Route::get('/layanan/pengajuan-keberatan', function () {
-        $masterPekerjaan = \App\Models\MasterPekerjaan::active()->orderBy('nama_pekerjaan')->get();
-        $alasanPengajuans = \App\Models\AlasanPengajuan::orderBy('alasan')->get();
+        $masterPekerjaan = MasterPekerjaan::active()->select('nama_pekerjaan')->distinct()->orderBy('nama_pekerjaan')->get();
+        $alasanPengajuans = AlasanPengajuan::orderBy('alasan')->get();
+
         return view('pages.layanan.pengajuan-keberatan', compact('masterPekerjaan', 'alasanPengajuans'));
     })->name('layanan.pengajuan-keberatan');
 
     // Rute Permohonan Informasi
     Route::post('/layanan/permohonan-informasi', [App\Http\Controllers\PermohonanInformasiController::class, 'store'])->name('layanan.permohonan-informasi.store');
 
-    Route::post('/layanan/pengajuan-keberatan', [GuestPengajuanKeberatanController::class, 'store'])->name('layanan.pengajuan-keberatan.store');
-
-    // Check Status Routes
-    Route::get('/layanan/pengajuan-keberatan/cek-status', [GuestPengajuanKeberatanController::class, 'formCheckStatus'])->name('layanan.pengajuan-keberatan.check-status');
+    Route::post('/layanan/pengajuan-keberatan', [GuestPengajuanKeberatanController::class, 'store'])
+        ->middleware(['honeypot', 'throttle:public-form'])
+        ->name('layanan.pengajuan-keberatan.store');
 
     Route::get('/layanan/sop', [GuestSopController::class, 'index'])->name('layanan.sop');
     Route::get('/layanan/sop/download/{id}', [GuestSopController::class, 'download'])->name('layanan.sop.download');
@@ -169,13 +188,18 @@ Route::middleware(['track.visitors'])->group(function () {
     Route::get('/survey/hasil-survey', [\App\Http\Controllers\SurveyController::class, 'showResults']);
 });
 
-Route::post('/layanan/permohonan-informasi', [GuestPermohonanInformasiController::class, 'store'])->name('layanan.permohonan-informasi.store');
+Route::post('/layanan/permohonan-informasi', [GuestPermohonanInformasiController::class, 'store'])
+    ->middleware(['honeypot', 'throttle:public-form'])
+    ->name('layanan.permohonan-informasi.store');
 
-Route::post('/layanan/cek-status-permohonan', [GuestPermohonanInformasiController::class, 'checkProgress']);
+// Unified status check POST route
+Route::post('/layanan/cek-status', [StatusCheckController::class, 'checkStatus'])
+    ->middleware(['throttle:check-status'])
+    ->name('layanan.cek-status.check');
 
-Route::post('/layanan/pengajuan-keberatan/cek-status', [GuestPengajuanKeberatanController::class, 'checkStatus']);
-
-Route::post('/survey/isi-survey', [\App\Http\Controllers\SurveyController::class, 'store'])->name('survey.store');
+Route::post('/survey/isi-survey', [\App\Http\Controllers\SurveyController::class, 'store'])
+    ->middleware(['honeypot', 'throttle:public-form'])
+    ->name('survey.store');
 
 
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {

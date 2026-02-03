@@ -11,9 +11,14 @@ class Hero extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public $banners;
+
+    /**
+     * Create a new component instance.
+     */
+    public function __construct($banners = [])
     {
-        //
+        $this->banners = $banners;
     }
 
     /**

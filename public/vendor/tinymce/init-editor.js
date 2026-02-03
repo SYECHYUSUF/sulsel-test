@@ -8,10 +8,10 @@ const getEditorConfig = () => {
             });
         },
         plugins:
-            "preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen link template codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount help charmap quickbars emoticons",
+            "preview importcss searchreplace autolink autosave save directionality visualblocks visualchars fullscreen link template table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount help charmap quickbars emoticons",
         menubar: "file edit view insert format tools table help",
         toolbar:
-            "undo redo | bold italic underline strikethrough | fontfamily fontsize blocks | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview print | template link anchor codesample | ltr rtl",
+            "undo redo | bold italic underline strikethrough | fontfamily fontsize blocks | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview print | template link anchor | ltr rtl",
         autosave_ask_before_unload: true,
         autosave_interval: "30s",
         autosave_prefix: "{path}{query}-{id}-",

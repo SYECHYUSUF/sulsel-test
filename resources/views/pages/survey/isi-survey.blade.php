@@ -45,6 +45,13 @@
                 <form method="POST" action="/survey/isi-survey" class="space-y-8">
                     @csrf
                     
+                    {{-- Honeypot field for bot detection (hidden, must remain empty) --}}
+                    <div style="position: absolute; left: -9999px; opacity: 0;" aria-hidden="true">
+                        <input type="text" name="website" tabindex="-1" autocomplete="off" />
+                    </div>
+                    {{-- Timestamp for bot detection --}}
+                    <input type="hidden" name="_form_timestamp" value="{{ time() }}" />
+                    
                     {{-- Section: Data Responden --}}
                     <div class="bg-gradient-to-br from-blue-50 to-white dark:from-slate-900 dark:to-slate-800 p-8 rounded-2xl border-2 border-gray-200 dark:border-slate-700 shadow-sm">
                         <div class="flex items-center gap-3 mb-6">

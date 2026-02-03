@@ -181,8 +181,7 @@
                                     </svg>
                                     Lihat Berkas
                                 </a>
-                                <a href="{{ str_starts_with($informasi->file, 'http') ? $informasi->file : asset('storage/' . $informasi->file) }}"
-                                    download
+                                <a href="{{ route('informasi-publik.download', $informasi->id_informasi) }}"
                                     class="w-full sm:w-auto px-8 py-3 bg-white dark:bg-slate-700 text-[#1A305E] dark:text-white border-2 border-[#1A305E] dark:border-slate-600 rounded-xl hover:bg-gray-50 dark:hover:bg-slate-600 transition-all flex items-center justify-center gap-2 font-bold">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"

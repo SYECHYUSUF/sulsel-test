@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreSurveyRequest;
 use App\Models\Survey;
 use App\Models\SurveyResponse;
 use Illuminate\Http\Request;
@@ -15,18 +16,10 @@ class SurveyController extends Controller
         return view('pages.survey.isi-survey', compact('questions'));
     }
 
-    public function store(Request $request)
+    public function store(StoreSurveyRequest $request)
     {
-        // Validate input
-        $validated = $request->validate([
-            'email' => 'required|email',
-            'nama' => 'required|string|max:255',
-            'lembaga' => 'required|string|max:255',
-            'alamat' => 'required|string',
-            'tanggal' => 'required|date',
-            'answer' => 'required|array',
-            'masukan' => 'nullable|string',
-        ]);
+        // Validation and sanitization already handled by Form Request
+        $validated = $request->validated();
 
         // Generate unique code for this submission
         $kode = 'SRV-' . date('Ymd') . '-' . strtoupper(Str::random(6));
