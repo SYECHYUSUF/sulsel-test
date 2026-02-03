@@ -28,8 +28,10 @@ class SopController extends Controller
     {
         $sop = Sop::findOrFail($id);
 
-        // Increment download count
-        $sop->increment('jumlah_download');
+        // Increment download count (handle NULL by treating as 0)
+        $sop->update([
+            'jumlah_download' => \DB::raw('COALESCE(jumlah_download, 0) + 1')
+        ]);
 
         $filePath = 'sop/' . $sop->file;
 

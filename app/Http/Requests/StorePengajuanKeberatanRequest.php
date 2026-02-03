@@ -33,7 +33,7 @@ class StorePengajuanKeberatanRequest extends FormRequest
             'city_pemohon' => ['required', 'string', 'max:100'],
             'state_pemohon' => ['required', 'string', 'max:100'],
             'pekerjaan_pemohon' => ['required', 'string', 'max:100'],
-            'no_telp_pemohon' => ['required', 'string', 'max:20', 'regex:/^(08|628|\+628)[0-9]{8,12}$/'],
+            'no_telp_pemohon' => ['required', 'string', 'min:10', 'max:12', 'regex:/^(08|628|\+628)[0-9]{8,10}$/'],
             'email_pemohon' => ['required', 'email:rfc,dns', 'max:255'],
             
             // Alasan keberatan
@@ -43,9 +43,6 @@ class StorePengajuanKeberatanRequest extends FormRequest
             // Kasus
             'kasus' => ['required', 'string', 'max:5000'],
             
-            // Response method
-            'metode_respon' => ['required', 'in:website,whatsapp'],
-            
             // Kuasa (Optional)
             'nama_kuasa' => ['nullable', 'string', 'max:255', 'regex:/^[\pL\s\.\-\']*$/u'],
             'alamat_kuasa' => ['nullable', 'string', 'max:500'],
@@ -53,7 +50,7 @@ class StorePengajuanKeberatanRequest extends FormRequest
             'apt_kuasa' => ['nullable', 'string', 'max:100'],
             'city_kuasa' => ['nullable', 'string', 'max:100'],
             'state_kuasa' => ['nullable', 'string', 'max:100'],
-            'no_telp_kuasa' => ['nullable', 'string', 'max:20', 'regex:/^(08|628|\+628)?[0-9]{8,12}$/'],
+            'no_telp_kuasa' => ['nullable', 'string', 'min:10', 'max:12', 'regex:/^(08|628|\+628)?[0-9]{8,10}$/'],
             
             // Hidden fields
             'apt_pemohon' => ['nullable', 'string', 'max:100'],
@@ -71,10 +68,13 @@ class StorePengajuanKeberatanRequest extends FormRequest
         return [
             'nama_pemohon.regex' => 'Nama hanya boleh berisi huruf, spasi, titik, dan tanda hubung.',
             'no_telp_pemohon.regex' => 'Format nomor telepon tidak valid. Gunakan format 08xx atau 628xx.',
+            'no_telp_pemohon.min' => 'Nomor telepon minimal 10 digit.',
+            'no_telp_pemohon.max' => 'Nomor telepon maksimal 12 digit.',
+            'no_telp_kuasa.min' => 'Nomor telepon minimal 10 digit.',
+            'no_telp_kuasa.max' => 'Nomor telepon maksimal 12 digit.',
             'email_pemohon.email' => 'Format email tidak valid.',
             'alasan.required' => 'Pilih minimal satu alasan keberatan.',
             'alasan.min' => 'Pilih minimal satu alasan keberatan.',
-            'metode_respon.in' => 'Metode respon harus website atau whatsapp.',
         ];
     }
 

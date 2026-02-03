@@ -75,5 +75,32 @@ class DokumenPublikController extends Controller
 
         return view('pages.informasi-publik.detail', compact('informasi'));
     }
+
+    public function download($id)
+    {
+        $informasi = DokumenPublik::findOrFail($id);
+
+        // Increment download count (handle NULL by treating as 0)
+        $informasi->update([
+            'jumlah_download' => \DB::raw('COALESCE(jumlah_download, 0) + 1')
+        ]);
+
+        $filePath = $informasi->file;
+
+        if (!$filePath) {
+            abort(404, 'File not found');
+        }
+
+        // Handle both storage paths and external URLs
+        if (str_starts_with($filePath, 'http')) {
+            return redirect($filePath);
+        }
+
+        if (!\Storage::disk('public')->exists($filePath)) {
+            abort(404, 'File not found');
+        }
+
+        return \Storage::disk('public')->download($filePath, $informasi->judul . '.' . pathinfo($filePath, PATHINFO_EXTENSION));
+    }
 }
 

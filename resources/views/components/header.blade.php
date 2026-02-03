@@ -135,9 +135,6 @@
     <nav class="bg-[#1A305E] shadow-md transition-all duration-300 relative"
         :class="mobileMenu ? 'block' : 'hidden lg:block'">
 
-        {{-- Gold Line Accent --}}
-        <div class="absolute top-0 left-0 w-full h-[2px] bg-[#D4AF37]"></div>
-
         <div class="container mx-auto px-0 lg:px-4 py-4">
             <ul
                 class="flex flex-col lg:flex-row items-stretch justify-center lg:items-center text-xs lg:text-sm font-medium text-white/90">
@@ -356,19 +353,14 @@
                             </a>
                         </li>
 
+
                         <li>
-                            <a href="{{ route('layanan.cek-status-permohonan') }}"
-                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37] {{ request()->is('layanan/cek-status-permohonan') ? 'text-[#D4AF37] border-[#D4AF37] bg-[#1A305E]/5' : '' }}">
-                                {{ __('messages.menu.status_check') }}
+                            <a href="{{ route('layanan.cek-status') }}"
+                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37] {{ request()->is('layanan/cek-status*') ? 'text-[#D4AF37] border-[#D4AF37] bg-[#1A305E]/5' : '' }}">
+                                Cek Status
                             </a>
                         </li>
 
-                        <li>
-                            <a href="{{ route('layanan.pengajuan-keberatan.check-status') }}"
-                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37]">
-                                Cek Status Pengajuan
-                            </a>
-                        </li>
 
                         <li>
                             <a href="/layanan/sop"

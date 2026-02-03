@@ -4,13 +4,9 @@
         activeSlide: 0,
         direction: 'next',
         slides: [
-            '{{ asset('images/welcome1.png') }}',
-            '{{ asset('images/bannertest.png') }}',
-            '{{ asset('images/20230807143405_Tata Cara Pengajuan Informasi Publik Bagi Penyandang Disabilitas.png') }}',
-            '{{ asset('images/20230915142948_Tata Cara Memperoleh Informasi Publik Revisi.png') }}',
-            '{{ asset('images/20230917024457_Tata Cara Pengaduan.png') }}',
-            '{{ asset('images/20230918134717_Maklumat pelayanan informasi publik.png') }}',
-            '{{ asset('images/20240920113831_Banner Web Keberatan.png') }}'
+            @foreach($banners as $banner)
+                '{{ asset('storage/' . $banner->image_path) }}',
+            @endforeach
         ],
         showImageModal: false,
         currentImageSrc: '',

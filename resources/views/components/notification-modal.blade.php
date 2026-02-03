@@ -53,13 +53,27 @@
                 'icon_bg' => 'from-emerald-500 to-green-600',
                 'text' => 'text-emerald-900 dark:text-emerald-100',
                 'icon_color' => 'text-emerald-600 dark:text-emerald-400',
-                'icon' => 'M5 13l4 4L19 7' // Checkmark
+                'icon' => 'M5 13l4 4L19 7', // Checkmark
+                'default_title' => 'Berhasil!'
             ];
             break;
     }
+
+    // Fallback titles for others
+    if (!isset($colors['default_title'])) {
+         switch ($theme) {
+            case 'error': $colors['default_title'] = 'Gagal!'; break;
+            case 'warning': $colors['default_title'] = 'Peringatan!'; break;
+            case 'info': $colors['default_title'] = 'Informasi'; break;
+            default: $colors['default_title'] = 'Notifikasi'; break;
+         }
+    }
+
+    // Define trigger variable for Alpine
+    $trigger = 'show';
 @endphp
 
-<div x-show="{{ $trigger }}" class="fixed inset-0 z-50 overflow-y-auto" style="display: none;">
+<div x-data="{ show: {{ $show ? 'true' : 'false' }} }" x-show="show" class="fixed inset-0 z-50 overflow-y-auto" style="display: none;">
     <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
         
         {{-- Backdrop --}}
@@ -80,7 +94,7 @@
                 <div class="relative w-28 h-28 mb-6 flex items-center justify-center transform hover:scale-105 transition-transform duration-300">
                     <svg viewBox="0 0 200 200" class="absolute inset-0 w-full h-full drop-shadow-2xl" xmlns="http://www.w3.org/2000/svg">
                         <defs>
-                            <linearGradient id="blobGradient-{{ $status }}" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <linearGradient id="blobGradient-{{ $theme }}" x1="0%" y1="0%" x2="100%" y2="100%">
                                 {{-- Kita pecah class gradient untuk stop color secara manual agak sulit di SVG, 
                                      jadi kita gunakan CSS class pada path fill="url(#...)" atau manipulasi class wrapper.
                                      
@@ -107,29 +121,33 @@
                              Untuk kemudahan & keindahan, saya set Path fill ke 'url(#gradient)' dan definisikan gradient statis per status di bawah.
                         --}}
                         
-                        <linearGradient id="grad_success" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#1A305E" />
-                            <stop offset="100%" stop-color="#3B82F6" />
-                        </linearGradient>
-                        <linearGradient id="grad_error" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#DC2626" />
-                            <stop offset="100%" stop-color="#F43F5E" />
-                        </linearGradient>
-                        <linearGradient id="grad_info" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#0EA5E9" />
-                            <stop offset="100%" stop-color="#6366F1" />
-                        </linearGradient>
+                            <linearGradient id="grad_success" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#1A305E" />
+                                <stop offset="100%" stop-color="#3B82F6" />
+                            </linearGradient>
+                            <linearGradient id="grad_error" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#DC2626" />
+                                <stop offset="100%" stop-color="#F43F5E" />
+                            </linearGradient>
+                            <linearGradient id="grad_warning" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#F59E0B" />
+                                <stop offset="100%" stop-color="#EA580C" />
+                            </linearGradient>
+                            <linearGradient id="grad_info" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#0EA5E9" />
+                                <stop offset="100%" stop-color="#6366F1" />
+                            </linearGradient>
 
-                        <path fill="url(#grad_{{ $status }})" d="M44.7,-76.4C58.9,-69.2,71.8,-59.1,81.6,-46.6C91.4,-34.1,98.1,-19.2,95.8,-4.9C93.5,9.4,82.2,23.1,70.8,34.1C59.4,45.1,47.9,53.4,36.1,60.8C24.3,68.2,12.2,74.7,-1.2,76.8C-14.6,78.9,-29.2,76.6,-42.6,69.9C-56,63.2,-68.2,52.1,-76.6,38.6C-85,25.1,-89.6,9.2,-86.6,-5.3C-83.6,-19.8,-73,-32.9,-62,-44.6C-51,-56.3,-39.6,-66.6,-26.8,-74.7C-14,-82.8,0.2,-88.7,14.6,-88.7C29,-88.7,46.1,-82.8,58.7,-73.4L44.7,-76.4Z" transform="translate(100 100) scale(1.1)" />
+                            <path fill="url(#grad_{{ $theme }})" d="M44.7,-76.4C58.9,-69.2,71.8,-59.1,81.6,-46.6C91.4,-34.1,98.1,-19.2,95.8,-4.9C93.5,9.4,82.2,23.1,70.8,34.1C59.4,45.1,47.9,53.4,36.1,60.8C24.3,68.2,12.2,74.7,-1.2,76.8C-14.6,78.9,-29.2,76.6,-42.6,69.9C-56,63.2,-68.2,52.1,-76.6,38.6C-85,25.1,-89.6,9.2,-86.6,-5.3C-83.6,-19.8,-73,-32.9,-62,-44.6C-51,-56.3,-39.6,-66.6,-26.8,-74.7C-14,-82.8,0.2,-88.7,14.6,-88.7C29,-88.7,46.1,-82.8,58.7,-73.4L44.7,-76.4Z" transform="translate(100 100) scale(1.1)" />
                     </svg>
                     
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-white relative z-10 filter drop-shadow-md" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="{{ $theme['icon'] }}" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="{{ $colors['icon'] }}" />
                     </svg>
                 </div>
 
                 <h3 class="text-3xl font-black text-slate-800 dark:text-white mb-3 tracking-tight">
-                    {{ $title ?? $theme['default_title'] }}
+                    {{ $title ?? $colors['default_title'] }}
                 </h3>
                 
                 <p class="text-slate-500 dark:text-slate-400 text-base font-medium leading-relaxed mb-8">
@@ -145,4 +163,4 @@
             </div>
         </div>
     </div>
-@endif
+</div>
