@@ -138,7 +138,7 @@ Route::middleware(['track.visitors'])->group(function () {
     Route::get('/informasi-publik/2025', [GuestMatriksDipController::class, 'tahun2025']);
     Route::get('/informasi-publik/serta-merta', [GuestDokumenPublikController::class, 'sertaMerta']);
     Route::get('/informasi-publik/setiap-saat', [GuestDokumenPublikController::class, 'setiapSaat']);
-    Route::get('/informasi-publik/dikecualikan', [GuestDokumenPublikController::class, 'dikecualikan']);
+    Route::get('/informasi-publik/daftar-informasi-dikecualikan', [GuestDokumenPublikController::class, 'dikecualikan']);
     Route::get('/informasi-publik/berkala', [GuestDokumenPublikController::class, 'berkala']);
     Route::get('/informasi-publik/pengadaan', [GuestMatriksDipController::class, 'pengadaan']);
     Route::get('/informasi-publik/detail/{id}', [GuestDokumenPublikController::class, 'show'])->name('informasi-publik.show');

@@ -64,23 +64,6 @@
                         />
                     @endif
 
-                    @if($errors->any())
-                        <x-notification-modal theme="error" :show="true" :auto-close="false">
-                            <h3 class="text-xl font-bold mb-3">Terdapat Kesalahan Pada Form</h3>
-                            <div class="space-y-2">
-                                @foreach ($errors->all() as $error)
-                                    <div class="flex items-start gap-2 text-sm">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                        </svg>
-                                        <span class="leading-relaxed">{{ $error }}</span>
-                                    </div>
-                                @endforeach
-                            </div>
-                            <p class="mt-4 text-xs italic">Silakan perbaiki kesalahan di bawah dan kirim ulang formulir.</p>
-                        </x-notification-modal>
-                    @endif
-
                     <form action="{{ route('layanan.pengajuan-keberatan.store') }}" method="POST" class="space-y-8">
                         @csrf
                         

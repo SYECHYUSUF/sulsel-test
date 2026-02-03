@@ -68,6 +68,7 @@ return [
         'no' => 'No.',
         'title' => 'Title',
         'date' => 'Date',
+        'year' => 'Year',
         'opd' => 'Department/Agency',
         'action' => 'Action',
         'summary' => 'Summary',

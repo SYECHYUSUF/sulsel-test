@@ -68,6 +68,7 @@ return [
         'no' => 'No.',
         'title' => 'Judul',
         'date' => 'Tanggal',
+        'year' => 'Tahun',
         'opd' => 'OPD',
         'action' => 'Aksi',
         'summary' => 'Ringkasan',

@@ -85,7 +85,7 @@
                                 <tr>
                                     <th class="px-4 py-3 text-sm font-semibold">{{ __('messages.table.no') }}</th>
                                     <th class="px-4 py-3 text-sm font-semibold">{{ __('messages.table.title') }}</th>
-                                    <th class="px-4 py-3 text-sm font-semibold">{{ __('messages.table.date') }}</th>
+                                    <th class="px-4 py-3 text-sm font-semibold">{{ __('messages.table.year') }}</th>
                                     <th class="px-4 py-3 text-sm font-semibold">{{ __('messages.table.opd') }}</th>
                                     <th class="px-4 py-3 text-sm font-semibold">{{ __('messages.table.action') }}</th>
                                 </tr>
@@ -98,7 +98,7 @@
                                         </td>
                                         <td class="px-4 py-3 text-sm text-gray-700 font-medium">{{ $item->judul }}</td>
                                         <td class="px-4 py-3 text-sm text-gray-600 dark:text-gray-300 whitespace-nowrap">
-                                            {{ $item->tgl_upload }}
+                                            {{ \Carbon\Carbon::parse($item->tgl_upload)->format('Y') }}
                                         </td>
                                         <td class="px-4 py-3 text-sm text-gray-700">{{ $item->skpd->nm_skpd ?? '-' }}</td>
                                         <td class="px-4 py-3 text-center whitespace-nowrap">

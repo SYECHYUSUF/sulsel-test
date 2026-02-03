@@ -60,7 +60,7 @@
 
             <!-- Kategori Informasi Tab -->
             <div x-show="activeTab === 'kategori'" x-transition class="p-6">
-                <div class="flex justify-between items-center mb-4">
+                {{-- <div class="flex justify-between items-center mb-4">
                     <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100">Kategori Informasi</h3>
                     <button @click="$dispatch('open-modal', 'modal-kategori-create')"
                         class="px-4 py-2 bg-[#1A305E] text-white rounded-lg text-sm font-medium hover:bg-ppid-dark transition-colors flex items-center gap-2">
@@ -70,7 +70,7 @@
                         </svg>
                         Tambah Kategori
                     </button>
-                </div>
+                </div> --}}
 
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left text-slate-600 dark:text-slate-300">
@@ -80,7 +80,7 @@
                                 <th scope="col" class="px-6 py-3">Nama Kategori</th>
                                 <th scope="col" class="px-6 py-3">Icon</th>
                                 <th scope="col" class="px-6 py-3">Status</th>
-                                <th scope="col" class="px-6 py-3 text-right">Aksi</th>
+                                {{-- <th scope="col" class="px-6 py-3 text-right">Aksi</th> --}}
                             </tr>
                         </thead>
                         <tbody id="kategori-table-body">
@@ -101,10 +101,10 @@
                                                 Aktif</span>
                                         @endif
                                     </td>
-                                    <td class="px-6 py-4 text-right">
+                                    {{-- <td class="px-6 py-4 text-right">
                                         <div class="flex items-center justify-end gap-2">
                                             <button
-                                                onclick="editKategori({{ $kategori->id_kat_info }}, '{{ $kategori->nm_kat_info }}', '{{ $kategori->icon }}', {{ $kategori->is_active ? 'true' : 'false' }})"
+                                                onclick="editKategori('{{ route('admin.master-data.kategori.update', $kategori->id_kat_info) }}', {{ $kategori->id_kat_info }}, '{{ $kategori->nm_kat_info }}', '{{ $kategori->icon }}', {{ $kategori->is_active ? 'true' : 'false' }})"
                                                 class="p-2 text-slate-500 dark:text-slate-400 hover:text-[#1A305E] dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg transition-colors">
                                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -122,7 +122,7 @@
                                                 </svg>
                                             </button>
                                         </div>
-                                    </td>
+                                    </td> --}}
                                 </tr>
                             @empty
                                 <tr>
@@ -166,7 +166,7 @@
                             class="text-xs text-slate-500 dark:text-slate-400 uppercase bg-slate-50 dark:bg-slate-700/50 border-b border-slate-100 dark:border-slate-700">
                             <tr>
                                 <th scope="col" class="px-6 py-3">Tahun</th>
-                                <th scope="col" class="px-6 py-3 text-right">Aksi</th>
+                                {{-- <th scope="col" class="px-6 py-3 text-right">Aksi</th> --}}
                             </tr>
                         </thead>
                         <tbody id="tahun-table-body">
@@ -175,7 +175,7 @@
                                     class="bg-white dark:bg-slate-800 border-b border-slate-100 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors">
                                     <td class="px-6 py-4 font-medium text-slate-900 dark:text-slate-100">{{ $tahun->waktu }}
                                     </td>
-                                    <td class="px-6 py-4 text-right">
+                                    {{-- <td class="px-6 py-4 text-right">
                                         <div class="flex items-center justify-end gap-2">
                                             <button onclick="editTahun({{ $tahun->id }}, '{{ $tahun->waktu }}')"
                                                 class="p-2 text-slate-500 dark:text-slate-400 hover:text-[#1A305E] dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg transition-colors">
@@ -195,7 +195,7 @@
                                                 </svg>
                                             </button>
                                         </div>
-                                    </td>
+                                    </td> --}}
                                 </tr>
                             @empty
                                 <tr>
@@ -265,7 +265,7 @@
                                     <td class="px-6 py-4 text-right">
                                         <div class="flex items-center justify-end gap-2">
                                             <button
-                                                onclick="editDomisili({{ $domisili->id }}, '{{ $domisili->nama_daerah }}', '{{ $domisili->provinsi }}', {{ $domisili->is_active ? 'true' : 'false' }})"
+                                                onclick="editDomisili('{{ route('admin.master-data.domisili.update', $domisili->id) }}', {{ $domisili->id }}, '{{ addslashes($domisili->nama_daerah) }}', '{{ addslashes($domisili->provinsi) }}', {{ $domisili->is_active ? 'true' : 'false' }})"
                                                 class="p-2 text-slate-500 dark:text-slate-400 hover:text-[#1A305E] dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg transition-colors">
                                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -351,7 +351,7 @@
                                     <td class="px-6 py-4 text-right">
                                         <div class="flex items-center justify-end gap-2">
                                             <button
-                                                onclick="editPekerjaan({{ $pekerjaan->id }}, '{{ $pekerjaan->nama_pekerjaan }}', {{ $pekerjaan->is_active ? 'true' : 'false' }})"
+                                                onclick="editPekerjaan('{{ route('admin.master-data.pekerjaan.update', $pekerjaan->id) }}', {{ $pekerjaan->id }}, '{{ addslashes($pekerjaan->nama_pekerjaan) }}', {{ $pekerjaan->is_active ? 'true' : 'false' }})"
                                                 class="p-2 text-slate-500 dark:text-slate-400 hover:text-[#1A305E] dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg transition-colors">
                                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -426,7 +426,7 @@
                                     <td class="px-6 py-4 text-right">
                                         <div class="flex items-center justify-end gap-2">
                                             <button
-                                                onclick="editAlasanPengajuan({{ $alasan->id }}, '{{ addslashes($alasan->alasan) }}')"
+                                                onclick="editAlasanPengajuan('{{ route('admin.master-data.alasan-pengajuan.update', $alasan->id) }}', {{ $alasan->id }}, '{{ addslashes($alasan->alasan) }}')"
                                                 class="p-2 text-slate-500 dark:text-slate-400 hover:text-[#1A305E] dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg transition-colors">
                                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -504,13 +504,14 @@
     @include('admin.master-data._modal-alasan-pengajuan')
 
     <!-- JavaScript for AJAX Operations -->
-    @push('scripts')
+    <x-slot name="extra_script">
         <script>
             // CSRF Token
             // CSRF Token is handled by the form in x-confirmation-dialog
 
             // Kategori Functions
-            function editKategori(id, name, icon, isActive) {
+            function editKategori(url, id, name, icon, isActive) {
+                document.getElementById('form-kategori-edit').action = url;
                 document.getElementById('kategori-id').value = id;
                 document.getElementById('kategori-nm_kat_info').value = name;
                 document.getElementById('kategori-icon').value = icon;
@@ -518,6 +519,37 @@
                 document.getElementById('kategori-modal-title').textContent = 'Edit Kategori Informasi';
                 window.dispatchEvent(new CustomEvent('open-modal', { detail: 'modal-kategori-edit' }));
             }
+
+            // Domisili Functions
+            function editDomisili(url, id, nama_daerah, provinsi, isActive) {
+                console.log('Editing Domisili:', { url, id, nama_daerah, provinsi, isActive });
+                document.getElementById('form-domisili-edit').action = url;
+                document.getElementById('domisili-id').value = id;
+                document.getElementById('domisili-nama_daerah').value = nama_daerah;
+                document.getElementById('domisili-provinsi').value = provinsi;
+                document.getElementById('domisili-is_active').checked = isActive;
+                document.getElementById('domisili-modal-title').textContent = 'Edit Domisili';
+                window.dispatchEvent(new CustomEvent('open-modal', { detail: 'modal-domisili-edit' }));
+            }
+
+            // Pekerjaan Functions
+            function editPekerjaan(url, id, nama_pekerjaan, isActive) {
+                document.getElementById('form-pekerjaan-edit').action = url;
+                document.getElementById('pekerjaan-id').value = id;
+                document.getElementById('pekerjaan-nama_pekerjaan').value = nama_pekerjaan;
+                document.getElementById('pekerjaan-is_active').checked = isActive;
+                document.getElementById('pekerjaan-modal-title').textContent = 'Edit Pekerjaan';
+                window.dispatchEvent(new CustomEvent('open-modal', { detail: 'modal-pekerjaan-edit' }));
+            }
+
+            // Alasan Pengajuan Functions
+            function editAlasanPengajuan(url, id, alasan) {
+                document.getElementById('form-alasan-edit').action = url;
+                document.getElementById('alasan-id').value = id;
+                document.getElementById('alasan-alasan').value = alasan;
+                document.getElementById('alasan-modal-title').textContent = 'Edit Alasan Pengajuan';
+                window.dispatchEvent(new CustomEvent('open-modal', { detail: 'modal-alasan-edit' }));
+            }
         </script>
-    @endpush
+    </x-slot>
 </x-admin-layout>
