@@ -68,7 +68,10 @@
                 @endif
 
                 {{-- Form Container --}}
-                <div x-data="{ successModalOpen: @if(session('success')) true @else false @endif }"
+                <div x-data="{ 
+                        successModalOpen: @if(session('success')) true @else false @endif,
+                        isInstansi: {{ old('jenis_pemohon') == 'instansi' ? 'true' : 'false' }}
+                    }"
                     class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-200 dark:border-slate-700 p-8 md:p-10 relative">
                     <div class="text-center mb-10">
                         <div
@@ -179,12 +182,21 @@
                         <input type="hidden" name="_form_timestamp" value="{{ time() }}" />
 
                         {{-- Personal Data --}}
-                        <div class="space-y-6">
-                            <h3
-                                class="text-lg font-bold text-ppid-primary dark:text-white flex items-center gap-2 border-b border-gray-200 pb-3">
-                                <span
-                                    class="w-8 h-8 rounded-full bg-ppid-accent text-white flex items-center justify-center text-sm font-bold">1</span>
-                                Data Pribadi
+                        <div class="space-y-6 bg-gradient-to-br from-white to-gray-50/50 dark:from-slate-800 dark:to-slate-800/50 rounded-2xl p-6 border border-gray-100 dark:border-slate-700">
+                            <h3 class="text-xl font-bold text-ppid-primary dark:text-white flex items-center gap-3 pb-4 border-b-2 border-ppid-primary/20">
+                                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-ppid-primary to-ppid-accent text-white flex items-center justify-center text-base font-bold shadow-lg">
+                                    1
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                            <circle cx="12" cy="7" r="4"></circle>
+                                        </svg>
+                                        Data Pribadi
+                                    </div>
+                                    <p class="text-xs font-normal text-gray-500 dark:text-gray-400 mt-1">Informasi identitas pemohon</p>
+                                </div>
                             </h3>
 
                             {{-- Row 1: Nama & NIK --}}
@@ -211,17 +223,8 @@
                                 </div>
                             </div>
 
-                            {{-- Row 2: No. KK & Email --}}
+                            {{-- Row 2: Email & No. HP --}}
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div class="space-y-2">
-                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                                        Nomor KK (Opsional)
-                                    </label>
-                                    <input type="text" name="no_kk" value="{{ old('no_kk') }}"
-                                        placeholder="Nomor Kartu Keluarga"
-                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800" />
-                                </div>
-
                                 <div class="space-y-2">
                                     <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
                                         Email <span class="text-red-500">*</span>
@@ -231,10 +234,7 @@
                                         class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800"
                                         required />
                                 </div>
-                            </div>
 
-                            {{-- Row 3: No. HP & Alamat --}}
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div class="space-y-2">
                                     <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
                                         No. HP / WhatsApp <span class="text-red-500">*</span>
@@ -244,20 +244,21 @@
                                         class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800"
                                         required />
                                 </div>
-
-                                <div class="space-y-2">
-                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                                        Alamat Lengkap <span class="text-red-500">*</span>
-                                    </label>
-                                    <input type="text" name="alamat" value="{{ old('alamat') }}"
-                                        placeholder="Jl. Contoh No. 123, Kelurahan/Desa"
-                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800"
-                                        required />
-                                </div>
                             </div>
 
-                            {{-- Row 4: Asal/Domisili & Pekerjaan --}}
+                            {{-- Row 3: Pekerjaan & Asal/Domisili --}}
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-2">
+                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                        Pekerjaan <span class="text-red-500">*</span>
+                                    </label>
+
+                                    <x-searchable-select name="pekerjaan_id" :options="$masterPekerjaan" idKey="id"
+                                        labelKey="nama_pekerjaan" :value="old('pekerjaan_id')"
+                                        placeholder="-- Pilih Pekerjaan --" :required="true"
+                                        class="h-12 [&>button]:h-full" />
+                                </div>
+
                                 <div class="space-y-2">
                                     <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
                                         Asal / Domisili <span class="text-red-500">*</span>
@@ -269,16 +270,17 @@
                                         class="h-12 [&>button]:h-full" />
                                     <p class="text-xs text-gray-500 mt-1">Pilih kabupaten/kota asal Anda</p>
                                 </div>
-                                <div class="space-y-2">
-                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                                        Pekerjaan <span class="text-red-500">*</span>
-                                    </label>
+                            </div>
 
-                                    <x-searchable-select name="pekerjaan_id" :options="$masterPekerjaan" idKey="id"
-                                        labelKey="nama_pekerjaan" :value="old('pekerjaan_id')"
-                                        placeholder="-- Pilih Pekerjaan --" :required="true"
-                                        class="h-12 [&>button]:h-full" />
-                                </div>
+                            {{-- Row 4: Alamat Lengkap (Full Width) --}}
+                            <div class="space-y-2">
+                                <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                    Alamat Lengkap <span class="text-red-500">*</span>
+                                </label>
+                                <input type="text" name="alamat" value="{{ old('alamat') }}"
+                                    placeholder="Jl. Contoh No. 123, Kelurahan/Desa"
+                                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800"
+                                    required />
                             </div>
 
                             {{-- Row 5: Upload KTP --}}
@@ -301,39 +303,111 @@
                                     Format: JPG, JPEG, PNG | Maksimal ukuran: 5MB
                                 </p>
                             </div>
+
+                            {{-- Row 5.5: Upload Dokumen Pendukung --}}
+                            <div class="space-y-2">
+                                <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-ppid-primary">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                        <polyline points="14 2 14 8 20 8"></polyline>
+                                        <line x1="12" y1="18" x2="12" y2="12"></line>
+                                        <line x1="9" y1="15" x2="15" y2="15"></line>
+                                    </svg>
+                                    Upload Dokumen Pendukung
+                                </label>
+                                <div class="relative">
+                                    <input type="file" name="dokumen_pendukung" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" 
+                                        class="block w-full text-sm text-gray-700 dark:text-gray-300
+                                                  file:mr-4 file:py-3 file:px-6 
+                                                  file:rounded-lg file:border-0 
+                                                  file:text-sm file:font-semibold
+                                                  file:bg-gradient-to-r file:from-ppid-primary/90 file:to-ppid-primary
+                                                  file:text-white
+                                                  hover:file:from-ppid-primary hover:file:to-ppid-primary/90
+                                                  cursor-pointer border border-gray-300 rounded-lg bg-white dark:bg-slate-800
+                                                  focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary
+                                                  transition-all" />
+                                </div>
+                                <p class="text-xs text-gray-500 mt-1 leading-relaxed">
+                                    <i class="fas fa-paperclip mr-1"></i>
+                                    Surat kuasa, surat tugas, atau dokumen lain yang mendukung permohonan Anda
+                                </p>
+                                <p class="text-xs text-gray-400 mt-0.5">
+                                    Format: PDF, DOC, DOCX, JPG, PNG | Maksimal: 10MB
+                                </p>
+                            </div>
+
+                            {{-- Row 6: Applicant Type Selection (Checkbox) --}}
+                            <div class="border-t-2 border-gray-100 dark:border-slate-700 pt-6 pb-2 mt-2">
+                                <div class="bg-blue-50 dark:bg-slate-700/30 rounded-xl p-4 border border-blue-100 dark:border-slate-600">
+                                    <div class="flex items-start mb-2">
+                                        <input type="checkbox" id="showInstansi" x-model="isInstansi"
+                                            name="jenis_pemohon" value="instansi"
+                                            {{ old('jenis_pemohon') == 'instansi' ? 'checked' : '' }}
+                                            class="h-4 w-4 mt-0.5 text-ppid-primary border-gray-300 rounded focus:ring-ppid-primary cursor-pointer">
+                                        <label for="showInstansi"
+                                            class="ml-3 block text-sm font-semibold text-gray-800 dark:text-gray-200 cursor-pointer">
+                                            Mengajukan atas nama Instansi / Badan Hukum?
+                                        </label>
+                                    </div>
+                                    <p class="text-xs text-gray-600 dark:text-gray-300 ml-7 leading-relaxed">
+                                        Centang jika Anda mewakili instansi pemerintah, organisasi, atau badan hukum. Jika tidak dicentang, maka permohonan dianggap atas nama perseorangan.
+                                    </p>
+                                </div>
+                            </div>
+
+                            {{-- Row 7: Nomor Pengesahan (Conditional) --}}
+                            <div x-show="isInstansi" 
+                                 x-transition:enter="transition ease-out duration-200"
+                                 x-transition:enter-start="opacity-0 transform -translate-y-2"
+                                 x-transition:enter-end="opacity-100 transform translate-y-0"
+                                 x-transition:leave="transition ease-in duration-150"
+                                 x-transition:leave-start="opacity-100 transform translate-y-0"
+                                 x-transition:leave-end="opacity-0 transform -translate-y-2"
+                                 class="space-y-2"
+                                 style="display: none;">
+                                <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                    Nomor Pengesahan (Badan Hukum) <span class="text-red-500">*</span>
+                                </label>
+                                <input type="text" name="nmr_pengesahan" value="{{ old('nmr_pengesahan') }}"
+                                    placeholder="Masukkan nomor pengesahan badan hukum"
+                                    x-bind:required="isInstansi"
+                                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800" />
+                                <p class="text-xs text-gray-500 mt-1">
+                                    <i class="fas fa-info-circle mr-1"></i>
+                                    Wajib diisi untuk pemohon dari instansi/badan hukum
+                                </p>
+                            </div>
                         </div>
 
                         {{-- Information Details --}}
-                        <div class="space-y-6">
-                            <h3
-                                class="text-lg font-bold text-ppid-primary dark:text-white flex items-center gap-2 border-b border-gray-200 pb-3">
-                                <span
-                                    class="w-8 h-8 rounded-full bg-ppid-accent text-white flex items-center justify-center text-sm font-bold">2</span>
-                                Detail Informasi
+                        <div class="space-y-6 bg-gradient-to-br from-white to-gray-50/50 dark:from-slate-800 dark:to-slate-800/50 rounded-2xl p-6 border border-gray-100 dark:border-slate-700">
+                            <h3 class="text-xl font-bold text-ppid-primary dark:text-white flex items-center gap-3 pb-4 border-b-2 border-ppid-primary/20">
+                                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-ppid-primary to-ppid-accent text-white flex items-center justify-center text-base font-bold shadow-lg">
+                                    2
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                                        </svg>
+                                        Detail Informasi
+                                    </div>
+                                    <p class="text-xs font-normal text-gray-500 dark:text-gray-400 mt-1">Rincian informasi yang dibutuhkan</p>
+                                </div>
                             </h3>
 
-                            {{-- Row 1: Nomor Pengeluaran & Tujuan --}}
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div class="space-y-2">
-                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                                        Nomor Pengeluaran (Badan Hukum)
-                                    </label>
-                                    <input type="text" name="nmr_pengesahan" value="{{ old('nmr_pengesahan') }}"
-                                        placeholder="Jika mewakili badan hukum"
-                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800" />
-                                    <p class="text-xs text-gray-500 mt-1">Kosongkan jika mengajukan sebagai perorangan
-                                    </p>
-                                </div>
-
-                                <div class="space-y-2">
-                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                                        Tujuan Penggunaan Informasi <span class="text-red-500">*</span>
-                                    </label>
-                                    <input type="text" name="tujuan" value="{{ old('tujuan') }}"
-                                        placeholder="Contoh: Penelitian, Keperluan Pribadi, dll"
-                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800"
-                                        required />
-                                </div>
+                            {{-- Row 1: Tujuan Penggunaan Informasi --}}
+                            <div class="space-y-2">
+                                <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                    Tujuan Penggunaan Informasi <span class="text-red-500">*</span>
+                                </label>
+                                <input type="text" name="tujuan" value="{{ old('tujuan') }}"
+                                    placeholder="Contoh: Penelitian, Keperluan Pribadi, dll"
+                                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800"
+                                    required />
                             </div>
 
                             {{-- Row 2: Rincian Informasi --}}
@@ -353,7 +427,7 @@
                         </div>
 
                         {{-- Submit Button --}}
-                        <div class="pt-6 border-t border-gray-200">
+                        <div class="pt-8 mt-2">
                             <div class="flex flex-col sm:flex-row gap-4 justify-end">
                                 <button type="reset"
                                     class="px-6 py-3 bg-gray-100 text-gray-700 font-semibold rounded-lg hover:bg-gray-200 transition-all flex items-center justify-center gap-2">
