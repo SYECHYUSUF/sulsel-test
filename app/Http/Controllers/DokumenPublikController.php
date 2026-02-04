@@ -35,38 +35,70 @@ class DokumenPublikController extends Controller
 
     public function sertaMerta(Request $request)
     {
+        $search = $request->query('search');
         $informasiData = DokumenPublik::where('id_kat_info', 22)
             ->where('verify', 'y')
-            ->paginate(10);
+            ->when($search, function ($query, $search) {
+                return $query->where(function ($q) use ($search) {
+                    $q->where('judul', 'LIKE', "%{$search}%")
+                        ->orWhere('ket', 'LIKE', "%{$search}%");
+                });
+            })
+            ->paginate(10)
+            ->appends(['search' => $search]);
 
-        return view('pages.informasi-publik.serta-merta', compact('informasiData'));
+        return view('pages.informasi-publik.serta-merta', compact('informasiData', 'search'));
     }
 
     public function setiapSaat(Request $request)
     {
+        $search = $request->query('search');
         $informasiData = DokumenPublik::where('id_kat_info', 33)
             ->where('verify', 'y')
-            ->paginate(10);
+            ->when($search, function ($query, $search) {
+                return $query->where(function ($q) use ($search) {
+                    $q->where('judul', 'LIKE', "%{$search}%")
+                        ->orWhere('ket', 'LIKE', "%{$search}%");
+                });
+            })
+            ->paginate(10)
+            ->appends(['search' => $search]);
 
-        return view('pages.informasi-publik.setiap-saat', compact('informasiData'));
+        return view('pages.informasi-publik.setiap-saat', compact('informasiData', 'search'));
     }
 
     public function berkala(Request $request)
     {
+        $search = $request->query('search');
         $informasiData = DokumenPublik::where('id_kat_info', 103)
             ->where('verify', 'y')
-            ->paginate(10);
+            ->when($search, function ($query, $search) {
+                return $query->where(function ($q) use ($search) {
+                    $q->where('judul', 'LIKE', "%{$search}%")
+                        ->orWhere('ket', 'LIKE', "%{$search}%");
+                });
+            })
+            ->paginate(10)
+            ->appends(['search' => $search]);
 
-        return view('pages.informasi-publik.berkala', compact('informasiData'));
+        return view('pages.informasi-publik.berkala', compact('informasiData', 'search'));
     }
 
     public function dikecualikan(Request $request)
     {
+        $search = $request->query('search');
         $informasiData = DokumenPublik::where('id_kat_info', 100)
             ->where('verify', 'y')
-            ->paginate(10);
+            ->when($search, function ($query, $search) {
+                return $query->where(function ($q) use ($search) {
+                    $q->where('judul', 'LIKE', "%{$search}%")
+                        ->orWhere('ket', 'LIKE', "%{$search}%");
+                });
+            })
+            ->paginate(10)
+            ->appends(['search' => $search]);
 
-        return view('pages.informasi-publik.dikecualikan', compact('informasiData'));
+        return view('pages.informasi-publik.dikecualikan', compact('informasiData', 'search'));
     }
 
     public function show($id)

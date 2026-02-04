@@ -76,16 +76,18 @@
 
                     {{-- Admin SKPD Filter dengan Searchable Select --}}
                     @if(auth()->user()->hasRole('admin'))
-                        <form action="{{ route('admin.dokumen-publik.index') }}" method="GET" class="w-full md:flex-1">
-                            @foreach(request()->except('id_skpd') as $key => $value)
-                                @if(!is_array($value))
-                                    <input type="hidden" name="{{ $key }}" value="{{ $value }}">
-                                @endif
-                            @endforeach
-
-                            <x-searchable-select name="id_skpd" :options="$skpdList" :value="request('id_skpd')"
-                                idKey="id_skpd" labelKey="nm_skpd" placeholder="Cari SKPD..." />
-                        </form>
+                        <div class="w-full md:flex-1 min-w-[200px]">
+                            <x-searchable-select 
+                                name="id_skpd" 
+                                :options="$skpdList" 
+                                :value="request('id_skpd')"
+                                idKey="id_skpd" 
+                                labelKey="nm_skpd" 
+                                placeholder="Filter Berdasarkan SKPD..." 
+                                :isFilter="true" 
+                                queryName="id_skpd" 
+                            />
+                        </div>
                     @endif
 
                     {{-- Advanced Filter Toggle --}}

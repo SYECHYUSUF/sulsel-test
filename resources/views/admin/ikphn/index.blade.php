@@ -55,18 +55,18 @@
 
                     {{-- Admin SKPD Filter dengan Searchable Select --}}
                     @if(auth()->user()->hasRole('admin'))
-                        <form action="{{ route('admin.ikphns.index') }}" method="GET" class="w-full md:flex-1">
-                            @foreach(request()->except('id_skpd') as $key => $value)
-                                @if(!is_array($value))
-                                    <input type="hidden" name="{{ $key }}" value="{{ $value }}">
-                                @endif
-                            @endforeach
-
-                            <div class="min-w-[200px]">
-                                <x-searchable-select name="id_skpd" :options="$skpdList" :value="request('id_skpd')"
-                                    idKey="id_skpd" labelKey="nm_skpd" placeholder="Cari SKPD..." />
-                            </div>
-                        </form>
+                        <div class="min-w-[200px] w-full md:flex-1">
+                            <x-searchable-select 
+                                name="id_skpd" 
+                                :options="$skpdList" 
+                                :value="request('id_skpd')"
+                                idKey="id_skpd" 
+                                labelKey="nm_skpd" 
+                                placeholder="Filter Berdasarkan SKPD..." 
+                                :isFilter="true" 
+                                queryName="id_skpd" 
+                            />
+                        </div>
                     @endif
 
                     {{-- Advanced Filter Toggle --}}
@@ -184,6 +184,7 @@
                         <tr>
                             <th scope="col" class="px-6 py-3">Judul / Nama Jabatan</th>
                             <th scope="col" class="px-6 py-3">SKPD</th>
+                            <th scope="col" class="px-6 py-3">Jumlah Download</th>
                             <th scope="col" class="px-6 py-3">Status</th>
                             <th scope="col" class="px-6 py-3">File</th>
                             <th scope="col" class="px-6 py-3 text-right">Aksi</th>

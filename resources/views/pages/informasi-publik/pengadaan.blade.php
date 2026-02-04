@@ -53,7 +53,7 @@
             <div class="max-w-7xl mx-auto">
 
                 {{-- Search Box --}}
-                <div class="flex gap-4 mb-6">
+                <form action="{{ url()->current() }}" method="GET" class="flex gap-4 mb-6">
                     <div class="flex-1">
                         <div class="relative">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -63,15 +63,16 @@
                                 <circle cx="11" cy="11" r="8" />
                                 <path d="m21 21-4.3-4.3" />
                             </svg>
-                            <input type="text" placeholder="{{ __('messages.common.search_placeholder') }}"
+                            <input type="text" name="search" value="{{ request('search') }}"
+                                placeholder="{{ __('messages.common.search_placeholder') }}"
                                 class="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1A305E] dark:bg-slate-700 dark:text-white dark:focus:ring-blue-500" />
                         </div>
                     </div>
-                    <button
+                    <button type="submit"
                         class="px-6 py-2 bg-[#D4AF37] text-white rounded-lg hover:bg-[#B08D26] transition-colors font-medium">
                         {{ __('messages.news.search_btn') }}
                     </button>
-                </div>
+                </form>
 
                 {{-- Table --}}
                 <div
@@ -92,7 +93,8 @@
                                         <td class="px-4 py-3 text-sm text-gray-900 dark:text-white">
                                             {{ ($ikphns->currentPage() - 1) * $ikphns->perPage() + $loop->iteration }}
                                         </td>
-                                        <td class="px-4 py-3 text-sm text-gray-700 dark:text-gray-300 font-medium">{{ $item->nama_jabatan }}
+                                        <td class="px-4 py-3 text-sm text-gray-700 dark:text-gray-300 font-medium">
+                                            {{ $item->nama_jabatan }}
                                         </td>
                                         <td class="px-4 py-3 text-center whitespace-nowrap">
                                             <div class="flex items-center gap-2">

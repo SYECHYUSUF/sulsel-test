@@ -19,7 +19,8 @@
                     class="w-4 h-4 text-gray-400">
                     <path d="m9 18 6-6-6-6" />
                 </svg>
-                <span class="text-[#1A305E] dark:text-white font-medium">{{ __('messages.public_info_pages.index_title') }}</span>
+                <span
+                    class="text-[#1A305E] dark:text-white font-medium">{{ __('messages.public_info_pages.index_title') }}</span>
             </div>
 
             {{-- Title --}}
@@ -67,6 +68,28 @@
                     </div>
                 </div>
 
+                {{-- Search Box --}}
+                <form action="{{ url()->current() }}" method="GET" class="flex gap-4 mb-6">
+                    <div class="flex-1">
+                        <div class="relative">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400">
+                                <circle cx="11" cy="11" r="8" />
+                                <path d="m21 21-4.3-4.3" />
+                            </svg>
+                            <input type="text" name="search" value="{{ request('search') }}"
+                                placeholder="{{ __('messages.common.search_placeholder') }}"
+                                class="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1A305E] dark:bg-slate-700 dark:text-white dark:focus:ring-blue-500" />
+                        </div>
+                    </div>
+                    <button type="submit"
+                        class="px-6 py-2 bg-[#D4AF37] text-white rounded-lg hover:bg-[#B08D26] transition-colors font-medium">
+                        {{ __('messages.news.search_btn') }}
+                    </button>
+                </form>
+
                 {{-- Table --}}
                 <div
                     class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 overflow-hidden">
@@ -92,17 +115,23 @@
                                 <tr>
                                     <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide">No</th>
                                     <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide">
-                                        {{ __('messages.public_info_pages.header_a') }}</th>
+                                        {{ __('messages.public_info_pages.header_a') }}
+                                    </th>
                                     <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide">
-                                        {{ __('messages.public_info_pages.header_b') }}</th>
+                                        {{ __('messages.public_info_pages.header_b') }}
+                                    </th>
                                     <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide">
-                                        {{ __('messages.public_info_pages.header_c') }}</th>
+                                        {{ __('messages.public_info_pages.header_c') }}
+                                    </th>
                                     <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide">
-                                        {{ __('messages.public_info_pages.header_d') }}</th>
+                                        {{ __('messages.public_info_pages.header_d') }}
+                                    </th>
                                     <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide">
-                                        {{ __('messages.public_info_pages.header_e') }}</th>
+                                        {{ __('messages.public_info_pages.header_e') }}
+                                    </th>
                                     <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide">
-                                        {{ __('messages.public_info_pages.header_f') }}</th>
+                                        {{ __('messages.public_info_pages.header_f') }}
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200">
@@ -118,11 +147,14 @@
                                         <td class="px-4 py-3 text-sm text-gray-700 min-w-[250px]">{{ $item->b }}</td>
                                         <td class="px-4 py-3 text-sm text-gray-700 min-w-[150px]">{{ $item->c }}</td>
                                         <td class="px-4 py-3 text-sm text-gray-600 dark:text-gray-300 min-w-[150px]">
-                                            {{ $item->d }}</td>
+                                            {{ $item->d }}
+                                        </td>
                                         <td class="px-4 py-3 text-sm text-gray-600 dark:text-gray-300 whitespace-nowrap">
-                                            {{ $item->e }}</td>
+                                            {{ $item->e }}
+                                        </td>
                                         <td class="px-4 py-3 text-sm text-gray-600 dark:text-gray-300 whitespace-nowrap">
-                                            {{ $item->f }}</td>
+                                            {{ $item->f }}
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

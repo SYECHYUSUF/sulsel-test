@@ -19,20 +19,22 @@
                     class="w-4 h-4 text-gray-400">
                     <path d="m9 18 6-6-6-6" />
                 </svg>
-                <a href="/informasi-publik" class="hover:text-[#1A305E] dark:text-white transition-colors">{{ __('messages.breadcrumb.public_info') }}</a>
+                <a href="/informasi-publik"
+                    class="hover:text-[#1A305E] dark:text-white transition-colors">{{ __('messages.breadcrumb.public_info') }}</a>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="w-4 h-4 text-gray-400">
                     <path d="m9 18 6-6-6-6" />
                 </svg>
-                <span class="text-[#1A305E] dark:text-white font-medium">{{ __('messages.public_info_pages.year_2025_title') }}</span>
+                <span class="text-[#1A305E] dark:text-white font-medium">{{ __('messages.menu.data_info_prefix') }}
+                    {{ $tahun }}</span>
             </div>
 
             {{-- Title --}}
             <div class="flex items-end justify-between">
                 <div>
                     <h1 class="text-3xl md:text-4xl font-bold text-[#1A305E] dark:text-white mb-2">
-                        {{ __('messages.public_info_pages.year_2025_title') }}
+                        {{ __('messages.menu.data_info_prefix') }} {{ $tahun }}
                     </h1>
                     <p class="text-gray-600 dark:text-gray-300">
                         {{ __('messages.public_info_pages.year_subtitle') }}
@@ -48,36 +50,36 @@
     {{-- Main Content --}}
     <main class="py-10 md:py-16 bg-gray-50 dark:bg-slate-900 font-['Plus_Jakarta_Sans']">
         <div class="container mx-auto px-4">
-            <div class="max-w-7xl mx-auto">
+            <div class="max-w-7xl mx-auto space-y-10">
 
-                {{-- Info Banner --}}
-                <div class="bg-[#1A305E] text-white rounded-xl p-6 mb-8">
-                    <div class="flex items-start gap-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="w-6 h-6 flex-shrink-0 mt-0.5">
-                            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
-                            <polyline points="14 2 14 8 20 8" />
-                            <path d="M16 13H8" />
-                            <path d="M16 17H8" />
-                            <path d="M10 9H8" />
-                        </svg>
-                        <div>
-                            <h2 class="font-bold text-lg mb-2">Daftar Informasi Publik 2025</h2>
-                            <p class="text-white/90 text-sm leading-relaxed">
-                                Berikut adalah daftar lengkap informasi publik yang tersedia di Pemerintah Provinsi
-                                Sulawesi Selatan tahun 2025.
-                            </p>
+                {{-- Search Box --}}
+                <form action="{{ url()->current() }}" method="GET" class="flex gap-4 mb-6">
+                    <div class="flex-1">
+                        <div class="relative">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400">
+                                <circle cx="11" cy="11" r="8" />
+                                <path d="m21 21-4.3-4.3" />
+                            </svg>
+                            <input type="text" name="search" value="{{ request('search') }}"
+                                placeholder="{{ __('messages.common.search_placeholder') }}"
+                                class="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1A305E] dark:bg-slate-700 dark:text-white dark:focus:ring-blue-500" />
                         </div>
                     </div>
-                </div>
+                    <button type="submit"
+                        class="px-6 py-2 bg-[#D4AF37] text-white rounded-lg hover:bg-[#B08D26] transition-colors font-medium">
+                        {{ __('messages.news.search_btn') }}
+                    </button>
+                </form>
 
-                {{-- Table --}}
+                {{-- Index Table --}}
                 <div
                     class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 overflow-hidden">
                     <div
                         class="border-b border-gray-200 dark:border-slate-700 px-6 py-4 flex items-center justify-between bg-gray-50 dark:bg-slate-900">
-                        <h3 class="font-bold text-gray-900 dark:text-white">Daftar Informasi Publik 2025</h3>
+                        <h3 class="font-bold text-gray-900 dark:text-white">Daftar Informasi Publik {{ $tahun }}</h3>
                         <button
                             class="flex items-center gap-2 text-[#1A305E] dark:text-white hover:text-[#D4AF37] text-sm font-medium transition-colors">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -96,14 +98,24 @@
                             <thead class="bg-[#1A305E] text-white">
                                 <tr>
                                     <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide">No</th>
-                                    <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide">{{ __('messages.public_info_pages.header_a') }}
+                                    <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide">
+                                        {{ __('messages.public_info_pages.header_a') }}
                                     </th>
-                                    <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide">{{ __('messages.public_info_pages.header_b') }}</th>
-                                    <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide">{{ __('messages.public_info_pages.header_c') }}</th>
-                                    <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide">{{ __('messages.public_info_pages.header_d') }}
+                                    <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide">
+                                        {{ __('messages.public_info_pages.header_b') }}
                                     </th>
-                                    <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide">{{ __('messages.public_info_pages.header_f') }}</th>
-                                    <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide">{{ __('messages.public_info_pages.header_g') }}</th>
+                                    <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide">
+                                        {{ __('messages.public_info_pages.header_c') }}
+                                    </th>
+                                    <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide">
+                                        {{ __('messages.public_info_pages.header_d') }}
+                                    </th>
+                                    <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide">
+                                        {{ __('messages.public_info_pages.header_e') }}
+                                    </th>
+                                    <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide">
+                                        {{ __('messages.public_info_pages.header_f') }}
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200">
@@ -118,11 +130,14 @@
                                         <td class="px-4 py-3 text-sm text-gray-700 min-w-[250px]">{{ $item->b }}</td>
                                         <td class="px-4 py-3 text-sm text-gray-700 min-w-[150px]">{{ $item->c }}</td>
                                         <td class="px-4 py-3 text-sm text-gray-600 dark:text-gray-300 min-w-[150px]">
-                                            {{ $item->d }}</td>
+                                            {{ $item->d }}
+                                        </td>
                                         <td class="px-4 py-3 text-sm text-gray-600 dark:text-gray-300 whitespace-nowrap">
-                                            {{ $item->e }}</td>
+                                            {{ $item->e }}
+                                        </td>
                                         <td class="px-4 py-3 text-sm text-gray-600 dark:text-gray-300 whitespace-nowrap">
-                                            {{ $item->f }}</td>
+                                            {{ $item->f }}
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -137,9 +152,7 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
         </div>
     </main>

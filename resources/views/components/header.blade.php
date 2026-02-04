@@ -1,7 +1,5 @@
-<header
-    class="fixed top-0 left-0 w-full z-50 font-['Plus_Jakarta_Sans'] transition-all duration-300"
-    :class="scrolled ? 'bg-transparent shadow-none' : 'bg-white dark:bg-slate-900 shadow-sm'"
-    x-data="{ 
+<header class="fixed top-0 left-0 w-full z-50 font-['Plus_Jakarta_Sans'] transition-all duration-300"
+    :class="scrolled ? 'bg-transparent shadow-none' : 'bg-white dark:bg-slate-900 shadow-sm'" x-data="{ 
             mobileMenu: false,
             openProfil: false, 
             openDaftar: false, 
@@ -24,9 +22,9 @@
         }">
 
     {{-- 1. TOP BAR: LOGO & BAHASA --}}
-    <div id="topbar" 
-         class="container mx-auto px-4 flex items-center justify-between transition-all duration-300 bg-white dark:bg-slate-900"
-         :class="scrolled ? 'max-h-0 py-0 opacity-0 invisible' : 'max-h-32 py-4 md:py-6 opacity-100 visible'">
+    <div id="topbar"
+        class="container mx-auto px-4 flex items-center justify-between transition-all duration-300 bg-white dark:bg-slate-900"
+        :class="scrolled ? 'max-h-0 py-0 opacity-0 invisible' : 'max-h-32 py-4 md:py-6 opacity-100 visible'">
         <a href="/" class="flex items-center gap-3 group">
             {{-- Logo Image --}}
             <img src="{{ asset('images/ppid-2.png') }}" alt="Logo PPID Sulawesi Selatan"
@@ -158,7 +156,8 @@
 
                 {{-- BERANDA --}}
                 <li class="border-b lg:border-none border-white/10">
-                    <a href="/" class="block px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all relative group {{ request()->is('/') ? 'text-[#D4AF37]' : '' }}">
+                    <a href="/"
+                        class="block px-6 lg:px-4 py-4 hover:text-[#D4AF37] transition-all relative group {{ request()->is('/') ? 'text-[#D4AF37]' : '' }}">
                         {{ __('messages.header.home') }}
                         <span
                             class="absolute bottom-0 left-0 w-full h-[3px] bg-[#D4AF37] scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block {{ request()->is('/') ? 'scale-x-100' : '' }}"></span>
@@ -240,10 +239,10 @@
                     {{-- Mengambil Data Tahun (Hanya dijalankan saat file ini dimuat) --}}
                     @php
                         $daftarTahun = \App\Models\MasterTahun::whereNotNull('waktu')
-                                        ->orderBy('waktu', 'desc')
-                                        ->get();
+                            ->orderBy('waktu', 'desc')
+                            ->get();
                     @endphp
-                    
+
                     <ul x-show="openDaftar" x-transition:enter="transition ease-out duration-300 transform origin-top"
                         x-transition:enter-start="opacity-0 -translate-y-2 scale-95"
                         x-transition:enter-end="opacity-100 translate-y-0 scale-100"
@@ -252,9 +251,10 @@
                         x-transition:leave-end="opacity-0 -translate-y-2 scale-95"
                         class="lg:absolute lg:left-0 lg:top-full w-full lg:w-64 bg-white dark:bg-slate-800 lg:shadow-xl text-[#1A305E] dark:text-gray-200 py-2 lg:rounded-b-lg lg:border-t-4 lg:border-[#D4AF37] z-50">
                         @foreach($daftarTahun as $tahun)
-                        <li><a href="/informasi-publik/{{ $tahun->waktu }}"
-                                class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37] {{ request()->is('informasi-publik/'.$tahun->waktu) ? 'text-[#D4AF37] border-[#D4AF37] bg-[#1A305E]/5' : '' }}">{{ __('messages.menu.data_info_prefix') }} {{ $tahun->waktu }}</a>
-                        </li>
+                            <li><a href="{{ route('informasi-publik.tahun', $tahun->waktu) }}"
+                                    class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37] {{ request()->is('informasi-publik/tahun/' . $tahun->waktu) ? 'text-[#D4AF37] border-[#D4AF37] bg-[#1A305E]/5' : '' }}">{{ __('messages.menu.data_info_prefix') }}
+                                    {{ $tahun->waktu }}</a>
+                            </li>
                         @endforeach
                         <li><a href="/informasi-publik/pengadaan"
                                 class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37] {{ request()->is('informasi-publik/pengadaan') ? 'text-[#D4AF37] border-[#D4AF37] bg-[#1A305E]/5' : '' }}">{{ __('messages.menu.procurement_info') }}</a>
@@ -281,8 +281,8 @@
                     {{-- Mengambil Data Kategori (Hanya dijalankan saat file ini dimuat) --}}
                     @php
                         $kategoriInfo = \App\Models\KategoriInformasi::where('is_active', 1)
-                                        ->orderBy('nm_kat_info', 'asc')
-                                        ->get();
+                            ->orderBy('nm_kat_info', 'asc')
+                            ->get();
                     @endphp
 
                     <ul x-show="openInformasi"
@@ -295,7 +295,7 @@
                         class="lg:absolute lg:left-0 lg:top-full w-full lg:w-72 bg-white dark:bg-slate-800 lg:shadow-xl text-[#1A305E] dark:text-gray-200 py-2 lg:rounded-b-lg lg:border-t-4 lg:border-[#D4AF37] z-50">
                         @foreach ($kategoriInfo as $kategori)
                             <li><a href="/informasi-publik/{{ \Illuminate\Support\Str::slug($kategori->nm_kat_info) }}"
-                                    class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37] {{ request()->is('informasi-publik/'.\Illuminate\Support\Str::slug($kategori->nm_kat_info)) ? 'text-[#D4AF37] border-[#D4AF37] bg-[#1A305E]/5' : '' }}">
+                                    class="block px-10 lg:px-6 py-3 hover:bg-[#1A305E]/5 hover:text-[#D4AF37] border-l-4 border-transparent hover:border-[#D4AF37] {{ request()->is('informasi-publik/' . \Illuminate\Support\Str::slug($kategori->nm_kat_info)) ? 'text-[#D4AF37] border-[#D4AF37] bg-[#1A305E]/5' : '' }}">
                                     {{ $kategori->nm_kat_info }}
                                 </a>
                             </li>

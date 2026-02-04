@@ -6,7 +6,9 @@
     'disabled' => false,
     'required' => false,
     'idKey' => 'id',
-    'labelKey' => 'label'
+    'labelKey' => 'label',
+    'isFilter' => false, // Prop baru untuk mode filter
+    'queryName' => null  // Prop baru untuk menentukan nama key di URL
 ])
 
 <div x-data="{
@@ -15,6 +17,8 @@
     disabled: {{ $disabled ? 'true' : 'false' }},
     value: '{{ $value }}',
     label: '',
+    isFilter: {{ $isFilter ? 'true' : 'false' }},
+    queryName: '{{ $queryName ?? $name }}', {{-- Default ke 'name' jika queryName null --}}
     rawOptions: {{ $options instanceof \Illuminate\Support\Collection ? $options->toJson() : json_encode($options) }},
     
     get options() {
@@ -39,8 +43,16 @@
         this.open = false;
         this.search = '';
 
-        // Form submission removed to prevent unwanted submissions in standard forms
-
+        // Jika mode filter aktif, perbarui URL
+        if (this.isFilter) {
+            const url = new URL(window.location.href);
+            url.searchParams.set(this.queryName, opt.id);
+            // Reset ke halaman 1 jika sedang melakukan filtering
+            if (url.searchParams.has('page')) {
+                url.searchParams.delete('page');
+            }
+            window.location.href = url.toString();
+        }
     }
 }" 
 {{ $attributes->merge(['class' => 'relative']) }}
