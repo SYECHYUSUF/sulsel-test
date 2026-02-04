@@ -8,7 +8,7 @@ return [
         'home' => 'BERANDA',
         'profile' => 'PROFIL',
         'news' => 'BERITA',
-        'data_info' => 'DATA INFORMASI PUBLIK',
+        'data_info' => 'DAFTAR INFORMASI PUBLIK',
         'public_info' => 'INFORMASI PUBLIK',
         'ppid_implementing' => 'PPID PELAKSANA',
         'services' => 'LAYANAN',
