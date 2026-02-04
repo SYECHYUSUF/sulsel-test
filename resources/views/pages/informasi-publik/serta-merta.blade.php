@@ -19,13 +19,15 @@
                     class="w-4 h-4 text-gray-400">
                     <path d="m9 18 6-6-6-6" />
                 </svg>
-                <a href="/informasi-publik" class="hover:text-[#1A305E] dark:text-white transition-colors">{{ __('messages.breadcrumb.public_info') }}</a>
+                <a href="/informasi-publik"
+                    class="hover:text-[#1A305E] dark:text-white transition-colors">{{ __('messages.breadcrumb.public_info') }}</a>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="w-4 h-4 text-gray-400">
                     <path d="m9 18 6-6-6-6" />
                 </svg>
-                <span class="text-[#1A305E] dark:text-white font-medium">{{ __('messages.public_info_types.serta_merta') }}</span>
+                <span
+                    class="text-[#1A305E] dark:text-white font-medium">{{ __('messages.public_info_types.serta_merta') }}</span>
             </div>
 
             {{-- Title --}}
@@ -51,7 +53,7 @@
             <div class="max-w-7xl mx-auto">
 
                 {{-- Search and Filter --}}
-                <div class="flex flex-col md:flex-row gap-4 mb-6">
+                <form action="{{ url()->current() }}" method="GET" class="flex flex-col md:flex-row gap-4 mb-6">
                     <div class="flex-1">
                         <div class="relative">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -61,20 +63,25 @@
                                 <circle cx="11" cy="11" r="8" />
                                 <path d="m21 21-4.3-4.3" />
                             </svg>
-                            <input type="text" placeholder="{{ __('messages.common.search_placeholder') }}"
-                                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1A305E]" />
+                            <input type="text" name="search" value="{{ request('search') }}"
+                                placeholder="{{ __('messages.common.search_placeholder') }}"
+                                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1A305E] dark:bg-slate-700 dark:text-white dark:focus:ring-blue-500" />
                         </div>
                     </div>
                     <div>
                         <select
-                            class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1A305E] bg-white dark:bg-slate-800">
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1A305E] bg-white dark:bg-slate-800 dark:text-white">
                             <option>{{ __('messages.common.select_year') }}</option>
                             <option>2025</option>
                             <option>2024</option>
                             <option>2023</option>
                         </select>
                     </div>
-                </div>
+                    <button type="submit"
+                        class="px-6 py-2 bg-[#D4AF37] text-white rounded-lg hover:bg-[#B08D26] transition-colors font-medium">
+                        {{ __('messages.news.search_btn') }}
+                    </button>
+                </form>
 
                 {{-- Table --}}
                 <div

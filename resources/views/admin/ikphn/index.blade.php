@@ -55,18 +55,18 @@
 
                     {{-- Admin SKPD Filter dengan Searchable Select --}}
                     @if(auth()->user()->hasRole('admin'))
-                        <form action="{{ route('admin.ikphns.index') }}" method="GET" class="w-full md:flex-1">
-                            @foreach(request()->except('id_skpd') as $key => $value)
-                                @if(!is_array($value))
-                                    <input type="hidden" name="{{ $key }}" value="{{ $value }}">
-                                @endif
-                            @endforeach
-
-                            <div class="min-w-[200px]">
-                                <x-searchable-select name="id_skpd" :options="$skpdList" :value="request('id_skpd')"
-                                    idKey="id_skpd" labelKey="nm_skpd" placeholder="Cari SKPD..." />
-                            </div>
-                        </form>
+                        <div class="min-w-[200px] w-full md:flex-1">
+                            <x-searchable-select 
+                                name="id_skpd" 
+                                :options="$skpdList" 
+                                :value="request('id_skpd')"
+                                idKey="id_skpd" 
+                                labelKey="nm_skpd" 
+                                placeholder="Filter Berdasarkan SKPD..." 
+                                :isFilter="true" 
+                                queryName="id_skpd" 
+                            />
+                        </div>
                     @endif
 
                     {{-- Advanced Filter Toggle --}}
@@ -184,6 +184,7 @@
                         <tr>
                             <th scope="col" class="px-6 py-3">Judul / Nama Jabatan</th>
                             <th scope="col" class="px-6 py-3">SKPD</th>
+                            <th scope="col" class="px-6 py-3">Jumlah Download</th>
                             <th scope="col" class="px-6 py-3">Status</th>
                             <th scope="col" class="px-6 py-3">File</th>
                             <th scope="col" class="px-6 py-3 text-right">Aksi</th>
@@ -196,12 +197,15 @@
                                 <td class="px-6 py-4">
                                     <div class="font-medium text-slate-900 dark:text-slate-100">{{ $item->nama_jabatan }}
                                     </div>
-                                    <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">Uploaded:
-                                        {{ $item->created_at->format('d M Y') }}
+                                    <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                                        Diupload: {{ $item->created_at?->translatedFormat('d M Y') ?? "-" }}
                                     </div>
                                 </td>
                                 <td class="px-6 py-4">
                                     <span class="text-xs">{{ $item->skpd->nm_skpd ?? '-' }}</span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="text-xs">{{ $item->jumlah_download }}</span>
                                 </td>
                                 <td class="px-6 py-4">
                                     @if($item->verify == 'y')
@@ -287,7 +291,8 @@
         $notificationStatus = session('error') ? 'error' : 'success';
         $notificationMessage = session('success') ?? session('error');
     @endphp
-    <x-notification-modal trigger="showNotification" :status="$notificationStatus" :description="$notificationMessage" />
+    <x-notification-modal trigger="showNotification" :status="$notificationStatus"
+        :description="$notificationMessage" />
 
     <!-- Delete Confirmation Dialog -->
     <x-confirmation-dialog trigger="showDeleteModal" title="Hapus Dokumen?"

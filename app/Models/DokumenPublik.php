@@ -10,6 +10,10 @@ class DokumenPublik extends Model
     protected $primaryKey = 'id_informasi';
     protected $guarded = [];
 
+    protected $casts = [
+        'tgl_upload' => 'datetime',
+    ];
+
     public function kategori()
     {
         return $this->belongsTo(KategoriInformasi::class, 'id_kat_info', 'id_kat_info');

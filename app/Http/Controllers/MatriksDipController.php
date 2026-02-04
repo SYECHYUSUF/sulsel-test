@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ikphn;
 use App\Models\MatriksDip;
 use Illuminate\Http\Request;
 
@@ -10,42 +11,55 @@ class MatriksDipController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $matriksDip = MatriksDip::where('is_active', 1)->paginate(10);
+        $search = $request->query('search');
+        $matriksDip = MatriksDip::where('is_active', 1)
+            ->when($search, function ($query, $search) {
+                return $query->where('b', 'LIKE', "%{$search}%")
+                    ->orWhere('c', 'LIKE', "%{$search}%")
+                    ->orWhere('d', 'LIKE', "%{$search}%")
+                    ->orWhere('e', 'LIKE', "%{$search}%")
+                    ->orWhere('f', 'LIKE', "%{$search}%")
+                    ->orWhere('g', 'LIKE', "%{$search}%");
+            })
+            ->paginate(10)
+            ->appends(['search' => $search]);
 
-        return view('pages.informasi-publik.index', compact('matriksDip'));
+        return view('pages.informasi-publik.index', compact('matriksDip', 'search'));
     }
 
-    public function tahun2023()
+    public function tahun(Request $request, $tahun)
     {
-        $matriksDip = MatriksDip::where('g', 'LIKE', '%2023%')
+        $search = $request->query('search');
+        $matriksDip = MatriksDip::where('g', 'LIKE', "%{$tahun}%")
             ->where('is_active', 1)
-            ->paginate(10);
-        return view('pages.informasi-publik.tahun-2023', compact('matriksDip'));
+            ->when($search, function ($query, $search) {
+                return $query->where(function ($q) use ($search) {
+                    $q->where('b', 'LIKE', "%{$search}%")
+                        ->orWhere('c', 'LIKE', "%{$search}%")
+                        ->orWhere('d', 'LIKE', "%{$search}%")
+                        ->orWhere('e', 'LIKE', "%{$search}%")
+                        ->orWhere('f', 'LIKE', "%{$search}%")
+                        ->orWhere('g', 'LIKE', "%{$search}%");
+                });
+            })
+            ->paginate(10)
+            ->appends(['search' => $search]);
+
+        return view('pages.informasi-publik.tahun', compact('matriksDip', 'search', 'tahun'));
     }
 
-    public function tahun2024()
+    public function pengadaan(Request $request)
     {
-        $matriksDip = MatriksDip::where('g', 'LIKE', '%2024%')
-            ->where('is_active', 1)
-            ->paginate(10);
-        return view('pages.informasi-publik.tahun-2024', compact('matriksDip'));
-    }
+        $search = $request->query('search');
+        $ikphns = Ikphn::where('verify', '!=', 't')
+            ->when($search, function ($query, $search) {
+                return $query->where('nama_jabatan', 'LIKE', "%{$search}%");
+            })
+            ->paginate(10)
+            ->appends(['search' => $search]);
 
-    public function tahun2025()
-    {
-        $matriksDip = MatriksDip::where('g', 'LIKE', '%2025%')
-            ->where('is_active', 1)
-            ->paginate(10);
-        return view('pages.informasi-publik.tahun-2025', compact('matriksDip'));
-    }
-
-    public function pengadaan()
-    {
-        $ikphns = \App\Models\Ikphn::where('verify', 'y')
-            ->paginate(10);
-
-        return view('pages.informasi-publik.pengadaan', compact('ikphns'));
+        return view('pages.informasi-publik.pengadaan', compact('ikphns', 'search'));
     }
 }

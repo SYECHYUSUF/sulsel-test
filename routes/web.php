@@ -33,6 +33,7 @@ use App\Models\Setting;
 use App\Models\Skpd;
 use App\Models\MasterPekerjaan;
 use App\Models\AlasanPengajuan;
+use Illuminate\Support\Facades\RateLimiter;
 
 // Language Switcher
 Route::get('/lang/{locale}', function ($locale) {
@@ -133,9 +134,13 @@ Route::middleware(['track.visitors'])->group(function () {
 
     // Informasi Publik Pages
     Route::get('/informasi-publik', [GuestMatriksDipController::class, 'index']);
-    Route::get('/informasi-publik/2023', [GuestMatriksDipController::class, 'tahun2023']);
-    Route::get('/informasi-publik/2024', [GuestMatriksDipController::class, 'tahun2024']);
-    Route::get('/informasi-publik/2025', [GuestMatriksDipController::class, 'tahun2025']);
+    Route::get('/informasi-publik/tahun/{tahun}', [GuestMatriksDipController::class, 'tahun'])->name('informasi-publik.tahun');
+    Route::get('/informasi-publik/2023', function () {
+        return redirect()->route('informasi-publik.tahun', 2023); });
+    Route::get('/informasi-publik/2024', function () {
+        return redirect()->route('informasi-publik.tahun', 2024); });
+    Route::get('/informasi-publik/2025', function () {
+        return redirect()->route('informasi-publik.tahun', 2025); });
     Route::get('/informasi-publik/serta-merta', [GuestDokumenPublikController::class, 'sertaMerta']);
     Route::get('/informasi-publik/setiap-saat', [GuestDokumenPublikController::class, 'setiapSaat']);
     Route::get('/informasi-publik/daftar-informasi-dikecualikan', [GuestDokumenPublikController::class, 'dikecualikan']);
@@ -150,21 +155,21 @@ Route::middleware(['track.visitors'])->group(function () {
         // Use values() to reset keys ensuring valid JSON array for frontend
         $masterPekerjaan = MasterPekerjaan::active()->select('id', 'nama_pekerjaan')->orderBy('nama_pekerjaan')->get()->unique('nama_pekerjaan')->values();
         $masterDomisili = App\Models\MasterDomisili::active()->select('id', 'nama_daerah')->orderBy('nama_daerah')->get()->unique('nama_daerah')->values();
-        
+
         return view('pages.layanan.permohonan-informasi', compact('masterPekerjaan', 'masterDomisili'));
     });
     // Unified status check route
     Route::get('/layanan/cek-status', [StatusCheckController::class, 'showForm'])->name('layanan.cek-status');
-    
+
     // Redirects from old URLs to new unified page
     Route::get('/layanan/cek-status-permohonan', function () {
         return redirect()->route('layanan.cek-status', ['type' => 'permohonan']);
     })->name('layanan.cek-status-permohonan');
-    
+
     Route::get('/layanan/pengajuan-keberatan/cek-status', function () {
         return redirect()->route('layanan.cek-status', ['type' => 'keberatan']);
     })->name('layanan.pengajuan-keberatan.check-status');
-    
+
     Route::get('/layanan/pengajuan-keberatan', function () {
         $masterPekerjaan = MasterPekerjaan::active()->select('nama_pekerjaan')->distinct()->orderBy('nama_pekerjaan')->get();
         $alasanPengajuans = AlasanPengajuan::orderBy('alasan')->get();

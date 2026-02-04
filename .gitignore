@@ -28,3 +28,5 @@ Thumbs.db
 ./database-copy.sql
 
 /prompts/
+
+database/seeders/file/
