@@ -93,6 +93,13 @@
                     @if(!$dynamicText) {{ $description }} @endif
                 </p>
 
+                {{-- Form Start if URL exists --}}
+                @if($url !== '#' || $dynamic)
+                    <form @if($dynamic) :action="{{ $url }}" @else action="{{ $url }}" @endif method="POST" class="w-full">
+                        @csrf
+                        @method($method)
+                @endif
+
                 <div class="w-full mb-6">
                     {{ $slot }}
                 </div>
@@ -103,16 +110,11 @@
                         {{ $cancelText }}
                     </button>
                     
-                    {{-- Form Submission for Actions --}}
                     @if($url !== '#' || $dynamic)
-                        <form @if($dynamic) :action="{{ $url }}" @else action="{{ $url }}" @endif method="POST" class="flex-1">
-                            @csrf
-                            @method($method)
-                            <button type="submit"
-                                class="w-full px-4 py-3 rounded-xl text-white font-bold text-sm shadow-lg transition-all transform hover:scale-105 active:scale-95 bg-gradient-to-r {{ $colors['btn_primary'] }} {{ $colors['btn_shadow'] }}">
-                                {{ $confirmText }}
-                            </button>
-                        </form>
+                        <button type="submit"
+                            class="w-full px-4 py-3 rounded-xl text-white font-bold text-sm shadow-lg transition-all transform hover:scale-105 active:scale-95 bg-gradient-to-r {{ $colors['btn_primary'] }} {{ $colors['btn_shadow'] }}">
+                            {{ $confirmText }}
+                        </button>
                     @else
                         {{-- Generic Button (if handled via JS/Alpine elsewhere) --}}
                         <button @click="$dispatch('confirm'); {{ $trigger }} = false"
@@ -121,6 +123,11 @@
                         </button>
                     @endif
                 </div>
+
+                {{-- Form End if URL exists --}}
+                @if($url !== '#' || $dynamic)
+                    </form>
+                @endif
             </div>
         </div>
     </div>

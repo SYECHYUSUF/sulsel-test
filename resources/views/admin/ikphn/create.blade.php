@@ -1,6 +1,6 @@
 <x-admin-layout>
 
-   <x-slot name="extra_head">
+    <x-slot name="extra_head">
         <link href="/vendor/filepond/index.css" rel="stylesheet" />
         <link href="/vendor/filepond/image-preview.css" rel="stylesheet" />
         <link href="/vendor/filepond/filepond-plugin-pdf-preview.min.css" rel="stylesheet" />
@@ -30,7 +30,8 @@
                     </div>
                 @endif
 
-                <form id="createForm" action="{{ route('admin.ikphns.store') }}" method="POST" enctype="multipart/form-data">
+                <form id="createForm" action="{{ route('admin.ikphns.store') }}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
 
                     <!-- Judul / Nama Jabatan -->
@@ -40,8 +41,8 @@
                             Judul / Nama Jabatan
                         </label>
                         <input type="text" name="nama_jabatan" id="nama_jabatan" value="{{ old('nama_jabatan') }}"
-                            required
-                            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-700 dark:border-slate-600 dark:text-white">
+                            class="w-full px-4 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-ppid-accent focus:ring-1 focus:ring-ppid-accent"
+                            placeholder="Masukkan judul berita" required>
                     </div>
 
                     <!-- SKPD -->
@@ -61,7 +62,8 @@
                         <label class="block text-sm font-medium text-slate-700 mb-2">Dokumen File <span
                                 class="text-red-500">*</span></label>
                         <input type="file" class="filepond" name="file" id="file_upload" required>
-                        <p class="text-xs text-slate-500 mt-1">Format: PDF, DOC, DOCX, XLS, XLSX, JPG, PNG (Max: 50MB)</p>
+                        <p class="text-xs text-slate-500 mt-1">Format: PDF, DOC, DOCX, XLS, XLSX, JPG, PNG (Max: 50MB)
+                        </p>
                         @error('file')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
@@ -106,7 +108,8 @@
                 </form>
 
                 <x-confirmation-dialog trigger="showConfirm" title="Simpan Data?"
-                    description="Apakah anda yakin ingin menyimpan data ini?" confirmText="Ya, Simpan" theme="primary" />
+                    description="Apakah anda yakin ingin menyimpan data ini?" confirmText="Ya, Simpan"
+                    theme="primary" />
 
             </div>
         </div>

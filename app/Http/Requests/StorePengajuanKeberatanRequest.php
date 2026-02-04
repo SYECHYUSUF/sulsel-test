@@ -25,24 +25,24 @@ class StorePengajuanKeberatanRequest extends FormRequest
             // Core fields
             'no_pendaftaran' => ['required', 'string', 'max:100'],
             'tujuan' => ['required', 'string', 'max:1000'],
-            
+
             // Pemohon identity
             'nama_pemohon' => ['required', 'string', 'max:255', 'regex:/^[\pL\s\.\-\']+$/u'],
             'alamat_pemohon' => ['required', 'string', 'max:500'],
-            'address_pemohon' => ['required', 'string', 'max:255'],
+            'address_pemohon' => ['nullable', 'string', 'max:255'],
             'city_pemohon' => ['required', 'string', 'max:100'],
             'state_pemohon' => ['required', 'string', 'max:100'],
             'pekerjaan_pemohon' => ['required', 'string', 'max:100'],
             'no_telp_pemohon' => ['required', 'string', 'min:10', 'max:12', 'regex:/^(08|628|\+628)[0-9]{8,10}$/'],
             'email_pemohon' => ['required', 'email:rfc,dns', 'max:255'],
-            
+
             // Alasan keberatan
             'alasan' => ['required', 'array', 'min:1'],
             'alasan.*' => ['string', 'max:500'],
-            
+
             // Kasus
             'kasus' => ['required', 'string', 'max:5000'],
-            
+
             // Kuasa (Optional)
             'nama_kuasa' => ['nullable', 'string', 'max:255', 'regex:/^[\pL\s\.\-\']*$/u'],
             'alamat_kuasa' => ['nullable', 'string', 'max:500'],
@@ -51,10 +51,10 @@ class StorePengajuanKeberatanRequest extends FormRequest
             'city_kuasa' => ['nullable', 'string', 'max:100'],
             'state_kuasa' => ['nullable', 'string', 'max:100'],
             'no_telp_kuasa' => ['nullable', 'string', 'min:10', 'max:12', 'regex:/^(08|628|\+628)?[0-9]{8,10}$/'],
-            
+
             // Hidden fields
             'apt_pemohon' => ['nullable', 'string', 'max:100'],
-            
+
             // Honeypot field
             'website' => ['nullable', 'max:0'],
         ];
@@ -103,12 +103,12 @@ class StorePengajuanKeberatanRequest extends FormRequest
         if ($value === null) {
             return null;
         }
-        
+
         $value = strip_tags($value);
         $value = trim($value);
         $value = str_replace(chr(0), '', $value);
         $value = htmlspecialchars($value, ENT_QUOTES | ENT_HTML5, 'UTF-8', false);
-        
+
         return $value;
     }
 }

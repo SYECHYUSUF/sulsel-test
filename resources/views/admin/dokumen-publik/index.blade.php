@@ -259,7 +259,7 @@
                                 <td class="px-6 py-4">
                                     <div class="font-medium text-slate-900 dark:text-slate-100">{{ $info->judul }}</div>
                                     <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">Uploaded:
-                                        {{ $info->tgl_upload }}
+                                        {{ $info->tgl_upload?->translatedFormat('d M Y') ?? "-" }}
                                     </div>
                                 </td>
                                 <td class="px-6 py-4">

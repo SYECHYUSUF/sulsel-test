@@ -196,12 +196,15 @@
                                 <td class="px-6 py-4">
                                     <div class="font-medium text-slate-900 dark:text-slate-100">{{ $item->nama_jabatan }}
                                     </div>
-                                    <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">Uploaded:
-                                        {{ $item->created_at->format('d M Y') }}
+                                    <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                                        Diupload: {{ $item->created_at?->translatedFormat('d M Y') ?? "-" }}
                                     </div>
                                 </td>
                                 <td class="px-6 py-4">
                                     <span class="text-xs">{{ $item->skpd->nm_skpd ?? '-' }}</span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="text-xs">{{ $item->jumlah_download }}</span>
                                 </td>
                                 <td class="px-6 py-4">
                                     @if($item->verify == 'y')
@@ -287,7 +290,8 @@
         $notificationStatus = session('error') ? 'error' : 'success';
         $notificationMessage = session('success') ?? session('error');
     @endphp
-    <x-notification-modal trigger="showNotification" :status="$notificationStatus" :description="$notificationMessage" />
+    <x-notification-modal trigger="showNotification" :status="$notificationStatus"
+        :description="$notificationMessage" />
 
     <!-- Delete Confirmation Dialog -->
     <x-confirmation-dialog trigger="showDeleteModal" title="Hapus Dokumen?"

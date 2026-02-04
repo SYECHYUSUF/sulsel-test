@@ -43,7 +43,7 @@
 
     }
 }" 
-class="relative" 
+{{ $attributes->merge(['class' => 'relative']) }}
 @click.outside="open = false"> <input type="hidden" name="{{ $name }}" x-model="value" {{ $required ? 'required' : '' }}>
 
     <button type="button" 

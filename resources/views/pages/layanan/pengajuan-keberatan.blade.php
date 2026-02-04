@@ -7,14 +7,27 @@
             {{-- Breadcrumb --}}
             <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mb-4">
                 <a href="/" class="hover:text-[#1A305E] dark:text-white transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="w-4 h-4">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                        <polyline points="9 22 9 12 15 12 15 22" />
+                    </svg>
                 </a>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-gray-400"><path d="m9 18 6-6-6-6"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="w-4 h-4 text-gray-400">
+                    <path d="m9 18 6-6-6-6" />
+                </svg>
                 <span class="text-[#1A305E] dark:text-white font-medium">Layanan</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-gray-400"><path d="m9 18 6-6-6-6"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="w-4 h-4 text-gray-400">
+                    <path d="m9 18 6-6-6-6" />
+                </svg>
                 <span class="text-[#1A305E] dark:text-white font-bold">Pengajuan Keberatan</span>
             </div>
-          
+
             {{-- Title --}}
             <div class="flex items-end justify-between">
                 <div>
@@ -36,13 +49,36 @@
     <main class="py-12 md:py-16 bg-gray-50 dark:bg-slate-900 font-['Plus_Jakarta_Sans']">
         <div class="container mx-auto px-4">
             <div class="max-w-5xl mx-auto">
-                
+                @if ($errors->any())
+                    <div class="mb-6 p-4 bg-red-50 border-l-4 border-red-500 rounded-r-lg">
+                        <div class="flex items-center mb-2">
+                            <svg class="w-5 h-5 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="font-bold text-red-800">Mohon periksa kembali inputan Anda:</span>
+                        </div>
+                        <ul class="list-disc list-inside text-sm text-red-700">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 {{-- Form Container --}}
-                <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-200 dark:border-slate-700 p-8 md:p-10 relative">
-                    
+                <div
+                    class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-200 dark:border-slate-700 p-8 md:p-10 relative">
+
                     <div class="text-center mb-10">
-                        <div class="w-16 h-16 bg-[#1A305E]/5 text-[#1A305E] dark:text-white rounded-2xl flex items-center justify-center mx-auto mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                        <div
+                            class="w-16 h-16 bg-[#1A305E]/5 text-[#1A305E] dark:text-white rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10" />
+                                <line x1="12" y1="8" x2="12" y2="12" />
+                                <line x1="12" y1="16" x2="12.01" y2="16" />
+                            </svg>
                         </div>
                         <h2 class="text-2xl font-bold text-[#1A305E] dark:text-white mb-2">
                             Formulir Pengajuan Keberatan
@@ -54,161 +90,181 @@
 
                     {{-- Success Modal --}}
                     @if(session('success'))
-                        <x-success-modal 
-                            :show="true"
-                            title="Yey, Berhasil!"
-                            :description="session('success')"
+                        <x-success-modal :show="true" title="Yey, Berhasil!" :description="session('success')"
                             primary-button-text="Cek Status"
                             primary-button-url="{{ route('layanan.cek-status', ['type' => 'keberatan']) }}"
-                            secondary-button-text="Tutup"
-                        />
+                            secondary-button-text="Tutup" />
+                    @endif
+
+                    {{-- Error Alert --}}
+                    @if(session('error'))
+                        <div class="mb-6 p-4 bg-red-50 border-l-4 border-red-500 rounded-r-lg flex items-start gap-3">
+                            <svg class="w-5 h-5 text-red-500 mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                            </svg>
+                            <div>
+                                <h3 class="font-bold text-red-800">Gagal Mengirim Pengajuan</h3>
+                                <p class="text-sm text-red-700 mt-1">{{ session('error') }}</p>
+                            </div>
+                        </div>
                     @endif
 
                     <form action="{{ route('layanan.pengajuan-keberatan.store') }}" method="POST" class="space-y-8">
                         @csrf
-                        
+
                         {{-- Honeypot --}}
                         <div style="position: absolute; left: -9999px; opacity: 0;" aria-hidden="true">
                             <input type="text" name="website" tabindex="-1" autocomplete="off" />
                         </div>
                         <input type="hidden" name="_form_timestamp" value="{{ time() }}" />
-                        
+
                         {{-- Section 1: Detail Pengajuan --}}
                         <div class="space-y-6">
-                            <h3 class="text-lg font-bold text-[#1A305E] dark:text-white flex items-center gap-2 border-b border-gray-200 pb-3">
-                                <span class="w-8 h-8 rounded-full bg-[#D4AF37] text-white flex items-center justify-center text-sm font-bold">1</span>
+                            <h3
+                                class="text-lg font-bold text-[#1A305E] dark:text-white flex items-center gap-2 border-b border-gray-200 pb-3">
+                                <span
+                                    class="w-8 h-8 rounded-full bg-[#D4AF37] text-white flex items-center justify-center text-sm font-bold">1</span>
                                 Detail Pengajuan
                             </h3>
-                            
+
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div class="space-y-2">
                                     <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
                                         Nomor Pendaftaran Pengajuan Keberatan <span class="text-red-500">*</span>
                                     </label>
-                                    <input type="text" name="no_pendaftaran" value="{{ old('no_pendaftaran') }}" 
-                                           placeholder="Masukkan nomor pendaftaran..." 
-                                           class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800" 
-                                           required />
+                                    <input type="text" name="no_pendaftaran" value="{{ old('no_pendaftaran') }}"
+                                        placeholder="Masukkan nomor pendaftaran..."
+                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800"
+                                        required />
                                 </div>
                                 <div class="space-y-2">
                                     <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
                                         Tujuan Penggunaan Informasi <span class="text-red-500">*</span>
                                     </label>
-                                    <input type="text" name="tujuan" value="{{ old('tujuan') }}" 
-                                           placeholder="Contoh: Penelitian Skripsi..." 
-                                           class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800" 
-                                           required />
+                                    <input type="text" name="tujuan" value="{{ old('tujuan') }}"
+                                        placeholder="Contoh: Penelitian Skripsi..."
+                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800"
+                                        required />
                                 </div>
                             </div>
                         </div>
 
                         {{-- Section 2: Identitas Pemohon --}}
                         <div class="space-y-6">
-                            <h3 class="text-lg font-bold text-[#1A305E] dark:text-white flex items-center gap-2 border-b border-gray-200 pb-3">
-                                <span class="w-8 h-8 rounded-full bg-[#D4AF37] text-white flex items-center justify-center text-sm font-bold">2</span>
+                            <h3
+                                class="text-lg font-bold text-[#1A305E] dark:text-white flex items-center gap-2 border-b border-gray-200 pb-3">
+                                <span
+                                    class="w-8 h-8 rounded-full bg-[#D4AF37] text-white flex items-center justify-center text-sm font-bold">2</span>
                                 Identitas Pemohon
                             </h3>
-                            
+
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div class="space-y-2">
                                     <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
                                         Nama Lengkap <span class="text-red-500">*</span>
                                     </label>
-                                    <input type="text" name="nama_pemohon" value="{{ old('nama_pemohon') }}" 
-                                           class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800" 
-                                           required />
+                                    <input type="text" name="nama_pemohon" value="{{ old('nama_pemohon') }}"
+                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800"
+                                        required />
                                 </div>
                                 <div class="space-y-2">
                                     <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
                                         Email <span class="text-red-500">*</span>
                                     </label>
-                                    <input type="email" name="email_pemohon" value="{{ old('email_pemohon') }}" 
-                                           class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800" 
-                                           required />
+                                    <input type="email" name="email_pemohon" value="{{ old('email_pemohon') }}"
+                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800"
+                                        required />
                                 </div>
                                 <div class="space-y-2">
                                     <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
                                         Nomor Telepon / WhatsApp <span class="text-red-500">*</span>
                                     </label>
-                                    <input type="text" name="no_telp_pemohon" value="{{ old('no_telp_pemohon') }}" 
-                                           placeholder="08xxxxxxxxxx" 
-                                           maxlength="12"
-                                           inputmode="numeric"
-                                           pattern="[0-9]{10,12}"
-                                           class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800" 
-                                           required />
+                                    <input type="text" name="no_telp_pemohon" value="{{ old('no_telp_pemohon') }}"
+                                        placeholder="08xxxxxxxxxx" maxlength="12" inputmode="numeric"
+                                        pattern="[0-9]{10,12}"
+                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800"
+                                        required />
                                 </div>
 
                                 <div class="space-y-2">
                                     <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
                                         Pekerjaan <span class="text-red-500">*</span>
                                     </label>
-                                    
-                                    <x-searchable-select 
-                                        name="pekerjaan_pemohon" 
-                                        :options="$masterPekerjaan" 
-                                        idKey="nama_pekerjaan" 
-                                        labelKey="nama_pekerjaan"
-                                        :value="old('pekerjaan_pemohon')" 
-                                        placeholder="-- Pilih Pekerjaan --"
-                                        :required="true" 
-                                    />
-                                </div>
 
-                                <div class="md:col-span-2 space-y-2">
-                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                                        Alamat Lengkap <span class="text-red-500">*</span>
-                                    </label>
-                                    <textarea name="alamat_pemohon" rows="2" 
-                                              placeholder="Jl. Contoh No. 123"
-                                              class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800" 
-                                              required>{{ old('alamat_pemohon') }}</textarea>
+                                    <x-searchable-select name="pekerjaan_pemohon" :options="$masterPekerjaan"
+                                        idKey="nama_pekerjaan" labelKey="nama_pekerjaan"
+                                        :value="old('pekerjaan_pemohon')" placeholder="-- Pilih Pekerjaan --"
+                                        :required="true" class="h-12 [&>button]:h-full" />
+
                                 </div>
 
                                 {{-- Additional Address Fields (Previously Hidden) --}}
-                                <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6" x-data="addressPemohonForm()" x-init="init()">
-                                    <div class="space-y-2">
+                                <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6"
+                                    x-data="addressPemohonForm()" x-init="init()">
+                                    <!-- <div class="space-y-2">
                                         <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
                                             Address (Jalan/Komplek) <span class="text-red-500">*</span>
                                         </label>
                                         <input type="text" name="address_pemohon" value="{{ old('address_pemohon') }}"
-                                               placeholder="Nama Jalan / Komplek" 
-                                               class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800"
-                                               required />
+                                            placeholder="Nama Jalan / Komplek"
+                                            class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800"
+                                            required />
                                     </div>
                                     <div class="space-y-2">
                                         <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                                            Apartment/Unit (Opsional)
+                                            Apartment / Unit
                                         </label>
                                         <input type="text" name="apt_pemohon" value="{{ old('apt_pemohon') }}"
-                                               placeholder="Blok / Unit / Lantai" 
-                                               class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800" />
-                                    </div>
+                                            placeholder="Blok / Unit / Lantai"
+                                            class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800" />
+                                    </div> -->
                                     <div class="space-y-2">
                                         <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                                            Provinsi / Negara Bagian <span class="text-red-500">*</span>
+                                            Provinsi <span class="text-red-500">*</span>
                                         </label>
                                         <div>
-                                            <x-searchable-select 
-                                                name="state_pemohon" 
-                                                :options="collect([
-                                                    'Aceh', 'Sumatera Utara', 'Sumatera Barat', 'Riau', 'Jambi', 
-                                                    'Sumatera Selatan', 'Bengkulu', 'Lampung', 'Kepulauan Bangka Belitung', 
-                                                    'Kepulauan Riau', 'DKI Jakarta', 'Jawa Barat', 'Jawa Tengah', 
-                                                    'DI Yogyakarta', 'Jawa Timur', 'Banten', 'Bali', 'Nusa Tenggara Barat', 
-                                                    'Nusa Tenggara Timur', 'Kalimantan Barat', 'Kalimantan Tengah', 
-                                                    'Kalimantan Selatan', 'Kalimantan Timur', 'Kalimantan Utara', 
-                                                    'Sulawesi Utara', 'Sulawesi Tengah', 'Sulawesi Selatan', 
-                                                    'Sulawesi Tenggara', 'Gorontalo', 'Sulawesi Barat', 'Maluku', 
-                                                    'Maluku Utara', 'Papua', 'Papua Barat'
-                                                ])->map(fn($p) => ['id' => $p, 'label' => $p])"
-                                                idKey="id" 
+                                            <x-searchable-select name="state_pemohon" :options="collect([
+        'Aceh',
+        'Sumatera Utara',
+        'Sumatera Barat',
+        'Riau',
+        'Jambi',
+        'Sumatera Selatan',
+        'Bengkulu',
+        'Lampung',
+        'Kepulauan Bangka Belitung',
+        'Kepulauan Riau',
+        'DKI Jakarta',
+        'Jawa Barat',
+        'Jawa Tengah',
+        'DI Yogyakarta',
+        'Jawa Timur',
+        'Banten',
+        'Bali',
+        'Nusa Tenggara Barat',
+        'Nusa Tenggara Timur',
+        'Kalimantan Barat',
+        'Kalimantan Tengah',
+        'Kalimantan Selatan',
+        'Kalimantan Timur',
+        'Kalimantan Utara',
+        'Sulawesi Utara',
+        'Sulawesi Tengah',
+        'Sulawesi Selatan',
+        'Sulawesi Tenggara',
+        'Gorontalo',
+        'Sulawesi Barat',
+        'Maluku',
+        'Maluku Utara',
+        'Papua',
+        'Papua Barat'
+    ])->map(fn($p) => ['id' => $p, 'label' => $p])" 
+                                                idKey="id"
                                                 labelKey="label"
-                                                :value="old('state_pemohon', '')" 
-                                                placeholder="-- Pilih Provinsi --"
-                                                :required="true"
-                                            />
-                                            <input type="hidden" id="province_trigger" x-model="selectedProvince" @change="updateCities()">
+                                                :value="old('state_pemohon', '')" placeholder="-- Pilih Provinsi --"
+                                                :required="true" class="h-12 [&>button]:h-full" />
+                                            <input type="hidden" id="province_trigger" x-model="selectedProvince"
+                                                @change="updateCities()">
                                         </div>
                                     </div>
                                     <div class="space-y-2" x-data="{ cityList: cities }">
@@ -216,37 +272,50 @@
                                             Kota / Kabupaten <span class="text-red-500">*</span>
                                         </label>
                                         <div>
-                                            <select name="city_pemohon" 
-                                                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800"
-                                                    required>
+                                            <select name="city_pemohon"
+                                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800"
+                                                required>
                                                 <option value="">-- Pilih Provinsi Terlebih Dahulu --</option>
                                                 <template x-for="city in cities" :key="city">
-                                                    <option :value="city" x-text="city" :selected="city === '{{ old('city_pemohon') }}'"></option>
+                                                    <option :value="city" x-text="city"
+                                                        :selected="city === '{{ old('city_pemohon') }}'"></option>
                                                 </template>
                                             </select>
                                         </div>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400" x-show="!selectedProvince">Pilih provinsi terlebih dahulu untuk melihat daftar kota</p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400" x-show="!selectedProvince">
+                                            Pilih provinsi terlebih dahulu untuk melihat daftar kota</p>
                                     </div>
+                                </div>
+
+                                <div class="md:col-span-2 space-y-2">
+                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                        Alamat Lengkap <span class="text-red-500">*</span>
+                                    </label>
+                                    <textarea name="alamat_pemohon" rows="2" placeholder="Jl. Contoh No. 123"
+                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800"
+                                        required>{{ old('alamat_pemohon') }}</textarea>
                                 </div>
                             </div>
                         </div>
 
                         {{-- Section 3: Kasus & Alasan --}}
                         <div class="space-y-6">
-                            <h3 class="text-lg font-bold text-[#1A305E] dark:text-white flex items-center gap-2 border-b border-gray-200 pb-3">
-                                <span class="w-8 h-8 rounded-full bg-[#D4AF37] text-white flex items-center justify-center text-sm font-bold">3</span>
+                            <h3
+                                class="text-lg font-bold text-[#1A305E] dark:text-white flex items-center gap-2 border-b border-gray-200 pb-3">
+                                <span
+                                    class="w-8 h-8 rounded-full bg-[#D4AF37] text-white flex items-center justify-center text-sm font-bold">3</span>
                                 Kasus & Alasan Keberatan
                             </h3>
 
                             <div class="space-y-4">
                                 <div class="space-y-2">
-                                     <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
                                         Kasus Posisi <span class="text-red-500">*</span>
-                                     </label>
-                                     <textarea name="kasus" rows="4" 
-                                               class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800" 
-                                               placeholder="Jelaskan secara singkat kasus posisi atau alasan keberatan anda..." 
-                                               required>{{ old('kasus') }}</textarea>
+                                    </label>
+                                    <textarea name="kasus" rows="4"
+                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800"
+                                        placeholder="Jelaskan secara singkat kasus posisi atau alasan keberatan anda..."
+                                        required>{{ old('kasus') }}</textarea>
                                 </div>
 
                                 <div class="space-y-2">
@@ -255,18 +324,21 @@
                                     </label>
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                                         @forelse($alasanPengajuans as $alasan)
-                                        <label class="relative flex items-start p-3 border border-gray-200 dark:border-slate-700 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700/50 cursor-pointer group transition-all bg-white dark:bg-slate-800">
-                                            <div class="flex items-center h-5">
-                                                <input type="checkbox" name="alasan[]" value="{{ $alasan->alasan }}" class="h-4 w-4 text-[#D1001F] border-gray-300 rounded focus:ring-[#D1001F]">
-                                            </div>
-                                            <div class="ml-3 text-sm">
-                                                <span class="font-medium text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white">{{ $alasan->alasan }}</span>
-                                            </div>
-                                        </label>
+                                            <label
+                                                class="relative flex items-start p-3 border border-gray-200 dark:border-slate-700 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700/50 cursor-pointer group transition-all bg-white dark:bg-slate-800">
+                                                <div class="flex items-center h-5">
+                                                    <input type="checkbox" name="alasan[]" value="{{ $alasan->alasan }}"
+                                                        class="h-4 w-4 text-[#D1001F] border-gray-300 rounded focus:ring-[#D1001F]">
+                                                </div>
+                                                <div class="ml-3 text-sm">
+                                                    <span
+                                                        class="font-medium text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white">{{ $alasan->alasan }}</span>
+                                                </div>
+                                            </label>
                                         @empty
-                                        <div class="col-span-2 text-center py-4 text-gray-500">
-                                            <p>Belum ada data alasan pengajuan.</p>
-                                        </div>
+                                            <div class="col-span-2 text-center py-4 text-gray-500">
+                                                <p>Belum ada data alasan pengajuan.</p>
+                                            </div>
                                         @endforelse
                                     </div>
                                 </div>
@@ -275,36 +347,45 @@
 
                         {{-- Section 4: Kuasa (Optional) --}}
                         <div x-data="{ showKuasa: false }">
-                             <div class="flex items-center mb-4">
-                                <input type="checkbox" id="showKuasa" x-model="showKuasa" class="h-4 w-4 text-[#D1001F] border-gray-300 rounded focus:ring-[#D1001F] cursor-pointer">
-                                <label for="showKuasa" class="ml-2 block text-sm font-semibold text-gray-700 dark:text-gray-300 cursor-pointer">
-                                    Diwakilkan oleh Kuasa? (Opsional)
+                            <div class="flex items-center mb-4">
+                                <input type="checkbox" id="showKuasa" x-model="showKuasa"
+                                    class="h-4 w-4 text-[#D1001F] border-gray-300 rounded focus:ring-[#D1001F] cursor-pointer">
+                                <label for="showKuasa"
+                                    class="ml-2 block text-sm font-semibold text-gray-700 dark:text-gray-300 cursor-pointer">
+                                    Diwakilkan oleh Kuasa? 
                                 </label>
                             </div>
-                            
-                            <div x-show="showKuasa" x-transition class="space-y-6 pt-4 border-t border-gray-100 dark:border-slate-700">
-                                <h3 class="text-lg font-bold text-[#1A305E] dark:text-white flex items-center gap-2 border-b border-gray-200 pb-3">
-                                    <span class="w-8 h-8 rounded-full bg-[#D4AF37] text-white flex items-center justify-center text-sm font-bold">4</span>
+
+                            <div x-show="showKuasa" x-transition
+                                class="space-y-6 pt-4 border-t border-gray-100 dark:border-slate-700">
+                                <h3
+                                    class="text-lg font-bold text-[#1A305E] dark:text-white flex items-center gap-2 border-b border-gray-200 pb-3">
+                                    <span
+                                        class="w-8 h-8 rounded-full bg-[#D4AF37] text-white flex items-center justify-center text-sm font-bold">4</span>
                                     Identitas Kuasa
                                 </h3>
 
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div class="space-y-2">
-                                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Nama Kuasa</label>
-                                        <input type="text" name="nama_kuasa" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800">
+                                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Nama
+                                            Kuasa</label>
+                                        <input type="text" name="nama_kuasa"
+                                            class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800">
                                     </div>
                                     <div class="space-y-2">
-                                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Nomor Telepon Kuasa</label>
-                                        <input type="text" name="no_telp_kuasa" 
-                                               maxlength="12"
-                                               inputmode="numeric"
-                                               pattern="[0-9]{10,12}"
-                                               placeholder="08xxxxxxxxxx"
-                                               class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800">
+                                        <label
+                                            class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Nomor
+                                            Telepon Kuasa</label>
+                                        <input type="text" name="no_telp_kuasa" maxlength="12" inputmode="numeric"
+                                            pattern="[0-9]{10,12}" placeholder="08xxxxxxxxxx"
+                                            class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800">
                                     </div>
                                     <div class="md:col-span-2 space-y-2">
-                                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Alamat Kuasa Lengkap</label>
-                                        <textarea name="alamat_kuasa" rows="2" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800">{{ old('alamat_kuasa') }}</textarea>
+                                        <label
+                                            class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Alamat
+                                            Kuasa Lengkap</label>
+                                        <textarea name="alamat_kuasa" rows="2"
+                                            class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800">{{ old('alamat_kuasa') }}</textarea>
                                     </div>
 
                                     {{-- Additional Kuasa Address Fields --}}
@@ -314,30 +395,30 @@
                                                 Address (Jalan/Komplek)
                                             </label>
                                             <input type="text" name="address_kuasa" value="{{ old('address_kuasa') }}"
-                                                   placeholder="Nama Jalan / Komplek" 
-                                                   class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800" />
+                                                placeholder="Nama Jalan / Komplek"
+                                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800" />
                                         </div>
                                         <div class="space-y-2">
                                             <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
                                                 Apartment/Unit (Opsional)
                                             </label>
                                             <input type="text" name="apt_kuasa" value="{{ old('apt_kuasa') }}"
-                                                   placeholder="Blok / Unit / Lantai" 
-                                                   class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800" />
+                                                placeholder="Blok / Unit / Lantai"
+                                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800" />
                                         </div>
                                         <div class="space-y-2">
                                             <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
                                                 Kota / Kabupaten
                                             </label>
                                             <input type="text" name="city_kuasa" value="{{ old('city_kuasa') }}"
-                                                   class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800" />
+                                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800" />
                                         </div>
                                         <div class="space-y-2">
                                             <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                                                Provinsi / Negara Bagian
+                                                Provinsi
                                             </label>
                                             <input type="text" name="state_kuasa" value="{{ old('state_kuasa') }}"
-                                                   class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800" />
+                                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800" />
                                         </div>
                                     </div>
                                 </div>
@@ -347,14 +428,25 @@
                         {{-- Submit Button --}}
                         <div class="pt-6 border-t border-gray-200 dark:border-slate-700">
                             <div class="flex flex-col sm:flex-row gap-4 justify-end">
-                                <a href="{{ route('layanan.cek-status', ['type' => 'keberatan']) }}" class="px-6 py-3 bg-white text-gray-700 font-semibold rounded-lg border border-gray-300 hover:bg-gray-50 transition-all flex items-center justify-center gap-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z" /><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" /></svg>
+                                <a href="{{ route('layanan.cek-status', ['type' => 'keberatan']) }}"
+                                    class="px-6 py-3 bg-white text-gray-700 font-semibold rounded-lg border border-gray-300 hover:bg-gray-50 transition-all flex items-center justify-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                                        <path fill-rule="evenodd"
+                                            d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+                                            clip-rule="evenodd" />
+                                    </svg>
                                     Cek Status
                                 </a>
-                                <button type="submit" class="px-8 py-3.5 bg-[#1A305E] text-white font-bold rounded-lg hover:bg-[#1A305E]/90 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <line x1="22" x2="11" y1="2" y2="13"/>
-                                        <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                                <button type="submit"
+                                    class="px-8 py-3.5 bg-[#1A305E] text-white font-bold rounded-lg hover:bg-[#1A305E]/90 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <line x1="22" x2="11" y1="2" y2="13" />
+                                        <polygon points="22 2 15 22 11 13 2 9 22 2" />
                                     </svg>
                                     Kirim Pengajuan
                                 </button>
@@ -369,6 +461,15 @@
     </main>
 
     <x-footer />
+
+    @if ($errors->any())
+    <script>
+        window.scrollTo({
+            top: document.querySelector('form').offsetTop - 100,
+            behavior: 'smooth'
+        });
+    </script>
+    @endif
 
     {{-- Dynamic Province-City Dropdown Script --}}
     <script>
@@ -416,13 +517,13 @@
                 provinces: Object.keys(indonesiaRegions),
                 selectedProvince: '{{ old("state_pemohon", "") }}',
                 cities: [],
-                
+
                 init() {
                     // Load cities for old selected province on page load
                     if (this.selectedProvince) {
                         this.updateCities();
                     }
-                    
+
                     // Watch for changes from searchable-select component
                     const provinceHiddenInput = document.querySelector('input[name="state_pemohon"]');
                     if (provinceHiddenInput) {
@@ -435,13 +536,13 @@
                                 }
                             });
                         });
-                        
+
                         // Observe attribute changes
-                        observer.observe(provinceHiddenInput, { 
+                        observer.observe(provinceHiddenInput, {
                             attributes: true,
                             attributeFilter: ['value']
                         });
-                        
+
                         // Also listen for input event
                         provinceHiddenInput.addEventListener('input', () => {
                             this.selectedProvince = provinceHiddenInput.value;
@@ -449,7 +550,7 @@
                         });
                     }
                 },
-                
+
                 updateCities() {
                     if (this.selectedProvince && indonesiaRegions[this.selectedProvince]) {
                         this.cities = indonesiaRegions[this.selectedProvince];

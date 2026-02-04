@@ -78,7 +78,6 @@
                             class="text-xs text-slate-500 dark:text-slate-400 uppercase bg-slate-50 dark:bg-slate-700/50 border-b border-slate-100 dark:border-slate-700">
                             <tr>
                                 <th scope="col" class="px-6 py-3">Nama Kategori</th>
-                                <th scope="col" class="px-6 py-3">Icon</th>
                                 <th scope="col" class="px-6 py-3">Status</th>
                                 {{-- <th scope="col" class="px-6 py-3 text-right">Aksi</th> --}}
                             </tr>
@@ -90,7 +89,6 @@
                                     <td class="px-6 py-4 font-medium text-slate-900 dark:text-slate-100">
                                         {{ $kategori->nm_kat_info }}
                                     </td>
-                                    <td class="px-6 py-4">{{ $kategori->icon }}</td>
                                     <td class="px-6 py-4">
                                         @if($kategori->is_active)
                                             <span
