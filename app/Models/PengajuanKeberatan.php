@@ -35,6 +35,7 @@ class PengajuanKeberatan extends Model
     public function getStatusLabelAttribute()
     {
         return match ($this->status) {
+            'n' => 'Baru',
             'p' => 'Menunggu Verifikasi',
             'd' => 'Disposisi',
             'a' => 'Dijawab',
@@ -48,6 +49,7 @@ class PengajuanKeberatan extends Model
     public function getStatusColorAttribute()
     {
         return match ($this->status) {
+            'n' => 'bg-gray-100 text-gray-800',
             'p' => 'bg-yellow-100 text-yellow-800',
             'd' => 'bg-purple-100 text-purple-800',
             'a' => 'bg-blue-100 text-blue-800',

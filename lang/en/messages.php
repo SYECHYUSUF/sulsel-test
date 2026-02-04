@@ -146,7 +146,7 @@ return [
         'title' => 'Forms & Documents',
         'subtitle' => 'Download forms and guides you need for PPID services',
         'btn' => 'Download',
-         'doc1_title' => 'Information Request Form',
+        'doc1_title' => 'Information Request Form',
         'doc1_desc' => 'Official form to submit public information requests',
         'doc2_title' => 'Objection Submission Form',
         'doc2_desc' => 'Form to submit objections regarding information requests',
@@ -223,32 +223,32 @@ return [
         // Profil PPID
         'ppid_title' => 'PPID Profile',
         'ppid_subtitle' => 'About Information and Documentation Management Officer',
-        
+
         // Sambutan
         'greeting_title' => 'Greeting',
         'greeting_subtitle' => 'Greeting from PPID Head',
-        
+
         // Visi Misi
         'vision_mission_title' => 'Vision & Mission',
         'vision_title' => 'PPID South Sulawesi Vision',
         'mission_title' => 'PPID South Sulawesi Mission',
         'commitment_title' => 'Our Commitment',
         'commitment_text' => 'With a clear vision and mission, PPID South Sulawesi is committed to continuously improving the quality of public information services for a transparent, accountable, and integrity government.',
-        
+
         // Tupoksi
         'tupoksi_title' => 'Duties & Functions',
         'tupoksi_subtitle' => 'Duties and Functions of PPID South Sulawesi',
-        
+
         // Maklumat
         'service_declaration' => 'Service Declaration',
         'service_subtitle' => 'Public Information Service Declaration',
-        
+
         // Profil Pemprov
         'government_profile' => 'South Sulawesi Government Profile',
         'government_subtitle' => 'Profile of South Sulawesi Provincial Government',
         'governor' => 'Governor',
         'vice_governor' => 'Vice Governor',
-        
+
         // Struktur Organisasi
         'org_structure' => 'Organizational Structure',
         'org_subtitle' => 'PPID South Sulawesi Organizational Structure',
@@ -264,13 +264,13 @@ return [
         'org_structure' => 'Organizational Structure',
 
         "data_info_prefix" => "Year",
-        
+
         // Data Informasi Publik dropdown
         'data_info_2023' => 'Public Information Year 2023',
         'data_info_2024' => 'Public Information Year 2024',
         'data_info_2025' => 'Public Information Year 2025',
         'procurement_info' => 'Goods and Services Procurement Information',
-        
+
         // Informasi Publik dropdown
         'public_info_dropdown' => 'Public Information',
         'immediate_info' => 'Immediate Information',
@@ -278,16 +278,16 @@ return [
         'excluded_info' => 'Excluded Information List',
         'public_info_list' => 'Public Information List',
         'periodic_info' => 'Periodic Information',
-        
+
         'implementing_ppid' => 'Implementing PPID',
-        
+
         // Layanan dropdown
         'services_dropdown' => 'Services',
         'info_request_service' => 'Information Request',
         'objection_service' => 'Objection Submission',
         'status_check' => 'Check Request Status',
         'sop' => 'Standard Operating Procedure',
-        
+
         // Survey dropdown
         'fill_survey' => 'Fill Survey',
         'survey_results' => 'Survey Results',
@@ -298,7 +298,7 @@ return [
         'year_2024_title' => 'Public Information Year 2024',
         'year_2025_title' => 'Public Information Year 2025',
         'year_subtitle' => 'Public Information Documents',
-        
+
         // Table Headers
         'table_no' => 'No',
         'header_a' => 'Information Type',
@@ -309,29 +309,29 @@ return [
         'header_f' => 'Format',
         'header_g' => 'Year',
         'header_h' => 'Document Link',
-        
+
         // Category pages
         'berkala_title' => 'Periodic Information',
         'berkala_subtitle' => 'Information Provided Periodically',
-        
+
         'serta_merta_title' => 'Immediate Information',
         'serta_merta_subtitle' => 'Information That Must Be Announced Immediately',
-        
+
         'setiap_saat_title' => 'Anytime Information',
         'setiap_saat_subtitle' => 'Information Available at Any Time',
-        
+
         'dikecualikan_title' => 'Excluded Information',
         'dikecualikan_subtitle' => 'List of Excluded Information',
-        
+
         'pengadaan_title' => 'Goods and Services Procurement',
         'pengadaan_subtitle' => 'Procurement Information',
-        
+
         'daftar_title' => 'Public Information List',
         'daftar_subtitle' => 'Complete Public Information Index',
-        
+
         'index_title' => 'Public Information List',
         'index_subtitle' => 'Complete List of Public Information for South Sulawesi Province',
-        
+
         'detail_title' => 'Information Detail',
         'detail_subtitle' => 'Complete details of public information',
     ],
@@ -343,20 +343,20 @@ return [
     'layanan_pages' => [
         'permohonan_title' => 'Information Request',
         'permohonan_subtitle' => 'Submit Public Information Request',
-        
+
         'permohonan_title' => 'Information Request',
         'permohonan_subtitle' => 'Submit a public information request',
         'permohonan_title' => 'Information Request',
         'permohonan_subtitle' => 'Submit a public information request',
         'keberatan_title' => 'Objection Submission',
         'keberatan_subtitle' => 'Submit Objection to Information Service',
-        
+
         'cek_status_title' => 'Check Request Status',
         'cek_status_subtitle' => 'Track Your Information Request',
-        
+
         'sop_title' => 'Standard Operating Procedures',
         'sop_subtitle' => 'Service Procedures and Guidelines',
-        
+
         // Form labels
         'form_title' => 'Request Form',
         'submit_button' => 'Submit Request',
@@ -365,10 +365,10 @@ return [
     'survey_pages' => [
         'isi_title' => 'Fill Survey',
         'isi_subtitle' => 'Share Your Feedback on Our Services',
-        
+
         'hasil_title' => 'Survey Results',
         'hasil_subtitle' => 'Public Satisfaction Survey Results',
-        
+
         'submit_survey' => 'Submit Survey',
         'thank_you' => 'Thank you for your feedback!',
     ],

@@ -136,11 +136,14 @@ Route::middleware(['track.visitors'])->group(function () {
     Route::get('/informasi-publik', [GuestMatriksDipController::class, 'index']);
     Route::get('/informasi-publik/tahun/{tahun}', [GuestMatriksDipController::class, 'tahun'])->name('informasi-publik.tahun');
     Route::get('/informasi-publik/2023', function () {
-        return redirect()->route('informasi-publik.tahun', 2023); });
+        return redirect()->route('informasi-publik.tahun', 2023);
+    });
     Route::get('/informasi-publik/2024', function () {
-        return redirect()->route('informasi-publik.tahun', 2024); });
+        return redirect()->route('informasi-publik.tahun', 2024);
+    });
     Route::get('/informasi-publik/2025', function () {
-        return redirect()->route('informasi-publik.tahun', 2025); });
+        return redirect()->route('informasi-publik.tahun', 2025);
+    });
     Route::get('/informasi-publik/serta-merta', [GuestDokumenPublikController::class, 'sertaMerta']);
     Route::get('/informasi-publik/setiap-saat', [GuestDokumenPublikController::class, 'setiapSaat']);
     Route::get('/informasi-publik/daftar-informasi-dikecualikan', [GuestDokumenPublikController::class, 'dikecualikan']);
@@ -176,6 +179,10 @@ Route::middleware(['track.visitors'])->group(function () {
 
         return view('pages.layanan.pengajuan-keberatan', compact('masterPekerjaan', 'alasanPengajuans'));
     })->name('layanan.pengajuan-keberatan');
+
+    Route::get('/layanan/pengajuan-keberatan/detail/{no_pendaftaran}', [GuestPengajuanKeberatanController::class, 'showDetail'])
+        ->name('layanan.detail-status-keberatan')
+        ->where('no_pendaftaran', '.*');
 
     // Rute Permohonan Informasi
     Route::post('/layanan/permohonan-informasi', [App\Http\Controllers\PermohonanInformasiController::class, 'store'])->name('layanan.permohonan-informasi.store');

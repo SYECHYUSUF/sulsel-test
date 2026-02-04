@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DokumenPublik;
+use App\Models\MasterTahun;
 use Illuminate\Http\Request;
 
 class DokumenPublikController extends Controller
@@ -36,6 +37,9 @@ class DokumenPublikController extends Controller
     public function sertaMerta(Request $request)
     {
         $search = $request->query('search');
+        $tahun = $request->query('tahun');
+        $availableYears = MasterTahun::whereNotNull('waktu')->orderBy('waktu', 'desc')->get();
+
         $informasiData = DokumenPublik::where('id_kat_info', 22)
             ->where('verify', 'y')
             ->when($search, function ($query, $search) {
@@ -44,15 +48,21 @@ class DokumenPublikController extends Controller
                         ->orWhere('ket', 'LIKE', "%{$search}%");
                 });
             })
+            ->when($tahun, function ($query, $tahun) {
+                return $query->whereYear('tgl_upload', $tahun);
+            })
             ->paginate(10)
-            ->appends(['search' => $search]);
+            ->appends(['search' => $search, 'tahun' => $tahun]);
 
-        return view('pages.informasi-publik.serta-merta', compact('informasiData', 'search'));
+        return view('pages.informasi-publik.serta-merta', compact('informasiData', 'search', 'tahun', 'availableYears'));
     }
 
     public function setiapSaat(Request $request)
     {
         $search = $request->query('search');
+        $tahun = $request->query('tahun');
+        $availableYears = MasterTahun::whereNotNull('waktu')->orderBy('waktu', 'desc')->get();
+
         $informasiData = DokumenPublik::where('id_kat_info', 33)
             ->where('verify', 'y')
             ->when($search, function ($query, $search) {
@@ -61,15 +71,21 @@ class DokumenPublikController extends Controller
                         ->orWhere('ket', 'LIKE', "%{$search}%");
                 });
             })
+            ->when($tahun, function ($query, $tahun) {
+                return $query->whereYear('tgl_upload', $tahun);
+            })
             ->paginate(10)
-            ->appends(['search' => $search]);
+            ->appends(['search' => $search, 'tahun' => $tahun]);
 
-        return view('pages.informasi-publik.setiap-saat', compact('informasiData', 'search'));
+        return view('pages.informasi-publik.setiap-saat', compact('informasiData', 'search', 'tahun', 'availableYears'));
     }
 
     public function berkala(Request $request)
     {
         $search = $request->query('search');
+        $tahun = $request->query('tahun');
+        $availableYears = MasterTahun::whereNotNull('waktu')->orderBy('waktu', 'desc')->get();
+
         $informasiData = DokumenPublik::where('id_kat_info', 103)
             ->where('verify', 'y')
             ->when($search, function ($query, $search) {
@@ -78,15 +94,21 @@ class DokumenPublikController extends Controller
                         ->orWhere('ket', 'LIKE', "%{$search}%");
                 });
             })
+            ->when($tahun, function ($query, $tahun) {
+                return $query->whereYear('tgl_upload', $tahun);
+            })
             ->paginate(10)
-            ->appends(['search' => $search]);
+            ->appends(['search' => $search, 'tahun' => $tahun]);
 
-        return view('pages.informasi-publik.berkala', compact('informasiData', 'search'));
+        return view('pages.informasi-publik.berkala', compact('informasiData', 'search', 'tahun', 'availableYears'));
     }
 
     public function dikecualikan(Request $request)
     {
         $search = $request->query('search');
+        $tahun = $request->query('tahun');
+        $availableYears = MasterTahun::whereNotNull('waktu')->orderBy('waktu', 'desc')->get();
+
         $informasiData = DokumenPublik::where('id_kat_info', 100)
             ->where('verify', 'y')
             ->when($search, function ($query, $search) {
@@ -95,10 +117,13 @@ class DokumenPublikController extends Controller
                         ->orWhere('ket', 'LIKE', "%{$search}%");
                 });
             })
+            ->when($tahun, function ($query, $tahun) {
+                return $query->whereYear('tgl_upload', $tahun);
+            })
             ->paginate(10)
-            ->appends(['search' => $search]);
+            ->appends(['search' => $search, 'tahun' => $tahun]);
 
-        return view('pages.informasi-publik.dikecualikan', compact('informasiData', 'search'));
+        return view('pages.informasi-publik.dikecualikan', compact('informasiData', 'search', 'tahun', 'availableYears'));
     }
 
     public function show($id)

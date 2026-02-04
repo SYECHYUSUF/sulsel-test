@@ -44,7 +44,7 @@ class PengajuanKeberatanController extends Controller
                 'state_kuasa' => $validated['state_kuasa'] ?? null,
                 'no_telp_kuasa' => $validated['no_telp_kuasa'] ?? null,
                 'kasus' => $validated['kasus'],
-                'status' => 'p',
+                'status' => 'n',
             ]);
 
             foreach ($validated['alasan'] as $alasan) {
@@ -115,11 +115,11 @@ class PengajuanKeberatanController extends Controller
 
                 // Check if feedback is empty/null - override status label
                 if (empty($item->feedback) && $item->status != 't') {
-                    $item->status_label = 'Belum Direspon';
-                    $item->display_status = 'belum_direspon'; // Custom status for frontend
+                    $item->status_label_display = 'Belum Direspon';
+                    $item->display_status_code = 'belum_direspon'; // Custom status for frontend
                 } else {
-                    $item->status_label = $labels[$item->status] ?? 'Status Tidak Diketahui';
-                    $item->display_status = $item->status;
+                    $item->status_label_display = $labels[$item->status] ?? 'Status Tidak Diketahui';
+                    $item->display_status_code = $item->status;
                 }
 
                 $item->formatted_date = $item->created_at->translatedFormat('d F Y H:i') . ' WITA';
@@ -139,5 +139,14 @@ class PengajuanKeberatanController extends Controller
     public function formCheckStatus()
     {
         return view('pages.layanan.cek-status-keberatan');
+    }
+
+    public function showDetail($no_pendaftaran)
+    {
+        $pengajuan = PengajuanKeberatan::with(['alasanPengajuan', 'feedbackBy'])
+            ->where('no_pendaftaran', $no_pendaftaran)
+            ->firstOrFail();
+
+        return view('pages.layanan.detail-status-keberatan', compact('pengajuan'));
     }
 }

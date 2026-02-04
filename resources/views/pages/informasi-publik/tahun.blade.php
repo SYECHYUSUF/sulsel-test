@@ -68,10 +68,18 @@
                                 class="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1A305E] dark:bg-slate-700 dark:text-white dark:focus:ring-blue-500" />
                         </div>
                     </div>
-                    <button type="submit"
-                        class="px-6 py-2 bg-[#D4AF37] text-white rounded-lg hover:bg-[#B08D26] transition-colors font-medium">
-                        {{ __('messages.news.search_btn') }}
-                    </button>
+                    <div class="flex gap-2">
+                        <button type="submit"
+                            class="px-6 py-2 bg-[#D4AF37] text-white rounded-lg hover:bg-[#B08D26] transition-colors font-medium">
+                            {{ __('messages.news.search_btn') }}
+                        </button>
+                        @if (request('search'))
+                            <a href="{{ url()->current() }}"
+                                class="px-6 py-2 bg-gray-200 dark:bg-slate-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-300 dark:hover:bg-slate-600 transition-colors font-medium flex items-center justify-center">
+                                Clear
+                            </a>
+                        @endif
+                    </div>
                 </form>
 
                 {{-- Index Table --}}

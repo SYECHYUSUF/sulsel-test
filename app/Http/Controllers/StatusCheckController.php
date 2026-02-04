@@ -69,10 +69,10 @@ class StatusCheckController extends Controller
                     4 => 'Dibatalkan',
                     5 => 'Disposisi'
                 ];
-                
-                $item->status_label = $labels[$item->status] ?? 'Status Tidak Diketahui';
+
+                $item->status_label_display = $labels[$item->status] ?? 'Status Tidak Diketahui';
                 $item->formatted_date = $item->created_at->translatedFormat('d F Y H:i') . ' WITA';
-                
+
                 return $item;
             });
 
@@ -116,18 +116,18 @@ class StatusCheckController extends Controller
                     't' => 'Ditolak',
                     'a' => 'Dijawab',
                 ];
-                
+
                 // Check if feedback is empty/null - override status label
                 if (empty($item->feedback) && $item->status != 't') {
-                    $item->status_label = 'Belum Direspon';
-                    $item->display_status = 'belum_direspon';
+                    $item->status_label_display = 'Belum Direspon';
+                    $item->display_status_code = 'belum_direspon';
                 } else {
-                    $item->status_label = $labels[$item->status] ?? 'Status Tidak Diketahui';
-                    $item->display_status = $item->status;
+                    $item->status_label_display = $labels[$item->status] ?? 'Status Tidak Diketahui';
+                    $item->display_status_code = $item->status;
                 }
-                
+
                 $item->formatted_date = $item->created_at->translatedFormat('d F Y H:i') . ' WITA';
-                
+
                 return $item;
             });
 

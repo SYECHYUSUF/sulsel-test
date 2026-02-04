@@ -230,7 +230,7 @@
                                         </td>
                                     </template>
                                     <td class="px-6 py-4">
-                                        <span class="px-2.5 py-1 rounded-full text-xs font-semibold"
+                                        <span class="px-2.5 py-1 rounded-full text-xs font-semibold inline-block"
                                             :class="item.status_color" x-text="item.status_label">
                                         </span>
                                     </td>

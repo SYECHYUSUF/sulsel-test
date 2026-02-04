@@ -28,16 +28,16 @@ class PengajuanKeberatanController extends Controller
         // Filter Pencarian - Enhanced to search multiple fields
         if ($request->filled('search')) {
             $searchTerm = '%' . $request->search . '%';
-            $query->where(function($q) use ($searchTerm) {
+            $query->where(function ($q) use ($searchTerm) {
                 $q->where('nama_pemohon', 'like', $searchTerm)
-                ->orWhere('kode_permohonan', 'like', $searchTerm)
-                ->orWhere('no_pendaftaran', 'like', $searchTerm)
-                ->orWhere('email_pemohon', 'like', $searchTerm)
-                ->orWhere('no_telp_pemohon', 'like', $searchTerm)
-                ->orWhere('kasus', 'like', $searchTerm)
-                ->orWhereHas('alasanPengajuan', function($subQuery) use ($searchTerm) {
-                    $subQuery->where('alasan', 'like', $searchTerm);
-                });
+                    ->orWhere('kode_permohonan', 'like', $searchTerm)
+                    ->orWhere('no_pendaftaran', 'like', $searchTerm)
+                    ->orWhere('email_pemohon', 'like', $searchTerm)
+                    ->orWhere('no_telp_pemohon', 'like', $searchTerm)
+                    ->orWhere('kasus', 'like', $searchTerm)
+                    ->orWhereHas('alasanPengajuan', function ($subQuery) use ($searchTerm) {
+                        $subQuery->where('alasan', 'like', $searchTerm);
+                    });
             });
         }
 
@@ -74,7 +74,7 @@ class PengajuanKeberatanController extends Controller
         ]);
 
         $pengajuan = PengajuanKeberatan::findOrFail($id);
-        
+
         $pengajuan->update([
             'feedback' => $validated['feedback'],
             'tgl_feedback' => now(),
@@ -85,7 +85,7 @@ class PengajuanKeberatanController extends Controller
         ]);
 
         // Send notification to pemohon
-        \App\Models\Notification::send([
+        Notification::send([
             'type' => 'success',
             'title' => 'Pengajuan Keberatan Dijawab',
             'message' => 'Pengajuan keberatan Anda (#' . $pengajuan->no_pendaftaran . ') telah dijawab oleh admin.',
@@ -102,11 +102,11 @@ class PengajuanKeberatanController extends Controller
 
         return back()->with('success', 'Balasan berhasil dikirim dan notifikasi telah dikirim ke pemohon.');
     }
-    
+
     public function loadFeedback($id)
     {
         $pengajuan = PengajuanKeberatan::with(['feedbackBy', 'alasanPengajuan'])->findOrFail($id);
-        
+
         return response()->json([
             'no_pendaftaran' => $pengajuan->no_pendaftaran,
             'nama_pemohon' => $pengajuan->nama_pemohon,
@@ -128,7 +128,7 @@ class PengajuanKeberatanController extends Controller
         $pengajuan = PengajuanKeberatan::with(['skpd', 'alasanPengajuan', 'feedbackBy', 'disposisi.skpd', 'disposisi.respon'])->findOrFail($id);
         $allSkpd = \App\Models\Skpd::all();
         $existingSkpdIds = $pengajuan->disposisi()->pluck('id_skpd')->toArray();
-        
+
         return view('admin.pengajuan-keberatan.show', compact('pengajuan', 'allSkpd', 'existingSkpdIds'));
     }
 
@@ -146,7 +146,7 @@ class PengajuanKeberatanController extends Controller
     public function update(Request $request, string $id)
     {
         $pengajuan = PengajuanKeberatan::findOrFail($id);
-        
+
         $validated = $request->validate([
             'status' => 'required|string|in:p,a,y,t,d',
             'alasan_penolakan' => 'nullable|string',
@@ -179,18 +179,18 @@ class PengajuanKeberatanController extends Controller
     public function destroy(string $id)
     {
         $pengajuan = PengajuanKeberatan::findOrFail($id);
-        
+
         // Only allow deletion if status is 'a' (answered), 'y' (approved), or 't' (rejected)
         if (!in_array($pengajuan->status, ['a', 'y', 't'])) {
             return back()->with('error', 'Pengajuan yang masih dalam proses tidak dapat dihapus sesuai standar pemerintah.');
         }
-        
+
         // Delete related alasan_pengajuan records first
         $pengajuan->alasanPengajuan()->delete();
-        
+
         // Delete the pengajuan
         $pengajuan->delete();
-        
+
         return redirect()->route('admin.pengajuan-keberatan.index')
             ->with('success', 'Pengajuan keberatan berhasil dihapus.');
     }
@@ -202,7 +202,7 @@ class PengajuanKeberatanController extends Controller
     {
         $pengajuan = PengajuanKeberatan::with('skpd')->findOrFail($id);
         $allSkpd = \App\Models\Skpd::all();
-        
+
         // Get existing disposition SKPD IDs
         $existingSkpdIds = $pengajuan->disposisi()->pluck('id_skpd')->toArray();
 
@@ -215,7 +215,7 @@ class PengajuanKeberatanController extends Controller
     public function disposisiStore(Request $request, string $id)
     {
         $pengajuan = PengajuanKeberatan::findOrFail($id);
-        
+
         $validated = $request->validate([
             'skpd_ids' => 'required|array|min:1',
             'skpd_ids.*' => 'exists:tbl_skpd,id_skpd',
@@ -226,9 +226,9 @@ class PengajuanKeberatanController extends Controller
         foreach ($validated['skpd_ids'] as $skpdId) {
             // Prevent duplicate disposition
             $exists = \App\Models\PengajuanDisposisi::where('id_pengajuan', $pengajuan->id_pengajuan)
-                        ->where('id_skpd', $skpdId)
-                        ->exists();
-            
+                ->where('id_skpd', $skpdId)
+                ->exists();
+
             if ($exists) {
                 continue;
             }
@@ -264,13 +264,13 @@ class PengajuanKeberatanController extends Controller
                 $currentSkpdIds = [$pengajuan->id_skpd];
             }
         }
-        
+
         $mergedSkpdIds = array_values(array_unique(array_merge($currentSkpdIds, $validated['skpd_ids'])));
 
         // Update pengajuan status
         $pengajuan->update([
             'status' => 'd', // d = disposisi
-            'id_skpd' => json_encode($mergedSkpdIds), 
+            'id_skpd' => json_encode($mergedSkpdIds),
         ]);
 
         return redirect()->route('admin.pengajuan-keberatan.show', $id)
@@ -283,7 +283,7 @@ class PengajuanKeberatanController extends Controller
     public function responStore(Request $request, string $disposisiId)
     {
         $disposisi = PengajuanDisposisi::findOrFail($disposisiId);
-        
+
         // Security check: only SKPD that owns this disposition can respond
         $user = Auth::user();
         if (!$user->hasRole('admin') && $user->id_skpd !== $disposisi->id_skpd) {
@@ -318,7 +318,7 @@ class PengajuanKeberatanController extends Controller
         // Update main pengajuan status if all dispositions are completed
         $pengajuan = $disposisi->pengajuan;
         $allCompleted = $pengajuan->disposisi()->whereIn('status', ['selesai', 'ditolak'])->count() === $pengajuan->disposisi()->count();
-        
+
         if ($allCompleted) {
             $pengajuan->update(['status' => 'a']); // Set to 'answered'
         }

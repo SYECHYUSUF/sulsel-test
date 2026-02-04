@@ -113,12 +113,7 @@
                             <label
                                 class="text-xs text-slate-500 dark:text-slate-400 uppercase font-semibold block mb-2">Kasus
                                 Posisi</label>
-                            <div
-                                class="bg-slate-50 dark:bg-slate-900/50 rounded-lg p-4 border border-slate-200 dark:border-slate-700">
-                                <p class="text-slate-900 dark:text-slate-100 whitespace-pre-wrap">
-                                    {!! $pengajuan->kasus !!}
-                                </p>
-                            </div>
+                            <div class="text-slate-900 dark:text-slate-100">{!! $pengajuan->kasus !!}</div>
                         </div>
 
                         @if($pengajuan->tujuan)
@@ -171,7 +166,7 @@
                         <h3 class="text-lg font-bold text-[#1A305E] dark:text-blue-400">Tindakan</h3>
                     </div>
                     <div class="p-6 space-y-4">
-                        @if($pengajuan->status == 'p')
+                        @if($pengajuan->status == 'n')
                             <!-- Status Menunggu Verifikasi -->
                             <div
                                 class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4 text-center">
@@ -246,7 +241,6 @@
                                     Permohonan Telah <strong>Dijawab</strong> oleh Admin.
                                 </p>
                             </div>
-
                         @else
                             <!-- Status Lainnya -->
                             <div class="bg-slate-50 dark:bg-slate-700/50 p-4 rounded-lg text-center">
@@ -284,20 +278,16 @@
         <!-- Disposisi Modal -->
         <div x-show="disposisiModalOpen" style="display: none;"
             class="fixed inset-0 z-[100] flex items-center justify-center px-4 py-6 sm:px-0"
-            x-transition:enter="ease-out duration-300"
-            x-transition:enter-start="opacity-0"
-            x-transition:enter-end="opacity-100"
-            x-transition:leave="ease-in duration-200"
-            x-transition:leave-start="opacity-100"
-            x-transition:leave-end="opacity-0">
-            
+            x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200"
+            x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
+
             <div class="fixed inset-0 transition-opacity transform" @click="disposisiModalOpen = false">
                 <div class="absolute inset-0 bg-gray-900 opacity-60"></div>
             </div>
 
             <div class="bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-2xl transform transition-all sm:w-full sm:max-w-lg w-full flex flex-col max-h-[90vh]"
-                @click.stop
-                x-transition:enter="ease-out duration-300"
+                @click.stop x-transition:enter="ease-out duration-300"
                 x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                 x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
                 x-transition:leave="ease-in duration-200"
@@ -305,23 +295,26 @@
                 x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
 
                 <!-- Header -->
-                <div class="bg-white dark:bg-slate-800 px-6 py-4 border-b border-gray-100 dark:border-slate-700 flex justify-between items-center sticky top-0 z-10">
+                <div
+                    class="bg-white dark:bg-slate-800 px-6 py-4 border-b border-gray-100 dark:border-slate-700 flex justify-between items-center sticky top-0 z-10">
                     <h3 class="text-lg font-bold text-[#1A305E] dark:text-blue-400">
                         Disposisi ke SKPD
                     </h3>
-                    <button @click="disposisiModalOpen = false" class="text-gray-400 hover:text-gray-500 focus:outline-none">
+                    <button @click="disposisiModalOpen = false"
+                        class="text-gray-400 hover:text-gray-500 focus:outline-none">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
                 </div>
 
                 <!-- Form Content -->
-                <form action="{{ route('admin.pengajuan-keberatan.disposisi.store', $pengajuan->id_pengajuan) }}" method="POST" class="flex flex-col flex-1 overflow-hidden">
+                <form action="{{ route('admin.pengajuan-keberatan.disposisi.store', $pengajuan->id_pengajuan) }}"
+                    method="POST" class="flex flex-col flex-1 overflow-hidden">
                     @csrf
-                    
-                    <div class="p-6 overflow-y-auto flex-1 custom-scrollbar space-y-5" 
-                         x-data="{
+
+                    <div class="p-6 overflow-y-auto flex-1 custom-scrollbar space-y-5" x-data="{
                             search: '',
                             selected: {{ json_encode($existingSkpdIds ?? []) }},
                             options: {{ $allSkpd->map(fn($s) => ['id' => $s->id_skpd, 'name' => $s->nm_skpd])->values()->toJson() }},
@@ -330,40 +323,48 @@
                                 return this.options.filter(opt => opt.name.toLowerCase().includes(this.search.toLowerCase()));
                             }
                          }">
-                        
+
                         <!-- Pilihan SKPD -->
                         <div>
                             <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                                 Pilih SKPD Tujuan <span class="text-red-500">*</span>
                             </label>
-                            
+
                             <!-- Search Bar -->
                             <div class="relative mb-3">
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <svg class="h-4 w-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                    <svg class="h-4 w-4 text-slate-400" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                                     </svg>
                                 </div>
                                 <input type="text" x-model="search"
-                                    class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-100" 
+                                    class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-100"
                                     placeholder="Cari nama dinas / badan...">
                             </div>
 
                             <!-- List SKPD -->
-                            <div class="border border-slate-200 dark:border-slate-600 rounded-lg max-h-48 overflow-y-auto custom-scrollbar bg-white dark:bg-slate-700">
+                            <div
+                                class="border border-slate-200 dark:border-slate-600 rounded-lg max-h-48 overflow-y-auto custom-scrollbar bg-white dark:bg-slate-700">
                                 <template x-for="opt in filteredOptions" :key="opt.id">
-                                    <label class="flex items-center p-3 hover:bg-slate-50 dark:hover:bg-slate-600 cursor-pointer transition-colors border-b last:border-0 border-slate-100 dark:border-slate-600">
+                                    <label
+                                        class="flex items-center p-3 hover:bg-slate-50 dark:hover:bg-slate-600 cursor-pointer transition-colors border-b last:border-0 border-slate-100 dark:border-slate-600">
                                         <input type="checkbox" name="skpd_ids[]" :value="opt.id" x-model="selected"
                                             class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 dark:bg-slate-800 dark:border-slate-500">
-                                        <span class="ml-3 text-sm text-slate-700 dark:text-slate-200 font-medium" x-text="opt.name"></span>
-                                        <span x-show="selected.includes(opt.id)" class="ml-auto text-blue-600 dark:text-blue-400 text-xs font-bold px-2 py-0.5 bg-blue-50 dark:bg-blue-900/40 rounded-full">Terpilih</span>
+                                        <span class="ml-3 text-sm text-slate-700 dark:text-slate-200 font-medium"
+                                            x-text="opt.name"></span>
+                                        <span x-show="selected.includes(opt.id)"
+                                            class="ml-auto text-blue-600 dark:text-blue-400 text-xs font-bold px-2 py-0.5 bg-blue-50 dark:bg-blue-900/40 rounded-full">Terpilih</span>
                                     </label>
                                 </template>
-                                <div x-show="filteredOptions.length === 0" class="p-4 text-center text-sm text-slate-500 dark:text-slate-400">
+                                <div x-show="filteredOptions.length === 0"
+                                    class="p-4 text-center text-sm text-slate-500 dark:text-slate-400">
                                     Tidak ada SKPD yang cocok.
                                 </div>
                             </div>
-                            <p class="text-xs text-slate-500 mt-1 dark:text-slate-400" x-text="selected.length + ' SKPD dipilih'"></p>
+                            <p class="text-xs text-slate-500 mt-1 dark:text-slate-400"
+                                x-text="selected.length + ' SKPD dipilih'"></p>
                         </div>
 
                         <!-- Catatan Disposisi -->
@@ -378,8 +379,9 @@
                     </div>
 
                     <!-- Footer / Buttons -->
-                    <div class="bg-gray-50 dark:bg-slate-700/50 px-6 py-4 flex flex-row-reverse gap-3 sticky bottom-0 z-10">
-                        <button type="submit" 
+                    <div
+                        class="bg-gray-50 dark:bg-slate-700/50 px-6 py-4 flex flex-row-reverse gap-3 sticky bottom-0 z-10">
+                        <button type="submit"
                             class="inline-flex justify-center px-5 py-2.5 text-sm font-bold text-white bg-[#1A305E] border border-transparent rounded-lg hover:bg-[#1A305E]/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 shadow-lg transform transition hover:-translate-y-0.5">
                             Kirim Disposisi
                         </button>
@@ -411,20 +413,16 @@
         <!-- Disposisi Modal -->
         <div x-show="disposisiModalOpen" style="display: none;"
             class="fixed inset-0 z-[100] flex items-center justify-center px-4 py-6 sm:px-0"
-            x-transition:enter="ease-out duration-300"
-            x-transition:enter-start="opacity-0"
-            x-transition:enter-end="opacity-100"
-            x-transition:leave="ease-in duration-200"
-            x-transition:leave-start="opacity-100"
-            x-transition:leave-end="opacity-0">
-            
+            x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200"
+            x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
+
             <div class="fixed inset-0 transition-opacity transform" @click="disposisiModalOpen = false">
                 <div class="absolute inset-0 bg-gray-900 opacity-60"></div>
             </div>
 
             <div class="bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-2xl transform transition-all sm:w-full sm:max-w-lg w-full flex flex-col max-h-[90vh]"
-                @click.stop
-                x-transition:enter="ease-out duration-300"
+                @click.stop x-transition:enter="ease-out duration-300"
                 x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                 x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
                 x-transition:leave="ease-in duration-200"
@@ -432,23 +430,26 @@
                 x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
 
                 <!-- Header -->
-                <div class="bg-white dark:bg-slate-800 px-6 py-4 border-b border-gray-100 dark:border-slate-700 flex justify-between items-center sticky top-0 z-10">
+                <div
+                    class="bg-white dark:bg-slate-800 px-6 py-4 border-b border-gray-100 dark:border-slate-700 flex justify-between items-center sticky top-0 z-10">
                     <h3 class="text-lg font-bold text-[#1A305E] dark:text-blue-400">
                         Disposisi ke SKPD
                     </h3>
-                    <button @click="disposisiModalOpen = false" class="text-gray-400 hover:text-gray-500 focus:outline-none">
+                    <button @click="disposisiModalOpen = false"
+                        class="text-gray-400 hover:text-gray-500 focus:outline-none">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
                 </div>
 
                 <!-- Form Content -->
-                <form action="{{ route('admin.pengajuan-keberatan.disposisi.store', $pengajuan->id_pengajuan) }}" method="POST" class="flex flex-col flex-1 overflow-hidden">
+                <form action="{{ route('admin.pengajuan-keberatan.disposisi.store', $pengajuan->id_pengajuan) }}"
+                    method="POST" class="flex flex-col flex-1 overflow-hidden">
                     @csrf
-                    
-                    <div class="p-6 overflow-y-auto flex-1 custom-scrollbar space-y-5" 
-                         x-data="{
+
+                    <div class="p-6 overflow-y-auto flex-1 custom-scrollbar space-y-5" x-data="{
                             search: '',
                             selected: {{ json_encode($existingSkpdIds ?? []) }},
                             options: {{ $allSkpd->map(fn($s) => ['id' => $s->id_skpd, 'name' => $s->nm_skpd])->values()->toJson() }},
@@ -457,40 +458,48 @@
                                 return this.options.filter(opt => opt.name.toLowerCase().includes(this.search.toLowerCase()));
                             }
                          }">
-                        
+
                         <!-- Pilihan SKPD -->
                         <div>
                             <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                                 Pilih SKPD Tujuan <span class="text-red-500">*</span>
                             </label>
-                            
+
                             <!-- Search Bar -->
                             <div class="relative mb-3">
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <svg class="h-4 w-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                    <svg class="h-4 w-4 text-slate-400" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                                     </svg>
                                 </div>
                                 <input type="text" x-model="search"
-                                    class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-100" 
+                                    class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-100"
                                     placeholder="Cari nama dinas / badan...">
                             </div>
 
                             <!-- List SKPD -->
-                            <div class="border border-slate-200 dark:border-slate-600 rounded-lg max-h-48 overflow-y-auto custom-scrollbar bg-white dark:bg-slate-700">
+                            <div
+                                class="border border-slate-200 dark:border-slate-600 rounded-lg max-h-48 overflow-y-auto custom-scrollbar bg-white dark:bg-slate-700">
                                 <template x-for="opt in filteredOptions" :key="opt.id">
-                                    <label class="flex items-center p-3 hover:bg-slate-50 dark:hover:bg-slate-600 cursor-pointer transition-colors border-b last:border-0 border-slate-100 dark:border-slate-600">
+                                    <label
+                                        class="flex items-center p-3 hover:bg-slate-50 dark:hover:bg-slate-600 cursor-pointer transition-colors border-b last:border-0 border-slate-100 dark:border-slate-600">
                                         <input type="checkbox" name="skpd_ids[]" :value="opt.id" x-model="selected"
                                             class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 dark:bg-slate-800 dark:border-slate-500">
-                                        <span class="ml-3 text-sm text-slate-700 dark:text-slate-200 font-medium" x-text="opt.name"></span>
-                                        <span x-show="selected.includes(opt.id)" class="ml-auto text-blue-600 dark:text-blue-400 text-xs font-bold px-2 py-0.5 bg-blue-50 dark:bg-blue-900/40 rounded-full">Terpilih</span>
+                                        <span class="ml-3 text-sm text-slate-700 dark:text-slate-200 font-medium"
+                                            x-text="opt.name"></span>
+                                        <span x-show="selected.includes(opt.id)"
+                                            class="ml-auto text-blue-600 dark:text-blue-400 text-xs font-bold px-2 py-0.5 bg-blue-50 dark:bg-blue-900/40 rounded-full">Terpilih</span>
                                     </label>
                                 </template>
-                                <div x-show="filteredOptions.length === 0" class="p-4 text-center text-sm text-slate-500 dark:text-slate-400">
+                                <div x-show="filteredOptions.length === 0"
+                                    class="p-4 text-center text-sm text-slate-500 dark:text-slate-400">
                                     Tidak ada SKPD yang cocok.
                                 </div>
                             </div>
-                            <p class="text-xs text-slate-500 mt-1 dark:text-slate-400" x-text="selected.length + ' SKPD dipilih'"></p>
+                            <p class="text-xs text-slate-500 mt-1 dark:text-slate-400"
+                                x-text="selected.length + ' SKPD dipilih'"></p>
                         </div>
 
                         <!-- Catatan Disposisi -->
@@ -505,8 +514,9 @@
                     </div>
 
                     <!-- Footer / Buttons -->
-                    <div class="bg-gray-50 dark:bg-slate-700/50 px-6 py-4 flex flex-row-reverse gap-3 sticky bottom-0 z-10">
-                        <button type="submit" 
+                    <div
+                        class="bg-gray-50 dark:bg-slate-700/50 px-6 py-4 flex flex-row-reverse gap-3 sticky bottom-0 z-10">
+                        <button type="submit"
                             class="inline-flex justify-center px-5 py-2.5 text-sm font-bold text-white bg-[#1A305E] border border-transparent rounded-lg hover:bg-[#1A305E]/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 shadow-lg transform transition hover:-translate-y-0.5">
                             Kirim Disposisi
                         </button>

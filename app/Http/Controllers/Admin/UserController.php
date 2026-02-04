@@ -56,7 +56,8 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $user = User::with(['skpd', 'roles', 'lastLogin'])->findOrFail($id);
+        return view('admin.users.show', compact('user'));
     }
 
     /**

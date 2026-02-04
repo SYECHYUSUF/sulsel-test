@@ -223,32 +223,32 @@ return [
         // Profil PPID
         'ppid_title' => 'Profil PPID',
         'ppid_subtitle' => 'Tentang Pejabat Pengelola Informasi dan Dokumentasi',
-        
+
         // Sambutan
         'greeting_title' => 'Sambutan',
         'greeting_subtitle' => 'Sambutan Kepala PPID Utama',
-        
+
         // Visi Misi
         'vision_mission_title' => 'Visi & Misi',
         'vision_title' => 'Visi PPID Sulawesi Selatan',
         'mission_title' => 'Misi PPID Sulawesi Selatan',
         'commitment_title' => 'Komitmen Kami',
         'commitment_text' => 'Dengan visi dan misi yang jelas, PPID Sulawesi Selatan berkomitmen untuk terus meningkatkan kualitas pelayanan informasi publik demi terwujudnya pemerintahan yang transparan, akuntabel, dan berintegritas.',
-        
+
         // Tupoksi
         'tupoksi_title' => 'Tupoksi',
         'tupoksi_subtitle' => 'Tugas Pokok dan Fungsi PPID Sulawesi Selatan',
-        
+
         // Maklumat
         'service_declaration' => 'Maklumat Pelayanan',
         'service_subtitle' => 'Maklumat Pelayanan Informasi Publik',
-        
+
         // Profil Pemprov
         'government_profile' => 'Profil Pemerintah Sulawesi Selatan',
         'government_subtitle' => 'Profil Pemerintah Provinsi Sulawesi Selatan',
         'governor' => 'Gubernur',
         'vice_governor' => 'Wakil Gubernur',
-        
+
         // Struktur Organisasi
         'org_structure' => 'Struktur Organisasi',
         'org_subtitle' => 'Struktur Organisasi PPID Sulawesi Selatan',
@@ -264,13 +264,13 @@ return [
         'org_structure' => 'Struktur Organisasi',
 
         "data_info_prefix" => "Tahun",
-        
+
         // Data Informasi Publik dropdown
         'data_info_2023' => 'Informasi Publik Tahun 2023',
         'data_info_2024' => 'Informasi Publik Tahun 2024',
         'data_info_2025' => 'Informasi Publik Tahun 2025',
         'procurement_info' => 'Informasi Pengadaan Barang Dan Jasa',
-        
+
         // Informasi Publik dropdown
         'public_info_dropdown' => 'Informasi Publik',
         'immediate_info' => 'Informasi Serta Merta',
@@ -278,16 +278,16 @@ return [
         'excluded_info' => 'Daftar Informasi Dikecualikan',
         'public_info_list' => 'Daftar Informasi Publik',
         'periodic_info' => 'Informasi Berkala',
-        
+
         'implementing_ppid' => 'PPID Pelaksana',
-        
+
         // Layanan dropdown
         'services_dropdown' => 'Layanan',
         'info_request_service' => 'Permohonan Informasi',
         'objection_service' => 'Pengajuan Keberatan',
         'status_check' => 'Cek Status Permohonan',
         'sop' => 'Standar Operasional Prosedur',
-        
+
         // Survey dropdown
         'fill_survey' => 'Isi Survey',
         'survey_results' => 'Hasil Survey',
@@ -298,7 +298,7 @@ return [
         'year_2024_title' => 'Informasi Publik Tahun 2024',
         'year_2025_title' => 'Informasi Publik Tahun 2025',
         'year_subtitle' => 'Dokumen Informasi Publik',
-        
+
         // Table Headers
         'table_no' => 'No',
         'header_a' => 'Jenis Informasi',
@@ -309,29 +309,29 @@ return [
         'header_f' => 'Format',
         'header_g' => 'Tahun',
         'header_h' => 'Tautan Dokumen',
-        
+
         // Category pages
         'berkala_title' => 'Informasi Berkala',
         'berkala_subtitle' => 'Informasi yang Disediakan Secara Berkala',
-        
+
         'serta_merta_title' => 'Informasi Serta Merta',
         'serta_merta_subtitle' => 'Informasi yang Wajib Diumumkan Segera',
-        
+
         'setiap_saat_title' => 'Informasi Setiap Saat',
         'setiap_saat_subtitle' => 'Informasi yang Tersedia Setiap Saat',
-        
+
         'dikecualikan_title' => 'Informasi Dikecualikan',
         'dikecualikan_subtitle' => 'Daftar Informasi yang Dikecualikan',
-        
+
         'pengadaan_title' => 'Pengadaan Barang dan Jasa',
         'pengadaan_subtitle' => 'Informasi Pengadaan',
-        
+
         'daftar_title' => 'Daftar Informasi Publik',
         'daftar_subtitle' => 'Indeks Informasi Publik Lengkap',
-        
+
         'index_title' => 'Daftar Informasi Publik',
         'index_subtitle' => 'Daftar Lengkap Informasi Publik Provinsi Sulawesi Selatan',
-        
+
         'detail_title' => 'Detail Informasi',
         'detail_subtitle' => 'Detail lengkap informasi publik',
     ],
@@ -343,20 +343,20 @@ return [
     'layanan_pages' => [
         'permohonan_title' => 'Permohonan Informasi',
         'permohonan_subtitle' => 'Ajukan Permohonan Informasi Publik',
-        
+
         'permohonan_title' => 'Permohonan Informasi',
         'permohonan_subtitle' => 'Ajukan permohonan informasi publik',
         'permohonan_title' => 'Permohonan Informasi',
         'permohonan_subtitle' => 'Ajukan permohonan informasi publik',
         'keberatan_title' => 'Pengajuan Keberatan',
         'keberatan_subtitle' => 'Ajukan Keberatan Layanan Informasi',
-        
+
         'cek_status_title' => 'Cek Status Permohonan',
         'cek_status_subtitle' => 'Lacak Permohonan Informasi Anda',
-        
+
         'sop_title' => 'Standar Operasional Prosedur',
         'sop_subtitle' => 'Prosedur dan Panduan Layanan',
-        
+
         // Form labels
         'form_title' => 'Formulir Permohonan',
         'submit_button' => 'Kirim Permohonan',
@@ -365,15 +365,15 @@ return [
     'survey_pages' => [
         'isi_title' => 'Isi Survey',
         'isi_subtitle' => 'Bagikan Masukan Anda tentang Layanan Kami',
-        
+
         'hasil_title' => 'Hasil Survey',
         'hasil_subtitle' => 'Hasil Survey Kepuasan Masyarakat',
-        
+
         'submit_survey' => 'Kirim Survey',
         'thank_you' => 'Terima kasih atas masukan Anda!',
     ],
     'form' => [
-         'personal_data' => 'Data Pribadi',
+        'personal_data' => 'Data Pribadi',
         'full_name' => 'Nama Lengkap',
         'id_number' => 'No. KTP (NIK)',
         'family_card_number' => 'Nomor KK (Opsional)',
