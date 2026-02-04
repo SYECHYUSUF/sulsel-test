@@ -53,22 +53,6 @@
                         </form>
                     </div>
 
-                    {{-- Admin SKPD Filter dengan Searchable Select --}}
-                    @if(auth()->user()->hasRole('admin'))
-                        <form action="{{ route('admin.ikphns.index') }}" method="GET" class="w-full md:flex-1">
-                            @foreach(request()->except('id_skpd') as $key => $value)
-                                @if(!is_array($value))
-                                    <input type="hidden" name="{{ $key }}" value="{{ $value }}">
-                                @endif
-                            @endforeach
-
-                            <div class="min-w-[200px]">
-                                <x-searchable-select name="id_skpd" :options="$skpdList" :value="request('id_skpd')"
-                                    idKey="id_skpd" labelKey="nm_skpd" placeholder="Cari SKPD..." />
-                            </div>
-                        </form>
-                    @endif
-
                     {{-- Advanced Filter Toggle --}}
                     <button @click="showFilters = !showFilters" type="button"
                         class="px-4 py-2 border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-600 transition-colors flex items-center gap-2">
@@ -89,9 +73,6 @@
                     {{-- Preserve search --}}
                     @if(request('search'))
                         <input type="hidden" name="search" value="{{ request('search') }}">
-                    @endif
-                    @if(request('id_skpd'))
-                        <input type="hidden" name="id_skpd" value="{{ request('id_skpd') }}">
                     @endif
 
                     {{-- Status Filter --}}
@@ -151,7 +132,7 @@
             </div>
 
             {{-- Active Filters Display --}}
-            @if(request()->hasAny(['search', 'id_skpd', 'verify', 'start_date', 'end_date', 'sort']))
+            @if(request()->hasAny(['search', 'verify', 'start_date', 'end_date', 'sort']))
                 <div class="px-4 py-2 bg-slate-50 dark:bg-slate-700/50 flex items-center gap-2 flex-wrap text-sm">
                     <span class="text-slate-600 dark:text-slate-300 font-medium">Filter aktif:</span>
                     @if(request('search'))
@@ -182,9 +163,8 @@
                     <thead
                         class="text-xs text-slate-500 dark:text-slate-400 uppercase bg-slate-50 dark:bg-slate-700/50 border-b border-slate-100 dark:border-slate-700">
                         <tr>
-                            <th scope="col" class="px-6 py-3">Judul / Nama Jabatan</th>
-                            <th scope="col" class="px-6 py-3">SKPD</th>
-                            <th scope="col" class="px-6 py-3">Status</th>
+                            <th scope="col" class="px-6 py-3">Judul</th>
+                            <th scope="col" class="px-6 py-3">Jumlah Download</th>
                             <th scope="col" class="px-6 py-3">File</th>
                             <th scope="col" class="px-6 py-3 text-right">Aksi</th>
                         </tr>
@@ -196,30 +176,12 @@
                                 <td class="px-6 py-4">
                                     <div class="font-medium text-slate-900 dark:text-slate-100">{{ $item->nama_jabatan }}
                                     </div>
-                                    <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">Uploaded:
-                                        {{ $item->created_at->format('d M Y') }}
+                                    <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                                        {{ $item->created_at ? \Carbon\Carbon::parse($item->created_at)->locale('id')->translatedFormat('d M Y') : '-' }}
                                     </div>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <span class="text-xs">{{ $item->skpd->nm_skpd ?? '-' }}</span>
-                                </td>
-                                <td class="px-6 py-4">
-                                    @if($item->verify == 'y')
-                                        <span
-                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400">
-                                            Terverifikasi
-                                        </span>
-                                    @elseif($item->verify == 't')
-                                        <span
-                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-400">
-                                            Ditolak
-                                        </span>
-                                    @else
-                                        <span
-                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-400">
-                                            Pending
-                                        </span>
-                                    @endif
+                                    {{ $item->jumlah_download }}
                                 </td>
                                 <td class="px-6 py-4">
                                     @if($item->file)
@@ -287,7 +249,8 @@
         $notificationStatus = session('error') ? 'error' : 'success';
         $notificationMessage = session('success') ?? session('error');
     @endphp
-    <x-notification-modal trigger="showNotification" :status="$notificationStatus" :description="$notificationMessage" />
+    <x-notification-modal trigger="showNotification" :status="$notificationStatus"
+        :description="$notificationMessage" />
 
     <!-- Delete Confirmation Dialog -->
     <x-confirmation-dialog trigger="showDeleteModal" title="Hapus Dokumen?"

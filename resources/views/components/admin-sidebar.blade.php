@@ -2,18 +2,6 @@
     class="flex flex-col bg-[#1A305E] text-white z-30 font-sans border-r border-slate-200/10 absolute md:static h-full shadow-xl md:shadow-none inset-y-0 left-0"
     :class="sidebarOpen ? 'w-72 translate-x-0' : 'w-20 -translate-x-full md:translate-x-0 md:w-24'">
 
-    {{-- <div class="flex items-center h-20 bg-[#1A305E] " :class="sidebarOpen ? 'px-8 gap-4' : 'px-0 justify-center'">
-        <img src="{{ asset('images/ppid-2.png') }}" alt="Logo PPID Sulawesi Selatan"
-            class="object-contain transition-all duration-300 h-12 w-auto"
-            :class="sidebarOpen ? 'h-12 w-auto' : 'h-7 w-7'" />
-
-        <div class="logo-text flex flex-col overflow-hidden whitespace-nowrap "
-            :class="sidebarOpen ? 'w-full opacity-100 ml-0' : 'w-0 opacity-0 hidden'">
-            <span class="font-bold text-lg tracking-wide">ADMIN PANEL</span>
-            <span class="text-slate-300">PPID Sulsel</span>
-        </div>
-    </div> --}}
-
     <div class="flex justify-between items-center" :class="sidebarOpen ? 'p-6 pr-4 pb-0' : 'p-5 pl-7 pb-0'">
         <h1 :class="sidebarOpen ? 'font-bold text-xl' : 'hidden'">Admin Panel</h1>
 
@@ -95,8 +83,8 @@
             </x-sidebar-dropdown>
 
             @role('opd')
-            <x-sidebar-link :href="route('admin.berita.index')"
-                    :active="request()->routeIs('admin.berita.*')" label="Berita & Artikel">
+            <x-sidebar-link :href="route('admin.berita.index')" :active="request()->routeIs('admin.berita.*')"
+                label="Berita & Artikel">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
@@ -155,6 +143,7 @@
                 class="text-[10px] font-bold text-slate-400 uppercase tracking-[2px] whitespace-nowrap">{{ __('Manajemen Informasi') }}</span>
         </div>
         <ul>
+            @role('admin')
             <x-sidebar-link href="{{ route('admin.matriks-dip.index') }}"
                 :active="request()->routeIs('admin.matriks-dip.*')" label="Matriks DIP">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
@@ -166,6 +155,7 @@
                     </g>
                 </svg>
             </x-sidebar-link>
+            @endrole
 
             <x-sidebar-link href="{{ route('admin.dokumen-publik.index') }}"
                 :active="request()->routeIs('admin.dokumen-publik.*')" label="Publikasi Dokumen">
@@ -176,6 +166,7 @@
                 </svg>
             </x-sidebar-link>
 
+            @role('admin')
             <x-sidebar-link href="{{ route('admin.ikphns.index') }}" :active="request()->routeIs('admin.ikphns.*')"
                 label="Informasi Pengadaan">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -189,6 +180,7 @@
                     <path d="M18 17.5V9.4" />
                 </svg>
             </x-sidebar-link>
+            @endrole
         </ul>
 
         {{-- Route khusus admin --}}

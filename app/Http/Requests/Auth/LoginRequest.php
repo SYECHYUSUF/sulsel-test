@@ -28,22 +28,25 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'string'],
+            'username' => ['required', 'string'],
             'password' => ['required', 'string'],
             // Validasi reCAPTCHA
-            'g-recaptcha-response' => ['required', function ($attribute, $value, $fail) {
-                $secret = config('services.recaptcha.secret_key');
-                
-                $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
-                    'secret' => $secret,
-                    'response' => $value,
-                    'remoteip' => $this->ip(),
-                ]);
+            'g-recaptcha-response' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    $secret = config('services.recaptcha.secret_key');
 
-                if (!$response->json('success')) {
-                    $fail('Verifikasi Captcha gagal. Silakan coba lagi.');
+                    $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+                        'secret' => $secret,
+                        'response' => $value,
+                        'remoteip' => $this->ip(),
+                    ]);
+
+                    if (!$response->json('success')) {
+                        $fail('Verifikasi Captcha gagal. Silakan coba lagi.');
+                    }
                 }
-            }],
+            ],
         ];
     }
 
@@ -56,11 +59,12 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        // Ganti 'email' menjadi 'username' pada Auth::attempt
+        if (!Auth::attempt($this->only('username', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+                'username' => trans('auth.failed'), // Pesan error untuk username
             ]);
         }
 
@@ -74,7 +78,7 @@ class LoginRequest extends FormRequest
      */
     public function ensureIsNotRateLimited(): void
     {
-        if (! RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
+        if (!RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
             return;
         }
 
@@ -102,6 +106,6 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->string('email')).'|'.$this->ip());
+        return Str::transliterate(Str::lower($this->string('email')) . '|' . $this->ip());
     }
 }

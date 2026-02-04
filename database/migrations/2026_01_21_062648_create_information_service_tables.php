@@ -29,7 +29,7 @@ return new class extends Migration {
             $table->id();
             $table->string('nama')->nullable();
             $table->string('slug')->nullable();
-            $table->bigInteger('is_active')->default(0);
+            $table->integer('is_active')->default(0);
             $table->timestamps();
         });
 
@@ -37,7 +37,7 @@ return new class extends Migration {
             $table->integer('id_kat_info')->autoIncrement();
             $table->string('nm_kat_info');
             $table->string('icon');
-            $table->boolean('is_active')->default(true);
+            $table->integer('is_active')->default(1);
             $table->timestamps();
         });
 
@@ -52,7 +52,7 @@ return new class extends Migration {
             $table->enum('verify', ['y', 'n', 't'])->default('n');
             $table->date('tgl_verify')->nullable();
             $table->text('ket');
-            $table->integer('jumlah_download')->nullable();
+            $table->bigInteger('jumlah_download')->nullable();
             $table->timestamps();
         });
 
@@ -102,12 +102,15 @@ return new class extends Migration {
             $table->string('state_kuasa')->nullable();
             $table->string('no_telp_kuasa')->nullable();
             $table->text('kasus')->nullable();
-            $table->enum('status', ['n', 'y', 't', 'a'])->nullable();
+            $table->enum('status', ['n', 'y', 't', 'a', 'p', 'd'])->nullable();
             $table->enum('is_cek', ['0', '1'])->default('0');
             $table->string('id_skpd')->nullable();
             $table->string('alasan')->nullable();
             $table->string('keterangan')->nullable();
             $table->string('file')->nullable();
+            $table->text('feedback')->nullable()->after('status');
+            $table->timestamp('tgl_feedback')->nullable()->after('feedback');
+            $table->unsignedBigInteger('feedback_by')->nullable()->after('tgl_feedback');
             $table->timestamps();
         });
 

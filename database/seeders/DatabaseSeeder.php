@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\MasterTahun;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -12,55 +11,27 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Seed roles first
-        $this->call([
-            RoleSeeder::class,
-            FaqSeeder::class,
-            SurveySeeder::class,
-            SurveyResponseSeeder::class,
-            TahunSeeder::class,
-        ]);
+        // $this->call([
+        //     SqlFileSeeder::class,
 
-        // --- Konfigurasi User Admin 2 ---
-        $admin2Data = [
-            'name' => 'Admin 2',
-            'username' => 'admin2',
-            'email' => 'admin2@gmail.com',
-            'password' => Hash::make('admin123'),
-            'id_skpd' => null, // Admin pusat biasanya tidak terikat ID SKPD tertentu
-        ];
+        //     FaqSeeder::class,
+        //     SurveySeeder::class,
+        //     SurveyResponseSeeder::class,
+        //     TahunSeeder::class,
 
-        // Hapus jika user admin2 sudah ada sebelumnya
-        User::where('email', $admin2Data['email'])
-            ->orWhere('username', $admin2Data['username'])
-            ->delete();
+        //     SosmedSeeder::class,
 
-        // Buat user admin2 dan berikan role 'admin'
-        $userAdmin2 = User::create($admin2Data);
-        $userAdmin2->addRole('admin');
+        //     MasterPekerjaanSeeder::class,
+        //     MasterDomisiliSeeder::class,
 
-        // --- Konfigurasi User Dbmk 2 ---
-        $dbmkData = [
-            'name' => 'Dbmk 2',
-            'username' => 'dbmk2',
-            'email' => 'dbmk2@gmail.com',
-            'password' => Hash::make('dbmk123'),
-            'id_skpd' => 'SKPD008',
-        ];
+        //     ProfilSeeder::class,
 
-        // Hapus user jika sudah ada (berdasarkan email atau username)
-        User::where('email', $dbmkData['email'])
-            ->orWhere('username', $dbmkData['username'])
-            ->delete();
-
-        // Buat user baru
-        $userDbmk = User::create($dbmkData);
-
-        // Tambahkan role 'opd' (Relasi Laratrust)
-        $userDbmk->addRole('opd');
-
+        //     SlideBannerSeeder::class,
+        // ]);
 
         // --- Konfigurasi User Esdm 2 ---
         $esdmData = [
+            'id' => 5001,
             'name' => 'Esdm 2',
             'username' => 'esdm2',
             'email' => 'esdm2@gmail.com',

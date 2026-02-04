@@ -2,17 +2,21 @@
     class="bg-slate-50 dark:bg-slate-800 h-20 flex items-center justify-between px-8 py-5 transition-colors duration-300 shadow-sm">
     <div class="flex-1 flex items-center max-w-2xl gap-4">
 
-        <button  @click="toggleSidebar()" class="p-2 md:hidden hover:bg-white/5 rounded-lg text-slate-400 focus:outline-none">
+        <button @click="toggleSidebar()"
+            class="p-2 md:hidden hover:bg-white/5 rounded-lg text-slate-400 focus:outline-none">
             <svg :class="sidebarOpen ? 'w-5 h-5' : 'w-6 h-6'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-panel-right-icon lucide-panel-right"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M15 3v18"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-panel-right-icon lucide-panel-right">
+                    <rect width="18" height="18" x="3" y="3" rx="2" />
+                    <path d="M15 3v18" />
+                </svg>
             </svg>
         </button>
 
-        <img src="{{ asset('images/ppid-2.png') }}" 
-            alt="Logo PPID Sulawesi Selatan"
-            class="object-contain transition-all duration-300 h-12 w-auto" 
-            :class="sidebarOpen ? 'h-7 w-7 md:h-12 md:w-auto' : 'h-7 w-7'" 
-        />
+        <img src="{{ asset('images/ppid-2.png') }}" alt="Logo PPID Sulawesi Selatan"
+            class="object-contain transition-all duration-300 h-12 w-auto"
+            :class="sidebarOpen ? 'h-7 w-7 md:h-12 md:w-auto' : 'h-7 w-7'" />
 
         @php
             $segments = request()->segments();
