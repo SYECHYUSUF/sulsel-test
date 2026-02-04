@@ -19,11 +19,6 @@
                 border: 1px solid rgba(255, 255, 255, 0.1);
             }
 
-            .glass-header {
-                background: linear-gradient(135deg, #1A305E 0%, #2563eb 50%, #3b82f6 100%);
-                backdrop-filter: blur(10px);
-                -webkit-backdrop-filter: blur(10px);
-            }
 
             .status-badge {
                 backdrop-filter: blur(8px);
@@ -50,7 +45,7 @@
 
     <div x-data="keberatanDataTable()" x-init="fetchData()" class="space-y-6">
         <!-- Header Section with Glassmorphism -->
-        <div class="glass-header rounded-2xl p-6 text-white shadow-xl">
+        <div class="bg-gradient-to-br from-ppid-primary via-blue-500 to-blue-600 backdrop-blur-md rounded-2xl p-6 text-white shadow-xl">
             <div class="flex flex-col gap-4">
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div>

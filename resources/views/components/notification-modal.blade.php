@@ -122,7 +122,7 @@
                         --}}
                         
                             <linearGradient id="grad_success" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#1A305E" />
+                                <stop offset="0%" class="text-ppid-primary" stop-color="currentColor" />
                                 <stop offset="100%" stop-color="#3B82F6" />
                             </linearGradient>
                             <linearGradient id="grad_error" x1="0%" y1="0%" x2="100%" y2="100%">

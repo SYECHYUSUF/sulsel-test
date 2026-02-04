@@ -67,13 +67,13 @@
                                 @elseif($theme == 'warning')
                                     <stop offset="0%" stop-color="#F59E0B" /> <stop offset="100%" stop-color="#EA580C" />
                                 @else
-                                    <stop offset="0%" stop-color="#1A305E" /> <stop offset="100%" stop-color="#3B82F6" />
+                                    <stop offset="0%" class="text-ppid-primary" stop-color="currentColor" /> <stop offset="100%" stop-color="#3B82F6" />
                                 @endif
                             </linearGradient>
                         </defs>
                         {{-- To fix the ID reference issue, we'll just use inline styles or standard fill for now if gradients are tricky dynamically, 
                              or rely on a simpler approach. Actually, standard fill colors might be safer and still look good. --}}
-                        <path fill="{{ $theme == 'danger' ? '#EF4444' : ($theme == 'warning' ? '#F59E0B' : '#1A305E') }}" 
+                        <path class="{{ $theme == 'danger' ? 'fill-red-500' : ($theme == 'warning' ? 'fill-amber-500' : 'fill-ppid-primary') }}" 
                               d="M41.8,-71.3C54.7,-64.9,66.1,-54.6,75.4,-42.1C84.7,-29.6,91.9,-14.8,90.2,-0.9C88.6,12.9,78.1,25.8,67.4,36.9C56.7,48,45.8,57.2,33.5,63.9C21.2,70.6,7.5,74.7,-5.7,73.8C-18.9,72.9,-31.7,66.9,-44.1,60.2C-56.5,53.5,-68.5,46,-76.3,34.9C-84.1,23.8,-87.7,9.1,-84.8,-4.2C-81.9,-17.5,-72.5,-29.3,-62.4,-39.7C-52.3,-50.1,-41.5,-59.1,-29.6,-66.1C-17.7,-73.2,-4.7,-78.3,4.2,-79C13.1,-79.7,26.2,-76,33.1,-72.3L41.8,-71.3Z" 
                               transform="translate(100 100) scale(1.1)" opacity="0.2"/>
                     </svg>

@@ -12,11 +12,6 @@
                 box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
             }
 
-            .glass-header {
-                background: linear-gradient(135deg, #1A305E 0%, #2563eb 50%, #3b82f6 100%);
-                backdrop-filter: blur(10px);
-                -webkit-backdrop-filter: blur(10px);
-            }
 
             .animate-pulse {
                 animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
@@ -38,7 +33,7 @@
 
     <div x-data="permohonanDataTable()" x-init="fetchData()" class="space-y-6">
         <!-- Header Section with Gradient -->
-        <div class="glass-header rounded-2xl p-6 text-white shadow-xl">
+        <div class="bg-gradient-to-br from-ppid-primary via-blue-500 to-blue-600 backdrop-blur-md rounded-2xl p-6 text-white shadow-xl">
             <div class="flex flex-col gap-4">
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div>

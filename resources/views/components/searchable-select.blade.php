@@ -97,10 +97,10 @@
                 <button type="button"
                     @click="select(opt)"
                     class="w-full px-4 py-2.5 text-left text-sm hover:bg-slate-50 flex items-center justify-between group transition-colors"
-                    :class="value == opt.id ? 'bg-slate-50 text-[#1a305e] font-semibold' : 'text-slate-600'">
+                    :class="value == opt.id ? 'bg-slate-50 text-ppid-primary font-semibold' : 'text-slate-600'">
                     
                     <span x-text="opt.label"></span>
-                    <svg x-show="value == opt.id" class="w-4 h-4 text-[#d4af37]" fill="currentColor" viewBox="0 0 20 20">
+                    <svg x-show="value == opt.id" class="w-4 h-4 text-ppid-accent" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                     </svg>
                 </button>

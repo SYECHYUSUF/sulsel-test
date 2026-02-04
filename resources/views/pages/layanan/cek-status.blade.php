@@ -104,7 +104,7 @@
                                 <button type="button" @click="type = 'permohonan'; resetForm()"
                                     :class="type === 'permohonan' ? 'bg-gradient-to-r from-ppid-primary to-[#2a4a7c] text-white shadow-xl scale-105' : 'bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:shadow-lg'"
                                     class="relative p-6 rounded-2xl border-2 transition-all duration-300 group"
-                                    :style="type === 'permohonan' ? 'border-color: #D4AF37' : 'border-color: transparent'">
+                                    :class="type === 'permohonan' ? 'border-ppid-accent' : 'border-transparent'">
                                     <div class="flex items-center gap-4">
                                         <div class="p-3 rounded-xl transition-colors" :class="type === 'permohonan' ? 'bg-white/10' : 'bg-slate-100 dark:bg-slate-600'">
                                             <svg class="w-8 h-8 transition-colors" :class="type === 'permohonan' ? 'text-ppid-accent' : 'text-ppid-primary dark:text-slate-300'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -126,7 +126,7 @@
                                 <button type="button" @click="type = 'keberatan'; resetForm()"
                                     :class="type === 'keberatan' ? 'bg-gradient-to-r from-ppid-primary to-[#2a4a7c] text-white shadow-xl scale-105' : 'bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:shadow-lg'"
                                     class="relative p-6 rounded-2xl border-2 transition-all duration-300 group"
-                                    :style="type === 'keberatan' ? 'border-color: #D4AF37' : 'border-color: transparent'">
+                                    :class="type === 'keberatan' ? 'border-ppid-accent' : 'border-transparent'">
                                     <div class="flex items-center gap-4">
                                         <div class="p-3 rounded-xl transition-colors" :class="type === 'keberatan' ? 'bg-white/10' : 'bg-slate-100 dark:bg-slate-600'">
                                             <svg class="w-8 h-8 transition-colors" :class="type === 'keberatan' ? 'text-ppid-accent' : 'text-ppid-primary dark:text-slate-300'" fill="none" stroke="currentColor" viewBox="0 0 24 24">

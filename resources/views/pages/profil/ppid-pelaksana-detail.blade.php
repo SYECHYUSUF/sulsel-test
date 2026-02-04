@@ -9,7 +9,7 @@
             <div class="absolute inset-0 opacity-10">
                 <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
                     <pattern id="motif" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-                        <path d="M0 40L40 0H20L0 20M40 40V20L20 40" stroke="#D4AF37" stroke-width="2" fill="none"/>
+                        <path d="M0 40L40 0H20L0 20M40 40V20L20 40" class="stroke-ppid-accent" stroke-width="2" fill="none"/>
                     </pattern>
                     <rect width="100%" height="100%" fill="url(#motif)"/>
                 </svg>
@@ -189,8 +189,8 @@
                             {{-- Pattern Overlay --}}
                             <div class="absolute inset-0 opacity-10">
                                 <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="100%" cy="0" r="100" fill="#D4AF37"/>
-                                    <circle cx="0" cy="100%" r="80" fill="#D4AF37"/>
+                                    <circle cx="100%" cy="0" r="100" class="fill-ppid-accent" />
+                                    <circle cx="0" cy="100%" r="80" class="fill-ppid-accent" />
                                 </svg>
                             </div>
 

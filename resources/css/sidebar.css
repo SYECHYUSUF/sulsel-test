@@ -1,12 +1,12 @@
 /* Sidebar Container harus memiliki background warna gelap agar lengkungan terlihat */
 .sidebar-container {
-    background-color: #1a202c;
+    background-color: theme('colors.sidebar-bg');
     /* Contoh warna gelap */
 }
 
 /* Link yang aktif */
 .sidebar-link-active {
-    background-color: #fff;
+    background-color: theme('colors.sidebar-active');
     /* Warna background konten utama */
     border-radius: 20px 0 0 20px;
     /* Lengkungan utama di sisi kiri link */
@@ -23,7 +23,7 @@
     height: 20px;
     background-color: transparent;
     border-bottom-right-radius: 20px;
-    box-shadow: 10px 10px 0 10px #fff;
+    box-shadow: 10px 10px 0 10px theme('colors.sidebar-active');
     /* Mengisi sudut dengan warna background link */
 }
 
@@ -37,7 +37,7 @@
     height: 20px;
     background-color: transparent;
     border-top-right-radius: 20px;
-    box-shadow: 10px -10px 0 10px #fff;
+    box-shadow: 10px -10px 0 10px theme('colors.sidebar-active');
 }
 
 @view-transition {

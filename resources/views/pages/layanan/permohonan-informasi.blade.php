@@ -118,7 +118,7 @@
                                             xmlns="http://www.w3.org/2000/svg">
                                             <defs>
                                                 <linearGradient id="blobGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                                    <stop offset="0%" style="stop-color:#1A305E;stop-opacity:1" />
+                                                    <stop offset="0%" class="text-ppid-primary" style="stop-color:currentColor;stop-opacity:1" />
                                                     <!-- Primary Dark Blue -->
                                                     <stop offset="100%" style="stop-color:#3B82F6;stop-opacity:1" />
                                                     <!-- Blue 500 -->
