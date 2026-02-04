@@ -43,7 +43,7 @@
         <template x-if="item.status != 5">
             {{-- Right: Response & Handler --}}
             <div class="space-y-6">
-                <div class="bg-gradient-to-br from-ppid-primary to-[#2a4a7c] rounded-2xl p-5 text-white shadow-lg">
+                <div class="bg-gradient-to-br from-ppid-primary to-ppid-primary-light rounded-2xl p-5 text-white shadow-lg">
                     <p class="text-xs font-bold text-ppid-accent uppercase mb-1">
                         {{ __('messages.status.handled_by') }}
                     </p>

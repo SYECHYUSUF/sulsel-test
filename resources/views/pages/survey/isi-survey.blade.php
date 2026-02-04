@@ -163,7 +163,7 @@
                         <button type="reset" class="px-6 py-3 text-base font-semibold text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
                             {{ __('messages.survey_form.reset_btn') }}
                         </button>
-                        <button type="submit" class="group relative px-10 py-4 bg-gradient-to-r from-ppid-primary to-[#2A4A7E] text-white text-lg font-bold rounded-xl hover:from-[#2A4A7E] hover:to-ppid-primary transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 overflow-hidden">
+                        <button type="submit" class="group relative px-10 py-4 bg-gradient-to-r from-ppid-primary to-ppid-primary-light text-white text-lg font-bold rounded-xl hover:from-ppid-primary-light hover:to-ppid-primary transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 overflow-hidden">
                             <span class="relative z-10 flex items-center gap-2">
                                 {{ __('messages.survey_form.submit_btn') }}
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">

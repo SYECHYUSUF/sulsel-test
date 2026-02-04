@@ -71,7 +71,7 @@
 
         {{-- Hero Section --}}
         <section
-            class="relative bg-gradient-to-br from-ppid-primary via-[#2a4a7c] to-ppid-primary text-white overflow-hidden pb-32 md:pb-40">
+            class="relative bg-gradient-to-br from-ppid-primary via-ppid-primary-light to-ppid-primary text-white overflow-hidden pb-32 md:pb-40">
             <div class="container mx-auto px-4 sm:px-6 relative z-10 text-center pt-16 md:pt-24">
                 {{-- Judul --}}
                 <h1
@@ -166,7 +166,7 @@
                             </div>
 
                             <button type="submit" :disabled="loading"
-                                class="w-full bg-gradient-to-r from-ppid-primary to-[#2a4a7c] hover:from-[#152749] hover:to-[#1f3a65] text-white text-xl md:text-2xl font-bold py-6 px-8 rounded-2xl transition-all transform hover:scale-[1.02] shadow-xl flex items-center justify-center gap-4 disabled:opacity-50">
+                                class="w-full bg-gradient-to-r from-ppid-primary to-ppid-primary-light hover:from-ppid-primary-hover hover:to-ppid-primary text-white text-xl md:text-2xl font-bold py-6 px-8 rounded-2xl transition-all transform hover:scale-[1.02] shadow-xl flex items-center justify-center gap-4 disabled:opacity-50">
                                 <svg x-show="loading" class="animate-spin w-7 h-7" fill="none" viewBox="0 0 24 24">
                                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
                                         stroke-width="4"></circle>

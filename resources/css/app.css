@@ -42,7 +42,7 @@
     .highlight-titles h6 {
         outline: 2px solid theme('colors.ppid-accent');
         padding: 2px;
-        background-color: rgba(212, 175, 55, 0.1);
+        background-color: theme('colors.ppid-accent / 0.1');
     }
 
     .acc-cursor-big,
@@ -171,7 +171,7 @@
 
 /* Menyesuaikan container utama TinyMCE */
 .tox-tinymce {
-    border: 1px solid #e2e8f0 !important;
+    border: 1px solid theme('colors.slate.200') !important;
     border-radius: 0.5rem !important;
     transition:
         border-color 0.2s,
@@ -188,7 +188,7 @@
 
 /* Menghilangkan border internal antara toolbar dan area edit jika diperlukan */
 .tox .tox-toolbar__primary {
-    border-bottom: 1px solid #f1f5f9 !important;
+    border-bottom: 1px solid theme('colors.slate.100') !important;
     /* slate-100 */
 }
 
@@ -272,26 +272,26 @@
 
 /* FilePond Dark Mode */
 .dark .filepond--panel-root {
-    background-color: #1e293b !important;
-    border: 1px solid #334155 !important;
+    background-color: theme('colors.slate.800') !important;
+    border: 1px solid theme('colors.slate.700') !important;
 }
 
 .dark .filepond--drop-label {
-    color: #94a3b8 !important;
+    color: theme('colors.ppid-text-light') !important;
 }
 
 .dark .filepond--label-action {
-    text-decoration-color: #64748b !important;
+    text-decoration-color: theme('colors.slate.500') !important;
 }
 
 .dark .filepond--item-panel {
-    background-color: #334155 !important;
+    background-color: theme('colors.slate.700') !important;
 }
 
 .dark .filepond--file-info-main {
-    color: #f1f5f9 !important;
+    color: theme('colors.slate.100') !important;
 }
 
 .dark .filepond--file-info-sub {
-    color: #94a3b8 !important;
+    color: theme('colors.ppid-text-light') !important;
 }

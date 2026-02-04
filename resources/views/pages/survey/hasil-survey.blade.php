@@ -82,7 +82,7 @@
                     @foreach($results as $result)
                         <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-md border-2 border-gray-200 dark:border-slate-700 overflow-hidden hover:shadow-xl transition-all">
                             {{-- Question Header --}}
-                            <div class="bg-gradient-to-r from-ppid-primary to-[#2A4A7E] p-6">
+                            <div class="bg-gradient-to-r from-ppid-primary to-ppid-primary-light p-6">
                                 <div class="flex items-start gap-3">
                                     <span class="flex-shrink-0 inline-flex items-center justify-center w-10 h-10 rounded-full bg-white text-ppid-primary text-lg font-bold shadow-md">
                                         {{ $result['question']->urutan }}
@@ -99,7 +99,7 @@
                                     <div class="group">
                                         <div class="flex items-center justify-between mb-2">
                                             <div class="flex items-center gap-2">
-                                                <span class="flex items-center justify-center w-7 h-7 rounded-full bg-[#673AB7] text-white text-sm font-bold">
+                                                <span class="flex items-center justify-center w-7 h-7 rounded-full bg-ppid-purple text-white text-sm font-bold">
                                                     {{ chr(65 + $index) }}
                                                 </span>
                                                 <span class="text-base font-semibold text-gray-800 dark:text-gray-200">
@@ -117,11 +117,11 @@
                                             </div>
                                             <div class="flex items-center gap-2">
                                                 <span class="text-sm text-gray-600 dark:text-gray-400">{{ $stat['count'] }} {{ __('messages.survey_result.respondents') }}</span>
-                                                <span class="text-xl font-bold text-[#673AB7]">{{ $stat['percentage'] }}%</span>
+                                                <span class="text-xl font-bold text-ppid-purple">{{ $stat['percentage'] }}%</span>
                                             </div>
                                         </div>
                                         <div class="relative w-full bg-gray-200 dark:bg-slate-700 rounded-full h-10 overflow-hidden shadow-inner">
-                                            <div class="absolute inset-0 bg-gradient-to-r from-[#673AB7] to-[#8B5FBF] h-full rounded-full flex items-center px-4 transition-all duration-700 ease-out group-hover:brightness-110" 
+                                            <div class="absolute inset-0 bg-gradient-to-r from-ppid-purple to-ppid-purple-light h-full rounded-full flex items-center px-4 transition-all duration-700 ease-out group-hover:brightness-110" 
                                                  style="width: {{ $stat['percentage'] }}%">
                                                 @if($stat['percentage'] > 12)
                                                 <span class="text-sm font-bold text-white drop-shadow-md">{{ $stat['percentage'] }}%</span>

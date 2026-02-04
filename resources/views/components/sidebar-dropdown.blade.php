@@ -11,7 +11,7 @@
         }" class="flex items-center py-3 text-sm font-semibold transition-all duration-200 rounded-xl mx-3 group"
         :class="[
                 sidebarOpen ? 'px-4 justify-between w-[calc(100%-1.5rem)]' : 'px-0 justify-center h-12 w-12 mx-auto',
-                (activeDropdown === '{{ $label }}' || @js($active)) && sidebarOpen ? 'text-white bg-white/5' : 'text-slate-400 hover:text-white hover:bg-white/5'
+                (activeDropdown === '{{ $label }}' || @js($active)) && sidebarOpen ? 'text-white bg-sidebar-hover' : 'text-slate-400 hover:text-white hover:bg-sidebar-hover'
             ]">
         <div class="flex items-center min-w-0">
             <div class="w-6 h-6 shrink-0 transition-colors duration-200" :class="[

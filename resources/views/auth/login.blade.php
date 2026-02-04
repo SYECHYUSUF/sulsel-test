@@ -12,7 +12,7 @@
                 class="w-full h-full object-cover object-center opacity-30">
             <!-- Navy Gradient Overlay -->
             <div
-                class="absolute inset-0 bg-gradient-to-br from-ppid-primary/95 via-ppid-primary/85 to-[#122143]/95 mix-blend-multiply">
+                class="absolute inset-0 bg-gradient-to-br from-ppid-primary/95 via-ppid-primary/85 to-ppid-primary-hover/95 mix-blend-multiply">
             </div>
             <!-- Additional Subtle Pattern for Texture -->
             <div
@@ -27,7 +27,7 @@
             <!-- Left Side: Branding & Info (Hidden on small mobile, visible on large) -->
             <!-- Added better mobile handling: Hidden on base, flex on lg -->
             <div
-                class="hidden lg:flex lg:w-5/12 bg-gradient-to-b from-ppid-primary to-[#0f172a] p-12 flex-col justify-between items-center text-center relative overflow-hidden group border-r border-white/10">
+                class="hidden lg:flex lg:w-5/12 bg-gradient-to-b from-ppid-primary to-ppid-primary-dark p-12 flex-col justify-between items-center text-center relative overflow-hidden group border-r border-white/10">
 
                 <!-- Decorative Circles -->
                 <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
@@ -187,7 +187,7 @@
                         @endif
 
                         <button type="submit"
-                            class="w-full mt-4 flex justify-center py-4 px-6 border border-transparent rounded-xl shadow-lg text-base font-bold text-white bg-gradient-to-r from-ppid-primary to-[#2c3e50] hover:from-[#122143] hover:to-ppid-primary focus:outline-none focus:ring-4 focus:ring-ppid-primary/30 transform hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
+                            class="w-full mt-4 flex justify-center py-4 px-6 border border-transparent rounded-xl shadow-lg text-base font-bold text-white bg-gradient-to-r from-ppid-primary to-ppid-primary-dark hover:from-ppid-primary-hover hover:to-ppid-primary focus:outline-none focus:ring-4 focus:ring-ppid-primary/30 transform hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
                             MASUK SEKARANG
                         </button>
 

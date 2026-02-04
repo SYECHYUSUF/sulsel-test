@@ -29,7 +29,7 @@
             <a href="{{ $s['url'] }}" class="group h-full block"
                  data-aos="fade-up" 
                  data-aos-delay="{{ $index * 150 }}">
-                <div class="relative bg-white dark:bg-slate-800 rounded-2xl p-6 sm:p-8 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_-10px_rgba(26,48,94,0.1)] transition-all duration-700 ease-out group-hover:-translate-y-1 border border-gray-100/80 dark:border-slate-700 overflow-hidden h-full flex flex-col">
+                <div class="relative bg-white dark:bg-slate-800 rounded-2xl p-6 sm:p-8 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_-10px_theme('colors.ppid-primary_/_10%')] transition-all duration-700 ease-out group-hover:-translate-y-1 border border-gray-100/80 dark:border-slate-700 overflow-hidden h-full flex flex-col">
                 
                 {{-- Hover Accent Line --}}
                 <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-ppid-accent to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>

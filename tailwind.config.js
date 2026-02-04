@@ -16,26 +16,40 @@ export default {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                'ppid-primary': '#1A305E', // Midnight Navy - Main Brand Color
-                'ppid-primary-hover': '#122143', // Darker navy for hovers
-                'ppid-primary-light': '#2A4A7E', // Lighter navy for gradients/accents
-                'ppid-primary-dark': '#0f172a', // Very dark blue/slate for gradients
+                'ppid-primary': '#800020', // Burgundy (Ganti dari Navy)
+                'ppid-primary-hover': '#4a0012', // Darker Burgundy
+                'ppid-primary-light': '#9b1c31', // Lighter Burgundy
+                'ppid-primary-dark': '#2a000a', // Deep Burgundy/Blackish
 
-                'ppid-accent': '#D4AF37',  // Metallic Gold - Highlights & Actions
-                'ppid-accent-hover': '#B08D26', // Darker gold for hovers
+                'ppid-accent': '#D4AF37',  // Gold (Tetap)
+                'ppid-accent-hover': '#B08D26', // Darker Gold (Tetap)
 
-                'ppid-text': '#4A5568',    // Slate Gray - Primary Text
-                'ppid-text-light': '#94a3b8', // Slate 400 - Secondary/Muted Text
+                'ppid-text': '#000000',    // Pure Black (Ganti dari Slate)
+                'ppid-text-light': '#666666', // Neutral Gray
 
-                'sidebar-bg': '#1a202c',   // Dark Gray Blue - Sidebar Background
-                'sidebar-active': '#ffffff', // White - Active Sidebar Link Background
+                'sidebar-bg': '#000000',   // Pure Black (Ganti dari Dark Gray Blue)
+                'sidebar-active': '#ffffff', // White (Tetap)
+                'sidebar-hover': 'rgba(255, 255, 255, 0.05)', // Configurable sidebar hover color
+
+                'ppid-accent-light': '#EAC548', // Lighter Gold for gradients
+
+                // Status Colors (Tetap standar fungsional)
+                'ppid-error': '#D1001F',
+                'ppid-success': '#10B981',
+                'ppid-warning': '#F59E0B',
+                'ppid-info': '#3B82F6',
+
+                // Custom Brand Colors (Disesuaikan ke tema Burgundy/Hitam)
+                'ppid-purple': '#800020', // Diubah ke Burgundy agar senada
+                'ppid-purple-light': '#9b1c31', // Diubah ke Light Burgundy
+                'ppid-blue': '#800020', // Diubah ke Burgundy (biasanya untuk link)
 
                 // Functional Colors
-                'page-bg': '#ffffff',      // Light mode background
-                'page-bg-dark': '#0f172a', // Dark mode background (matches primary-dark/slate-900)
+                'page-bg': '#ffffff',      // White
+                'page-bg-dark': '#000000', // Black
 
-                // Legacy Support (to be safe)
-                'dark-blue-gradient': '#2c3e50',
+                // Legacy Support
+                'dark-blue-gradient': '#000000', // Diubah ke Black
             },
             backgroundImage: {
                 'ppid-gradient-main': 'linear-gradient(to right, #1A305E, #2c3e50)',

@@ -328,7 +328,7 @@
                                                 class="relative flex items-start p-3 border border-gray-200 dark:border-slate-700 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700/50 cursor-pointer group transition-all bg-white dark:bg-slate-800">
                                                 <div class="flex items-center h-5">
                                                     <input type="checkbox" name="alasan[]" value="{{ $alasan->alasan }}"
-                                                        class="h-4 w-4 text-[#D1001F] border-gray-300 rounded focus:ring-[#D1001F]">
+                                                        class="h-4 w-4 text-ppid-error border-gray-300 rounded focus:ring-ppid-error">
                                                 </div>
                                                 <div class="ml-3 text-sm">
                                                     <span
@@ -349,7 +349,7 @@
                         <div x-data="{ showKuasa: false }">
                             <div class="flex items-center mb-4">
                                 <input type="checkbox" id="showKuasa" x-model="showKuasa"
-                                    class="h-4 w-4 text-[#D1001F] border-gray-300 rounded focus:ring-[#D1001F] cursor-pointer">
+                                    class="h-4 w-4 text-ppid-error border-gray-300 rounded focus:ring-ppid-error cursor-pointer">
                                 <label for="showKuasa"
                                     class="ml-2 block text-sm font-semibold text-gray-700 dark:text-gray-300 cursor-pointer">
                                     Diwakilkan oleh Kuasa? 

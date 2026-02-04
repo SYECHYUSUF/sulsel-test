@@ -81,7 +81,7 @@
                     </div>
                     <div class="flex gap-2">
                         <button type="submit"
-                            class="px-6 py-2 bg-ppid-accent text-white rounded-lg hover:bg-[#B08D26] transition-colors font-medium">
+                            class="px-6 py-2 bg-ppid-accent text-white rounded-lg hover:bg-ppid-accent-hover transition-colors font-medium">
                             {{ __('messages.news.search_btn') }}
                         </button>
                         @if (request('search') || request('tahun'))
