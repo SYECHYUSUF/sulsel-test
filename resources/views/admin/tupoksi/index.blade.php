@@ -20,7 +20,7 @@
                 <div
                     class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-8">
                     <div class="flex items-center gap-3 mb-6">
-                        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-[#1A305E] text-white">
+                        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-ppid-primary text-white">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -39,7 +39,7 @@
                             </label>
                             <input type="text" name="nm_profil"
                                 value="{{ old('nm_profil', $profil->nm_profil ?? 'Tupoksi') }}"
-                                class="w-full px-4 py-3 border-2 border-slate-300 dark:border-slate-600 rounded-xl focus:outline-none focus:border-[#1A305E] bg-white dark:bg-slate-700 text-slate-900 dark:text-white"
+                                class="w-full px-4 py-3 border-2 border-slate-300 dark:border-slate-600 rounded-xl focus:outline-none focus:border-ppid-primary bg-white dark:bg-slate-700 text-slate-900 dark:text-white"
                                 required>
                             @error('nm_profil')
                                 <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
@@ -51,7 +51,7 @@
                                 Konten Halaman
                             </label>
                             <textarea name="deskripsi" id="editor"
-                                class="editor w-full px-4 py-3 border-2 border-slate-300 dark:border-slate-600 rounded-xl focus:outline-none focus:border-[#1A305E] bg-white dark:bg-slate-700 text-slate-900 dark:text-white"
+                                class="editor w-full px-4 py-3 border-2 border-slate-300 dark:border-slate-600 rounded-xl focus:outline-none focus:border-ppid-primary bg-white dark:bg-slate-700 text-slate-900 dark:text-white"
                                 rows="10">{{ old('deskripsi', $profil->deskripsi ?? '') }}</textarea>
                             @error('deskripsi')
                                 <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
@@ -60,7 +60,7 @@
 
                         <div class="flex justify-end gap-3">
                             <button type="submit"
-                                class="px-6 py-3 bg-gradient-to-r from-[#1A305E] to-[#2A4A7E] text-white font-semibold rounded-xl hover:from-[#2A4A7E] hover:to-[#1A305E] transition-all shadow-md hover:shadow-lg flex items-center gap-2">
+                                class="px-6 py-3 bg-gradient-to-r from-ppid-primary to-[#2A4A7E] text-white font-semibold rounded-xl hover:from-[#2A4A7E] hover:to-ppid-primary transition-all shadow-md hover:shadow-lg flex items-center gap-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
                                     stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

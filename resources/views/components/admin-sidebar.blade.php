@@ -1,8 +1,8 @@
 <aside
-    class="flex flex-col bg-[#1A305E] text-white z-30 font-sans border-r border-slate-200/10 absolute md:static h-full shadow-xl md:shadow-none inset-y-0 left-0"
+    class="flex flex-col bg-ppid-primary text-white z-30 font-sans border-r border-slate-200/10 absolute md:static h-full shadow-xl md:shadow-none inset-y-0 left-0"
     :class="sidebarOpen ? 'w-72 translate-x-0' : 'w-20 -translate-x-full md:translate-x-0 md:w-24'">
 
-    {{-- <div class="flex items-center h-20 bg-[#1A305E] " :class="sidebarOpen ? 'px-8 gap-4' : 'px-0 justify-center'">
+    {{-- <div class="flex items-center h-20 bg-ppid-primary " :class="sidebarOpen ? 'px-8 gap-4' : 'px-0 justify-center'">
         <img src="{{ asset('images/ppid-2.png') }}" alt="Logo PPID Sulawesi Selatan"
             class="object-contain transition-all duration-300 h-12 w-auto"
             :class="sidebarOpen ? 'h-12 w-auto' : 'h-7 w-7'" />

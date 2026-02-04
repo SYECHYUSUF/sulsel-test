@@ -53,7 +53,7 @@
             class="inline-block align-bottom bg-white dark:bg-slate-800 rounded-3xl px-8 pt-10 pb-8 text-center overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full">
             
             {{-- Success Icon --}}
-            <div class="mx-auto flex items-center justify-center h-20 w-20 rounded-full bg-gradient-to-br from-[#1A305E] to-blue-600 mb-6 shadow-lg">
+            <div class="mx-auto flex items-center justify-center h-20 w-20 rounded-full bg-gradient-to-br from-ppid-primary to-blue-600 mb-6 shadow-lg">
                 <svg class="h-10 w-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
                 </svg>
@@ -76,7 +76,7 @@
                 <p class="text-xs text-slate-500 dark:text-slate-400 mb-1">
                     Nomor pendaftaran:
                 </p>
-                <p class="text-sm font-semibold text-[#1A305E] dark:text-blue-400 mb-6">
+                <p class="text-sm font-semibold text-ppid-primary dark:text-blue-400 mb-6">
                     {{ $registrationNumber }}
                 </p>
             @else
@@ -101,12 +101,12 @@
 
                 @if($primaryButtonUrl !== '#')
                     <a href="{{ $primaryButtonUrl }}"
-                        class="px-6 py-3 bg-gradient-to-r from-[#1A305E] to-blue-600 hover:from-[#152749] hover:to-blue-700 text-white text-sm font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105">
+                        class="px-6 py-3 bg-gradient-to-r from-ppid-primary to-blue-600 hover:from-[#152749] hover:to-blue-700 text-white text-sm font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105">
                         {{ $primaryButtonText }}
                     </a>
                 @else
                     <button @click="close()" type="button"
-                        class="px-6 py-3 bg-gradient-to-r from-[#1A305E] to-blue-600 hover:from-[#152749] hover:to-blue-700 text-white text-sm font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105">
+                        class="px-6 py-3 bg-gradient-to-r from-ppid-primary to-blue-600 hover:from-[#152749] hover:to-blue-700 text-white text-sm font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105">
                         {{ $primaryButtonText }}
                     </button>
                 @endif

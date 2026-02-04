@@ -6,7 +6,7 @@
         <div class="container mx-auto px-4 py-6">
             {{-- Breadcrumb --}}
             <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mb-4">
-                <a href="/" class="hover:text-[#1A305E] dark:text-white transition-colors">
+                <a href="/" class="hover:text-ppid-primary dark:text-white transition-colors">
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                         <path
                             d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z">
@@ -17,19 +17,19 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                 </svg>
                 <a href="#"
-                    class="hover:text-[#1A305E] dark:text-white transition-colors">{{ __('messages.breadcrumb.profile') }}</a>
+                    class="hover:text-ppid-primary dark:text-white transition-colors">{{ __('messages.breadcrumb.profile') }}</a>
                 <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                 </svg>
                 <span
-                    class="text-[#1A305E] dark:text-white font-medium">{{ __('messages.profile.greeting_title') }}</span>
+                    class="text-ppid-primary dark:text-white font-medium">{{ __('messages.profile.greeting_title') }}</span>
             </div>
 
             {{-- Title --}}
             <div class="flex items-end justify-between">
                 <div>
                     <div>
-                        <h1 class="text-3xl md:text-4xl font-extrabold text-[#1A305E] dark:text-white leading-tight">
+                        <h1 class="text-3xl md:text-4xl font-extrabold text-ppid-primary dark:text-white leading-tight">
                             {{ __('messages.profile.greeting_title') }}
                         </h1>
                         <p class="text-base md:text-lg text-gray-600 dark:text-gray-300 mt-2">
@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 <div class="hidden md:block">
-                    <div class="w-20 h-1 bg-gradient-to-r from-[#1A305E] to-transparent rounded-full"></div>
+                    <div class="w-20 h-1 bg-gradient-to-r from-ppid-primary to-transparent rounded-full"></div>
                 </div>
             </div>
         </div>
@@ -52,7 +52,7 @@
                     {{-- Main Content --}}
                     <div class="w-full space-y-6">
                         {{-- Opening Quote --}}
-                        <div class="bg-[#1A305E] rounded-xl p-8 md:p-10 text-white relative overflow-hidden">
+                        <div class="bg-ppid-primary rounded-xl p-8 md:p-10 text-white relative overflow-hidden">
                             <div class="absolute -right-6 -top-6 text-white/10 text-[120px] leading-none font-serif">"
                             </div>
                             <div class="relative">
@@ -79,7 +79,7 @@
                             </p>
 
                             <div class="flex items-start gap-4">
-                                <div class="w-1 h-20 bg-[#D4AF37] rounded-full"></div>
+                                <div class="w-1 h-20 bg-ppid-accent rounded-full"></div>
                                 <div>
                                     <p class="font-bold text-gray-900 dark:text-white text-lg">Kepala PPID</p>
                                     <p class="text-gray-600 dark:text-gray-300 text-sm">Provinsi Sulawesi Selatan</p>
@@ -96,19 +96,19 @@
                     {{-- Leadership Card - Kepala PPID --}}
                     <div
                         class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 overflow-hidden top-24">
-                        <div class="bg-[#1A305E] px-5 py-4">
+                        <div class="bg-ppid-primary px-5 py-4">
                             <h3 class="font-bold text-white">Kepala PPID Utama</h3>
                         </div>
                         <div class="p-5">
-                            <div class="bg-[#1A305E]/5 rounded-lg p-4 border border-[#1A305E]/10">
-                                <div class="aspect-[3/4] rounded-lg overflow-hidden mb-3 border-4 border-[#D4AF37]">
+                            <div class="bg-ppid-primary/5 rounded-lg p-4 border border-ppid-primary/10">
+                                <div class="aspect-[3/4] rounded-lg overflow-hidden mb-3 border-4 border-ppid-accent">
                                     @if($profil && $profil->foto_kepala)
                                         <img src="{{ asset('storage/' . $profil->foto_kepala) }}"
                                             alt="Kepala PPID Utama Sulawesi Selatan" class="w-full h-full object-cover">
                                     @else
                                         {{-- Fallback placeholder --}}
                                         <div
-                                            class="w-full h-full flex items-center justify-center text-white bg-gradient-to-br from-[#1A305E] to-[#4A5568]">
+                                            class="w-full h-full flex items-center justify-center text-white bg-gradient-to-br from-ppid-primary to-ppid-text">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
@@ -117,10 +117,10 @@
                                         </div>
                                     @endif
                                 </div>
-                                <p class="font-bold text-[#1A305E] dark:text-white text-sm mb-1">Dr. H. Andi Sudirman
+                                <p class="font-bold text-ppid-primary dark:text-white text-sm mb-1">Dr. H. Andi Sudirman
                                     Sulaiman, SE., MM</p>
-                                <p class="text-xs text-[#D4AF37] font-semibold mb-2">Kepala Dinas Kominfo</p>
-                                <div class="w-12 h-0.5 bg-[#D4AF37] rounded-full mb-2"></div>
+                                <p class="text-xs text-ppid-accent font-semibold mb-2">Kepala Dinas Kominfo</p>
+                                <div class="w-12 h-0.5 bg-ppid-accent rounded-full mb-2"></div>
                                 <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">PPID Utama Provinsi
                                     Sulawesi Selatan</p>
                             </div>

@@ -164,14 +164,14 @@
         <div class="relative" x-data="{ open: false }" @click.away="open = false">
             <button @click="open = !open" class="flex items-center space-x-3 cursor-pointer group focus:outline-none">
                 <div
-                    class="h-10 w-10 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center overflow-hidden border-2 border-white dark:border-slate-600 shadow-md ring-2 ring-transparent group-hover:ring-[#D4AF37]/50 transition-all">
+                    class="h-10 w-10 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center overflow-hidden border-2 border-white dark:border-slate-600 shadow-md ring-2 ring-transparent group-hover:ring-ppid-accent/50 transition-all">
                     <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&background=1A305E&color=D4AF37"
                         alt="Admin" class="h-full w-full object-cover">
                 </div>
                 <div class="text-left hidden lg:block">
                     <div class="flex items-center">
                         <span
-                            class="text-sm font-bold text-[#1A305E] dark:text-slate-200 group-hover:text-[#D4AF37] transition-colors">
+                            class="text-sm font-bold text-ppid-primary dark:text-slate-200 group-hover:text-ppid-accent transition-colors">
                             {{ auth()->user()->name }}
                         </span>
                         <svg class="w-4 h-4 text-slate-400 ml-1 transition-transform duration-200"
@@ -197,7 +197,7 @@
                 style="display: none;">
 
                 <a href="/admin/profile"
-                    class="flex items-center px-4 py-2.5 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 hover:text-[#D4AF37] transition-colors">
+                    class="flex items-center px-4 py-2.5 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 hover:text-ppid-accent transition-colors">
                     <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
@@ -206,7 +206,7 @@
                 </a>
 
                 <a href="/settings"
-                    class="flex items-center px-4 py-2.5 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 hover:text-[#D4AF37] transition-colors">
+                    class="flex items-center px-4 py-2.5 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 hover:text-ppid-accent transition-colors">
                     <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">

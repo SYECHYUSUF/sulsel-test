@@ -5,7 +5,7 @@
     <div class="max-w-5xl mx-auto">
         {{-- Header --}}
         <div class="mb-8">
-            <a href="{{ route('admin.survey-responses.index') }}" class="inline-flex items-center gap-2 text-[#1A305E] dark:text-blue-400 hover:underline mb-4">
+            <a href="{{ route('admin.survey-responses.index') }}" class="inline-flex items-center gap-2 text-ppid-primary dark:text-blue-400 hover:underline mb-4">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
@@ -18,7 +18,7 @@
         {{-- Respondent Information --}}
         <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-8 mb-6">
             <div class="flex items-center gap-3 mb-6">
-                <div class="flex items-center justify-center w-12 h-12 rounded-full bg-[#1A305E] text-white">
+                <div class="flex items-center justify-center w-12 h-12 rounded-full bg-ppid-primary text-white">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
@@ -57,7 +57,7 @@
         {{-- Survey Answers --}}
         <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-8 mb-6">
             <div class="flex items-center gap-3 mb-6">
-                <div class="flex items-center justify-center w-12 h-12 rounded-full bg-[#D4AF37] text-white">
+                <div class="flex items-center justify-center w-12 h-12 rounded-full bg-ppid-accent text-white">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
@@ -73,16 +73,16 @@
                     @endphp
                     <div class="p-6 bg-slate-50 dark:bg-slate-700/50 rounded-xl border border-slate-200 dark:border-slate-600">
                         <div class="flex items-start gap-3 mb-3">
-                            <span class="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-[#1A305E] text-white text-sm font-bold">{{ $index + 1 }}</span>
+                            <span class="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-ppid-primary text-white text-sm font-bold">{{ $index + 1 }}</span>
                             <p class="text-base font-semibold text-slate-900 dark:text-white leading-relaxed">{{ $question->soal }}</p>
                         </div>
                         <div class="ml-11">
                             @if($question->tipe == 'radio')
-                                <div class="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 rounded-lg border-2 border-[#1A305E] dark:border-blue-500">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#1A305E] dark:text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <div class="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 rounded-lg border-2 border-ppid-primary dark:border-blue-500">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-ppid-primary dark:text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                     </svg>
-                                    <span class="font-semibold text-[#1A305E] dark:text-blue-400">{{ $answer }}</span>
+                                    <span class="font-semibold text-ppid-primary dark:text-blue-400">{{ $answer }}</span>
                                 </div>
                             @else
                                 <p class="text-slate-700 dark:text-slate-300 italic">{{ $answer }}</p>

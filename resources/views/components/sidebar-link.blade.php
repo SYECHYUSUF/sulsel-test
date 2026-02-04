@@ -2,12 +2,12 @@
 @props(['active', 'label', 'href' => '#', 'badge' => null])
 
 @php
-    $activeClasses = 'bg-[#D4AF37] text-[#1A305E] shadow-lg shadow-[#D4AF37]/20';
+    $activeClasses = 'bg-ppid-accent text-ppid-primary shadow-lg shadow-ppid-accent/20';
     $inactiveClasses = 'text-slate-400 hover:text-white hover:bg-white/5';
     
     $classes = ($active ?? false) ? $activeClasses : $inactiveClasses;
     // Icon color handling
-    $iconColor = ($active ?? false) ? 'text-[#1A305E]' : 'text-slate-400 group-hover:text-white';
+    $iconColor = ($active ?? false) ? 'text-ppid-primary' : 'text-slate-400 group-hover:text-white';
 @endphp
 
 <li @click="if(!sidebarOpen) sidebarOpen = true">
@@ -33,7 +33,7 @@
         </span>
 
         @if($badge)
-            <span class="ml-auto bg-[#D4AF37] text-[#1A305E] py-0.5 px-2 rounded-full text-[10px] font-bold relative z-10"
+            <span class="ml-auto bg-ppid-accent text-ppid-primary py-0.5 px-2 rounded-full text-[10px] font-bold relative z-10"
                   x-show="sidebarOpen">
                 {{ $badge }}
             </span>

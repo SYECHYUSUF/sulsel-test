@@ -15,6 +15,11 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                'ppid-primary': '#1A305E', // Midnight Navy
+                'ppid-accent': '#D4AF37',  // Metallic Gold
+                'ppid-text': '#4A5568',    // Slate Gray
+            },
         },
     },
 

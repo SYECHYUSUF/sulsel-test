@@ -39,10 +39,10 @@
                         name="search" 
                         value="{{ $search }}" 
                         placeholder="Cari berdasarkan nama, email, atau lembaga..." 
-                        class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] outline-none transition-all bg-white dark:bg-slate-700 dark:text-white"
+                        class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary outline-none transition-all bg-white dark:bg-slate-700 dark:text-white"
                     />
                 </div>
-                <button type="submit" class="px-6 py-2.5 bg-gradient-to-r from-[#1A305E] to-[#2A4A7E] text-white font-semibold rounded-xl hover:from-[#2A4A7E] hover:to-[#1A305E] transition-all shadow-md hover:shadow-lg">
+                <button type="submit" class="px-6 py-2.5 bg-gradient-to-r from-ppid-primary to-[#2A4A7E] text-white font-semibold rounded-xl hover:from-[#2A4A7E] hover:to-ppid-primary transition-all shadow-md hover:shadow-lg">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
@@ -61,7 +61,7 @@
             <div class="overflow-x-auto">
                 <table class="w-full">
                     <thead>
-                        <tr class="bg-gradient-to-r from-[#1A305E] to-[#2A4A7E] text-white">
+                        <tr class="bg-gradient-to-r from-ppid-primary to-[#2A4A7E] text-white">
                             <th class="px-6 py-4 text-left text-sm font-semibold">Kode Survey</th>
                             <th class="px-6 py-4 text-left text-sm font-semibold">Nama</th>
                             <th class="px-6 py-4 text-left text-sm font-semibold">Email</th>
@@ -81,7 +81,7 @@
                                 <td class="px-6 py-4 text-center">
                                     <div class="flex items-center justify-center gap-2">
                                         <a href="{{ route('admin.survey-responses.show', $response->kode) }}" 
-                                           class="inline-flex items-center gap-1 px-4 py-2 bg-[#1A305E] text-white rounded-lg hover:bg-[#2A4A7E] transition-colors text-sm font-medium">
+                                           class="inline-flex items-center gap-1 px-4 py-2 bg-ppid-primary text-white rounded-lg hover:bg-[#2A4A7E] transition-colors text-sm font-medium">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />

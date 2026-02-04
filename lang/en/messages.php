@@ -540,4 +540,130 @@ return [
         'q17' => 'What is your opinion on the South Sulawesi Public Information Service Declaration (Professional, Accurate and Responsible)?',
         'q18' => 'Write your comments/suggestions for the progress and development of Public Information Services through PPID South Sulawesi',
     ],
+    'scroll' => [
+        'to_top' => 'Back to Top',
+        'to_bottom' => 'Scroll to Bottom',
+    ],
+    'privacy_policy' => [
+        'title' => 'Privacy Policy',
+        'last_updated' => 'Last updated: February 2026',
+        'sections' => [
+            [
+                'title' => '1. Introduction',
+                'content' => 'PPID South Sulawesi Province is committed to protecting your privacy and personal data. This Privacy Policy explains how we collect, use, and protect the personal information you provide when using our PPID portal services.',
+            ],
+            [
+                'title' => '2. Information We Collect',
+                'content' => 'We collect information that you voluntarily provide when:',
+                'items' => [
+                    'Submitting public information requests',
+                    'Registering for online services',
+                    'Contacting us through contact forms',
+                    'Completing public satisfaction surveys',
+                ],
+            ],
+            [
+                'title' => '3. Use of Information',
+                'content' => 'The information we collect is used to:',
+                'items' => [
+                    'Process your public information requests',
+                    'Provide the services you request',
+                    'Improve our service quality',
+                    'Communicate regarding requests or services',
+                    'Statistical analysis and reporting (in anonymous form)',
+                ],
+            ],
+            [
+                'title' => '4. Data Protection',
+                'content' => 'We implement appropriate technical and organizational security measures to protect your personal data from unauthorized access, loss, or misuse. Your data is stored securely and can only be accessed by authorized personnel.',
+            ],
+            [
+                'title' => '5. Information Sharing',
+                'content' => 'We will not sell, rent, or share your personal information with third parties without your consent, except as required by law or to process your information request to relevant work units.',
+            ],
+            [
+                'title' => '6. Your Rights',
+                'content' => 'You have the right to access, correct, or delete your personal data that we hold. To exercise these rights, please contact us through the contact information available on this portal.',
+            ],
+            [
+                'title' => '7. Cookies',
+                'content' => 'Our website uses cookies to enhance user experience. Cookies help us understand how you use the website and improve functionality. You can disable cookies through your browser settings.',
+            ],
+            [
+                'title' => '8. Policy Changes',
+                'content' => 'We may update this Privacy Policy from time to time. Changes will be published on this page with a clear update date. We encourage you to review this policy periodically.',
+            ],
+            [
+                'title' => '9. Contact',
+                'content' => 'If you have questions about this Privacy Policy, please contact us at ppid@sulawesiprov.go.id or (0411) 453192.',
+            ],
+        ],
+    ],
+    'terms_conditions' => [
+        'title' => 'Terms & Conditions',
+        'last_updated' => 'Last updated: February 2026',
+        'sections' => [
+            [
+                'title' => '1. Acceptance of Terms',
+                'content' => 'By accessing and using the PPID South Sulawesi Province Portal, you agree to be bound by these Terms and Conditions. If you do not agree to these terms, please do not use our services.',
+            ],
+            [
+                'title' => '2. Use of Services',
+                'content' => 'PPID services are provided for the purpose of:',
+                'items' => [
+                    'Accessing public information in accordance with Law No. 14 of 2008',
+                    'Submitting public information requests',
+                    'Filing objections to information services',
+                    'Providing feedback through satisfaction surveys',
+                ],
+            ],
+            [
+                'title' => '3. User Obligations',
+                'content' => 'As a service user, you must:',
+                'items' => [
+                    'Provide true and accurate information',
+                    'Not misuse services for illegal purposes',
+                    'Respect intellectual property rights',
+                    'Not interfere with system operations',
+                    'Maintain account confidentiality (if applicable)',
+                ],
+            ],
+            [
+                'title' => '4. Right to Access Information',
+                'content' => 'In accordance with the Freedom of Information Law, you have the right to obtain public information except for information that is excluded according to legal provisions. PPID has the right to reject information requests that do not comply with provisions or constitute excluded information.',
+            ],
+            [
+                'title' => '5. Service Time',
+                'content' => 'Public information requests will be processed within a maximum of 10 (ten) working days from the complete receipt of the request. This period may be extended for a maximum of 7 (seven) working days with written notification and reasons.',
+            ],
+            [
+                'title' => '6. Service Fees',
+                'content' => 'Public information services at PPID South Sulawesi are free of charge. However, the costs of copying and sending documents (if any) are the responsibility of the applicant according to applicable rates.',
+            ],
+            [
+                'title' => '7. Limitation of Liability',
+                'content' => 'PPID South Sulawesi strives to provide accurate and up-to-date information. However, we are not responsible for losses arising from the use of the information provided. Information is provided "as is" without any warranty.',
+            ],
+            [
+                'title' => '8. Copyright and Intellectual Property',
+                'content' => 'All content on this portal, including text, graphics, logos, and software, is owned by the South Sulawesi Provincial Government and protected by copyright law. Use of content must be with permission and cite the source.',
+            ],
+            [
+                'title' => '9. Security',
+                'content' => 'We implement reasonable security measures to protect our data and systems. However, you are also responsible for maintaining the security of your device and internet connection when using our services.',
+            ],
+            [
+                'title' => '10. Changes to Terms',
+                'content' => 'We reserve the right to change these Terms and Conditions at any time. Changes will be effective immediately after being published on the portal. Use of services after changes means you agree to the updated terms.',
+            ],
+            [
+                'title' => '11. Governing Law',
+                'content' => 'These Terms and Conditions are governed by and interpreted in accordance with the laws of the Republic of Indonesia. Any disputes arising will be resolved through deliberation or through competent courts.',
+            ],
+            [
+                'title' => '12. Contact',
+                'content' => 'For questions regarding these Terms and Conditions, please contact PPID South Sulawesi at ppid@sulawesiprov.go.id or call (0411) 453192.',
+            ],
+        ],
+    ],
 ];

@@ -153,10 +153,10 @@
                     </div>
                     <div class="flex items-center space-x-4 bg-slate-50 dark:bg-slate-700/50 p-2 rounded-lg">
                         <div class="flex items-center text-xs font-semibold text-slate-600 dark:text-slate-300">
-                            <span class="w-3 h-3 rounded-full bg-[#1A305E] mr-2"></span> Permohonan
+                            <span class="w-3 h-3 rounded-full bg-ppid-primary mr-2"></span> Permohonan
                         </div>
                         <div class="flex items-center text-xs font-semibold text-slate-600 dark:text-slate-300">
-                            <span class="w-3 h-3 rounded-full bg-[#D4AF37] mr-2"></span> Keberatan
+                            <span class="w-3 h-3 rounded-full bg-ppid-accent mr-2"></span> Keberatan
                         </div>
                     </div>
                 </div>
@@ -172,10 +172,10 @@
                     @foreach($monthlyTrends['months'] as $month)
                         <div class="flex flex-col items-center justify-end h-full w-full group relative z-10">
                             <div class="flex items-end justify-center w-full gap-1.5 h-full pb-8">
-                                <div class="w-3 bg-[#1A305E] rounded-t-sm transition-all duration-300 group-hover:brightness-125"
+                                <div class="w-3 bg-ppid-primary rounded-t-sm transition-all duration-300 group-hover:brightness-125"
                                     style="height: {{ $monthlyTrends['permohonan_percentages'][$month] }}%"
                                     title="Permohonan: {{ $monthlyTrends['permohonan'][$month] }}"></div>
-                                <div class="w-3 bg-[#D4AF37] rounded-t-sm transition-all duration-300 group-hover:brightness-110"
+                                <div class="w-3 bg-ppid-accent rounded-t-sm transition-all duration-300 group-hover:brightness-110"
                                     style="height: {{ $monthlyTrends['keberatan_percentages'][$month] }}%"
                                     title="Keberatan: {{ $monthlyTrends['keberatan'][$month] }}"></div>
                             </div>

@@ -8,7 +8,7 @@ return [
         'home' => 'BERANDA',
         'profile' => 'PROFIL',
         'news' => 'BERITA',
-        'data_info' => 'DAFTAR INFORMASI PUBLIK',
+        'data_info' => 'DATA INFORMASI PUBLIK',
         'public_info' => 'INFORMASI PUBLIK',
         'ppid_implementing' => 'PPID PELAKSANA',
         'services' => 'LAYANAN',
@@ -539,5 +539,131 @@ return [
         'q16' => 'Bagaimana Pendapat Saudara Tentang Keadilan/Kesetaraan Untuk Mendapatkan Pelayanan Informasi Publik Dari PPID Provinsi Sulawesi Selatan?',
         'q17' => 'Bagaimana Menurut Saudara Terhadap Maklumat Pelayanan Informasi Publik Provinsi Sulawesi Selatan (Profesional, Akurat Dan Bertanggung Jawab Dalam Memberikan Pelayanan Informasi Publik)?',
         'q18' => 'Tuliskan Komentar/Usulan Saudara Terhadap Kemajuan Dan Pengembangan Pelayanan Informasi Publik Melalui PPID Provinsi Sulawesi Selatan',
+    ],
+    'scroll' => [
+        'to_top' => 'Kembali ke Atas',
+        'to_bottom' => 'Ke Bawah',
+    ],
+    'privacy_policy' => [
+        'title' => 'Kebijakan Privasi',
+        'last_updated' => 'Terakhir diperbarui: Februari 2026',
+        'sections' => [
+            [
+                'title' => '1. Pendahuluan',
+                'content' => 'PPID Provinsi Sulawesi Selatan berkomitmen melindungi privasi dan data pribadi Anda. Kebijakan Privasi ini menjelaskan bagaimana kami mengumpulkan, menggunakan, dan melindungi informasi pribadi yang Anda berikan saat menggunakan layanan portal PPID kami.',
+            ],
+            [
+                'title' => '2. Informasi yang Kami Kumpulkan',
+                'content' => 'Kami mengumpulkan informasi yang Anda berikan secara sukarela ketika:',
+                'items' => [
+                    'Mengajukan permohonan informasi publik',
+                    'Mendaftar untuk layanan online',
+                    'Menghubungi kami melalui formulir kontak',
+                    'Mengisi survey kepuasan masyarakat',
+                ],
+            ],
+            [
+                'title' => '3. Penggunaan Informasi',
+                'content' => 'Informasi yang kami kumpulkan digunakan untuk:',
+                'items' => [
+                    'Memproses permohonan informasi publik Anda',
+                    'Memberikan layanan yang Anda minta',
+                    'Meningkatkan kualitas layanan kami',
+                    'Komunikasi terkait permohonan atau layanan',
+                    'Analisis statistik dan pelaporan (dalam bentuk anonim)',
+                ],
+            ],
+            [
+                'title' => '4. Perlindungan Data',
+                'content' => 'Kami menerapkan langkah-langkah keamanan teknis dan organisasi yang sesuai untuk melindungi data pribadi Anda dari akses tidak sah, kehilangan, atau penyalahgunaan. Data Anda disimpan dengan aman dan hanya dapat diakses oleh petugas yang berwenang.',
+            ],
+            [
+                'title' => '5. Pembagian Informasi',
+                'content' => 'Kami tidak akan menjual, menyewakan, atau membagikan informasi pribadi Anda kepada pihak ketiga tanpa persetujuan Anda, kecuali diwajibkan oleh hukum atau untuk memproses permohonan informasi Anda ke unit kerja terkait.',
+            ],
+            [
+                'title' => '6. Hak Anda',
+                'content' => 'Anda memiliki hak untuk mengakses, memperbaiki, atau menghapus data pribadi Anda yang kami simpan. Untuk melaksanakan hak-hak ini, silakan hubungi kami melalui informasi kontak yang tersedia di portal ini.',
+            ],
+            [
+                'title' => '7. Cookies',
+                'content' => 'Website kami menggunakan cookies untuk meningkatkan pengalaman pengguna. Cookies membantu kami memahami bagaimana Anda menggunakan website dan meningkatkan fungsionalitas. Anda dapat menonaktifkan cookies melalui pengaturan browser Anda.',
+            ],
+            [
+                'title' => '8. Perubahan Kebijakan',
+                'content' => 'Kami dapat memperbarui Kebijakan Privasi ini dari waktu ke waktu. Perubahan akan dipublikasikan di halaman ini dengan tanggal pembaruan yang jelas. Kami mendorong Anda untuk meninjau kebijakan ini secara berkala.',
+            ],
+            [
+                'title' => '9. Kontak',
+                'content' => 'Jika Anda memiliki pertanyaan tentang Kebijakan Privasi ini, silakan hubungi kami di ppid@sulawesiprov.go.id atau (0411) 453192.',
+            ],
+        ],
+    ],
+    'terms_conditions' => [
+        'title' => 'Syarat & Ketentuan',
+        'last_updated' => 'Terakhir diperbarui: Februari 2026',
+        'sections' => [
+            [
+                'title' => '1. Penerimaan Syarat',
+                'content' => 'Dengan mengakses dan menggunakan Portal PPID Provinsi Sulawesi Selatan, Anda menyetujui untuk terikat oleh Syarat dan Ketentuan ini. Jika Anda tidak setuju dengan syarat-syarat ini, mohon untuk tidak menggunakan layanan kami.',
+            ],
+            [
+                'title' => '2. Penggunaan Layanan',
+                'content' => 'Layanan PPID disediakan untuk keperluan:',
+                'items' => [
+                    'Mengakses informasi publik sesuai UU No. 14 Tahun 2008',
+                    'Mengajukan permohonan informasi publik',
+                    'Mengajukan keberatan atas pelayanan informasi',
+                    'Memberikan feedback melalui survey kepuasan',
+                ],
+            ],
+            [
+                'title' => '3. Kewajiban Pengguna',
+                'content' => 'Sebagai pengguna layanan, Anda wajib:',
+                'items' => [
+                    'Memberikan informasi yang benar dan akurat',
+                    'Tidak menyalahgunakan layanan untuk tujuan ilegal',
+                    'Menghormati hak kekayaan intelektual',
+                    'Tidak mengganggu operasional sistem',
+                    'Menjaga kerahasiaan akun (jika berlaku)',
+                ],
+            ],
+            [
+                'title' => '4. Hak Akses Informasi',
+                'content' => 'Sesuai dengan UU KIP, Anda berhak mendapatkan informasi publik kecuali informasi yang dikecualikan sesuai ketentuan perundang-undangan. PPID berhak menolak permohonan informasi yang tidak sesuai dengan ketentuan atau merupakan informasi yang dikecualikan.',
+            ],
+            [
+                'title' => '5. Waktu Layanan',
+                'content' => 'Permohonan informasi publik akan diproses maksimal 10 (sepuluh) hari kerja sejak permohonan diterima secara lengkap. Waktu ini dapat diperpanjang maksimal 7 (tujuh) hari kerja dengan pemberitahuan tertulis disertai alasan.',
+            ],
+            [
+                'title' => '6. Biaya Layanan',
+                'content' => 'Layanan informasi publik di PPID Sulawesi Selatan tidak dipungut biaya. Namun, biaya penggandaan dan pengiriman dokumen (jika ada) menjadi tanggung jawab pemohon sesuai dengan tarif yang berlaku.',
+            ],
+            [
+                'title' => '7. Batasan Tanggung Jawab',
+                'content' => 'PPID Sulawesi Selatan berusaha menyediakan informasi yang akurat dan terkini. Namun, kami tidak bertanggung jawab atas kerugian yang timbul dari penggunaan informasi yang diberikan. Informasi disediakan "sebagaimana adanya" tanpa jaminan apapun.',
+            ],
+            [
+                'title' => '8. Hak Cipta dan Kekayaan Intelektual',
+                'content' => 'Seluruh konten di portal ini, termasuk teks, grafik, logo, dan software, adalah milik Pemerintah Provinsi Sulawesi Selatan dan dilindungi oleh hukum hak cipta. Penggunaan konten harus dengan izin dan mencantumkan sumber.',
+            ],
+            [
+                'title' => '9. Keamanan',
+                'content' => 'Kami menerapkan langkah-langkah keamanan yang wajar untuk melindungi data dan sistem kami. Namun, Anda juga bertanggung jawab untuk menjaga keamanan perangkat dan koneksi internet Anda saat menggunakan layanan kami.',
+            ],
+            [
+                'title' => '10. Perubahan Syarat',
+                'content' => 'Kami berhak mengubah Syarat dan Ketentuan ini kapan saja. Perubahan akan efektif segera setelah dipublikasikan di portal. Penggunaan layanan setelah perubahan berarti Anda menyetujui syarat yang telah diperbarui.',
+            ],
+            [
+                'title' => '11. Hukum yang Berlaku',
+                'content' => 'Syarat dan Ketentuan ini diatur oleh dan ditafsirkan sesuai dengan hukum Republik Indonesia. Setiap sengketa yang timbul akan diselesaikan melalui musyawarah atau melalui pengadilan yang berwenang.',
+            ],
+            [
+                'title' => '12. Kontak',
+                'content' => 'Untuk pertanyaan mengenai Syarat dan Ketentuan ini, silakan hubungi PPID Sulawesi Selatan di ppid@sulawesiprov.go.id atau telepon (0411) 453192.',
+            ],
+        ],
     ],
 ];

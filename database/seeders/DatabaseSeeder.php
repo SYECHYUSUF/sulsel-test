@@ -18,6 +18,13 @@ class DatabaseSeeder extends Seeder
             SurveySeeder::class,
             SurveyResponseSeeder::class,
             TahunSeeder::class,
+            SlideBannerSeeder::class,
+            MasterPekerjaanSeeder::class,
+            MasterDomisiliSeeder::class,
+            SosmedSeeder::class,
+            ProfilSeeder::class,
+            InformationSeeder::class,
+            InformasiPublikSeeder::class,
         ]);
 
         // --- Konfigurasi User Admin 2 ---

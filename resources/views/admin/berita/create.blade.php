@@ -9,7 +9,7 @@
     <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden max-w-4xl mx-auto"
         x-data="{ showConfirm: false }" @confirm="document.getElementById('createForm').submit()">
         <div class="p-6 border-b border-slate-100">
-            <h3 class="text-lg font-bold text-[#1A305E]">Form Tambah Berita</h3>
+            <h3 class="text-lg font-bold text-ppid-primary">Form Tambah Berita</h3>
         </div>
 
         <form id="createForm" action="{{ route('admin.berita.store') }}" method="POST" enctype="multipart/form-data"
@@ -82,7 +82,7 @@
                     Batal
                 </a>
                 <button type="button" @click="showConfirm = true"
-                    class="px-4 py-2 bg-[#1A305E] text-white rounded-lg text-sm font-medium hover:bg-ppid-dark transition-colors">
+                    class="px-4 py-2 bg-ppid-primary text-white rounded-lg text-sm font-medium hover:bg-ppid-dark transition-colors">
                     Simpan Berita
                 </button>
             </div>

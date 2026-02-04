@@ -6,7 +6,7 @@
         <div class="container mx-auto px-4 py-6">
             {{-- Breadcrumb --}}
             <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mb-4">
-                <a href="/" class="hover:text-[#1A305E] dark:text-white transition-colors">
+                <a href="/" class="hover:text-ppid-primary dark:text-white transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="w-4 h-4">
@@ -20,13 +20,13 @@
                     <path d="m9 18 6-6-6-6" />
                 </svg>
                 <span
-                    class="text-[#1A305E] dark:text-white font-medium">{{ __('messages.public_info_pages.index_title') }}</span>
+                    class="text-ppid-primary dark:text-white font-medium">{{ __('messages.public_info_pages.index_title') }}</span>
             </div>
 
             {{-- Title --}}
             <div class="flex items-end justify-between">
                 <div>
-                    <h1 class="text-3xl md:text-4xl font-bold text-[#1A305E] dark:text-white mb-2">
+                    <h1 class="text-3xl md:text-4xl font-bold text-ppid-primary dark:text-white mb-2">
                         {{ __('messages.public_info_pages.index_title') }}
                     </h1>
                     <p class="text-gray-600 dark:text-gray-300">
@@ -34,7 +34,7 @@
                     </p>
                 </div>
                 <div class="hidden md:block">
-                    <div class="w-20 h-1 bg-gradient-to-r from-[#1A305E] to-transparent rounded-full"></div>
+                    <div class="w-20 h-1 bg-gradient-to-r from-ppid-primary to-transparent rounded-full"></div>
                 </div>
             </div>
         </div>
@@ -46,7 +46,7 @@
             <div class="max-w-7xl mx-auto">
 
                 {{-- Info Banner --}}
-                <div class="bg-[#1A305E] text-white rounded-xl p-6 mb-8">
+                <div class="bg-ppid-primary text-white rounded-xl p-6 mb-8">
                     <div class="flex items-start gap-4">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -81,12 +81,12 @@
                             </svg>
                             <input type="text" name="search" value="{{ request('search') }}"
                                 placeholder="{{ __('messages.common.search_placeholder') }}"
-                                class="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1A305E] dark:bg-slate-700 dark:text-white dark:focus:ring-blue-500" />
+                                class="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-ppid-primary dark:bg-slate-700 dark:text-white dark:focus:ring-blue-500" />
                         </div>
                     </div>
                     <div class="flex gap-2">
                         <button type="submit"
-                            class="px-6 py-2 bg-[#D4AF37] text-white rounded-lg hover:bg-[#B08D26] transition-colors font-medium">
+                            class="px-6 py-2 bg-ppid-accent text-white rounded-lg hover:bg-[#B08D26] transition-colors font-medium">
                             {{ __('messages.news.search_btn') }}
                         </button>
                         @if (request('search'))
@@ -105,7 +105,7 @@
                         class="border-b border-gray-200 dark:border-slate-700 px-6 py-4 flex items-center justify-between bg-gray-50 dark:bg-slate-900">
                         <h3 class="font-bold text-gray-900 dark:text-white">Daftar Informasi Publik</h3>
                         <button
-                            class="flex items-center gap-2 text-[#1A305E] dark:text-white hover:text-[#D4AF37] text-sm font-medium transition-colors">
+                            class="flex items-center gap-2 text-ppid-primary dark:text-white hover:text-ppid-accent text-sm font-medium transition-colors">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="w-4 h-4">
@@ -119,7 +119,7 @@
 
                     <div class="overflow-x-auto">
                         <table class="w-full text-left border-collapse">
-                            <thead class="bg-[#1A305E] text-white">
+                            <thead class="bg-ppid-primary text-white">
                                 <tr>
                                     <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide">No</th>
                                     <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide">
@@ -145,7 +145,7 @@
                             <tbody class="divide-y divide-gray-200">
                                 @foreach ($matriksDip as $item)
                                     <tr
-                                        class="hover:bg-[#1A305E]/5 transition-colors border-b border-gray-100 last:border-0">
+                                        class="hover:bg-ppid-primary/5 transition-colors border-b border-gray-100 last:border-0">
                                         <td
                                             class="px-4 py-3 text-sm text-gray-900 dark:text-white font-medium whitespace-nowrap">
                                             {{ ($matriksDip->currentPage() - 1) * $matriksDip->perPage() + $loop->iteration }}

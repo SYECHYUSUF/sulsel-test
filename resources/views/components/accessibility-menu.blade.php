@@ -213,7 +213,7 @@
         @mousedown="startDragging($event)" 
         @touchstart="startDragging($event)"
         @click="if(!hasMoved) isOpen = !isOpen"
-        class="fixed w-14 h-14 bg-[#1A305E] text-white rounded-full shadow-2xl flex items-center justify-center cursor-move hover:scale-110 active:scale-95 transition-transform z-[9999]"
+        class="fixed w-14 h-14 bg-ppid-primary text-white rounded-full shadow-2xl flex items-center justify-center cursor-move hover:scale-110 active:scale-95 transition-transform z-[9999]"
         :style="'left: ' + pos.x + 'px; top: ' + pos.y + 'px;'"
         aria-label="Aksesibilitas">
         
@@ -236,7 +236,7 @@
         :style="'top: ' + (pos.y > window.innerHeight / 2 ? pos.y - 420 : pos.y + 70) + 'px; left: ' + (pos.x > window.innerWidth / 2 ? pos.x - 280 : pos.x) + 'px;'"
         style="display: none;">
         
-        <div class="bg-[#1A305E] p-5 text-white flex justify-between items-center">
+        <div class="bg-ppid-primary p-5 text-white flex justify-between items-center">
             <h3 class="font-bold text-lg flex items-center gap-2">Menu Aksesibilitas</h3>
             <button @click="isOpen = false" class="hover:bg-white/20 p-1 rounded-lg">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
@@ -248,9 +248,9 @@
             <div>
                 <p class="text-[10px] font-black uppercase text-gray-400 mb-2 tracking-widest">Ukuran Tulisan</p>
                 <div class="flex items-center justify-between bg-gray-50 p-2 rounded-xl">
-                    <button @click="adjustFont(-2)" class="w-10 h-10 bg-white rounded-lg shadow-sm font-bold text-[#1A305E]">-</button>
+                    <button @click="adjustFont(-2)" class="w-10 h-10 bg-white rounded-lg shadow-sm font-bold text-ppid-primary">-</button>
                     <span x-text="settings.fontSize + 'px'" class="font-bold"></span>
-                    <button @click="adjustFont(2)" class="w-10 h-10 bg-white rounded-lg shadow-sm font-bold text-[#1A305E]">+</button>
+                    <button @click="adjustFont(2)" class="w-10 h-10 bg-white rounded-lg shadow-sm font-bold text-ppid-primary">+</button>
                 </div>
             </div>
 
@@ -275,7 +275,7 @@
 
     @foreach($features as $f)
     <button @click="toggle('{{ $f['id'] }}')" 
-        :class="settings.{{ $f['id'] }} ? 'bg-[#1A305E] text-white shadow-lg shadow-[#1A305E]/20 border-[#1A305E]' : 'bg-gray-50 text-gray-700 hover:bg-[#1A305E]/5 hover:text-[#1A305E] border-transparent hover:border-[#1A305E]/20'"
+        :class="settings.{{ $f['id'] }} ? 'bg-ppid-primary text-white shadow-lg shadow-ppid-primary/20 border-ppid-primary' : 'bg-gray-50 text-gray-700 hover:bg-ppid-primary/5 hover:text-ppid-primary border-transparent hover:border-ppid-primary/20'"
         class="group flex flex-col items-center justify-center p-3 rounded-2xl transition-all duration-300 border shadow-sm focus:outline-none">
         
         <div class="mb-1.5 transition-all duration-300 group-hover:scale-125 group-active:scale-90">

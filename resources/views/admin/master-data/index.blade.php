@@ -27,27 +27,27 @@
             class="bg-white dark:bg-slate-800 rounded-t-xl shadow-sm border border-slate-100 dark:border-slate-700 overflow-hidden">
             <div class="flex border-b border-slate-200 dark:border-slate-700 overflow-x-auto">
                 <button @click="activeTab = 'kategori'"
-                    :class="activeTab === 'kategori' ? 'border-b-2 border-[#1A305E] text-[#1A305E] dark:border-blue-400 dark:text-blue-400' : 'text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'"
+                    :class="activeTab === 'kategori' ? 'border-b-2 border-ppid-primary text-ppid-primary dark:border-blue-400 dark:text-blue-400' : 'text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'"
                     class="px-6 py-3 font-medium text-sm whitespace-nowrap transition-colors">
                     Kategori Informasi
                 </button>
                 <button @click="activeTab = 'tahun'"
-                    :class="activeTab === 'tahun' ? 'border-b-2 border-[#1A305E] text-[#1A305E] dark:border-blue-400 dark:text-blue-400' : 'text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'"
+                    :class="activeTab === 'tahun' ? 'border-b-2 border-ppid-primary text-ppid-primary dark:border-blue-400 dark:text-blue-400' : 'text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'"
                     class="px-6 py-3 font-medium text-sm whitespace-nowrap transition-colors">
                     Tahun Informasi
                 </button>
                 <button @click="activeTab = 'domisili'"
-                    :class="activeTab === 'domisili' ? 'border-b-2 border-[#1A305E] text-[#1A305E] dark:border-blue-400 dark:text-blue-400' : 'text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'"
+                    :class="activeTab === 'domisili' ? 'border-b-2 border-ppid-primary text-ppid-primary dark:border-blue-400 dark:text-blue-400' : 'text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'"
                     class="px-6 py-3 font-medium text-sm whitespace-nowrap transition-colors">
                     Domisili
                 </button>
                 <button @click="activeTab = 'pekerjaan'"
-                    :class="activeTab === 'pekerjaan' ? 'border-b-2 border-[#1A305E] text-[#1A305E] dark:border-blue-400 dark:text-blue-400' : 'text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'"
+                    :class="activeTab === 'pekerjaan' ? 'border-b-2 border-ppid-primary text-ppid-primary dark:border-blue-400 dark:text-blue-400' : 'text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'"
                     class="px-6 py-3 font-medium text-sm whitespace-nowrap transition-colors">
                     Pekerjaan
                 </button>
                 <button @click="activeTab = 'alasan'"
-                    :class="activeTab === 'alasan' ? 'border-b-2 border-[#1A305E] text-[#1A305E] dark:border-blue-400 dark:text-blue-400' : 'text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'"
+                    :class="activeTab === 'alasan' ? 'border-b-2 border-ppid-primary text-ppid-primary dark:border-blue-400 dark:text-blue-400' : 'text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'"
                     class="px-6 py-3 font-medium text-sm whitespace-nowrap transition-colors">
                     Alasan Pengajuan Keberatan
                 </button>
@@ -63,7 +63,7 @@
                 {{-- <div class="flex justify-between items-center mb-4">
                     <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100">Kategori Informasi</h3>
                     <button @click="$dispatch('open-modal', 'modal-kategori-create')"
-                        class="px-4 py-2 bg-[#1A305E] text-white rounded-lg text-sm font-medium hover:bg-ppid-dark transition-colors flex items-center gap-2">
+                        class="px-4 py-2 bg-ppid-primary text-white rounded-lg text-sm font-medium hover:bg-ppid-dark transition-colors flex items-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4">
                             </path>
@@ -103,7 +103,7 @@
                                         <div class="flex items-center justify-end gap-2">
                                             <button
                                                 onclick="editKategori('{{ route('admin.master-data.kategori.update', $kategori->id_kat_info) }}', {{ $kategori->id_kat_info }}, '{{ $kategori->nm_kat_info }}', '{{ $kategori->icon }}', {{ $kategori->is_active ? 'true' : 'false' }})"
-                                                class="p-2 text-slate-500 dark:text-slate-400 hover:text-[#1A305E] dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg transition-colors">
+                                                class="p-2 text-slate-500 dark:text-slate-400 hover:text-ppid-primary dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg transition-colors">
                                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                         d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z">
@@ -136,7 +136,7 @@
                 @if(count($kategoris) > 10)
                     <div class="mt-4 text-center">
                         <button @click="showAllKategori = !showAllKategori"
-                            class="px-4 py-2 text-sm font-medium text-[#1A305E] dark:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg transition-colors">
+                            class="px-4 py-2 text-sm font-medium text-ppid-primary dark:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg transition-colors">
                             <span
                                 x-text="showAllKategori ? 'Tampilkan Lebih Sedikit' : 'Tampilkan Seluruhnya ({{ count($kategoris) }} items)'"></span>
                         </button>
@@ -149,7 +149,7 @@
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100">Tahun Informasi</h3>
                     <button @click="$dispatch('open-modal', 'modal-tahun-create')"
-                        class="px-4 py-2 bg-[#1A305E] text-white rounded-lg text-sm font-medium hover:bg-ppid-dark transition-colors flex items-center gap-2">
+                        class="px-4 py-2 bg-ppid-primary text-white rounded-lg text-sm font-medium hover:bg-ppid-dark transition-colors flex items-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4">
                             </path>
@@ -176,7 +176,7 @@
                                     {{-- <td class="px-6 py-4 text-right">
                                         <div class="flex items-center justify-end gap-2">
                                             <button onclick="editTahun({{ $tahun->id }}, '{{ $tahun->waktu }}')"
-                                                class="p-2 text-slate-500 dark:text-slate-400 hover:text-[#1A305E] dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg transition-colors">
+                                                class="p-2 text-slate-500 dark:text-slate-400 hover:text-ppid-primary dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg transition-colors">
                                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                         d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z">
@@ -209,7 +209,7 @@
                 @if(count($tahuns) > 10)
                     <div class="mt-4 text-center">
                         <button @click="showAllTahun = !showAllTahun"
-                            class="px-4 py-2 text-sm font-medium text-[#1A305E] dark:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg transition-colors">
+                            class="px-4 py-2 text-sm font-medium text-ppid-primary dark:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg transition-colors">
                             <span
                                 x-text="showAllTahun ? 'Tampilkan Lebih Sedikit' : 'Tampilkan Seluruhnya ({{ count($tahuns) }} items)'"></span>
                         </button>
@@ -222,7 +222,7 @@
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100">Domisili</h3>
                     <button @click="$dispatch('open-modal', 'modal-domisili-create')"
-                        class="px-4 py-2 bg-[#1A305E] text-white rounded-lg text-sm font-medium hover:bg-ppid-dark transition-colors flex items-center gap-2">
+                        class="px-4 py-2 bg-ppid-primary text-white rounded-lg text-sm font-medium hover:bg-ppid-dark transition-colors flex items-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4">
                             </path>
@@ -264,7 +264,7 @@
                                         <div class="flex items-center justify-end gap-2">
                                             <button
                                                 onclick="editDomisili('{{ route('admin.master-data.domisili.update', $domisili->id) }}', {{ $domisili->id }}, '{{ addslashes($domisili->nama_daerah) }}', '{{ addslashes($domisili->provinsi) }}', {{ $domisili->is_active ? 'true' : 'false' }})"
-                                                class="p-2 text-slate-500 dark:text-slate-400 hover:text-[#1A305E] dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg transition-colors">
+                                                class="p-2 text-slate-500 dark:text-slate-400 hover:text-ppid-primary dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg transition-colors">
                                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                         d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z">
@@ -297,7 +297,7 @@
                 @if(count($domisilis) > 10)
                     <div class="mt-4 text-center">
                         <button @click="showAllDomisili = !showAllDomisili"
-                            class="px-4 py-2 text-sm font-medium text-[#1A305E] dark:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg transition-colors">
+                            class="px-4 py-2 text-sm font-medium text-ppid-primary dark:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg transition-colors">
                             <span
                                 x-text="showAllDomisili ? 'Tampilkan Lebih Sedikit' : 'Tampilkan Seluruhnya ({{ count($domisilis) }} items)'"></span>
                         </button>
@@ -310,7 +310,7 @@
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100">Pekerjaan</h3>
                     <button @click="$dispatch('open-modal', 'modal-pekerjaan-create')"
-                        class="px-4 py-2 bg-[#1A305E] text-white rounded-lg text-sm font-medium hover:bg-ppid-dark transition-colors flex items-center gap-2">
+                        class="px-4 py-2 bg-ppid-primary text-white rounded-lg text-sm font-medium hover:bg-ppid-dark transition-colors flex items-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4">
                             </path>
@@ -350,7 +350,7 @@
                                         <div class="flex items-center justify-end gap-2">
                                             <button
                                                 onclick="editPekerjaan('{{ route('admin.master-data.pekerjaan.update', $pekerjaan->id) }}', {{ $pekerjaan->id }}, '{{ addslashes($pekerjaan->nama_pekerjaan) }}', {{ $pekerjaan->is_active ? 'true' : 'false' }})"
-                                                class="p-2 text-slate-500 dark:text-slate-400 hover:text-[#1A305E] dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg transition-colors">
+                                                class="p-2 text-slate-500 dark:text-slate-400 hover:text-ppid-primary dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg transition-colors">
                                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                         d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z">
@@ -383,7 +383,7 @@
                 @if(count($pekerjaans) > 10)
                     <div class="mt-4 text-center">
                         <button @click="showAllPekerjaan = !showAllPekerjaan"
-                            class="px-4 py-2 text-sm font-medium text-[#1A305E] dark:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg transition-colors">
+                            class="px-4 py-2 text-sm font-medium text-ppid-primary dark:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg transition-colors">
                             <span
                                 x-text="showAllPekerjaan ? 'Tampilkan Lebih Sedikit' : 'Tampilkan Seluruhnya ({{ count($pekerjaans) }} items)'"></span>
                         </button>
@@ -396,7 +396,7 @@
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100">Alasan Pengajuan Keberatan</h3>
                     <button @click="$dispatch('open-modal', 'modal-alasan-create')"
-                        class="px-4 py-2 bg-[#1A305E] text-white rounded-lg text-sm font-medium hover:bg-ppid-dark transition-colors flex items-center gap-2">
+                        class="px-4 py-2 bg-ppid-primary text-white rounded-lg text-sm font-medium hover:bg-ppid-dark transition-colors flex items-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4">
                             </path>
@@ -425,7 +425,7 @@
                                         <div class="flex items-center justify-end gap-2">
                                             <button
                                                 onclick="editAlasanPengajuan('{{ route('admin.master-data.alasan-pengajuan.update', $alasan->id) }}', {{ $alasan->id }}, '{{ addslashes($alasan->alasan) }}')"
-                                                class="p-2 text-slate-500 dark:text-slate-400 hover:text-[#1A305E] dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg transition-colors">
+                                                class="p-2 text-slate-500 dark:text-slate-400 hover:text-ppid-primary dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg transition-colors">
                                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                         d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z">
@@ -458,7 +458,7 @@
                 @if(count($alasanPengajuans) > 10)
                     <div class="mt-4 text-center">
                         <button @click="showAllAlasanPengajuan = !showAllAlasanPengajuan"
-                            class="px-4 py-2 text-sm font-medium text-[#1A305E] dark:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg transition-colors">
+                            class="px-4 py-2 text-sm font-medium text-ppid-primary dark:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg transition-colors">
                             <span
                                 x-text="showAllAlasanPengajuan ? 'Tampilkan Lebih Sedikit' : 'Tampilkan Seluruhnya ({{ count($alasanPengajuans) }} items)'"></span>
                         </button>

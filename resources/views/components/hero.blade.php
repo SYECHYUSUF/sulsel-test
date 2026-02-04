@@ -65,7 +65,7 @@
                     :style="`transform: translateY(${scroll * 0.3}px)`"
                 >
                 {{-- Overlay Gradient --}}
-                <div class="absolute inset-0 bg-gradient-to-t from-[#1A305E]/90 via-[#1A305E]/40 to-transparent pointer-events-none"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-ppid-primary/90 via-ppid-primary/40 to-transparent pointer-events-none"></div>
             </div>
         </template>
     </div>
@@ -106,7 +106,7 @@
                     <div class="flex-1 max-w-3xl">
                         <h1 class="text-xs sm:text-2xl md:text-4xl lg:text-5xl font-bold leading-tight mb-1.5 sm:mb-4 text-white drop-shadow-lg">
                             Selamat Datang di Portal Resmi<br>
-                            <span class="text-[#D4AF37]">PPID Utama</span><br>
+                            <span class="text-ppid-accent">PPID Utama</span><br>
                             Provinsi Sulawesi Selatan
                         </h1>
                         <p class="text-[10px] leading-tight sm:text-sm md:text-lg lg:text-xl text-white/90 font-medium drop-shadow-md mb-2 sm:mb-6 md:mb-8">
@@ -117,27 +117,27 @@
                         <div class="max-w-2xl mx-auto scale-90 sm:scale-100">
                             <button 
                                 @click="$dispatch('open-search')"
-                                class="group w-full flex items-center gap-1.5 sm:gap-3 px-3 py-1.5 sm:px-6 sm:py-4 bg-white/95 dark:bg-slate-800/95 backdrop-blur-md rounded-xl sm:rounded-2xl shadow-2xl hover:shadow-[#D4AF37]/20 hover:shadow-3xl transition-all duration-300 border-2 border-transparent hover:border-[#D4AF37]/50">
+                                class="group w-full flex items-center gap-1.5 sm:gap-3 px-3 py-1.5 sm:px-6 sm:py-4 bg-white/95 dark:bg-slate-800/95 backdrop-blur-md rounded-xl sm:rounded-2xl shadow-2xl hover:shadow-ppid-accent/20 hover:shadow-3xl transition-all duration-300 border-2 border-transparent hover:border-ppid-accent/50">
                                 
                                 {{-- Search Icon --}}
                                 <div class="flex-shrink-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 sm:w-6 sm:h-6 text-[#4A5568] dark:text-gray-400 group-hover:text-[#D4AF37] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 sm:w-6 sm:h-6 text-ppid-text dark:text-gray-400 group-hover:text-ppid-accent transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                     </svg>
                                 </div>
                                 
                                 {{-- Placeholder Text --}}
                                 <div class="flex-1 text-left">
-                                    <span class="text-[#4A5568] dark:text-gray-400 text-xs sm:text-base md:text-lg font-normal sm:font-medium">
+                                    <span class="text-ppid-text dark:text-gray-400 text-xs sm:text-base md:text-lg font-normal sm:font-medium">
                                         {{ __('messages.common.search_placeholder') }}
                                     </span>
                                 </div>
                                 
                                 {{-- Keyboard Shortcut Hint --}}
                                 <div class="hidden md:flex items-center gap-1 px-3 py-1.5 bg-gray-100 dark:bg-slate-700 rounded-lg">
-                                    <kbd class="text-xs font-semibold text-[#4A5568] dark:text-gray-400">Ctrl</kbd>
-                                    <span class="text-xs text-[#4A5568] dark:text-gray-400">+</span>
-                                    <kbd class="text-xs font-semibold text-[#4A5568] dark:text-gray-400">K</kbd>
+                                    <kbd class="text-xs font-semibold text-ppid-text dark:text-gray-400">Ctrl</kbd>
+                                    <span class="text-xs text-ppid-text dark:text-gray-400">+</span>
+                                    <kbd class="text-xs font-semibold text-ppid-text dark:text-gray-400">K</kbd>
                                 </div>
                             </button>
                             
@@ -169,7 +169,7 @@
                 <div class="md:hidden flex-1 max-w-3xl">
                     <h1 class="text-xs sm:text-2xl font-bold leading-tight mb-1.5 sm:mb-4 text-white drop-shadow-lg">
                         Selamat Datang di Portal Resmi<br>
-                        <span class="text-[#D4AF37]">PPID Utama</span><br>
+                        <span class="text-ppid-accent">PPID Utama</span><br>
                         Provinsi Sulawesi Selatan
                     </h1>
                     <p class="text-[10px] leading-tight sm:text-sm text-white/90 font-medium drop-shadow-md mb-2 sm:mb-6">
@@ -180,18 +180,18 @@
                     <div class="max-w-2xl mx-auto scale-90 sm:scale-100">
                         <button 
                             @click="$dispatch('open-search')"
-                            class="group w-full flex items-center gap-1.5 sm:gap-3 px-3 py-1.5 sm:px-6 sm:py-4 bg-white/95 dark:bg-slate-800/95 backdrop-blur-md rounded-xl sm:rounded-2xl shadow-2xl hover:shadow-[#D4AF37]/20 hover:shadow-3xl transition-all duration-300 border-2 border-transparent hover:border-[#D4AF37]/50">
+                            class="group w-full flex items-center gap-1.5 sm:gap-3 px-3 py-1.5 sm:px-6 sm:py-4 bg-white/95 dark:bg-slate-800/95 backdrop-blur-md rounded-xl sm:rounded-2xl shadow-2xl hover:shadow-ppid-accent/20 hover:shadow-3xl transition-all duration-300 border-2 border-transparent hover:border-ppid-accent/50">
                             
                             {{-- Search Icon --}}
                             <div class="flex-shrink-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 sm:w-6 sm:h-6 text-[#4A5568] dark:text-gray-400 group-hover:text-[#D4AF37] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 sm:w-6 sm:h-6 text-ppid-text dark:text-gray-400 group-hover:text-ppid-accent transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                 </svg>
                             </div>
                             
                             {{-- Placeholder Text --}}
                             <div class="flex-1 text-left">
-                                <span class="text-[#4A5568] dark:text-gray-400 text-xs sm:text-base font-normal sm:font-medium">
+                                <span class="text-ppid-text dark:text-gray-400 text-xs sm:text-base font-normal sm:font-medium">
                                     {{ __('messages.common.search_placeholder') }}
                                 </span>
                             </div>
@@ -203,10 +203,10 @@
     </div>
 
     {{-- @ --}}
-    <button @click="prev()" class="absolute left-2 sm:left-4 top-1/2 -translate-y-14 p-2 sm:p-3 rounded-full bg-black/20 hover:bg-[#D4AF37] hover:text-[#1A305E] text-white backdrop-blur-sm transition-all z-30 opacity-0 group-hover:opacity-100 transform -translate-x-4 group-hover:translate-x-0 duration-300">
+    <button @click="prev()" class="absolute left-2 sm:left-4 top-1/2 -translate-y-14 p-2 sm:p-3 rounded-full bg-black/20 hover:bg-ppid-accent hover:text-ppid-primary text-white backdrop-blur-sm transition-all z-30 opacity-0 group-hover:opacity-100 transform -translate-x-4 group-hover:translate-x-0 duration-300">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
     </button>
-    <button @click="next()" class="absolute right-2 sm:right-4 top-1/2 -translate-y-14 p-2 sm:p-3 rounded-full bg-black/20 hover:bg-[#D4AF37] hover:text-[#1A305E] text-white backdrop-blur-sm transition-all z-30 opacity-0 group-hover:opacity-100 transform translate-x-4 group-hover:translate-x-0 duration-300">
+    <button @click="next()" class="absolute right-2 sm:right-4 top-1/2 -translate-y-14 p-2 sm:p-3 rounded-full bg-black/20 hover:bg-ppid-accent hover:text-ppid-primary text-white backdrop-blur-sm transition-all z-30 opacity-0 group-hover:opacity-100 transform translate-x-4 group-hover:translate-x-0 duration-300">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
     </button>
 
@@ -216,7 +216,7 @@
             <button 
                 @click="activeSlide = index"
                 class="w-10 h-1.5 rounded-full transition-all duration-300"
-                :class="activeSlide === index ? 'bg-[#D4AF37] w-16' : 'bg-white/30 hover:bg-white/50'"
+                :class="activeSlide === index ? 'bg-ppid-accent w-16' : 'bg-white/30 hover:bg-white/50'"
             ></button>
         </template>
     </div>

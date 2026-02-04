@@ -50,7 +50,7 @@
 
         {{-- Hero Section Tanpa Icon --}}
         <section
-            class="relative bg-gradient-to-br from-[#1A305E] via-[#2a4a7c] to-[#1A305E] text-white overflow-hidden pb-32 md:pb-40">
+            class="relative bg-gradient-to-br from-ppid-primary via-[#2a4a7c] to-ppid-primary text-white overflow-hidden pb-32 md:pb-40">
             <div class="container mx-auto px-4 sm:px-6 relative z-10 text-center pt-16 md:pt-24">
                 {{-- Judul --}}
                 <h1
@@ -83,10 +83,10 @@
             <div class="container mx-auto px-4 sm:px-6 relative z-20">
                 <div class="max-w-4xl mx-auto">
                     <div
-                        class="bg-gradient-to-br from-white via-slate-50 to-blue-50/30 dark:from-slate-800 dark:via-slate-800 dark:to-slate-900 rounded-[2.5rem] shadow-2xl p-8 md:p-14 border-2 border-[#1A305E]/10 dark:border-blue-500/30">
+                        class="bg-gradient-to-br from-white via-slate-50 to-blue-50/30 dark:from-slate-800 dark:via-slate-800 dark:to-slate-900 rounded-[2.5rem] shadow-2xl p-8 md:p-14 border-2 border-ppid-primary/10 dark:border-blue-500/30">
 
                         <div class="text-center mb-10">
-                            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1A305E] dark:text-white mb-4">
+                            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-ppid-primary dark:text-white mb-4">
                                 {{ __('messages.status.enter_email') }}
                             </h2>
                             <p class="text-slate-600 dark:text-slate-400">{{ __('messages.status.email_instruction') }}
@@ -97,7 +97,7 @@
                             <div class="mb-8">
                                 <div class="relative group">
                                     <input type="email" x-model="email" required
-                                        class="w-full px-6 py-5 text-xl rounded-2xl border-2 border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 focus:ring-4 focus:ring-[#D4AF37]/30 focus:border-[#1A305E] transition-all duration-300"
+                                        class="w-full px-6 py-5 text-xl rounded-2xl border-2 border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 focus:ring-4 focus:ring-ppid-accent/30 focus:border-ppid-primary transition-all duration-300"
                                         placeholder="contoh: nama@email.com">
                                 </div>
                             </div>
@@ -115,7 +115,7 @@
                             </div>
 
                             <button type="submit" :disabled="loading"
-                                class="w-full bg-gradient-to-r from-[#1A305E] to-[#2a4a7c] hover:from-[#152749] hover:to-[#1f3a65] text-white text-xl md:text-2xl font-bold py-6 px-8 rounded-2xl transition-all transform hover:scale-[1.02] shadow-xl flex items-center justify-center gap-4 disabled:opacity-50">
+                                class="w-full bg-gradient-to-r from-ppid-primary to-[#2a4a7c] hover:from-[#152749] hover:to-[#1f3a65] text-white text-xl md:text-2xl font-bold py-6 px-8 rounded-2xl transition-all transform hover:scale-[1.02] shadow-xl flex items-center justify-center gap-4 disabled:opacity-50">
                                 <svg x-show="loading" class="animate-spin w-7 h-7" fill="none" viewBox="0 0 24 24">
                                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
                                         stroke-width="4"></circle>
@@ -138,11 +138,11 @@
             <div class="container mx-auto px-4 sm:px-6">
                 <div class="text-center mb-12">
                     <div
-                        class="inline-flex flex-col sm:flex-row items-center gap-4 bg-white dark:bg-slate-800 px-8 py-5 rounded-2xl shadow-lg border-2 border-[#1A305E]/10">
-                        <h2 class="text-2xl sm:text-3xl font-bold text-[#1A305E] dark:text-white">
+                        class="inline-flex flex-col sm:flex-row items-center gap-4 bg-white dark:bg-slate-800 px-8 py-5 rounded-2xl shadow-lg border-2 border-ppid-primary/10">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-ppid-primary dark:text-white">
                             {{ __('messages.status.history') }}
                         </h2>
-                        <span class="bg-[#D4AF37] text-white px-4 py-1 rounded-full text-sm font-bold"
+                        <span class="bg-ppid-accent text-white px-4 py-1 rounded-full text-sm font-bold"
                             x-text="permohonan.length + ' Data'"></span>
                     </div>
                 </div>
@@ -156,8 +156,8 @@
                             <div
                                 class="p-6 bg-slate-50 dark:bg-slate-700/30 border-b-2 border-slate-100 dark:border-slate-700 flex flex-wrap justify-between items-center gap-4">
                                 <div class="flex items-center gap-4">
-                                    <div class="p-3 bg-[#1A305E] rounded-xl shadow-md">
-                                        <svg class="w-7 h-7 text-[#D4AF37]" fill="none" stroke="currentColor"
+                                    <div class="p-3 bg-ppid-primary rounded-xl shadow-md">
+                                        <svg class="w-7 h-7 text-ppid-accent" fill="none" stroke="currentColor"
                                             viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
@@ -187,10 +187,10 @@
                                 {{-- Left: Details --}}
                                 <div>
                                     <label
-                                        class="flex items-center gap-2 text-xs font-bold text-[#D4AF37] uppercase tracking-wider mb-3">
+                                        class="flex items-center gap-2 text-xs font-bold text-ppid-accent uppercase tracking-wider mb-3">
                                         <span>{{ __('messages.status.subject') }}</span>
                                     </label>
-                                    <p class="text-lg font-bold text-[#1A305E] dark:text-white leading-relaxed"
+                                    <p class="text-lg font-bold text-ppid-primary dark:text-white leading-relaxed"
                                         x-text="item.rincian"></p>
                                 </div>
 
@@ -199,8 +199,8 @@
                                     {{-- Right: Response & Handler --}}
                                     <div class="space-y-6">
                                         <div
-                                            class="bg-gradient-to-br from-[#1A305E] to-[#2a4a7c] rounded-2xl p-5 text-white shadow-lg">
-                                            <p class="text-xs font-bold text-[#D4AF37] uppercase mb-1">
+                                            class="bg-gradient-to-br from-ppid-primary to-[#2a4a7c] rounded-2xl p-5 text-white shadow-lg">
+                                            <p class="text-xs font-bold text-ppid-accent uppercase mb-1">
                                                 {{ __('messages.status.handled_by') }}
                                             </p>
                                             <p class="text-lg font-bold"
@@ -239,7 +239,7 @@
                                                 <template x-if="item.file">
                                                     <div class="mt-4 pt-4 border-t border-slate-200">
                                                         <a :href="`/storage/${item.file}`" target="_blank"
-                                                            class="inline-flex items-center gap-2 text-[#1A305E] dark:text-[#D4AF37] font-bold hover:underline">
+                                                            class="inline-flex items-center gap-2 text-ppid-primary dark:text-ppid-accent font-bold hover:underline">
                                                             <svg class="w-5 h-5" fill="none" stroke="currentColor"
                                                                 viewBox="0 0 24 24">
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -260,7 +260,7 @@
                                 <template x-if="item.disposisi && item.disposisi.length > 0">
                                     <div class="mt-6 pt-6 border-slate-200 dark:border-slate-700">
                                         <label
-                                            class="text-xs font-bold text-[#D4AF37] uppercase tracking-wider mb-4 block">
+                                            class="text-xs font-bold text-ppid-accent uppercase tracking-wider mb-4 block">
                                             {{ __('messages.status.tracking_disposition') }}
                                         </label>
                                         <div class="space-y-4">
@@ -269,7 +269,7 @@
                                                     class="bg-slate-100 dark:bg-slate-900 rounded-2xl p-5 border-2 border-slate-200 dark:border-slate-700">
                                                     <div class="flex justify-between items-start mb-3">
                                                         <div>
-                                                            <h5 class="font-bold text-[#1A305E] dark:text-white"
+                                                            <h5 class="font-bold text-ppid-primary dark:text-white"
                                                                 x-text="disp.skpd ? disp.skpd.nm_skpd : 'SKPD'"></h5>
                                                             <p class="text-xs text-slate-500 mt-1">
                                                                 Disposisi: <span

@@ -16,7 +16,7 @@
 
     <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden max-w-4xl mx-auto mb-6">
         <div class="p-6 border-b border-slate-100 flex justify-between items-center">
-            <h3 class="text-lg font-bold text-[#1A305E]">Detail FAQ</h3>
+            <h3 class="text-lg font-bold text-ppid-primary">Detail FAQ</h3>
             <div class="flex gap-2">
                 <a href="{{ route('admin.faq.edit', $faq->id_faq) }}"
                     class="px-4 py-2 bg-indigo-50 text-indigo-600 rounded-lg text-sm font-medium hover:bg-indigo-100 transition-colors">

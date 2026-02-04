@@ -7,12 +7,12 @@
     <div class="container mx-auto px-4 relative z-10">
         {{-- Section Header - Animasi Fade Down --}}
         <div class="text-center mb-8 md:mb-12 max-w-3xl mx-auto" data-aos="fade-down">
-            <div class="inline-flex items-center gap-2 mb-4 px-4 py-2 bg-white dark:bg-slate-800 border border-[#D4AF37]/30 rounded-full shadow-sm">
-                <div class="w-2 h-2 bg-[#D4AF37] rounded-full"></div>
-                <span class="text-[#1A305E] dark:text-gray-200 text-xs md:text-sm font-bold tracking-wide uppercase">{{ __('messages.service.our_services') }}</span>
+            <div class="inline-flex items-center gap-2 mb-4 px-4 py-2 bg-white dark:bg-slate-800 border border-ppid-accent/30 rounded-full shadow-sm">
+                <div class="w-2 h-2 bg-ppid-accent rounded-full"></div>
+                <span class="text-ppid-primary dark:text-gray-200 text-xs md:text-sm font-bold tracking-wide uppercase">{{ __('messages.service.our_services') }}</span>
             </div>
-            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#1A305E] dark:text-white mb-4 sm:mb-6 leading-tight">{{ __('messages.service.public_info_services') }}</h2>
-            <p class="text-base md:text-lg text-[#4A5568] dark:text-gray-300 leading-relaxed">{{ __('messages.service.access_desc') }}</p>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-ppid-primary dark:text-white mb-4 sm:mb-6 leading-tight">{{ __('messages.service.public_info_services') }}</h2>
+            <p class="text-base md:text-lg text-ppid-text dark:text-gray-300 leading-relaxed">{{ __('messages.service.access_desc') }}</p>
         </div>
 
         {{-- Cards Grid - Animasi Fade Up dengan Staggered Delay --}}
@@ -32,11 +32,11 @@
                 <div class="relative bg-white dark:bg-slate-800 rounded-2xl p-6 sm:p-8 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_-10px_rgba(26,48,94,0.1)] transition-all duration-700 ease-out group-hover:-translate-y-1 border border-gray-100/80 dark:border-slate-700 overflow-hidden h-full flex flex-col">
                 
                 {{-- Hover Accent Line --}}
-                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-ppid-accent to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
                 
                 <div class="relative z-10 flex flex-row md:flex-col h-full gap-4 md:gap-0">
                     {{-- Icon Container - Pada mobile lebih kecil dan flex-shrink-0 --}}
-                    <div class="w-12 h-12 md:w-14 md:h-14 flex-shrink-0 rounded-xl bg-[#1A305E]/5 dark:bg-white/10 text-[#1A305E] dark:text-white group-hover:bg-[#1A305E] group-hover:text-[#D4AF37] flex items-center justify-center md:mb-6 transition-colors duration-300">
+                    <div class="w-12 h-12 md:w-14 md:h-14 flex-shrink-0 rounded-xl bg-ppid-primary/5 dark:bg-white/10 text-ppid-primary dark:text-white group-hover:bg-ppid-primary group-hover:text-ppid-accent flex items-center justify-center md:mb-6 transition-colors duration-300">
                         <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="{{ $s['icon'] }}"/>
                         </svg>
@@ -44,18 +44,18 @@
                     
                     {{-- Content Container --}}
                     <div class="flex flex-col flex-grow">
-                        <h3 class="text-base md:text-lg lg:text-xl font-bold text-[#1A305E] dark:text-white mb-2 md:mb-3 group-hover:text-[#D4AF37] transition-colors">{{ __($s['title']) }}</h3>
-                        <p class="text-sm md:text-base text-[#4A5568] dark:text-gray-300 leading-relaxed mb-4 md:mb-8 flex-grow">{{ __($s['desc']) }}</p>
+                        <h3 class="text-base md:text-lg lg:text-xl font-bold text-ppid-primary dark:text-white mb-2 md:mb-3 group-hover:text-ppid-accent transition-colors">{{ __($s['title']) }}</h3>
+                        <p class="text-sm md:text-base text-ppid-text dark:text-gray-300 leading-relaxed mb-4 md:mb-8 flex-grow">{{ __($s['desc']) }}</p>
                         
-                        <span class="inline-flex items-center gap-2 text-xs md:text-sm font-bold text-[#1A305E] dark:text-white group-hover:translate-x-1 transition-transform uppercase tracking-wider">
+                        <span class="inline-flex items-center gap-2 text-xs md:text-sm font-bold text-ppid-primary dark:text-white group-hover:translate-x-1 transition-transform uppercase tracking-wider">
                             {{ __('messages.service.access_service') }}
-                            <svg class="w-3 h-3 md:w-4 md:h-4 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                            <svg class="w-3 h-3 md:w-4 md:h-4 text-ppid-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                         </span>
                     </div>
                 </div>
 
                 {{-- Decorative Circle on Hover --}}
-                <div class="absolute -bottom-10 -right-10 w-32 h-32 bg-[#D4AF37]/5 rounded-full group-hover:scale-150 transition-transform duration-700 ease-out"></div>
+                <div class="absolute -bottom-10 -right-10 w-32 h-32 bg-ppid-accent/5 rounded-full group-hover:scale-150 transition-transform duration-700 ease-out"></div>
                 </div>
             </a>
             @endforeach

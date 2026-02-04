@@ -6,7 +6,7 @@
         <div class="container mx-auto px-4 py-6">
             {{-- Breadcrumb --}}
             <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mb-4">
-                <a href="/" class="hover:text-[#1A305E] dark:text-white transition-colors">
+                <a href="/" class="hover:text-ppid-primary dark:text-white transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="w-4 h-4">
@@ -20,20 +20,20 @@
                     <path d="m9 18 6-6-6-6" />
                 </svg>
                 <a href="/informasi-publik"
-                    class="hover:text-[#1A305E] dark:text-white transition-colors">{{ __('messages.breadcrumb.public_info') }}</a>
+                    class="hover:text-ppid-primary dark:text-white transition-colors">{{ __('messages.breadcrumb.public_info') }}</a>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="w-4 h-4 text-gray-400">
                     <path d="m9 18 6-6-6-6" />
                 </svg>
                 <span
-                    class="text-[#1A305E] dark:text-white font-medium">{{ __('messages.public_info_types.setiap_saat') }}</span>
+                    class="text-ppid-primary dark:text-white font-medium">{{ __('messages.public_info_types.setiap_saat') }}</span>
             </div>
 
             {{-- Title --}}
             <div class="flex items-end justify-between">
                 <div>
-                    <h1 class="text-3xl md:text-4xl font-bold text-[#1A305E] dark:text-white mb-2">
+                    <h1 class="text-3xl md:text-4xl font-bold text-ppid-primary dark:text-white mb-2">
                         {{ __('messages.public_info_pages.setiap_saat_title') }}
                     </h1>
                     <p class="text-gray-600 dark:text-gray-300">
@@ -41,7 +41,7 @@
                     </p>
                 </div>
                 <div class="hidden md:block">
-                    <div class="w-20 h-1 bg-gradient-to-r from-[#1A305E] to-transparent rounded-full"></div>
+                    <div class="w-20 h-1 bg-gradient-to-r from-ppid-primary to-transparent rounded-full"></div>
                 </div>
             </div>
         </div>
@@ -65,12 +65,12 @@
                             </svg>
                             <input type="text" name="search" value="{{ request('search') }}"
                                 placeholder="{{ __('messages.common.search_placeholder') }}"
-                                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1A305E] dark:bg-slate-700 dark:text-white dark:focus:ring-blue-500" />
+                                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-ppid-primary dark:bg-slate-700 dark:text-white dark:focus:ring-blue-500" />
                         </div>
                     </div>
                     <div>
                         <select name="tahun" onchange="this.form.submit()"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1A305E] bg-white dark:bg-slate-800 dark:text-white">
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-ppid-primary bg-white dark:bg-slate-800 dark:text-white">
                             <option value="">{{ __('messages.common.select_year') }}</option>
                             @foreach ($availableYears as $year)
                                 <option value="{{ $year->waktu }}" {{ request('tahun') == $year->waktu ? 'selected' : '' }}>
@@ -81,7 +81,7 @@
                     </div>
                     <div class="flex gap-2">
                         <button type="submit"
-                            class="px-6 py-2 bg-[#D4AF37] text-white rounded-lg hover:bg-[#B08D26] transition-colors font-medium">
+                            class="px-6 py-2 bg-ppid-accent text-white rounded-lg hover:bg-[#B08D26] transition-colors font-medium">
                             {{ __('messages.news.search_btn') }}
                         </button>
                         @if (request('search') || request('tahun'))
@@ -98,7 +98,7 @@
                     class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 overflow-hidden">
                     <div class="overflow-x-auto">
                         <table class="w-full text-left border-collapse">
-                            <thead class="bg-[#1A305E] text-white">
+                            <thead class="bg-ppid-primary text-white">
                                 <tr>
                                     <th class="px-4 py-3 text-sm font-semibold">{{ __('messages.table.no') }}</th>
                                     <th class="px-4 py-3 text-sm font-semibold">{{ __('messages.table.title') }}</th>
@@ -109,7 +109,7 @@
                             </thead>
                             <tbody class="divide-y divide-gray-200">
                                 @foreach ($informasiData as $item)
-                                    <tr class="hover:bg-[#1A305E]/5 transition-colors">
+                                    <tr class="hover:bg-ppid-primary/5 transition-colors">
                                         <td class="px-4 py-3 text-sm text-gray-900 dark:text-white">
                                             {{ ($informasiData->currentPage() - 1) * $informasiData->perPage() + $loop->iteration }}
                                         </td>
@@ -121,7 +121,7 @@
                                         <td class="px-4 py-3 text-center whitespace-nowrap">
                                             <div class="flex items-center justify-center gap-2">
                                                 <a href="{{ route('informasi-publik.show', $item->id_informasi) }}"
-                                                    class="p-1.5 text-[#1A305E] dark:text-white hover:bg-[#1A305E]/10 rounded transition-colors"
+                                                    class="p-1.5 text-ppid-primary dark:text-white hover:bg-ppid-primary/10 rounded transition-colors"
                                                     title="{{ __('messages.common.view_detail') }}">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -133,7 +133,7 @@
                                                 </a>
                                                 <a href="{{ $item->file ? (str_starts_with($item->file, 'http') ? $item->file : asset('storage/' . $item->file)) : '#' }}"
                                                     download
-                                                    class="p-1.5 text-[#1A305E] dark:text-white hover:bg-[#1A305E]/10 rounded transition-colors"
+                                                    class="p-1.5 text-ppid-primary dark:text-white hover:bg-ppid-primary/10 rounded transition-colors"
                                                     title="{{ __('messages.common.download') }}">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                         viewBox="0 0 24 24" fill="none" stroke="currentColor"

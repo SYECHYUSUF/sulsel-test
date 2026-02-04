@@ -2,7 +2,7 @@
 @props(['active', 'label', 'href' => '#'])
 
 @php
-    $activeClasses = 'bg-[#D4AF37] text-[#1A305E] shadow-sm shadow-[#D4AF37]/20';
+    $activeClasses = 'bg-ppid-accent text-ppid-primary shadow-sm shadow-ppid-accent/20';
     $inactiveClasses = 'text-slate-400 hover:text-white hover:bg-white/10';
 
     $classes = ($active ?? false) ? $activeClasses : $inactiveClasses;

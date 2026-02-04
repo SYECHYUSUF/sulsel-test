@@ -134,7 +134,7 @@
                                 <input type="hidden" name="ids[]" value="{{ $informasi->id_informasi }}">
                                 <input type="hidden" name="verify" value="y">
                                 <button type="submit"
-                                    class="w-full sm:w-auto px-6 py-2.5 bg-[#1A305E] text-white rounded-xl text-sm font-bold hover:bg-ppid-dark shadow-lg shadow-blue-900/20 transition-all flex items-center justify-center gap-2">
+                                    class="w-full sm:w-auto px-6 py-2.5 bg-ppid-primary text-white rounded-xl text-sm font-bold hover:bg-ppid-dark shadow-lg shadow-blue-900/20 transition-all flex items-center justify-center gap-2">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M5 13l4 4L19 7"></path>

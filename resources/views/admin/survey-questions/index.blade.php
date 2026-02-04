@@ -8,7 +8,7 @@
     {{-- Header --}}
     <div class="flex items-center justify-between mb-6">
         </div>
-        <a href="{{ route('admin.survey-questions.create') }}" class="px-6 py-3 bg-[#1A305E] text-white font-semibold rounded-lg hover:bg-[#2A4A7E] transition-all shadow-md hover:shadow-lg flex items-center gap-2">
+        <a href="{{ route('admin.survey-questions.create') }}" class="px-6 py-3 bg-ppid-primary text-white font-semibold rounded-lg hover:bg-[#2A4A7E] transition-all shadow-md hover:shadow-lg flex items-center gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
             </svg>
@@ -51,7 +51,7 @@
                     @forelse($questions as $question)
                         <tr class="hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors">
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#1A305E] text-white text-sm font-bold">
+                                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-ppid-primary text-white text-sm font-bold">
                                     {{ $question->urutan }}
                                 </span>
                             </td>

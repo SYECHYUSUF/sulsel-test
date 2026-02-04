@@ -3,7 +3,7 @@
         Pengaturan
     </x-slot>
 
-    <h3 class="text-lg font-bold text-[#1A305E] mb-4">Pengaturan</h3>
+    <h3 class="text-lg font-bold text-ppid-primary mb-4">Pengaturan</h3>
 
 
 </x-admin-layout>

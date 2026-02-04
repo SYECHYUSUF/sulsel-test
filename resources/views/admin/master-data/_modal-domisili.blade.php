@@ -12,7 +12,7 @@
                     Nama Daerah <span class="text-red-500">*</span>
                 </label>
                 <input type="text" id="create-nama_daerah" name="nama_daerah" required
-                    class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-[#1A305E] dark:focus:ring-blue-400 focus:border-transparent dark:bg-slate-700 dark:text-slate-100">
+                    class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-ppid-primary dark:focus:ring-blue-400 focus:border-transparent dark:bg-slate-700 dark:text-slate-100">
             </div>
 
             <div class="mb-4">
@@ -20,13 +20,13 @@
                     Provinsi <span class="text-red-500">*</span>
                 </label>
                 <input type="text" id="create-provinsi" name="provinsi" required
-                    class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-[#1A305E] dark:focus:ring-blue-400 focus:border-transparent dark:bg-slate-700 dark:text-slate-100">
+                    class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-ppid-primary dark:focus:ring-blue-400 focus:border-transparent dark:bg-slate-700 dark:text-slate-100">
             </div>
 
             <div class="mb-6">
                 <label class="flex items-center">
                     <input type="checkbox" id="create-domisili-is_active" name="is_active" value="1" checked
-                        class="w-4 h-4 text-[#1A305E] border-slate-300 rounded focus:ring-[#1A305E] dark:border-slate-600 dark:bg-slate-700">
+                        class="w-4 h-4 text-ppid-primary border-slate-300 rounded focus:ring-ppid-primary dark:border-slate-600 dark:bg-slate-700">
                     <span class="ml-2 text-sm text-slate-700 dark:text-slate-300">Aktif</span>
                 </label>
             </div>
@@ -37,7 +37,7 @@
                     Batal
                 </button>
                 <button type="submit"
-                    class="px-4 py-2 text-sm font-medium text-white bg-[#1A305E] hover:bg-ppid-dark rounded-lg transition-colors">
+                    class="px-4 py-2 text-sm font-medium text-white bg-ppid-primary hover:bg-ppid-dark rounded-lg transition-colors">
                     Simpan
                 </button>
             </div>
@@ -62,7 +62,7 @@
                     Nama Daerah <span class="text-red-500">*</span>
                 </label>
                 <input type="text" id="domisili-nama_daerah" name="nama_daerah" required
-                    class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-[#1A305E] dark:focus:ring-blue-400 focus:border-transparent dark:bg-slate-700 dark:text-slate-100">
+                    class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-ppid-primary dark:focus:ring-blue-400 focus:border-transparent dark:bg-slate-700 dark:text-slate-100">
             </div>
 
             <div class="mb-4">
@@ -71,13 +71,13 @@
                     Provinsi <span class="text-red-500">*</span>
                 </label>
                 <input type="text" id="domisili-provinsi" name="provinsi" required
-                    class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-[#1A305E] dark:focus:ring-blue-400 focus:border-transparent dark:bg-slate-700 dark:text-slate-100">
+                    class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-ppid-primary dark:focus:ring-blue-400 focus:border-transparent dark:bg-slate-700 dark:text-slate-100">
             </div>
 
             <div class="mb-6">
                 <label class="flex items-center">
                     <input type="checkbox" id="domisili-is_active" name="is_active" value="1"
-                        class="w-4 h-4 text-[#1A305E] border-slate-300 rounded focus:ring-[#1A305E] dark:border-slate-600 dark:bg-slate-700">
+                        class="w-4 h-4 text-ppid-primary border-slate-300 rounded focus:ring-ppid-primary dark:border-slate-600 dark:bg-slate-700">
                     <span class="ml-2 text-sm text-slate-700 dark:text-slate-300">Aktif</span>
                 </label>
             </div>
@@ -88,7 +88,7 @@
                     Batal
                 </button>
                 <button type="submit"
-                    class="px-4 py-2 text-sm font-medium text-white bg-[#1A305E] hover:bg-ppid-dark rounded-lg transition-colors">
+                    class="px-4 py-2 text-sm font-medium text-white bg-ppid-primary hover:bg-ppid-dark rounded-lg transition-colors">
                     Update
                 </button>
             </div>

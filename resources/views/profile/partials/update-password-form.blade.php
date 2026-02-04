@@ -28,7 +28,7 @@
         </div>
 
         <div class="flex items-center gap-4 pt-4 border-t border-slate-100">
-            <button type="submit" class="px-4 py-2 bg-[#1A305E] text-white rounded-lg text-sm font-medium hover:bg-slate-800 transition-colors shadow-sm">
+            <button type="submit" class="px-4 py-2 bg-ppid-primary text-white rounded-lg text-sm font-medium hover:bg-slate-800 transition-colors shadow-sm">
                 Perbarui Kata Sandi
             </button>
 

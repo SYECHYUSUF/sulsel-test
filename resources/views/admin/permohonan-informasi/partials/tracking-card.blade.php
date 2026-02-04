@@ -3,7 +3,7 @@
     <div
         class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 overflow-hidden">
         <div class="p-6 border-b border-slate-100 dark:border-slate-700">
-            <h3 class="text-lg font-bold text-[#1A305E] dark:text-blue-400">Tracking Disposisi SKPD</h3>
+            <h3 class="text-lg font-bold text-ppid-primary dark:text-blue-400">Tracking Disposisi SKPD</h3>
             <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">Status dan respon dari setiap SKPD yang menerima
                 disposisi</p>
         </div>
@@ -60,7 +60,7 @@
                                             Status <span class="text-red-500">*</span>
                                         </label>
                                         <select name="status" required
-                                            class="w-full px-3 py-2 text-sm border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 rounded-lg focus:ring-2 focus:ring-[#1A305E]">
+                                            class="w-full px-3 py-2 text-sm border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 rounded-lg focus:ring-2 focus:ring-ppid-primary">
                                             <option value="">Pilih Status</option>
                                             <option value="diproses">Sedang Diproses</option>
                                             <option value="selesai">Selesai</option>
@@ -73,7 +73,7 @@
                                             Respon <span class="text-red-500">*</span>
                                         </label>
                                         <textarea name="respon" rows="4" required
-                                            class="w-full px-3 py-2 text-sm border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 rounded-lg focus:ring-2 focus:ring-[#1A305E]"
+                                            class="w-full px-3 py-2 text-sm border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 rounded-lg focus:ring-2 focus:ring-ppid-primary"
                                             placeholder="Tuliskan respon atau jawaban untuk permohonan ini..."></textarea>
                                     </div>
 
@@ -86,13 +86,13 @@
                                                                                                file:mr-4 file:py-2 file:px-4
                                                                                                file:rounded-lg file:border-0
                                                                                                file:text-sm file:font-semibold
-                                                                                               file:bg-[#1A305E] file:text-white
+                                                                                               file:bg-ppid-primary file:text-white
                                                                                                hover:file:bg-blue-800 file:cursor-pointer">
                                         <p class="text-xs text-slate-500 mt-1">PDF, DOC, DOCX, JPG, PNG (Max 5MB)</p>
                                     </div>
 
                                     <button type="submit"
-                                        class="w-full px-4 py-2 bg-gradient-to-r from-[#1A305E] to-blue-700 text-white text-sm font-bold rounded-lg hover:shadow-lg transition-all transform hover:scale-[1.02]">
+                                        class="w-full px-4 py-2 bg-gradient-to-r from-ppid-primary to-blue-700 text-white text-sm font-bold rounded-lg hover:shadow-lg transition-all transform hover:scale-[1.02]">
                                         Kirim Respon
                                     </button>
                                 </div>

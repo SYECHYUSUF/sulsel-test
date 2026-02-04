@@ -16,7 +16,7 @@
 
     <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 overflow-hidden max-w-4xl mx-auto">
         <div class="p-6 border-b border-slate-100 dark:border-slate-700">
-            <h3 class="text-lg font-bold text-[#1A305E] dark:text-blue-400">Form Tambah FAQ</h3>
+            <h3 class="text-lg font-bold text-ppid-primary dark:text-blue-400">Form Tambah FAQ</h3>
         </div>
 
         <form id="createForm" action="{{ route('admin.faq.store') }}" method="POST" class="p-6 pt-0 space-y-6"
@@ -77,7 +77,7 @@
                     Batal
                 </a>
                 <button type="button" @click="showConfirm = true"
-                    class="px-4 py-2 bg-[#1A305E] dark:bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-ppid-dark dark:hover:bg-blue-700 transition-colors">
+                    class="px-4 py-2 bg-ppid-primary dark:bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-ppid-dark dark:hover:bg-blue-700 transition-colors">
                     Simpan FAQ
                 </button>
             </div>

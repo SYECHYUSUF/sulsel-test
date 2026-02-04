@@ -48,7 +48,7 @@
             <!-- Applicant Info -->
             <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 overflow-hidden">
                 <div class="p-6 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center">
-                    <h3 class="text-lg font-bold text-[#1A305E] dark:text-blue-400">Data Pemohon</h3>
+                    <h3 class="text-lg font-bold text-ppid-primary dark:text-blue-400">Data Pemohon</h3>
                     <span class="px-3 py-1 rounded-full text-sm font-semibold {{ $permohonan->status_color }}">
                         {{ $permohonan->status_label }}
                     </span>
@@ -101,7 +101,7 @@
             <!-- Request Detail -->
             <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 overflow-hidden">
                 <div class="p-6 border-b border-slate-100 dark:border-slate-700">
-                    <h3 class="text-lg font-bold text-[#1A305E] dark:text-blue-400">Rincian Permohonan</h3>
+                    <h3 class="text-lg font-bold text-ppid-primary dark:text-blue-400">Rincian Permohonan</h3>
                 </div>
                 <div class="p-6 space-y-4">
                     <div>
@@ -131,7 +131,7 @@
             <!-- File Attachments (KTP) -->
             <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 overflow-hidden">
                 <div class="p-6 border-b border-slate-100 dark:border-slate-700">
-                    <h3 class="text-lg font-bold text-[#1A305E] dark:text-blue-400">Lampiran</h3>
+                    <h3 class="text-lg font-bold text-ppid-primary dark:text-blue-400">Lampiran</h3>
                 </div>
                 <div class="p-6">
                     @if($permohonan->foto_ktp)
@@ -170,7 +170,7 @@
             <!-- Action Card -->
             <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 overflow-hidden sticky top-6">
                 <div class="p-6 border-b border-slate-100 dark:border-slate-700">
-                    <h3 class="text-lg font-bold text-[#1A305E] dark:text-blue-400">Tindakan</h3>
+                    <h3 class="text-lg font-bold text-ppid-primary dark:text-blue-400">Tindakan</h3>
                 </div>
                 <div class="p-6 space-y-3">
                     <!-- Workflow Logic -->
@@ -307,7 +307,7 @@
 
             <!-- Header -->
             <div class="bg-white dark:bg-slate-800 px-6 py-4 border-b border-gray-100 dark:border-slate-700 flex justify-between items-center sticky top-0 z-10">
-                <h3 class="text-lg font-bold text-[#1A305E] dark:text-blue-400">
+                <h3 class="text-lg font-bold text-ppid-primary dark:text-blue-400">
                     Disposisi ke OPD
                 </h3>
                 <button @click="disposisiModalOpen = false" class="text-gray-400 hover:text-gray-500 focus:outline-none">
@@ -386,7 +386,7 @@
                 <!-- Footer / Buttons -->
                 <div class="bg-gray-50 dark:bg-slate-700/50 px-6 py-4 flex flex-row-reverse gap-3 sticky bottom-0 z-10">
                     <button type="submit" 
-                        class="inline-flex justify-center px-5 py-2.5 text-sm font-bold text-white bg-[#1A305E] border border-transparent rounded-lg hover:bg-[#1A305E]/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 shadow-lg transform transition hover:-translate-y-0.5">
+                        class="inline-flex justify-center px-5 py-2.5 text-sm font-bold text-white bg-ppid-primary border border-transparent rounded-lg hover:bg-ppid-primary/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 shadow-lg transform transition hover:-translate-y-0.5">
                         Kirim Disposisi
                     </button>
                     <button type="button" @click="disposisiModalOpen = false"

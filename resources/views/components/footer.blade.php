@@ -1,4 +1,4 @@
-<footer class="relative bg-[#1A305E] text-white overflow-hidden font-['Plus_Jakarta_Sans']">
+<footer class="relative bg-ppid-primary text-white overflow-hidden font-['Plus_Jakarta_Sans']">
     {{-- 1. Background Image Overlay --}}
     <div class="absolute inset-0 pointer-events-none">
         <img 
@@ -6,7 +6,7 @@
             class="w-full h-full object-cover " 
             alt="Sulsel Background"
         >
-        <div class="absolute inset-0 bg-gradient-to-t from-[#1A305E] via-[#1A305E]/95 to-[#1A305E]/90"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-ppid-primary via-ppid-primary/95 to-ppid-primary/90"></div>
     </div>
 
     {{-- 2. Dot & Cultural Pattern Overlay --}}
@@ -23,7 +23,7 @@
                     </a>
                     <div class="text-center sm:text-left">
                     <h3 class="text-xl md:text-2xl font-extrabold uppercase tracking-tight text-white leading-tight">{{ __('messages.header.title_1') }}</h3>
-                        <p class="text-sm md:text-base text-[#D4AF37] font-bold tracking-widest mt-1">{{ __('messages.header.title_2') }}</p>
+                        <p class="text-sm md:text-base text-ppid-accent font-bold tracking-widest mt-1">{{ __('messages.header.title_2') }}</p>
                     </div>
                 </div>
                 <p class="text-gray-300 mb-6 leading-relaxed max-w-md mx-auto sm:mx-0 text-sm md:text-base">
@@ -33,19 +33,19 @@
                 {{-- Contact Info --}}
                 <div class="space-y-3 mb-8 text-sm text-gray-300">
                     <div class="flex items-start gap-3 justify-center sm:justify-start">
-                        <div class="mt-1 flex-shrink-0 text-[#D4AF37]">
+                        <div class="mt-1 flex-shrink-0 text-ppid-accent">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
                         </div>
                         <span>{{ __('messages.footer.address_line') }}</span>
                     </div>
                     <div class="flex items-center gap-3 justify-center sm:justify-start">
-                        <div class="flex-shrink-0 text-[#D4AF37]">
+                        <div class="flex-shrink-0 text-ppid-accent">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                         </div>
                         <span>(0411) 453192</span>
                     </div>
                     <div class="flex items-center gap-3 justify-center sm:justify-start">
-                        <div class="flex-shrink-0 text-[#D4AF37]">
+                        <div class="flex-shrink-0 text-ppid-accent">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
                         </div>
                         <span>ppid@sulawesiprov.go.id</span>
@@ -64,8 +64,8 @@
                     @endphp
 
                     @foreach($socials as $soc)
-                        <a href="{{ $soc['link'] }}" title="{{ $soc['name'] }}" class="group relative w-11 h-11 bg-white/5 hover:bg-[#D4AF37] border border-white/10 hover:border-[#D4AF37] rounded-2xl flex items-center justify-center transition-all duration-500 hover:shadow-[0_0_20px_rgba(212,175,55,0.5)] hover:-translate-y-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="relative z-10 text-white/70 group-hover:text-[#1A305E] group-hover:scale-125 group-hover:rotate-12 transition-all duration-500">
+                        <a href="{{ $soc['link'] }}" title="{{ $soc['name'] }}" class="group relative w-11 h-11 bg-white/5 hover:bg-ppid-accent border border-white/10 hover:border-ppid-accent rounded-2xl flex items-center justify-center transition-all duration-500 hover:shadow-[0_0_20px_rgba(212,175,55,0.5)] hover:-translate-y-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="relative z-10 text-white/70 group-hover:text-ppid-primary group-hover:scale-125 group-hover:rotate-12 transition-all duration-500">
                                 {!! $soc['icon'] !!}
                             </svg>
                         </a>
@@ -86,13 +86,13 @@
             <div class="text-center sm:text-left">
                 <h4 class="text-base md:text-lg font-bold mb-6 relative inline-block sm:block text-white">
                     {{ __($title) }}
-                    <span class="absolute -bottom-2 left-1/2 -translate-x-1/2 sm:translate-x-0 sm:left-0 w-8 h-1 bg-[#D4AF37] rounded-full"></span>
+                    <span class="absolute -bottom-2 left-1/2 -translate-x-1/2 sm:translate-x-0 sm:left-0 w-8 h-1 bg-ppid-accent rounded-full"></span>
                 </h4>
                 <ul class="space-y-3 mt-4">
                     @foreach($links as $link)
                     <li>
-                        <a href="#" class="text-gray-400 hover:text-[#D4AF37] transition-colors duration-300 flex items-center justify-center sm:justify-start gap-2 group text-sm md:text-base">
-                            <span class="w-1.5 h-1.5 bg-[#D4AF37] rounded-full opacity-0 group-hover:opacity-100 transition-opacity hidden sm:block"></span>
+                        <a href="#" class="text-gray-400 hover:text-ppid-accent transition-colors duration-300 flex items-center justify-center sm:justify-start gap-2 group text-sm md:text-base">
+                            <span class="w-1.5 h-1.5 bg-ppid-accent rounded-full opacity-0 group-hover:opacity-100 transition-opacity hidden sm:block"></span>
                             {{ __($link) }}
                         </a>
                     </li>
@@ -106,9 +106,15 @@
         <div class="mt-10 sm:mt-12 md:mt-16 pt-6 sm:pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 sm:gap-6 text-xs md:text-sm text-gray-500 text-center md:text-left">
             <p>{{ __('messages.footer.rights') }}</p>
             <div class="flex gap-4 md:gap-6">
-                <a href="#" class="hover:text-[#D4AF37] transition-colors">{{ __('messages.footer.privacy') }}</a>
-                <a href="#" class="hover:text-[#D4AF37] transition-colors">{{ __('messages.footer.terms') }}</a>
+                <button @click="$dispatch('open-modal', 'privacy-policy')" class="hover:text-ppid-accent transition-colors cursor-pointer">{{ __('messages.footer.privacy') }}</button>
+                <button @click="$dispatch('open-modal', 'terms-conditions')" class="hover:text-ppid-accent transition-colors cursor-pointer">{{ __('messages.footer.terms') }}</button>
             </div>
         </div>
     </div>
+    
+    {{-- Privacy Policy Modal --}}
+    <x-modals.privacy-modal />
+    
+    {{-- Terms and Conditions Modal --}}
+    <x-modals.terms-modal />
 </footer>

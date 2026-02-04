@@ -6,16 +6,16 @@
         <div class="container mx-auto px-4 py-6">
             {{-- Breadcrumb --}}
             <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mb-4">
-                <a href="/" class="hover:text-[#1A305E] dark:text-white transition-colors">
+                <a href="/" class="hover:text-ppid-primary dark:text-white transition-colors">
                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
                 </a>
                 <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                <a href="#" class="hover:text-[#1A305E] dark:text-white transition-colors">{{ __('messages.breadcrumb.profile') }}</a>
+                <a href="#" class="hover:text-ppid-primary dark:text-white transition-colors">{{ __('messages.breadcrumb.profile') }}</a>
                 <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                <span class="text-[#1A305E] dark:text-white font-medium">{{ __('messages.profile.government_profile') }}</span>
+                <span class="text-ppid-primary dark:text-white font-medium">{{ __('messages.profile.government_profile') }}</span>
             </div>
                 <div class="hidden md:block">
-                    <div class="w-20 h-1 bg-gradient-to-r from-[#1A305E] to-transparent rounded-full"></div>
+                    <div class="w-20 h-1 bg-gradient-to-r from-ppid-primary to-transparent rounded-full"></div>
                 </div>
             </div>
         </div>
@@ -28,24 +28,24 @@
             {{-- Stats --}}
             <div class="grid md:grid-cols-3 gap-6 mb-10 max-w-5xl mx-auto">
                 <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700 p-6 text-center">
-                    <div class="w-12 h-12 bg-[#1A305E]/10 rounded-lg flex items-center justify-center mx-auto mb-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#1A305E] dark:text-white"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <div class="w-12 h-12 bg-ppid-primary/10 rounded-lg flex items-center justify-center mx-auto mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-ppid-primary dark:text-white"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
                     </div>
-                    <p class="text-2xl font-bold text-[#1A305E] dark:text-white mb-1">46.717,48 km²</p>
+                    <p class="text-2xl font-bold text-ppid-primary dark:text-white mb-1">46.717,48 km²</p>
                     <p class="text-sm text-gray-600 dark:text-gray-300">Luas Wilayah</p>
                 </div>
                 <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700 p-6 text-center">
-                    <div class="w-12 h-12 bg-[#1A305E]/10 rounded-lg flex items-center justify-center mx-auto mb-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#1A305E] dark:text-white"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    <div class="w-12 h-12 bg-ppid-primary/10 rounded-lg flex items-center justify-center mx-auto mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-ppid-primary dark:text-white"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                     </div>
-                    <p class="text-2xl font-bold text-[#1A305E] dark:text-white mb-1">9,07 Juta Jiwa</p>
+                    <p class="text-2xl font-bold text-ppid-primary dark:text-white mb-1">9,07 Juta Jiwa</p>
                     <p class="text-sm text-gray-600 dark:text-gray-300">Jumlah Penduduk</p>
                 </div>
                 <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700 p-6 text-center">
-                    <div class="w-12 h-12 bg-[#1A305E]/10 rounded-lg flex items-center justify-center mx-auto mb-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#1A305E] dark:text-white"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>
+                    <div class="w-12 h-12 bg-ppid-primary/10 rounded-lg flex items-center justify-center mx-auto mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-ppid-primary dark:text-white"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>
                     </div>
-                    <p class="text-2xl font-bold text-[#1A305E] dark:text-white mb-1">24 Wilayah</p>
+                    <p class="text-2xl font-bold text-ppid-primary dark:text-white mb-1">24 Wilayah</p>
                     <p class="text-sm text-gray-600 dark:text-gray-300">Kabupaten/Kota</p>
                 </div>
             </div>
@@ -59,8 +59,8 @@
                     {{-- Profil --}}
                     <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-6 md:p-8">
                         <div class="mb-5">
-                            <h2 class="text-2xl font-bold text-[#1A305E] dark:text-white mb-2">Profil Provinsi</h2>
-                            <div class="w-20 h-1 bg-[#1A305E] rounded-full"></div>
+                            <h2 class="text-2xl font-bold text-ppid-primary dark:text-white mb-2">Profil Provinsi</h2>
+                            <div class="w-20 h-1 bg-ppid-primary rounded-full"></div>
                         </div>
                         <div class="prose prose-slate max-w-none dark:prose-invert">
                             {!! $profil->deskripsi ?? 'Konten belum tersedia.' !!}
@@ -70,8 +70,8 @@
                     {{-- Data Geografis --}}
                     <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-6 md:p-8">
                         <div class="mb-5">
-                            <h2 class="text-2xl font-bold text-[#1A305E] dark:text-white mb-2">Data Geografis</h2>
-                            <div class="w-20 h-1 bg-[#D4AF37] rounded-full"></div>
+                            <h2 class="text-2xl font-bold text-ppid-primary dark:text-white mb-2">Data Geografis</h2>
+                            <div class="w-20 h-1 bg-ppid-accent rounded-full"></div>
                         </div>
                         <div class="grid sm:grid-cols-2 gap-4">
                             @php
@@ -85,7 +85,7 @@
                             @endphp
                             @foreach ($geografisData as $item)
                                 <div class="flex items-center gap-3 p-4 bg-gray-50 dark:bg-slate-900 rounded-lg">
-                                    <div class="w-2 h-2 bg-[#1A305E] rounded-full flex-shrink-0"></div>
+                                    <div class="w-2 h-2 bg-ppid-primary rounded-full flex-shrink-0"></div>
                                     <div>
                                         <p class="text-xs text-gray-600 dark:text-gray-300">{{ $item['label'] }}</p>
                                         <p class="font-bold text-gray-900 dark:text-white text-sm">{{ $item['value'] }}</p>
@@ -98,14 +98,14 @@
                     {{-- Visi Misi --}}
                     <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-6 md:p-8">
                         <div class="mb-5">
-                            <h2 class="text-2xl font-bold text-[#1A305E] dark:text-white mb-2">Visi & Misi</h2>
-                            <div class="w-20 h-1 bg-[#1A305E] rounded-full"></div>
+                            <h2 class="text-2xl font-bold text-ppid-primary dark:text-white mb-2">Visi & Misi</h2>
+                            <div class="w-20 h-1 bg-ppid-primary rounded-full"></div>
                         </div>
                 
                         {{-- Visi --}}
                         <div class="mb-6">
-                            <h3 class="font-bold text-[#1A305E] dark:text-white mb-3 text-sm uppercase tracking-wide">Visi</h3>
-                            <div class="bg-[#1A305E]/5 border-l-4 border-[#1A305E] rounded-r-lg p-5">
+                            <h3 class="font-bold text-ppid-primary dark:text-white mb-3 text-sm uppercase tracking-wide">Visi</h3>
+                            <div class="bg-ppid-primary/5 border-l-4 border-ppid-primary rounded-r-lg p-5">
                                 <p class="text-gray-700 font-medium leading-relaxed">
                                     Mewujudkan Sulawesi Selatan sebagai Provinsi Terdepan dalam Peningkatan Kualitas Hidup Masyarakat
                                 </p>
@@ -114,7 +114,7 @@
 
                         {{-- Misi --}}
                         <div>
-                            <h3 class="font-bold text-[#1A305E] dark:text-white mb-3 text-sm uppercase tracking-wide">Misi</h3>
+                            <h3 class="font-bold text-ppid-primary dark:text-white mb-3 text-sm uppercase tracking-wide">Misi</h3>
                             <div class="space-y-3">
                                 @php
                                     $misi = [
@@ -127,7 +127,7 @@
                                 @endphp
                                 @foreach ($misi as $index => $item)
                                     <div class="flex gap-3 items-start">
-                                        <div class="flex-shrink-0 w-6 h-6 bg-[#1A305E] rounded-lg flex items-center justify-center text-white font-bold text-xs">
+                                        <div class="flex-shrink-0 w-6 h-6 bg-ppid-primary rounded-lg flex items-center justify-center text-white font-bold text-xs">
                                             {{ $index + 1 }}
                                         </div>
                                         <p class="text-gray-700 text-sm leading-relaxed flex-1 pt-0.5">{{ $item }}</p>
@@ -144,13 +144,13 @@
               
                     {{-- Pejabat --}}
                     <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 overflow-hidden sticky top-24">
-                        <div class="bg-[#1A305E] px-5 py-4">
+                        <div class="bg-ppid-primary px-5 py-4">
                             <h3 class="font-bold text-white">Pejabat Pemerintah</h3>
                         </div>
                 
                         <div class="p-5 space-y-4">
                             {{-- Gubernur --}}
-                            <div class="bg-[#1A305E]/5 rounded-lg p-4 border border-[#1A305E]/10">
+                            <div class="bg-ppid-primary/5 rounded-lg p-4 border border-ppid-primary/10">
                                 <div class="aspect-[3/4] rounded-lg overflow-hidden mb-3">
                                     @if($profil && $profil->foto_gubernur)
                                         <img 
@@ -159,19 +159,19 @@
                                             class="w-full h-full object-cover"
                                         />
                                     @else
-                                        <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#1A305E] to-[#4A5568] text-white">
+                                        <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-ppid-primary to-ppid-text text-white">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                             </svg>
                                         </div>
                                     @endif
                                 </div>
-                                <p class="font-bold text-[#1A305E] dark:text-white text-sm">Andi Sudirman Sulaiman</p>
-                                <p class="text-xs text-[#D4AF37] font-medium">Gubernur Sulawesi Selatan</p>
+                                <p class="font-bold text-ppid-primary dark:text-white text-sm">Andi Sudirman Sulaiman</p>
+                                <p class="text-xs text-ppid-accent font-medium">Gubernur Sulawesi Selatan</p>
                             </div>
 
                             {{-- Wakil Gubernur --}}
-                            <div class="bg-[#D4AF37]/5 rounded-lg p-4 border border-[#D4AF37]/20">
+                            <div class="bg-ppid-accent/5 rounded-lg p-4 border border-ppid-accent/20">
                                 <div class="aspect-[3/4] rounded-lg overflow-hidden mb-3">
                                     @if($profil && $profil->foto_wakil)
                                         <img 
@@ -180,21 +180,21 @@
                                             class="w-full h-full object-cover"
                                         />
                                     @else
-                                        <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#D4AF37] to-[#B08D26] text-white">
+                                        <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-ppid-accent to-[#B08D26] text-white">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                             </svg>
                                         </div>
                                     @endif
                                 </div>
-                                <p class="font-bold text-[#1A305E] dark:text-white text-sm">Fatmawati Rusdi</p>
+                                <p class="font-bold text-ppid-primary dark:text-white text-sm">Fatmawati Rusdi</p>
                                 <p class="text-xs text-[#B08D26] font-medium">Wakil Gubernur Sulawesi Selatan</p>
                             </div>
                         </div>
                     </div>
 
                     {{-- Potensi --}}
-                    <div class="bg-gradient-to-br from-[#1A305E] to-[#4A5568] rounded-xl p-6 text-white">
+                    <div class="bg-gradient-to-br from-ppid-primary to-ppid-text rounded-xl p-6 text-white">
                         <h4 class="font-bold mb-3">Potensi Daerah</h4>
                         <div class="space-y-2 text-sm text-white/90">
                             <div>• Pertanian & Perkebunan</div>

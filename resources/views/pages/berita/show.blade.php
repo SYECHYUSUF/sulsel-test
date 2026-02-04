@@ -5,14 +5,14 @@
     <div class="bg-gray-50 dark:bg-slate-900 pt-8 pb-4 font-['Plus_Jakarta_Sans']">
         <div class="container mx-auto px-4">
             <div class="flex flex-wrap items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                <a href="/" class="flex items-center gap-1.5 hover:text-[#1A305E] dark:hover:text-[#D4AF37] transition-colors">
+                <a href="/" class="flex items-center gap-1.5 hover:text-ppid-primary dark:hover:text-ppid-accent transition-colors">
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
                     {{ __('messages.common.home') }}
                 </a>
                 <svg class="w-4 h-4 text-gray-400 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                <a href="/berita" class="hover:text-[#1A305E] dark:hover:text-[#D4AF37] transition-colors">{{ __('messages.common.news') }}</a>
+                <a href="/berita" class="hover:text-ppid-primary dark:hover:text-ppid-accent transition-colors">{{ __('messages.common.news') }}</a>
                 <svg class="w-4 h-4 text-gray-400 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                <span class="text-[#1A305E] dark:text-[#D4AF37] font-semibold truncate max-w-[200px] md:max-w-none">{{ Str::limit($berita->judul, 40) }}</span>
+                <span class="text-ppid-primary dark:text-ppid-accent font-semibold truncate max-w-[200px] md:max-w-none">{{ Str::limit($berita->judul, 40) }}</span>
             </div>
         </div>
     </div>
@@ -28,7 +28,7 @@
                     {{-- Article Header --}}
                     <div class="mb-8">
                         <div class="flex items-center gap-3 mb-4">
-                            <a href="/berita?category={{ $berita->id_skpd }}" class="bg-[#1A305E] text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider hover:bg-[#D4AF37] transition-colors">
+                            <a href="/berita?category={{ $berita->id_skpd }}" class="bg-ppid-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider hover:bg-ppid-accent transition-colors">
                                 {{ $berita->skpd->nm_skpd ?? 'Umum' }}
                             </a>
                             <span class="text-gray-500 text-sm flex items-center gap-1">
@@ -40,7 +40,7 @@
                                 {{ __('messages.news.views_count', ['count' => number_format($berita->viewers)]) }}
                             </span>
                         </div>
-                        <h1 class="text-3xl md:text-4xl font-bold text-[#1A305E] dark:text-white leading-tight mb-6">
+                        <h1 class="text-3xl md:text-4xl font-bold text-ppid-primary dark:text-white leading-tight mb-6">
                             {{ $berita->judul }}
                         </h1>
                         
@@ -69,7 +69,7 @@
                         <div class="flex flex-wrap items-center justify-between gap-6">
                             <div class="flex flex-wrap gap-2">
                                 <span class="text-sm font-semibold text-gray-700 dark:text-gray-300 mr-2">{{ __('messages.common.categories') }}:</span>
-                                <a href="/berita?category={{ $berita->id_skpd }}" class="px-3 py-1 bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-300 rounded-full text-sm hover:bg-[#1A305E] hover:text-white transition-colors">
+                                <a href="/berita?category={{ $berita->id_skpd }}" class="px-3 py-1 bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-300 rounded-full text-sm hover:bg-ppid-primary hover:text-white transition-colors">
                                     #{{ Str::slug($berita->skpd->nm_skpd ?? 'umum') }}
                                 </a>
                             </div>
@@ -95,19 +95,19 @@
                      
                     {{-- Popular News --}}
                     <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 p-6">
-                        <h3 class="font-bold text-[#1A305E] dark:text-white mb-6 flex items-center gap-2">
-                            <span class="w-1 h-6 bg-[#D4AF37] rounded-full"></span>
+                        <h3 class="font-bold text-ppid-primary dark:text-white mb-6 flex items-center gap-2">
+                            <span class="w-1 h-6 bg-ppid-accent rounded-full"></span>
                             {{ __('messages.common.popular') }}
                         </h3>
                          <div class="space-y-6">
                             @foreach ($recent_news as $index => $recent)
                                 <a href="{{ route('berita.show', $recent->slug) }}" class="flex gap-4 group cursor-pointer">
-                                    <span class="text-4xl font-bold text-gray-200 group-hover:text-[#D4AF37] transition-colors -mt-2">0{{$index+1}}</span>
+                                    <span class="text-4xl font-bold text-gray-200 group-hover:text-ppid-accent transition-colors -mt-2">0{{$index+1}}</span>
                                     <div>
                                         <div class="text-xs text-gray-500 mb-1">
                                             {{ $recent->skpd->nm_skpd ?? 'Umum' }} • {{ \Carbon\Carbon::parse($recent->tgl_upload)->format('d M Y') }}
                                         </div>
-                                        <h4 class="text-sm font-bold text-gray-900 dark:text-white leading-snug group-hover:text-[#1A305E] dark:group-hover:text-[#D4AF37] transition-colors line-clamp-2">
+                                        <h4 class="text-sm font-bold text-gray-900 dark:text-white leading-snug group-hover:text-ppid-primary dark:group-hover:text-ppid-accent transition-colors line-clamp-2">
                                             {{ $recent->judul }}
                                         </h4>
                                     </div>
@@ -118,15 +118,15 @@
 
                     {{-- Categories --}}
                     <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 p-6">
-                        <h3 class="font-bold text-[#1A305E] dark:text-white mb-4 flex items-center gap-2">
-                             <span class="w-1 h-6 bg-[#D4AF37] rounded-full"></span>
+                        <h3 class="font-bold text-ppid-primary dark:text-white mb-4 flex items-center gap-2">
+                             <span class="w-1 h-6 bg-ppid-accent rounded-full"></span>
                             {{ __('messages.common.categories') }}
                         </h3>
                         <div class="space-y-2">
                             @foreach($categories as $cat)
                                 <a href="/berita?category={{ $cat->id_skpd }}" class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors group">
-                                    <span class="text-gray-700 font-medium group-hover:text-[#1A305E] dark:text-gray-300 dark:group-hover:text-white line-clamp-1 text-sm">{{ $cat->nm_skpd }}</span>
-                                    <span class="bg-gray-100 dark:bg-slate-700 text-gray-500 text-xs px-2 py-1 rounded-full group-hover:bg-[#1A305E] group-hover:text-white transition-colors flex-shrink-0">{{ $cat->berita_count }}</span>
+                                    <span class="text-gray-700 font-medium group-hover:text-ppid-primary dark:text-gray-300 dark:group-hover:text-white line-clamp-1 text-sm">{{ $cat->nm_skpd }}</span>
+                                    <span class="bg-gray-100 dark:bg-slate-700 text-gray-500 text-xs px-2 py-1 rounded-full group-hover:bg-ppid-primary group-hover:text-white transition-colors flex-shrink-0">{{ $cat->berita_count }}</span>
                                 </a>
                             @endforeach
                         </div>

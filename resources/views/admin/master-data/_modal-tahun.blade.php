@@ -11,7 +11,7 @@
                     Tahun <span class="text-red-500">*</span>
                 </label>
                 <input type="text" id="create-waktu" name="waktu" required placeholder="Contoh: 2024"
-                    class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-[#1A305E] dark:focus:ring-blue-400 focus:border-transparent dark:bg-slate-700 dark:text-slate-100">
+                    class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-ppid-primary dark:focus:ring-blue-400 focus:border-transparent dark:bg-slate-700 dark:text-slate-100">
             </div>
 
             <div class="flex justify-end gap-3">
@@ -20,7 +20,7 @@
                     Batal
                 </button>
                 <button type="submit"
-                    class="px-4 py-2 text-sm font-medium text-white bg-[#1A305E] hover:bg-ppid-dark rounded-lg transition-colors">
+                    class="px-4 py-2 text-sm font-medium text-white bg-ppid-primary hover:bg-ppid-dark rounded-lg transition-colors">
                     Simpan
                 </button>
             </div>
@@ -44,7 +44,7 @@
                     Tahun <span class="text-red-500">*</span>
                 </label>
                 <input type="text" id="tahun-waktu" name="waktu" required placeholder="Contoh: 2024"
-                    class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-[#1A305E] dark:focus:ring-blue-400 focus:border-transparent dark:bg-slate-700 dark:text-slate-100">
+                    class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-ppid-primary dark:focus:ring-blue-400 focus:border-transparent dark:bg-slate-700 dark:text-slate-100">
             </div>
 
             <div class="flex justify-end gap-3">
@@ -53,7 +53,7 @@
                     Batal
                 </button>
                 <button type="submit"
-                    class="px-4 py-2 text-sm font-medium text-white bg-[#1A305E] hover:bg-ppid-dark rounded-lg transition-colors">
+                    class="px-4 py-2 text-sm font-medium text-white bg-ppid-primary hover:bg-ppid-dark rounded-lg transition-colors">
                     Update
                 </button>
             </div>

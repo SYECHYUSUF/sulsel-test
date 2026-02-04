@@ -5,8 +5,8 @@
     <div
         class="p-6 bg-slate-50 dark:bg-slate-700/30 border-b-2 border-slate-100 dark:border-slate-700 flex flex-wrap justify-between items-center gap-4">
         <div class="flex items-center gap-4">
-            <div class="p-3 bg-[#1A305E] rounded-xl shadow-md">
-                <svg class="w-7 h-7 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="p-3 bg-ppid-primary rounded-xl shadow-md">
+                <svg class="w-7 h-7 text-ppid-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
                     </path>
@@ -33,18 +33,18 @@
     <div class="p-8 grid lg:grid-cols-2 gap-8">
         {{-- Left: Details --}}
         <div>
-            <label class="flex items-center gap-2 text-xs font-bold text-[#D4AF37] uppercase tracking-wider mb-3">
+            <label class="flex items-center gap-2 text-xs font-bold text-ppid-accent uppercase tracking-wider mb-3">
                 <span>{{ __('messages.status.subject') }}</span>
             </label>
-            <p class="text-lg font-bold text-[#1A305E] dark:text-white leading-relaxed" x-text="item.rincian"></p>
+            <p class="text-lg font-bold text-ppid-primary dark:text-white leading-relaxed" x-text="item.rincian"></p>
         </div>
 
         {{-- Only show these sections if NOT disposisi status --}}
         <template x-if="item.status != 5">
             {{-- Right: Response & Handler --}}
             <div class="space-y-6">
-                <div class="bg-gradient-to-br from-[#1A305E] to-[#2a4a7c] rounded-2xl p-5 text-white shadow-lg">
-                    <p class="text-xs font-bold text-[#D4AF37] uppercase mb-1">
+                <div class="bg-gradient-to-br from-ppid-primary to-[#2a4a7c] rounded-2xl p-5 text-white shadow-lg">
+                    <p class="text-xs font-bold text-ppid-accent uppercase mb-1">
                         {{ __('messages.status.handled_by') }}
                     </p>
                     <p class="text-lg font-bold" x-text="item.skpd ? item.skpd.nm_skpd : 'Admin PPID Sulsel'"></p>
@@ -79,7 +79,7 @@
                         <template x-if="item.file">
                             <div class="mt-4 pt-4 border-t border-slate-200">
                                 <a :href="`/storage/${item.file}`" target="_blank"
-                                    class="inline-flex items-center gap-2 text-[#1A305E] dark:text-[#D4AF37] font-bold hover:underline">
+                                    class="inline-flex items-center gap-2 text-ppid-primary dark:text-ppid-accent font-bold hover:underline">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
@@ -97,7 +97,7 @@
         {{-- SKPD Disposisi Tracking (Public View) --}}
         <template x-if="item.disposisi && item.disposisi.length > 0">
             <div class="mt-6 pt-6 border-slate-200 dark:border-slate-700">
-                <label class="text-xs font-bold text-[#D4AF37] uppercase tracking-wider mb-4 block">
+                <label class="text-xs font-bold text-ppid-accent uppercase tracking-wider mb-4 block">
                     {{ __('messages.status.tracking_disposition') }}
                 </label>
                 <div class="space-y-4">
@@ -106,7 +106,7 @@
                             class="bg-slate-100 dark:bg-slate-900 rounded-2xl p-5 border-2 border-slate-200 dark:border-slate-700">
                             <div class="flex justify-between items-start mb-3">
                                 <div>
-                                    <h5 class="font-bold text-[#1A305E] dark:text-white"
+                                    <h5 class="font-bold text-ppid-primary dark:text-white"
                                         x-text="disp.skpd ? disp.skpd.nm_skpd : 'SKPD'"></h5>
                                     <p class="text-xs text-slate-500 mt-1">
                                         Disposisi: <span

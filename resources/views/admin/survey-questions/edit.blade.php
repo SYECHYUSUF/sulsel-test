@@ -35,7 +35,7 @@
                             name="urutan" 
                             min="1"
                             value="{{ old('urutan', $surveyQuestion->urutan) }}" 
-                            class="w-full px-4 py-3 text-base rounded-lg border-2 border-gray-300 dark:border-slate-600 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] outline-none transition-all bg-white dark:bg-slate-900 dark:text-white @error('urutan') border-red-500 @enderror"
+                            class="w-full px-4 py-3 text-base rounded-lg border-2 border-gray-300 dark:border-slate-600 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary outline-none transition-all bg-white dark:bg-slate-900 dark:text-white @error('urutan') border-red-500 @enderror"
                             placeholder="Contoh: 1"
                             required
                         />
@@ -54,7 +54,7 @@
                             id="soal" 
                             name="soal" 
                             rows="4"
-                            class="w-full px-4 py-3 text-base rounded-lg border-2 border-gray-300 dark:border-slate-600 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] outline-none transition-all bg-white dark:bg-slate-900 dark:text-white resize-none @error('soal') border-red-500 @enderror"
+                            class="w-full px-4 py-3 text-base rounded-lg border-2 border-gray-300 dark:border-slate-600 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary outline-none transition-all bg-white dark:bg-slate-900 dark:text-white resize-none @error('soal') border-red-500 @enderror"
                             placeholder="Tuliskan pertanyaan survey..."
                             required
                         >{{ old('soal', $surveyQuestion->soal) }}</textarea>
@@ -69,17 +69,17 @@
                             Tipe Jawaban <span class="text-red-500">*</span>
                         </label>
                         <div class="grid grid-cols-2 gap-4">
-                            <label class="relative flex items-center gap-3 p-4 rounded-lg border-2 border-gray-300 dark:border-slate-600 cursor-pointer hover:border-[#1A305E] hover:bg-blue-50 dark:hover:bg-slate-700 transition-all group @error('tipe') border-red-500 @enderror">
-                                <input type="radio" name="tipe" value="radio" {{ old('tipe', $surveyQuestion->tipe) == 'radio' ? 'checked' : '' }} class="w-5 h-5 text-[#1A305E] focus:ring-2 focus:ring-[#1A305E]" required />
+                            <label class="relative flex items-center gap-3 p-4 rounded-lg border-2 border-gray-300 dark:border-slate-600 cursor-pointer hover:border-ppid-primary hover:bg-blue-50 dark:hover:bg-slate-700 transition-all group @error('tipe') border-red-500 @enderror">
+                                <input type="radio" name="tipe" value="radio" {{ old('tipe', $surveyQuestion->tipe) == 'radio' ? 'checked' : '' }} class="w-5 h-5 text-ppid-primary focus:ring-2 focus:ring-ppid-primary" required />
                                 <div>
-                                    <span class="block text-base font-medium text-gray-700 dark:text-gray-300 group-hover:text-[#1A305E] dark:group-hover:text-white">Radio Button</span>
+                                    <span class="block text-base font-medium text-gray-700 dark:text-gray-300 group-hover:text-ppid-primary dark:group-hover:text-white">Radio Button</span>
                                     <span class="block text-xs text-gray-500 dark:text-gray-400">Pilihan ganda (A, B, C, D)</span>
                                 </div>
                             </label>
-                            <label class="relative flex items-center gap-3 p-4 rounded-lg border-2 border-gray-300 dark:border-slate-600 cursor-pointer hover:border-[#1A305E] hover:bg-blue-50 dark:hover:bg-slate-700 transition-all group @error('tipe') border-red-500 @enderror">
-                                <input type="radio" name="tipe" value="textarea" {{ old('tipe', $surveyQuestion->tipe) == 'textarea' ? 'checked' : '' }} class="w-5 h-5 text-[#1A305E] focus:ring-2 focus:ring-[#1A305E]" />
+                            <label class="relative flex items-center gap-3 p-4 rounded-lg border-2 border-gray-300 dark:border-slate-600 cursor-pointer hover:border-ppid-primary hover:bg-blue-50 dark:hover:bg-slate-700 transition-all group @error('tipe') border-red-500 @enderror">
+                                <input type="radio" name="tipe" value="textarea" {{ old('tipe', $surveyQuestion->tipe) == 'textarea' ? 'checked' : '' }} class="w-5 h-5 text-ppid-primary focus:ring-2 focus:ring-ppid-primary" />
                                 <div>
-                                    <span class="block text-base font-medium text-gray-700 dark:text-gray-300 group-hover:text-[#1A305E] dark:group-hover:text-white">Text Area</span>
+                                    <span class="block text-base font-medium text-gray-700 dark:text-gray-300 group-hover:text-ppid-primary dark:group-hover:text-white">Text Area</span>
                                     <span class="block text-xs text-gray-500 dark:text-gray-400">Jawaban panjang/essay</span>
                                 </div>
                             </label>
@@ -95,7 +95,7 @@
                             Batal
                         </a>
                         <button type="button" @click="showConfirm = true"
-                            class="px-8 py-3 bg-gradient-to-r from-[#1A305E] to-[#2A4A7E] text-white font-bold rounded-lg hover:from-[#2A4A7E] hover:to-[#1A305E] transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                            class="px-8 py-3 bg-gradient-to-r from-ppid-primary to-[#2A4A7E] text-white font-bold rounded-lg hover:from-[#2A4A7E] hover:to-ppid-primary transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
                             Update Pertanyaan
                         </button>
                     </div>

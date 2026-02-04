@@ -3,14 +3,14 @@
         
         {{-- Section Header --}}
         <div class="text-center mb-10 md:mb-[55px] max-w-3xl mx-auto" data-aos="fade-down">
-            <div class="inline-flex items-center gap-2 mb-[13px] px-4 py-1.5 md:px-5 md:py-2 bg-white dark:bg-slate-800 border border-[#D4AF37]/30 rounded-full shadow-sm">
-                <span class="w-2 h-2 bg-[#D4AF37] rounded-full animate-pulse"></span>
-                <span class="text-[#1A305E] dark:text-gray-200 text-[9px] md:text-[10px] font-black uppercase tracking-widest">{{ __('messages.common.news') }}</span>
+            <div class="inline-flex items-center gap-2 mb-[13px] px-4 py-1.5 md:px-5 md:py-2 bg-white dark:bg-slate-800 border border-ppid-accent/30 rounded-full shadow-sm">
+                <span class="w-2 h-2 bg-ppid-accent rounded-full animate-pulse"></span>
+                <span class="text-ppid-primary dark:text-gray-200 text-[9px] md:text-[10px] font-black uppercase tracking-widest">{{ __('messages.common.news') }}</span>
             </div>
-            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-extrabold text-[#1A305E] dark:text-white mb-4 md:mb-[21px] leading-tight tracking-tight">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-extrabold text-ppid-primary dark:text-white mb-4 md:mb-[21px] leading-tight tracking-tight">
                 {{ __('messages.news.title') }}
             </h2>
-            <p class="text-base md:text-lg text-[#4A5568] dark:text-gray-300">{{ __('messages.news.latest_update') }}</p>
+            <p class="text-base md:text-lg text-ppid-text dark:text-gray-300">{{ __('messages.news.latest_update') }}</p>
         </div>
 
         {{-- News Grid --}}
@@ -35,28 +35,28 @@
                             </svg>
                         </div>
                     @endif
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#1A305E]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-ppid-primary/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                     
                     <div class="absolute top-4 left-4 md:top-[21px] md:left-[21px]">
-                        <span class="px-3 py-1.5 md:px-4 md:py-2 bg-[#D4AF37] text-white text-[9px] md:text-[10px] font-bold rounded-lg shadow-lg">
+                        <span class="px-3 py-1.5 md:px-4 md:py-2 bg-ppid-accent text-white text-[9px] md:text-[10px] font-bold rounded-lg shadow-lg">
                             {{ $item->skpd->nm_skpd ?? __('messages.common.general') }}
                         </span>
                     </div>
                 </div>
 
                 <div class="p-5 sm:p-6 md:p-[34px] flex-grow flex flex-col">
-                    <div class="flex items-center gap-2 text-[#4A5568] dark:text-gray-400 text-xs mb-3 md:mb-[13px] font-semibold">
+                    <div class="flex items-center gap-2 text-ppid-text dark:text-gray-400 text-xs mb-3 md:mb-[13px] font-semibold">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
                         {{ \Carbon\Carbon::parse($item->tgl_upload)->format('d M Y') }}
                     </div>
                     <a href="{{ route('berita.show', $item->slug) }}" class="block">
-                        <h3 class="text-lg md:text-[21px] font-bold text-[#1A305E] dark:text-white mb-6 md:mb-[21px] leading-snug group-hover:text-[#D4AF37] transition-colors line-clamp-2">
+                        <h3 class="text-lg md:text-[21px] font-bold text-ppid-primary dark:text-white mb-6 md:mb-[21px] leading-snug group-hover:text-ppid-accent transition-colors line-clamp-2">
                             {{ $item->judul }}
                         </h3>
                     </a>
                     
                     <div class="mt-auto">
-                        <a href="{{ route('berita.show', $item->slug) }}" class="inline-flex items-center gap-2 text-[#1A305E] dark:text-gray-200 font-bold text-sm group/btn hover:text-[#D4AF37] transition-colors">
+                        <a href="{{ route('berita.show', $item->slug) }}" class="inline-flex items-center gap-2 text-ppid-primary dark:text-gray-200 font-bold text-sm group/btn hover:text-ppid-accent transition-colors">
                             <span>{{ __('messages.common.read_more') }}</span>
                             <svg class="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                         </a>
@@ -69,7 +69,7 @@
 
         {{-- View All Button --}}
         <div class="mt-12 text-center" data-aos="fade-up">
-            <a href="/berita" class="inline-flex items-center gap-2 px-8 py-3 bg-[#1A305E] text-white rounded-full font-bold hover:bg-[#D4AF37] hover:text-[#1A305E] transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+            <a href="/berita" class="inline-flex items-center gap-2 px-8 py-3 bg-ppid-primary text-white rounded-full font-bold hover:bg-ppid-accent hover:text-ppid-primary transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
                 <span>{{ __('messages.common.view_all') }}</span>
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>

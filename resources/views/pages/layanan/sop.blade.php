@@ -6,7 +6,7 @@
         <div class="container mx-auto px-4 py-8">
             {{-- Breadcrumb --}}
             <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mb-4">
-                <a href="/" class="hover:text-[#1A305E] dark:text-white transition-colors">
+                <a href="/" class="hover:text-ppid-primary dark:text-white transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="w-4 h-4">
@@ -19,19 +19,19 @@
                     class="w-4 h-4 text-gray-400">
                     <path d="m9 18 6-6-6-6" />
                 </svg>
-                <span class="text-[#1A305E] dark:text-white font-medium">Layanan</span>
+                <span class="text-ppid-primary dark:text-white font-medium">Layanan</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="w-4 h-4 text-gray-400">
                     <path d="m9 18 6-6-6-6" />
                 </svg>
-                <span class="text-[#1A305E] dark:text-white font-bold">{{ __('messages.menu.sop') }}</span>
+                <span class="text-ppid-primary dark:text-white font-bold">{{ __('messages.menu.sop') }}</span>
             </div>
 
             {{-- Title --}}
             <div class="flex items-end justify-between">
                 <div>
-                    <h1 class="text-3xl md:text-4xl font-bold text-[#1A305E] dark:text-white mb-2">
+                    <h1 class="text-3xl md:text-4xl font-bold text-ppid-primary dark:text-white mb-2">
                         {{ __('messages.layanan_pages.sop_title') }}
                     </h1>
                     <p class="text-gray-600 dark:text-gray-300">
@@ -39,7 +39,7 @@
                     </p>
                 </div>
                 <div class="hidden md:block">
-                    <div class="w-24 h-1.5 bg-linear-to-r from-[#1A305E] to-[#D4AF37] rounded-full"></div>
+                    <div class="w-24 h-1.5 bg-linear-to-r from-ppid-primary to-ppid-accent rounded-full"></div>
                 </div>
             </div>
         </div>
@@ -62,10 +62,10 @@
                                 <path d="m21 21-4.3-4.3" />
                             </svg>
                             <input type="text" name="search" value="{{ request('search') }}" placeholder="{{ __('messages.sop_page.search_placeholder') }}"
-                                class="w-full pl-10 pr-4 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all" />
+                                class="w-full pl-10 pr-4 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all" />
                         </div>
                         <button type="submit"
-                            class="px-6 py-2.5 bg-[#1A305E] text-white font-medium rounded-lg hover:bg-[#1A305E]/90 transition-colors">
+                            class="px-6 py-2.5 bg-ppid-primary text-white font-medium rounded-lg hover:bg-ppid-primary/90 transition-colors">
                             {{ __('messages.news.search_btn') }}
                         </button>
                     </form>
@@ -76,7 +76,7 @@
                     class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 overflow-hidden">
                     <div class="overflow-x-auto">
                         <table class="w-full text-left border-collapse">
-                            <thead class="bg-[#1A305E] text-white">
+                            <thead class="bg-ppid-primary text-white">
                                 <tr>
                                     <th class="px-6 py-4 text-sm font-semibold w-16 text-center">{{ __('messages.table.no') }}</th>
                                     <th class="px-6 py-4 text-sm font-semibold">{{ __('messages.sop_page.title_column') }}</th>
@@ -90,13 +90,13 @@
                                             {{ ($sopData->currentPage() - 1) * $sopData->perPage() + $loop->iteration }}
                                         </td>
                                         <td
-                                            class="px-6 py-4 text-gray-800 font-medium group-hover:text-[#1A305E] dark:text-white transition-colors uppercase">
+                                            class="px-6 py-4 text-gray-800 font-medium group-hover:text-ppid-primary dark:text-white transition-colors uppercase">
                                             {{ $sop->judul }}
                                         </td>
                                         <td class="px-6 py-4">
                                             <div class="flex items-center justify-center gap-3">
                                                 <a href="{{ asset('storage/sop/' . $sop->file) }}" target="_blank"
-                                                    class="p-2 text-gray-400 hover:text-[#1A305E] dark:text-white hover:bg-gray-100 dark:bg-slate-700 rounded-lg transition-all"
+                                                    class="p-2 text-gray-400 hover:text-ppid-primary dark:text-white hover:bg-gray-100 dark:bg-slate-700 rounded-lg transition-all"
                                                     title="Lihat">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -107,7 +107,7 @@
                                                     </svg>
                                                 </a>
                                                 <a href="{{ route('layanan.sop.download', $sop->id) }}"
-                                                    class="flex items-center gap-1.5 px-3 py-1.5 bg-[#1A305E]/5 text-[#1A305E] dark:text-white rounded-lg hover:bg-[#1A305E] hover:text-white transition-all text-xs font-bold"
+                                                    class="flex items-center gap-1.5 px-3 py-1.5 bg-ppid-primary/5 text-ppid-primary dark:text-white rounded-lg hover:bg-ppid-primary hover:text-white transition-all text-xs font-bold"
                                                     title="Download">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                         viewBox="0 0 24 24" fill="none" stroke="currentColor"

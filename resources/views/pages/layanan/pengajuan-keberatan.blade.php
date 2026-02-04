@@ -6,7 +6,7 @@
         <div class="container mx-auto px-4 py-8">
             {{-- Breadcrumb --}}
             <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mb-4">
-                <a href="/" class="hover:text-[#1A305E] dark:text-white transition-colors">
+                <a href="/" class="hover:text-ppid-primary dark:text-white transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="w-4 h-4">
@@ -19,19 +19,19 @@
                     class="w-4 h-4 text-gray-400">
                     <path d="m9 18 6-6-6-6" />
                 </svg>
-                <span class="text-[#1A305E] dark:text-white font-medium">Layanan</span>
+                <span class="text-ppid-primary dark:text-white font-medium">Layanan</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="w-4 h-4 text-gray-400">
                     <path d="m9 18 6-6-6-6" />
                 </svg>
-                <span class="text-[#1A305E] dark:text-white font-bold">Pengajuan Keberatan</span>
+                <span class="text-ppid-primary dark:text-white font-bold">Pengajuan Keberatan</span>
             </div>
 
             {{-- Title --}}
             <div class="flex items-end justify-between">
                 <div>
-                    <h1 class="text-3xl md:text-4xl font-bold text-[#1A305E] dark:text-white mb-2">
+                    <h1 class="text-3xl md:text-4xl font-bold text-ppid-primary dark:text-white mb-2">
                         Pengajuan Keberatan
                     </h1>
                     <p class="text-gray-600 dark:text-gray-300">
@@ -39,7 +39,7 @@
                     </p>
                 </div>
                 <div class="hidden md:block">
-                    <div class="w-24 h-1.5 bg-gradient-to-r from-[#1A305E] to-[#D4AF37] rounded-full"></div>
+                    <div class="w-24 h-1.5 bg-gradient-to-r from-ppid-primary to-ppid-accent rounded-full"></div>
                 </div>
             </div>
         </div>
@@ -71,7 +71,7 @@
 
                     <div class="text-center mb-10">
                         <div
-                            class="w-16 h-16 bg-[#1A305E]/5 text-[#1A305E] dark:text-white rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            class="w-16 h-16 bg-ppid-primary/5 text-ppid-primary dark:text-white rounded-2xl flex items-center justify-center mx-auto mb-4">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round">
@@ -80,7 +80,7 @@
                                 <line x1="12" y1="16" x2="12.01" y2="16" />
                             </svg>
                         </div>
-                        <h2 class="text-2xl font-bold text-[#1A305E] dark:text-white mb-2">
+                        <h2 class="text-2xl font-bold text-ppid-primary dark:text-white mb-2">
                             Formulir Pengajuan Keberatan
                         </h2>
                         <p class="text-gray-600 dark:text-gray-300">
@@ -121,9 +121,9 @@
                         {{-- Section 1: Detail Pengajuan --}}
                         <div class="space-y-6">
                             <h3
-                                class="text-lg font-bold text-[#1A305E] dark:text-white flex items-center gap-2 border-b border-gray-200 pb-3">
+                                class="text-lg font-bold text-ppid-primary dark:text-white flex items-center gap-2 border-b border-gray-200 pb-3">
                                 <span
-                                    class="w-8 h-8 rounded-full bg-[#D4AF37] text-white flex items-center justify-center text-sm font-bold">1</span>
+                                    class="w-8 h-8 rounded-full bg-ppid-accent text-white flex items-center justify-center text-sm font-bold">1</span>
                                 Detail Pengajuan
                             </h3>
 
@@ -134,7 +134,7 @@
                                     </label>
                                     <input type="text" name="no_pendaftaran" value="{{ old('no_pendaftaran') }}"
                                         placeholder="Masukkan nomor pendaftaran..."
-                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800"
+                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800"
                                         required />
                                 </div>
                                 <div class="space-y-2">
@@ -143,7 +143,7 @@
                                     </label>
                                     <input type="text" name="tujuan" value="{{ old('tujuan') }}"
                                         placeholder="Contoh: Penelitian Skripsi..."
-                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800"
+                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800"
                                         required />
                                 </div>
                             </div>
@@ -152,9 +152,9 @@
                         {{-- Section 2: Identitas Pemohon --}}
                         <div class="space-y-6">
                             <h3
-                                class="text-lg font-bold text-[#1A305E] dark:text-white flex items-center gap-2 border-b border-gray-200 pb-3">
+                                class="text-lg font-bold text-ppid-primary dark:text-white flex items-center gap-2 border-b border-gray-200 pb-3">
                                 <span
-                                    class="w-8 h-8 rounded-full bg-[#D4AF37] text-white flex items-center justify-center text-sm font-bold">2</span>
+                                    class="w-8 h-8 rounded-full bg-ppid-accent text-white flex items-center justify-center text-sm font-bold">2</span>
                                 Identitas Pemohon
                             </h3>
 
@@ -164,7 +164,7 @@
                                         Nama Lengkap <span class="text-red-500">*</span>
                                     </label>
                                     <input type="text" name="nama_pemohon" value="{{ old('nama_pemohon') }}"
-                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800"
+                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800"
                                         required />
                                 </div>
                                 <div class="space-y-2">
@@ -172,7 +172,7 @@
                                         Email <span class="text-red-500">*</span>
                                     </label>
                                     <input type="email" name="email_pemohon" value="{{ old('email_pemohon') }}"
-                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800"
+                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800"
                                         required />
                                 </div>
                                 <div class="space-y-2">
@@ -182,7 +182,7 @@
                                     <input type="text" name="no_telp_pemohon" value="{{ old('no_telp_pemohon') }}"
                                         placeholder="08xxxxxxxxxx" maxlength="12" inputmode="numeric"
                                         pattern="[0-9]{10,12}"
-                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800"
+                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800"
                                         required />
                                 </div>
 
@@ -207,7 +207,7 @@
                                         </label>
                                         <input type="text" name="address_pemohon" value="{{ old('address_pemohon') }}"
                                             placeholder="Nama Jalan / Komplek"
-                                            class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800"
+                                            class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800"
                                             required />
                                     </div>
                                     <div class="space-y-2">
@@ -216,7 +216,7 @@
                                         </label>
                                         <input type="text" name="apt_pemohon" value="{{ old('apt_pemohon') }}"
                                             placeholder="Blok / Unit / Lantai"
-                                            class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800" />
+                                            class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800" />
                                     </div> -->
                                     <div class="space-y-2">
                                         <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
@@ -273,7 +273,7 @@
                                         </label>
                                         <div>
                                             <select name="city_pemohon"
-                                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800"
+                                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800"
                                                 required>
                                                 <option value="">-- Pilih Provinsi Terlebih Dahulu --</option>
                                                 <template x-for="city in cities" :key="city">
@@ -292,7 +292,7 @@
                                         Alamat Lengkap <span class="text-red-500">*</span>
                                     </label>
                                     <textarea name="alamat_pemohon" rows="2" placeholder="Jl. Contoh No. 123"
-                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800"
+                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800"
                                         required>{{ old('alamat_pemohon') }}</textarea>
                                 </div>
                             </div>
@@ -301,9 +301,9 @@
                         {{-- Section 3: Kasus & Alasan --}}
                         <div class="space-y-6">
                             <h3
-                                class="text-lg font-bold text-[#1A305E] dark:text-white flex items-center gap-2 border-b border-gray-200 pb-3">
+                                class="text-lg font-bold text-ppid-primary dark:text-white flex items-center gap-2 border-b border-gray-200 pb-3">
                                 <span
-                                    class="w-8 h-8 rounded-full bg-[#D4AF37] text-white flex items-center justify-center text-sm font-bold">3</span>
+                                    class="w-8 h-8 rounded-full bg-ppid-accent text-white flex items-center justify-center text-sm font-bold">3</span>
                                 Kasus & Alasan Keberatan
                             </h3>
 
@@ -313,7 +313,7 @@
                                         Kasus Posisi <span class="text-red-500">*</span>
                                     </label>
                                     <textarea name="kasus" rows="4"
-                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800"
+                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800"
                                         placeholder="Jelaskan secara singkat kasus posisi atau alasan keberatan anda..."
                                         required>{{ old('kasus') }}</textarea>
                                 </div>
@@ -359,9 +359,9 @@
                             <div x-show="showKuasa" x-transition
                                 class="space-y-6 pt-4 border-t border-gray-100 dark:border-slate-700">
                                 <h3
-                                    class="text-lg font-bold text-[#1A305E] dark:text-white flex items-center gap-2 border-b border-gray-200 pb-3">
+                                    class="text-lg font-bold text-ppid-primary dark:text-white flex items-center gap-2 border-b border-gray-200 pb-3">
                                     <span
-                                        class="w-8 h-8 rounded-full bg-[#D4AF37] text-white flex items-center justify-center text-sm font-bold">4</span>
+                                        class="w-8 h-8 rounded-full bg-ppid-accent text-white flex items-center justify-center text-sm font-bold">4</span>
                                     Identitas Kuasa
                                 </h3>
 
@@ -370,7 +370,7 @@
                                         <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Nama
                                             Kuasa</label>
                                         <input type="text" name="nama_kuasa"
-                                            class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800">
+                                            class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800">
                                     </div>
                                     <div class="space-y-2">
                                         <label
@@ -378,14 +378,14 @@
                                             Telepon Kuasa</label>
                                         <input type="text" name="no_telp_kuasa" maxlength="12" inputmode="numeric"
                                             pattern="[0-9]{10,12}" placeholder="08xxxxxxxxxx"
-                                            class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800">
+                                            class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800">
                                     </div>
                                     <div class="md:col-span-2 space-y-2">
                                         <label
                                             class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Alamat
                                             Kuasa Lengkap</label>
                                         <textarea name="alamat_kuasa" rows="2"
-                                            class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800">{{ old('alamat_kuasa') }}</textarea>
+                                            class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800">{{ old('alamat_kuasa') }}</textarea>
                                     </div>
 
                                     {{-- Additional Kuasa Address Fields --}}
@@ -396,7 +396,7 @@
                                             </label>
                                             <input type="text" name="address_kuasa" value="{{ old('address_kuasa') }}"
                                                 placeholder="Nama Jalan / Komplek"
-                                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800" />
+                                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800" />
                                         </div>
                                         <div class="space-y-2">
                                             <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
@@ -404,21 +404,21 @@
                                             </label>
                                             <input type="text" name="apt_kuasa" value="{{ old('apt_kuasa') }}"
                                                 placeholder="Blok / Unit / Lantai"
-                                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800" />
+                                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800" />
                                         </div>
                                         <div class="space-y-2">
                                             <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
                                                 Kota / Kabupaten
                                             </label>
                                             <input type="text" name="city_kuasa" value="{{ old('city_kuasa') }}"
-                                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800" />
+                                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800" />
                                         </div>
                                         <div class="space-y-2">
                                             <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
                                                 Provinsi
                                             </label>
                                             <input type="text" name="state_kuasa" value="{{ old('state_kuasa') }}"
-                                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800" />
+                                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800" />
                                         </div>
                                     </div>
                                 </div>
@@ -441,7 +441,7 @@
                                     Cek Status
                                 </a>
                                 <button type="submit"
-                                    class="px-8 py-3.5 bg-[#1A305E] text-white font-bold rounded-lg hover:bg-[#1A305E]/90 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                                    class="px-8 py-3.5 bg-ppid-primary text-white font-bold rounded-lg hover:bg-ppid-primary/90 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                         stroke-linejoin="round">

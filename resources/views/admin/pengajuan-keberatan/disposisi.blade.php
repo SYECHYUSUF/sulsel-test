@@ -39,7 +39,7 @@
              x-transition:leave-start="opacity-100 translate-y-0"
              x-transition:leave-end="opacity-0 translate-y-10">
             <button @click="document.getElementById('disposisiForm').scrollIntoView({ behavior: 'smooth', block: 'center' })" 
-                    class="flex items-center gap-2 px-5 py-3 bg-[#1A305E] text-white rounded-full shadow-lg hover:shadow-xl hover:bg-blue-800 transition-all border border-blue-400/20 group">
+                    class="flex items-center gap-2 px-5 py-3 bg-ppid-primary text-white rounded-full shadow-lg hover:shadow-xl hover:bg-blue-800 transition-all border border-blue-400/20 group">
                 <span class="font-semibold">Kirim Disposisi</span>
                 <div class="bg-white/20 rounded-full p-1 group-hover:bg-white/30 transition-colors">
                     <svg class="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -51,7 +51,7 @@
 
         <!-- Header Card -->
         <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 overflow-hidden mb-6">
-            <div class="bg-gradient-to-r from-[#1A305E] to-blue-700 p-6 text-white">
+            <div class="bg-gradient-to-r from-ppid-primary to-blue-700 p-6 text-white">
                 <div class="flex items-center gap-4">
                     <div class="p-3 bg-white/10 rounded-xl backdrop-blur-sm">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -69,7 +69,7 @@
         <!-- Request Info -->
         <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 overflow-hidden mb-6">
             <div class="p-6 border-b border-slate-100 dark:border-slate-700">
-                <h3 class="text-lg font-bold text-[#1A305E] dark:text-blue-400 flex items-center gap-2">
+                <h3 class="text-lg font-bold text-ppid-primary dark:text-blue-400 flex items-center gap-2">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
@@ -101,14 +101,14 @@
             <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 overflow-hidden mb-6">
                 <div class="p-6 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center">
                     <div>
-                        <h3 class="text-lg font-bold text-[#1A305E] dark:text-blue-400 flex items-center gap-2">
+                        <h3 class="text-lg font-bold text-ppid-primary dark:text-blue-400 flex items-center gap-2">
                             Pilih OPD Tujuan
                         </h3>
                         <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">Centang satu atau lebih OPD yang akan menerima disposisi</p>
                     </div>
                     <div class="text-right">
                         <div class="text-xs text-slate-500 dark:text-slate-400 mb-1">Dipilih</div>
-                        <div class="text-2xl font-bold text-[#D4AF37]" x-text="selectedSkpd.length"></div>
+                        <div class="text-2xl font-bold text-ppid-accent" x-text="selectedSkpd.length"></div>
                     </div>
                 </div>
 
@@ -126,13 +126,13 @@
                             @endphp
                             <label class="relative flex items-start p-4 rounded-xl border-2 transition-all 
                                         {{ $isDisposisied ? 'bg-slate-50 dark:bg-slate-900 border-slate-100 dark:border-slate-800 opacity-70 cursor-not-allowed' : 'cursor-pointer hover:shadow-md' }}"
-                                   :class="selectedSkpd.includes('{{ $skpd->id_skpd }}') ? 'border-[#1A305E] bg-[#1A305E]/5 dark:bg-[#1A305E]/20 shadow-lg' : '{{ $isDisposisied ? '' : 'border-slate-200 dark:border-slate-700 hover:border-[#D4AF37]' }}'">
+                                   :class="selectedSkpd.includes('{{ $skpd->id_skpd }}') ? 'border-ppid-primary bg-ppid-primary/5 dark:bg-ppid-primary/20 shadow-lg' : '{{ $isDisposisied ? '' : 'border-slate-200 dark:border-slate-700 hover:border-ppid-accent' }}'">
                                 <div class="flex items-center h-5">
                                     <input type="checkbox" 
                                            name="skpd_ids[]" 
                                            value="{{ $skpd->id_skpd }}"
                                            x-model="selectedSkpd"
-                                           class="h-5 w-5 text-[#1A305E] border-slate-300 rounded focus:ring-[#D4AF37] focus:ring-offset-0 {{ $isDisposisied ? 'cursor-not-allowed' : 'cursor-pointer' }}"
+                                           class="h-5 w-5 text-ppid-primary border-slate-300 rounded focus:ring-ppid-accent focus:ring-offset-0 {{ $isDisposisied ? 'cursor-not-allowed' : 'cursor-pointer' }}"
                                            {{ $isDisposisied ? 'disabled checked' : '' }}>
                                 </div>
                                 <div class="ml-3 flex-1">
@@ -167,7 +167,7 @@
                             Catatan Disposisi (Opsional)
                         </label>
                         <textarea name="catatan" rows="3"
-                            class="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 rounded-lg focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E]"
+                            class="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 rounded-lg focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary"
                             placeholder="Tuliskan catatan atau instruksi khusus untuk OPD yang menerima disposisi..."></textarea>
                     </div>
                 </div>
@@ -180,7 +180,7 @@
                     Batal
                 </a>
                 <button type="button" @click="selectedSkpd.length > 0 ? showConfirm = true : alert('Pilih minimal 1 OPD!')"
-                        class="px-6 py-3 bg-gradient-to-r from-[#1A305E] to-blue-700 text-white rounded-lg font-semibold hover:shadow-lg transition-all transform hover:scale-[1.02] flex items-center gap-2"
+                        class="px-6 py-3 bg-gradient-to-r from-ppid-primary to-blue-700 text-white rounded-lg font-semibold hover:shadow-lg transition-all transform hover:scale-[1.02] flex items-center gap-2"
                         :disabled="selectedSkpd.length === 0"
                         :class="selectedSkpd.length === 0 ? 'opacity-50 cursor-not-allowed' : ''">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

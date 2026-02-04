@@ -12,7 +12,7 @@
                 class="w-full h-full object-cover object-center opacity-30">
             <!-- Navy Gradient Overlay -->
             <div
-                class="absolute inset-0 bg-gradient-to-br from-[#1A305E]/95 via-[#1A305E]/85 to-[#122143]/95 mix-blend-multiply">
+                class="absolute inset-0 bg-gradient-to-br from-ppid-primary/95 via-ppid-primary/85 to-[#122143]/95 mix-blend-multiply">
             </div>
             <!-- Additional Subtle Pattern for Texture -->
             <div
@@ -27,12 +27,12 @@
             <!-- Left Side: Branding & Info (Hidden on small mobile, visible on large) -->
             <!-- Added better mobile handling: Hidden on base, flex on lg -->
             <div
-                class="hidden lg:flex lg:w-5/12 bg-gradient-to-b from-[#1A305E] to-[#0f172a] p-12 flex-col justify-between items-center text-center relative overflow-hidden group border-r border-white/10">
+                class="hidden lg:flex lg:w-5/12 bg-gradient-to-b from-ppid-primary to-[#0f172a] p-12 flex-col justify-between items-center text-center relative overflow-hidden group border-r border-white/10">
 
                 <!-- Decorative Circles -->
                 <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
                     <div class="absolute -top-24 -left-24 w-64 h-64 bg-white/5 rounded-full blur-3xl"></div>
-                    <div class="absolute -bottom-24 -right-24 w-80 h-80 bg-[#D4AF37]/10 rounded-full blur-3xl"></div>
+                    <div class="absolute -bottom-24 -right-24 w-80 h-80 bg-ppid-accent/10 rounded-full blur-3xl"></div>
                 </div>
 
                 <div class="relative z-10 w-full text-left">
@@ -59,8 +59,8 @@
                     </div>
 
                     <h2 class="text-3xl font-bold text-white mb-2 tracking-tight leading-tight">PPID Utama<br><span
-                            class="text-[#D4AF37]">Sulawesi Selatan</span></h2>
-                    <div class="h-1 w-20 bg-[#D4AF37] rounded-full my-4"></div>
+                            class="text-ppid-accent">Sulawesi Selatan</span></h2>
+                    <div class="h-1 w-20 bg-ppid-accent rounded-full my-4"></div>
                     <p class="text-blue-50 text-sm font-light leading-relaxed max-w-[80%] mx-auto opacity-90">
                         Transparansi untuk Partisipasi. Akses informasi publik dengan mudah, cepat, dan akurat.
                     </p>
@@ -71,9 +71,9 @@
                         <p class="text-xs text-white/60 italic font-medium">"Sipakatau, Sipakalebbi, Sipakainge"</p>
                     </div> --}}
                     <div class="flex items-center justify-center gap-2 opacity-60">
-                        <span class="w-2 h-2 rounded-full bg-[#D4AF37]"></span>
+                        <span class="w-2 h-2 rounded-full bg-ppid-accent"></span>
                         <p class="text-[10px] text-white tracking-widest uppercase">Official Portal</p>
-                        <span class="w-2 h-2 rounded-full bg-[#D4AF37]"></span>
+                        <span class="w-2 h-2 rounded-full bg-ppid-accent"></span>
                     </div>
                 </div>
             </div>
@@ -95,7 +95,7 @@
 
                 <div class="p-8 md:p-14 lg:p-16 w-full max-w-lg mx-auto flex flex-col justify-center h-full lg:mt-0 ">
                     <div class="mb-4 text-center lg:text-left">
-                        <h1 class="text-3xl md:text-4xl font-extrabold text-[#1A305E] mb-1 tracking-tight">Selamat
+                        <h1 class="text-3xl md:text-4xl font-extrabold text-ppid-primary mb-1 tracking-tight">Selamat
                             Datang</h1>
                         <p class="text-gray-500 font-medium text-lg">Silakan masuk untuk melanjutkan.</p>
                     </div>
@@ -106,10 +106,10 @@
                         <!-- Username -->
                         <div class="space-y-2">
                             <label for="username"
-                                class="block text-sm font-bold text-[#1A305E] uppercase tracking-wider ml-1">Username</label>
+                                class="block text-sm font-bold text-ppid-primary uppercase tracking-wider ml-1">Username</label>
                             <div class="relative group">
                                 <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                    <svg class="h-5 w-5 text-gray-400 group-focus-within:text-[#1A305E] transition-colors"
+                                    <svg class="h-5 w-5 text-gray-400 group-focus-within:text-ppid-primary transition-colors"
                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                         <path fill-rule="evenodd"
                                             d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
@@ -117,7 +117,7 @@
                                     </svg>
                                 </div>
                                 <input name="username" id="username"
-                                    class="block w-full pl-11 pr-4 py-4 border-2 border-gray-200 rounded-xl bg-gray-50/50 text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white focus:border-[#1A305E] focus:ring-4 focus:ring-[#1A305E]/10 transition-all duration-200 ease-out font-medium"
+                                    class="block w-full pl-11 pr-4 py-4 border-2 border-gray-200 rounded-xl bg-gray-50/50 text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white focus:border-ppid-primary focus:ring-4 focus:ring-ppid-primary/10 transition-all duration-200 ease-out font-medium"
                                     placeholder="Masukkan username Anda" value="{{ old('username') }}" required
                                     autofocus>
                             </div>
@@ -129,11 +129,11 @@
                             <label for="password" class="text-sm font-semibold text-gray-700 ml-1">KATA SANDI</label>
                             <div class="relative group">
                                 <input :type="show ? 'text' : 'password'" id="password" name="password" required
-                                    class="block w-full px-5 py-4 pl-12 bg-gray-50/50 border border-gray-200 rounded-xl text-gray-900 focus:ring-4 focus:ring-[#1A305E]/10 focus:border-[#1A305E] transition-all duration-300 placeholder:text-gray-400"
+                                    class="block w-full px-5 py-4 pl-12 bg-gray-50/50 border border-gray-200 rounded-xl text-gray-900 focus:ring-4 focus:ring-ppid-primary/10 focus:border-ppid-primary transition-all duration-300 placeholder:text-gray-400"
                                     placeholder="••••••••">
 
                                 <div
-                                    class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400 group-focus-within:text-[#1A305E] transition-colors">
+                                    class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400 group-focus-within:text-ppid-primary transition-colors">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -142,7 +142,7 @@
                                 </div>
 
                                 <button type="button" @click="show = !show"
-                                    class="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-[#1A305E] transition-colors focus:outline-none">
+                                    class="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-ppid-primary transition-colors focus:outline-none">
 
                                     <svg x-show="!show" xmlns="http://www.w3.org/2000/svg" width="25" height="25"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -172,9 +172,9 @@
 
                         <label class="flex items-center cursor-pointer group">
                             <input id="remember" name="remember" type="checkbox"
-                                class="w-5 h-5 text-[#1A305E] bg-gray-100 border-gray-300 rounded focus:ring-[#1A305E] focus:ring-2 transition duration-150 ease-in-out">
+                                class="w-5 h-5 text-ppid-primary bg-gray-100 border-gray-300 rounded focus:ring-ppid-primary focus:ring-2 transition duration-150 ease-in-out">
                             <span
-                                class="ml-3 block text-sm text-gray-600 font-medium group-hover:text-[#1A305E] transition-colors">Ingat
+                                class="ml-3 block text-sm text-gray-600 font-medium group-hover:text-ppid-primary transition-colors">Ingat
                                 Saya</span>
                         </label>
 
@@ -187,7 +187,7 @@
                         @endif
 
                         <button type="submit"
-                            class="w-full mt-4 flex justify-center py-4 px-6 border border-transparent rounded-xl shadow-lg text-base font-bold text-white bg-gradient-to-r from-[#1A305E] to-[#2c3e50] hover:from-[#122143] hover:to-[#1A305E] focus:outline-none focus:ring-4 focus:ring-[#1A305E]/30 transform hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
+                            class="w-full mt-4 flex justify-center py-4 px-6 border border-transparent rounded-xl shadow-lg text-base font-bold text-white bg-gradient-to-r from-ppid-primary to-[#2c3e50] hover:from-[#122143] hover:to-ppid-primary focus:outline-none focus:ring-4 focus:ring-ppid-primary/30 transform hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
                             MASUK SEKARANG
                         </button>
 

@@ -4,12 +4,12 @@
     </x-slot>
 
     <div class="flex items-center gap-4 mb-6">
-        <a href="{{ route('admin.data-sop.index') }}" class="text-slate-500 hover:text-[#1A305E] transition">
+        <a href="{{ route('admin.data-sop.index') }}" class="text-slate-500 hover:text-ppid-primary transition">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
             </svg>
         </a>
-        <h3 class="text-lg font-bold text-[#1A305E]">{{ $sop->judul }}</h3>
+        <h3 class="text-lg font-bold text-ppid-primary">{{ $sop->judul }}</h3>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -28,7 +28,7 @@
                 @else
                     <div class="p-10 text-center bg-slate-50 rounded-lg border border-dashed border-slate-300">
                         <p class="text-slate-500">Format file tidak mendukung pratinjau langsung.</p>
-                        <a href="{{ asset('storage/' . $sop->file) }}" class="mt-4 inline-block bg-[#1A305E] text-white px-4 py-2 rounded-lg" download>
+                        <a href="{{ asset('storage/' . $sop->file) }}" class="mt-4 inline-block bg-ppid-primary text-white px-4 py-2 rounded-lg" download>
                             Download untuk Melihat
                         </a>
                     </div>
@@ -43,15 +43,15 @@
                 <div class="space-y-4">
                     <div>
                         <p class="text-xs text-slate-400">ID SKPD Pemilik</p>
-                        <p class="text-sm font-medium text-[#1A305E]">{{ $sop->id_skpd ?? 'Tidak Diketahui' }}</p>
+                        <p class="text-sm font-medium text-ppid-primary">{{ $sop->id_skpd ?? 'Tidak Diketahui' }}</p>
                     </div>
                     <div>
                         <p class="text-xs text-slate-400">Total Unduhan</p>
-                        <p class="text-sm font-medium text-[#1A305E]">{{ $sop->jumlah_download ?? 0 }} kali</p>
+                        <p class="text-sm font-medium text-ppid-primary">{{ $sop->jumlah_download ?? 0 }} kali</p>
                     </div>
                     <div>
                         <p class="text-xs text-slate-400">Terakhir Diperbarui</p>
-                        <p class="text-sm font-medium text-[#1A305E]">{{ $sop->updated_at ? $sop->updated_at->format('d M Y, H:i') : '-' }}</p>
+                        <p class="text-sm font-medium text-ppid-primary">{{ $sop->updated_at ? $sop->updated_at->format('d M Y, H:i') : '-' }}</p>
                     </div>
                 </div>
                 

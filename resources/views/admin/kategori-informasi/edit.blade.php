@@ -14,7 +14,7 @@
 
     <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden max-w-2xl mx-auto">
         <div class="p-6 border-b border-slate-100">
-            <h3 class="text-lg font-bold text-[#1A305E]">Form Edit Kategori</h3>
+            <h3 class="text-lg font-bold text-ppid-primary">Form Edit Kategori</h3>
         </div>
 
         <form action="{{ route('admin.kategori-informasi.update', $kategori->id_kat_info) }}" method="POST"
@@ -65,7 +65,7 @@
                     Batal
                 </a>
                 <button type="submit"
-                    class="px-4 py-2 bg-[#1A305E] text-white rounded-lg text-sm font-medium hover:bg-ppid-dark transition-colors">
+                    class="px-4 py-2 bg-ppid-primary text-white rounded-lg text-sm font-medium hover:bg-ppid-dark transition-colors">
                     Simpan Perubahan
                 </button>
             </div>

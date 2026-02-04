@@ -24,7 +24,7 @@
         {{-- Upload Section --}}
         <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-8 mb-8">
             <div class="flex items-center gap-3 mb-6">
-                <div class="flex items-center justify-center w-12 h-12 rounded-full bg-[#1A305E] text-white">
+                <div class="flex items-center justify-center w-12 h-12 rounded-full bg-ppid-primary text-white">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                     </svg>
@@ -70,11 +70,11 @@
                                   file:mr-4 file:py-3 file:px-6
                                   file:rounded-xl file:border-0
                                   file:text-sm file:font-semibold
-                                  file:bg-[#1A305E] file:text-white
+                                  file:bg-ppid-primary file:text-white
                                   hover:file:bg-[#2A4A7E]
                                   file:transition-colors file:cursor-pointer
                                   border-2 border-dashed border-slate-300 dark:border-slate-600 rounded-xl 
-                                  cursor-pointer focus:outline-none focus:border-[#1A305E] 
+                                  cursor-pointer focus:outline-none focus:border-ppid-primary 
                                   bg-white dark:bg-slate-700 p-4">
                     <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">Format: PDF • Ukuran maksimal: 5MB</p>
                     @error('struktur_organisasi')
@@ -89,7 +89,7 @@
 
                 <div class="flex justify-end gap-3">
                     <button type="submit" 
-                            class="px-6 py-3 bg-gradient-to-r from-[#1A305E] to-[#2A4A7E] text-white font-semibold rounded-xl hover:from-[#2A4A7E] hover:to-[#1A305E] transition-all shadow-md hover:shadow-lg flex items-center gap-2">
+                            class="px-6 py-3 bg-gradient-to-r from-ppid-primary to-[#2A4A7E] text-white font-semibold rounded-xl hover:from-[#2A4A7E] hover:to-ppid-primary transition-all shadow-md hover:shadow-lg flex items-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                         </svg>
@@ -104,14 +104,14 @@
         <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
             <div class="border-b border-slate-200 dark:border-slate-700 px-8 py-5 flex items-center justify-between bg-slate-50 dark:bg-slate-900">
                 <div class="flex items-center gap-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#1A305E] dark:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-ppid-primary dark:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
                     <h2 class="font-bold text-slate-900 dark:text-white text-lg">Preview Struktur Organisasi</h2>
                 </div>
                 <a href="{{ asset($settings['struktur_organisasi_path']) }}" 
                    download
-                   class="flex items-center gap-2 px-4 py-2 bg-[#1A305E] text-white rounded-lg hover:bg-[#2A4A7E] transition-colors text-sm font-medium">
+                   class="flex items-center gap-2 px-4 py-2 bg-ppid-primary text-white rounded-lg hover:bg-[#2A4A7E] transition-colors text-sm font-medium">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                     </svg>
@@ -127,7 +127,7 @@
                         <p class="p-8 text-center text-slate-600 dark:text-slate-400">
                             Browser Anda tidak mendukung pratinjau PDF. 
                             <a href="{{ asset($settings['struktur_organisasi_path']) }}" 
-                               class="text-[#1A305E] dark:text-blue-400 font-semibold hover:underline">
+                               class="text-ppid-primary dark:text-blue-400 font-semibold hover:underline">
                                 Klik di sini untuk download PDF
                             </a>
                         </p>

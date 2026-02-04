@@ -68,6 +68,9 @@
         });
     </script>
 
+    {{-- Scroll to Top/Bottom Button --}}
+    <x-button.scroll-button />
+
 </body>
 
 </html>

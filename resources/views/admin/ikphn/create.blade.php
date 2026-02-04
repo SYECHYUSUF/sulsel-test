@@ -13,7 +13,7 @@
     <div class="py-12">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-slate-800 p-6 shadow-sm rounded-t-lg border-b border-slate-100">
-                <h3 class="text-lg font-bold text-[#1A305E]">Form Tambah Informasi Pengadaan</h3>
+                <h3 class="text-lg font-bold text-ppid-primary">Form Tambah Informasi Pengadaan</h3>
             </div>
 
             <div class="bg-white dark:bg-slate-800 overflow-hidden shadow-sm rounded-b-lg p-6"

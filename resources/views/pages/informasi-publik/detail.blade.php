@@ -6,7 +6,7 @@
         <div class="container mx-auto px-4 py-6">
             {{-- Breadcrumb --}}
             <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mb-4">
-                <a href="/" class="hover:text-[#1A305E] dark:text-white transition-colors">
+                <a href="/" class="hover:text-ppid-primary dark:text-white transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="w-4 h-4">
@@ -19,19 +19,19 @@
                     class="w-4 h-4 text-gray-400">
                     <path d="m9 18 6-6-6-6" />
                 </svg>
-                <a href="/informasi-publik" class="hover:text-[#1A305E] dark:text-white transition-colors">{{ __('messages.breadcrumb.public_info') }}</a>
+                <a href="/informasi-publik" class="hover:text-ppid-primary dark:text-white transition-colors">{{ __('messages.breadcrumb.public_info') }}</a>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="w-4 h-4 text-gray-400">
                     <path d="m9 18 6-6-6-6" />
                 </svg>
-                <span class="text-[#1A305E] dark:text-white font-medium">{{ __('messages.public_info_pages.detail_title') }}</span>
+                <span class="text-ppid-primary dark:text-white font-medium">{{ __('messages.public_info_pages.detail_title') }}</span>
             </div>
 
             {{-- Title --}}
             <div class="flex items-end justify-between">
                 <div>
-                    <h1 class="text-2xl md:text-3xl font-bold text-[#1A305E] dark:text-white mb-2 leading-tight">
+                    <h1 class="text-2xl md:text-3xl font-bold text-ppid-primary dark:text-white mb-2 leading-tight">
                         {{ $informasi->judul }}
                     </h1>
                     <p class="text-gray-600 dark:text-gray-300">
@@ -39,7 +39,7 @@
                     </p>
                 </div>
                 <div class="hidden md:block">
-                    <div class="w-20 h-1 bg-gradient-to-r from-[#1A305E] to-transparent rounded-full"></div>
+                    <div class="w-20 h-1 bg-gradient-to-r from-ppid-primary to-transparent rounded-full"></div>
                 </div>
             </div>
         </div>
@@ -50,9 +50,9 @@
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto">
                 <div
-                    class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl shadow-[#1A305E]/5 border border-gray-100 dark:border-slate-700 overflow-hidden">
+                    class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl shadow-ppid-primary/5 border border-gray-100 dark:border-slate-700 overflow-hidden">
                     {{-- Detail Header --}}
-                    <div class="bg-gradient-to-br from-[#1A305E] to-[#2A4A8E] p-8 text-white relative overflow-hidden">
+                    <div class="bg-gradient-to-br from-ppid-primary to-[#2A4A8E] p-8 text-white relative overflow-hidden">
                         <div class="absolute top-0 right-0 p-8 opacity-10">
                             <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -66,7 +66,7 @@
                         </div>
                         <div class="relative z-10">
                             <span
-                                class="inline-block px-3 py-1 bg-[#D4AF37] text-white text-xs font-bold rounded-full mb-4 uppercase tracking-wider">
+                                class="inline-block px-3 py-1 bg-ppid-accent text-white text-xs font-bold rounded-full mb-4 uppercase tracking-wider">
                                 {{ $informasi->kategori->nm_kat_info ?? 'Informasi Publik' }}
                             </span>
                             <h2 class="text-2xl font-bold mb-4">{{ $informasi->judul }}</h2>
@@ -125,10 +125,10 @@
                                 <ul class="space-y-4 text-sm">
                                     <li class="flex items-start gap-3">
                                         <div
-                                            class="w-8 h-8 rounded-lg bg-[#1A305E]/10 flex items-center justify-center flex-shrink-0">
+                                            class="w-8 h-8 rounded-lg bg-ppid-primary/10 flex items-center justify-center flex-shrink-0">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round" class="text-[#1A305E]">
+                                                stroke-linecap="round" stroke-linejoin="round" class="text-ppid-primary">
                                                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                                                 <polyline points="14 2 14 8 20 8" />
                                                 <line x1="16" y1="13" x2="8" y2="13" />
@@ -145,10 +145,10 @@
                                     </li>
                                     <li class="flex items-start gap-3">
                                         <div
-                                            class="w-8 h-8 rounded-lg bg-[#1A305E]/10 flex items-center justify-center flex-shrink-0">
+                                            class="w-8 h-8 rounded-lg bg-ppid-primary/10 flex items-center justify-center flex-shrink-0">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round" class="text-[#1A305E]">
+                                                stroke-linecap="round" stroke-linejoin="round" class="text-ppid-primary">
                                                 <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
                                             </svg>
                                         </div>
@@ -172,7 +172,7 @@
                             @if($informasi->file)
                                 <a href="{{ str_starts_with($informasi->file, 'http') ? $informasi->file : asset('storage/' . $informasi->file) }}"
                                     target="_blank"
-                                    class="w-full sm:w-auto px-8 py-3 bg-[#1A305E] text-white rounded-xl hover:bg-[#2A4A8E] transition-all flex items-center justify-center gap-2 font-bold shadow-lg shadow-[#1A305E]/20">
+                                    class="w-full sm:w-auto px-8 py-3 bg-ppid-primary text-white rounded-xl hover:bg-[#2A4A8E] transition-all flex items-center justify-center gap-2 font-bold shadow-lg shadow-ppid-primary/20">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                         stroke-linejoin="round">
@@ -182,7 +182,7 @@
                                     Lihat Berkas
                                 </a>
                                 <a href="{{ route('informasi-publik.download', $informasi->id_informasi) }}"
-                                    class="w-full sm:w-auto px-8 py-3 bg-white dark:bg-slate-700 text-[#1A305E] dark:text-white border-2 border-[#1A305E] dark:border-slate-600 rounded-xl hover:bg-gray-50 dark:hover:bg-slate-600 transition-all flex items-center justify-center gap-2 font-bold">
+                                    class="w-full sm:w-auto px-8 py-3 bg-white dark:bg-slate-700 text-ppid-primary dark:text-white border-2 border-ppid-primary dark:border-slate-600 rounded-xl hover:bg-gray-50 dark:hover:bg-slate-600 transition-all flex items-center justify-center gap-2 font-bold">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                         stroke-linejoin="round">
@@ -205,7 +205,7 @@
                 {{-- Back Link --}}
                 <div class="mt-8 text-center">
                     <a href="javascript:history.back()"
-                        class="inline-flex items-center gap-2 text-gray-500 hover:text-[#1A305E] transition-colors group italic font-medium">
+                        class="inline-flex items-center gap-2 text-gray-500 hover:text-ppid-primary transition-colors group italic font-medium">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                             class="group-hover:-translate-x-1 transition-transform">

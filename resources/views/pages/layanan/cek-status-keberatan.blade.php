@@ -71,7 +71,7 @@
 
         {{-- Hero Section --}}
         <section
-            class="relative bg-gradient-to-br from-[#1A305E] via-[#2a4a7c] to-[#1A305E] text-white overflow-hidden pb-32 md:pb-40">
+            class="relative bg-gradient-to-br from-ppid-primary via-[#2a4a7c] to-ppid-primary text-white overflow-hidden pb-32 md:pb-40">
             <div class="container mx-auto px-4 sm:px-6 relative z-10 text-center pt-16 md:pt-24">
                 {{-- Judul --}}
                 <h1
@@ -104,10 +104,10 @@
             <div class="container mx-auto px-4 sm:px-6 relative z-20">
                 <div class="max-w-4xl mx-auto">
                     <div
-                        class="bg-gradient-to-br from-white via-slate-50 to-blue-50/30 dark:from-slate-800 dark:via-slate-800 dark:to-slate-900 rounded-[2.5rem] shadow-2xl p-8 md:p-14 border-2 border-[#1A305E]/10 dark:border-blue-500/30">
+                        class="bg-gradient-to-br from-white via-slate-50 to-blue-50/30 dark:from-slate-800 dark:via-slate-800 dark:to-slate-900 rounded-[2.5rem] shadow-2xl p-8 md:p-14 border-2 border-ppid-primary/10 dark:border-blue-500/30">
 
                         <div class="text-center mb-10">
-                            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1A305E] dark:text-white mb-4">
+                            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-ppid-primary dark:text-white mb-4">
                                 Masukkan Email Anda
                             </h2>
                             <p class="text-slate-600 dark:text-slate-400">Gunakan email yang sama saat mengajukan
@@ -116,25 +116,25 @@
 
                         <form @submit.prevent="searchPengajuan" class="max-w-2xl mx-auto">
                             <div class="mb-8">
-                                <label class="block text-lg font-semibold text-[#1A305E] dark:text-white mb-3">
+                                <label class="block text-lg font-semibold text-ppid-primary dark:text-white mb-3">
                                     Email Pemohon
                                 </label>
                                 <div class="relative group">
                                     <input type="email" x-model="email" required
-                                        class="w-full px-6 py-5 text-xl rounded-2xl border-2 border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 focus:ring-4 focus:ring-[#D4AF37]/30 focus:border-[#1A305E] transition-all duration-300"
+                                        class="w-full px-6 py-5 text-xl rounded-2xl border-2 border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 focus:ring-4 focus:ring-ppid-accent/30 focus:border-ppid-primary transition-all duration-300"
                                         placeholder="contoh: nama@email.com">
                                 </div>
                             </div>
 
                             <!-- Filter Status -->
                             <div class="mb-8">
-                                <label class="block text-lg font-semibold text-[#1A305E] dark:text-white mb-3">
+                                <label class="block text-lg font-semibold text-ppid-primary dark:text-white mb-3">
                                     Filter Status (Opsional)
                                 </label>
                                 <div class="relative">
                                     <select x-model="statusFilter"
                                         @change="if(email && pengajuan.length > 0) searchPengajuan()"
-                                        class="w-full px-6 py-5 text-xl rounded-2xl border-2 border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 focus:ring-4 focus:ring-[#D4AF37]/30 focus:border-[#1A305E] transition-all duration-300 appearance-none cursor-pointer">
+                                        class="w-full px-6 py-5 text-xl rounded-2xl border-2 border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 focus:ring-4 focus:ring-ppid-accent/30 focus:border-ppid-primary transition-all duration-300 appearance-none cursor-pointer">
                                         <option value="">Semua Status</option>
                                         <option value="belum_direspon">Belum Direspon</option>
                                         <option value="p">Dalam Proses</option>
@@ -143,7 +143,7 @@
                                         <option value="a">Dijawab</option>
                                     </select>
                                     <div
-                                        class="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-[#1A305E] dark:text-white">
+                                        class="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-ppid-primary dark:text-white">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -166,7 +166,7 @@
                             </div>
 
                             <button type="submit" :disabled="loading"
-                                class="w-full bg-gradient-to-r from-[#1A305E] to-[#2a4a7c] hover:from-[#152749] hover:to-[#1f3a65] text-white text-xl md:text-2xl font-bold py-6 px-8 rounded-2xl transition-all transform hover:scale-[1.02] shadow-xl flex items-center justify-center gap-4 disabled:opacity-50">
+                                class="w-full bg-gradient-to-r from-ppid-primary to-[#2a4a7c] hover:from-[#152749] hover:to-[#1f3a65] text-white text-xl md:text-2xl font-bold py-6 px-8 rounded-2xl transition-all transform hover:scale-[1.02] shadow-xl flex items-center justify-center gap-4 disabled:opacity-50">
                                 <svg x-show="loading" class="animate-spin w-7 h-7" fill="none" viewBox="0 0 24 24">
                                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
                                         stroke-width="4"></circle>
@@ -188,11 +188,11 @@
             <div class="container mx-auto px-4 sm:px-6">
                 <div class="text-center mb-12">
                     <div
-                        class="inline-flex flex-col sm:flex-row items-center gap-4 bg-white dark:bg-slate-800 px-8 py-5 rounded-2xl shadow-lg border-2 border-[#1A305E]/10">
-                        <h2 class="text-2xl sm:text-3xl font-bold text-[#1A305E] dark:text-white">
+                        class="inline-flex flex-col sm:flex-row items-center gap-4 bg-white dark:bg-slate-800 px-8 py-5 rounded-2xl shadow-lg border-2 border-ppid-primary/10">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-ppid-primary dark:text-white">
                             Riwayat Pengajuan Keberatan
                         </h2>
-                        <span class="bg-[#D4AF37] text-white px-4 py-1 rounded-full text-sm font-bold"
+                        <span class="bg-ppid-accent text-white px-4 py-1 rounded-full text-sm font-bold"
                             x-text="filteredPengajuan.length + ' Data'"></span>
                     </div>
                 </div>
@@ -206,8 +206,8 @@
                             <div
                                 class="p-6 bg-slate-50 dark:bg-slate-700/30 border-b-2 border-slate-100 dark:border-slate-700 flex flex-wrap justify-between items-center gap-4">
                                 <div class="flex items-center gap-4">
-                                    <div class="p-3 bg-[#1A305E] rounded-xl shadow-md">
-                                        <svg class="w-7 h-7 text-[#D4AF37]" fill="none" stroke="currentColor"
+                                    <div class="p-3 bg-ppid-primary rounded-xl shadow-md">
+                                        <svg class="w-7 h-7 text-ppid-accent" fill="none" stroke="currentColor"
                                             viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z">
@@ -237,14 +237,14 @@
                                 {{-- Left: Details --}}
                                 <div>
                                     <label
-                                        class="flex items-center gap-2 text-xs font-bold text-[#D4AF37] uppercase tracking-wider mb-3">
+                                        class="flex items-center gap-2 text-xs font-bold text-ppid-accent uppercase tracking-wider mb-3">
                                         <span>Nama Pemohon</span>
                                     </label>
-                                    <p class="text-lg font-bold text-[#1A305E] dark:text-white leading-relaxed mb-6"
+                                    <p class="text-lg font-bold text-ppid-primary dark:text-white leading-relaxed mb-6"
                                         x-text="item.nama_pemohon"></p>
 
                                     <label
-                                        class="flex items-center gap-2 text-xs font-bold text-[#D4AF37] uppercase tracking-wider mb-3">
+                                        class="flex items-center gap-2 text-xs font-bold text-ppid-accent uppercase tracking-wider mb-3">
                                         <span>Kasus Posisi</span>
                                     </label>
                                     <p class="text-base text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-line"

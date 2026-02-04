@@ -1,7 +1,7 @@
 <section 
     x-data="{ scroll: 0 }" 
     @scroll.window="scroll = window.pageYOffset"
-    class="py-12 md:py-20 bg-[#1A305E] relative overflow-hidden font-['Plus_Jakarta_Sans']">
+    class="py-12 md:py-20 bg-ppid-primary relative overflow-hidden font-['Plus_Jakarta_Sans']">
     
     {{-- Decorative Cultural Pattern Overlay - TETAP DIJAGA & PARALLAX FIX --}}
     <div class="absolute inset-0 opacity-10 pointer-events-none transition-all duration-75 ease-out" 
@@ -13,11 +13,11 @@
         <div class="max-w-5xl mx-auto">
             {{-- Header Section --}}
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10 text-center sm:text-left" data-aos="fade-down">
-                <div class="w-16 h-16 bg-white/5 backdrop-blur-sm rounded-2xl flex items-center justify-center text-[#D4AF37] flex-shrink-0 shadow-lg border border-[#D4AF37]/30">
+                <div class="w-16 h-16 bg-white/5 backdrop-blur-sm rounded-2xl flex items-center justify-center text-ppid-accent flex-shrink-0 shadow-lg border border-ppid-accent/30">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/></svg>
                 </div>
                 <div class="text-white">
-                    <h3 class="text-2xl md:text-3xl font-bold mb-1 tracking-tight text-[#D4AF37]">{{ __('messages.download.legal_title') }}</h3>
+                    <h3 class="text-2xl md:text-3xl font-bold mb-1 tracking-tight text-ppid-accent">{{ __('messages.download.legal_title') }}</h3>
                     <p class="text-sm md:text-base text-gray-300">{{ __('messages.download.legal_subtitle') }}</p>
                 </div>
             </div>
@@ -32,12 +32,12 @@
                     ];
                 @endphp
                 @foreach($laws as $index => $l)
-                <div class="bg-white/5 backdrop-blur-md hover:bg-white/10 rounded-2xl p-6 border border-white/10 hover:border-[#D4AF37]/50 transition-all duration-300 flex items-start gap-4 group"
+                <div class="bg-white/5 backdrop-blur-md hover:bg-white/10 rounded-2xl p-6 border border-white/10 hover:border-ppid-accent/50 transition-all duration-300 flex items-start gap-4 group"
                      data-aos="fade-up" data-aos-delay="{{ $index * 150 }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-[#D4AF37] mt-1 group-hover:scale-110 transition-transform"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-ppid-accent mt-1 group-hover:scale-110 transition-transform"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                     <div class="text-white">
-                        <p class="text-xs font-bold opacity-80 uppercase tracking-widest mb-1 text-[#D4AF37]">{{ $l['law'] }}</p>
-                        <p class="text-base font-semibold leading-tight text-white group-hover:text-[#D4AF37] transition-colors">{{ __($l['title']) }}</p>
+                        <p class="text-xs font-bold opacity-80 uppercase tracking-widest mb-1 text-ppid-accent">{{ $l['law'] }}</p>
+                        <p class="text-base font-semibold leading-tight text-white group-hover:text-ppid-accent transition-colors">{{ __($l['title']) }}</p>
                     </div>
                 </div>
                 @endforeach

@@ -6,7 +6,7 @@
         <div class="container mx-auto px-4 py-8">
             {{-- Breadcrumb --}}
             <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mb-4">
-                <a href="/" class="hover:text-[#1A305E] dark:text-white transition-colors">
+                <a href="/" class="hover:text-ppid-primary dark:text-white transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="w-4 h-4">
@@ -19,19 +19,19 @@
                     class="w-4 h-4 text-gray-400">
                     <path d="m9 18 6-6-6-6" />
                 </svg>
-                <span class="text-[#1A305E] dark:text-white font-medium">Layanan</span>
+                <span class="text-ppid-primary dark:text-white font-medium">Layanan</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="w-4 h-4 text-gray-400">
                     <path d="m9 18 6-6-6-6" />
                 </svg>
-                <span class="text-[#1A305E] dark:text-white font-bold">Permohonan Informasi</span>
+                <span class="text-ppid-primary dark:text-white font-bold">Permohonan Informasi</span>
             </div>
 
             {{-- Title --}}
             <div class="flex items-end justify-between">
                 <div>
-                    <h1 class="text-3xl md:text-4xl font-bold text-[#1A305E] dark:text-white mb-2">
+                    <h1 class="text-3xl md:text-4xl font-bold text-ppid-primary dark:text-white mb-2">
                         {{ __('messages.layanan_pages.permohonan_title') }}
                     </h1>
                     <p class="text-gray-600 dark:text-gray-300">
@@ -39,7 +39,7 @@
                     </p>
                 </div>
                 <div class="hidden md:block">
-                    <div class="w-24 h-1.5 bg-gradient-to-r from-[#1A305E] to-[#D4AF37] rounded-full"></div>
+                    <div class="w-24 h-1.5 bg-gradient-to-r from-ppid-primary to-ppid-accent rounded-full"></div>
                 </div>
             </div>
         </div>
@@ -72,7 +72,7 @@
                     class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-200 dark:border-slate-700 p-8 md:p-10 relative">
                     <div class="text-center mb-10">
                         <div
-                            class="w-16 h-16 bg-[#1A305E]/5 text-[#1A305E] dark:text-white rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            class="w-16 h-16 bg-ppid-primary/5 text-ppid-primary dark:text-white rounded-2xl flex items-center justify-center mx-auto mb-4">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round">
@@ -83,7 +83,7 @@
                                 <polyline points="10 9 9 9 8 9" />
                             </svg>
                         </div>
-                        <h2 class="text-2xl font-bold text-[#1A305E] dark:text-white mb-2">
+                        <h2 class="text-2xl font-bold text-ppid-primary dark:text-white mb-2">
                             {{ __('messages.form.form_title') }}
                         </h2>
                         <p class="text-gray-600 dark:text-gray-300">
@@ -158,7 +158,7 @@
                                             {{ __('messages.form.close') }}
                                         </button>
                                         <button @click="successModalOpen = false"
-                                            class="flex-1 px-5 py-3.5 rounded-2xl text-white font-bold text-sm tracking-wide shadow-xl shadow-blue-500/30 transition-all transform hover:scale-105 active:scale-95 bg-gradient-to-r from-[#1A305E] to-blue-600 hover:to-blue-500">
+                                            class="flex-1 px-5 py-3.5 rounded-2xl text-white font-bold text-sm tracking-wide shadow-xl shadow-blue-500/30 transition-all transform hover:scale-105 active:scale-95 bg-gradient-to-r from-ppid-primary to-blue-600 hover:to-blue-500">
                                             {{ __('messages.form.great') }}
                                         </button>
                                     </div>
@@ -181,9 +181,9 @@
                         {{-- Personal Data --}}
                         <div class="space-y-6">
                             <h3
-                                class="text-lg font-bold text-[#1A305E] dark:text-white flex items-center gap-2 border-b border-gray-200 pb-3">
+                                class="text-lg font-bold text-ppid-primary dark:text-white flex items-center gap-2 border-b border-gray-200 pb-3">
                                 <span
-                                    class="w-8 h-8 rounded-full bg-[#D4AF37] text-white flex items-center justify-center text-sm font-bold">1</span>
+                                    class="w-8 h-8 rounded-full bg-ppid-accent text-white flex items-center justify-center text-sm font-bold">1</span>
                                 Data Pribadi
                             </h3>
 
@@ -195,7 +195,7 @@
                                     </label>
                                     <input type="text" name="nama" value="{{ old('nama') }}"
                                         placeholder="Masukkan nama sesuai KTP"
-                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800"
+                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800"
                                         required />
                                 </div>
 
@@ -205,7 +205,7 @@
                                     </label>
                                     <input type="text" name="nik" id="nikInput" value="{{ old('nik') }}"
                                         placeholder="16 digit NIK" maxlength="16"
-                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800"
+                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800"
                                         required />
                                     <p class="text-xs text-gray-500 mt-1">NIK harus 16 digit angka</p>
                                 </div>
@@ -219,7 +219,7 @@
                                     </label>
                                     <input type="text" name="no_kk" value="{{ old('no_kk') }}"
                                         placeholder="Nomor Kartu Keluarga"
-                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800" />
+                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800" />
                                 </div>
 
                                 <div class="space-y-2">
@@ -228,7 +228,7 @@
                                     </label>
                                     <input type="email" name="email" value="{{ old('email') }}"
                                         placeholder="contoh@email.com"
-                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800"
+                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800"
                                         required />
                                 </div>
                             </div>
@@ -241,7 +241,7 @@
                                     </label>
                                     <input type="text" name="no_hp" value="{{ old('no_hp') }}"
                                         placeholder="08xxxxxxxxxx"
-                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800"
+                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800"
                                         required />
                                 </div>
 
@@ -251,7 +251,7 @@
                                     </label>
                                     <input type="text" name="alamat" value="{{ old('alamat') }}"
                                         placeholder="Jl. Contoh No. 123, Kelurahan/Desa"
-                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800"
+                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800"
                                         required />
                                 </div>
                             </div>
@@ -291,10 +291,10 @@
                                                   file:mr-4 file:py-3 file:px-6 
                                                   file:rounded-lg file:border-0 
                                                   file:text-sm file:font-semibold
-                                                  file:bg-[#1A305E] file:text-white
-                                                  hover:file:bg-[#1A305E]/90
+                                                  file:bg-ppid-primary file:text-white
+                                                  hover:file:bg-ppid-primary/90
                                                   cursor-pointer border border-gray-300 rounded-lg bg-white dark:bg-slate-800
-                                                  focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E]" required />
+                                                  focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary" required />
                                 </div>
                                 <p class="text-xs text-gray-500 mt-1">
                                     <i class="fas fa-info-circle mr-1"></i>
@@ -306,9 +306,9 @@
                         {{-- Information Details --}}
                         <div class="space-y-6">
                             <h3
-                                class="text-lg font-bold text-[#1A305E] dark:text-white flex items-center gap-2 border-b border-gray-200 pb-3">
+                                class="text-lg font-bold text-ppid-primary dark:text-white flex items-center gap-2 border-b border-gray-200 pb-3">
                                 <span
-                                    class="w-8 h-8 rounded-full bg-[#D4AF37] text-white flex items-center justify-center text-sm font-bold">2</span>
+                                    class="w-8 h-8 rounded-full bg-ppid-accent text-white flex items-center justify-center text-sm font-bold">2</span>
                                 Detail Informasi
                             </h3>
 
@@ -320,7 +320,7 @@
                                     </label>
                                     <input type="text" name="nmr_pengesahan" value="{{ old('nmr_pengesahan') }}"
                                         placeholder="Jika mewakili badan hukum"
-                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800" />
+                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800" />
                                     <p class="text-xs text-gray-500 mt-1">Kosongkan jika mengajukan sebagai perorangan
                                     </p>
                                 </div>
@@ -331,7 +331,7 @@
                                     </label>
                                     <input type="text" name="tujuan" value="{{ old('tujuan') }}"
                                         placeholder="Contoh: Penelitian, Keperluan Pribadi, dll"
-                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800"
+                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800"
                                         required />
                                 </div>
                             </div>
@@ -343,7 +343,7 @@
                                 </label>
                                 <textarea name="rincian" rows="5"
                                     placeholder="Deskripsikan secara detail informasi yang Anda butuhkan..."
-                                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1A305E] focus:border-[#1A305E] transition-all outline-none bg-white dark:bg-slate-800 resize-none"
+                                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800 resize-none"
                                     required>{{ old('rincian') }}</textarea>
                                 <p class="text-xs text-gray-500 mt-1">
                                     <i class="fas fa-lightbulb mr-1"></i>
@@ -361,7 +361,7 @@
                                     Reset Form
                                 </button>
                                 <button type="submit"
-                                    class="px-8 py-3.5 bg-[#1A305E] text-white font-bold rounded-lg hover:bg-[#1A305E]/90 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                                    class="px-8 py-3.5 bg-ppid-primary text-white font-bold rounded-lg hover:bg-ppid-primary/90 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                         stroke-linejoin="round">
@@ -473,13 +473,13 @@
                             // Highlight on drag
                             ['dragenter', 'dragover'].forEach(eventName => {
                                 dropZone.addEventListener(eventName, function () {
-                                    dropZone.classList.add('border-[#D4AF37]', 'bg-gradient-to-br', 'from-yellow-50', 'to-amber-50');
+                                    dropZone.classList.add('border-ppid-accent', 'bg-gradient-to-br', 'from-yellow-50', 'to-amber-50');
                                 });
                             });
 
                             ['dragleave', 'drop'].forEach(eventName => {
                                 dropZone.addEventListener(eventName, function () {
-                                    dropZone.classList.remove('border-[#D4AF37]', 'bg-gradient-to-br', 'from-yellow-50', 'to-amber-50');
+                                    dropZone.classList.remove('border-ppid-accent', 'bg-gradient-to-br', 'from-yellow-50', 'to-amber-50');
                                 });
                             });
 

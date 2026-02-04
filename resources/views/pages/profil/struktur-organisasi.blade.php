@@ -6,19 +6,19 @@
         <div class="container mx-auto px-4 py-6">
             {{-- Breadcrumb --}}
             <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mb-4">
-                <a href="/" class="hover:text-[#1A305E] dark:text-white transition-colors">
+                <a href="/" class="hover:text-ppid-primary dark:text-white transition-colors">
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
                 </a>
                 <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                <a href="#" class="hover:text-[#1A305E] dark:text-white transition-colors">{{ __('messages.breadcrumb.profile') }}</a>
+                <a href="#" class="hover:text-ppid-primary dark:text-white transition-colors">{{ __('messages.breadcrumb.profile') }}</a>
                 <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                <span class="text-[#1A305E] dark:text-white font-medium">{{ __('messages.profile.org_structure') }}</span>
+                <span class="text-ppid-primary dark:text-white font-medium">{{ __('messages.profile.org_structure') }}</span>
             </div>
           
             {{-- Title --}}
             <div class="flex items-end justify-between">
                 <div>
-                    <h1 class="text-3xl md:text-4xl font-bold text-[#1A305E] dark:text-white mb-2">
+                    <h1 class="text-3xl md:text-4xl font-bold text-ppid-primary dark:text-white mb-2">
                         {{ __('messages.profile.org_structure') }}
                     </h1>
                     <p class="text-gray-600 dark:text-gray-300">
@@ -26,7 +26,7 @@
                     </p>
                 </div>
                 <div class="hidden md:block">
-                    <div class="w-20 h-1 bg-gradient-to-r from-[#1A305E] to-transparent rounded-full"></div>
+                    <div class="w-20 h-1 bg-gradient-to-r from-ppid-primary to-transparent rounded-full"></div>
                 </div>
             </div>
         </div>
@@ -59,7 +59,7 @@
                         <h2 class="font-bold text-gray-900 dark:text-white">Bagan Struktur Organisasi PPID</h2>
                         <a href="{{ isset($pdfPath) && $pdfPath ? asset($pdfPath) : '#' }}" 
                            @if(isset($pdfPath) && $pdfPath) download @endif
-                           class="flex items-center gap-2 text-[#1A305E] dark:text-white hover:text-[#D4AF37] text-sm font-medium transition-colors">
+                           class="flex items-center gap-2 text-ppid-primary dark:text-white hover:text-ppid-accent text-sm font-medium transition-colors">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
                             Download
                         </a>
@@ -88,26 +88,26 @@
                 <div class="grid md:grid-cols-2 gap-6">
                     <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-gray-200 dark:border-slate-700 p-6">
                         <div class="flex items-center gap-3 mb-4">
-                            <div class="w-10 h-10 bg-[#1A305E]/10 rounded-lg flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-[#1A305E] dark:text-white"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                            <div class="w-10 h-10 bg-ppid-primary/10 rounded-lg flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-ppid-primary dark:text-white"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
                             </div>
                             <h3 class="font-bold text-gray-900 dark:text-white">Komponen PPID</h3>
                         </div>
                         <div class="space-y-3 text-sm text-gray-700">
                             <div class="flex gap-3">
-                                <span class="text-[#1A305E] dark:text-white mt-1">•</span>
+                                <span class="text-ppid-primary dark:text-white mt-1">•</span>
                                 <div>
                                     <strong class="text-gray-900 dark:text-white">PPID Utama:</strong> Bertanggung jawab atas pengelolaan informasi di tingkat provinsi
                                 </div>
                             </div>
                             <div class="flex gap-3">
-                                <span class="text-[#1A305E] dark:text-white mt-1">•</span>
+                                <span class="text-ppid-primary dark:text-white mt-1">•</span>
                                 <div>
                                     <strong class="text-gray-900 dark:text-white">PPID Pembantu:</strong> Mengelola informasi di setiap SKPD lingkup Pemprov Sulsel
                                 </div>
                             </div>
                             <div class="flex gap-3">
-                                <span class="text-[#1A305E] dark:text-white mt-1">•</span>
+                                <span class="text-ppid-primary dark:text-white mt-1">•</span>
                                 <div>
                                     <strong class="text-gray-900 dark:text-white">PPID Pelaksana:</strong> Melaksanakan tugas teknis pelayanan informasi
                                 </div>
@@ -115,31 +115,31 @@
                         </div>
                     </div>
 
-                    <div class="bg-[#1A305E]/5 border border-[#1A305E]/10 rounded-lg p-6">
+                    <div class="bg-ppid-primary/5 border border-ppid-primary/10 rounded-lg p-6">
                         <div class="flex items-center gap-3 mb-4">
-                            <div class="w-10 h-10 bg-[#1A305E] rounded-lg flex items-center justify-center">
+                            <div class="w-10 h-10 bg-ppid-primary rounded-lg flex items-center justify-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-white"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
                             </div>
-                            <h3 class="font-bold text-[#1A305E] dark:text-white">Koordinasi & Supervisi</h3>
+                            <h3 class="font-bold text-ppid-primary dark:text-white">Koordinasi & Supervisi</h3>
                         </div>
                         <p class="text-sm text-gray-700 mb-3">
                             PPID Utama melakukan koordinasi dan supervisi terhadap PPID Pembantu di seluruh SKPD untuk memastikan:
                         </p>
                         <div class="space-y-2 text-sm text-gray-700">
                             <div class="flex gap-2">
-                                <span class="text-[#1A305E] dark:text-white">•</span>
+                                <span class="text-ppid-primary dark:text-white">•</span>
                                 <span>Standarisasi pengelolaan informasi</span>
                             </div>
                             <div class="flex gap-2">
-                                <span class="text-[#1A305E] dark:text-white">•</span>
+                                <span class="text-ppid-primary dark:text-white">•</span>
                                 <span>Kualitas layanan yang konsisten</span>
                             </div>
                             <div class="flex gap-2">
-                                <span class="text-[#1A305E] dark:text-white">•</span>
+                                <span class="text-ppid-primary dark:text-white">•</span>
                                 <span>Kepatuhan terhadap regulasi KIP</span>
                             </div>
                             <div class="flex gap-2">
-                                <span class="text-[#1A305E] dark:text-white">•</span>
+                                <span class="text-ppid-primary dark:text-white">•</span>
                                 <span>Peningkatan kapasitas SDM</span>
                             </div>
                         </div>

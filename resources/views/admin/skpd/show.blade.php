@@ -10,7 +10,7 @@
         <script src="/vendor/filepond/index.js"></script>
     </x-slot>
 
-    <h3 class="text-lg font-bold text-[#1A305E] dark:text-blue-400 mb-4">{{ $skpd->nm_skpd }}</h3>
+    <h3 class="text-lg font-bold text-ppid-primary dark:text-blue-400 mb-4">{{ $skpd->nm_skpd }}</h3>
 
     {{-- Success/Error Messages --}}
     @if(session('success'))

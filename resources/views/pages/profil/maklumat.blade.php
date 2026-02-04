@@ -6,7 +6,7 @@
         <div class="container mx-auto px-4 py-6">
             {{-- Breadcrumb --}}
             <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mb-4">
-                <a href="/" class="hover:text-[#1A305E] dark:text-white transition-colors">
+                <a href="/" class="hover:text-ppid-primary dark:text-white transition-colors">
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                         <path
                             d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z">
@@ -17,14 +17,14 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                 </svg>
                 <a href="#"
-                    class="hover:text-[#1A305E] dark:text-white transition-colors">{{ __('messages.breadcrumb.profile') }}</a>
+                    class="hover:text-ppid-primary dark:text-white transition-colors">{{ __('messages.breadcrumb.profile') }}</a>
                 <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                 </svg>
                 <span
-                    class="text-[#1A305E] dark:text-white font-medium">{{ __('messages.profile.service_declaration') }}</span>
+                    class="text-ppid-primary dark:text-white font-medium">{{ __('messages.profile.service_declaration') }}</span>
             </div>
-            <div class="w-20 h-1 bg-gradient-to-r from-[#1A305E] to-transparent rounded-full"></div>
+            <div class="w-20 h-1 bg-gradient-to-r from-ppid-primary to-transparent rounded-full"></div>
         </div>
     </div>
     </div>
@@ -42,7 +42,7 @@
                         class="border-b border-gray-200 dark:border-slate-700 px-6 py-4 flex items-center justify-between bg-gray-50 dark:bg-slate-900">
                         <h2 class="font-bold text-gray-900 dark:text-white">Maklumat Pelayanan Informasi Publik</h2>
                         <button
-                            class="flex items-center gap-2 text-[#1A305E] dark:text-white hover:text-[#D4AF37] text-sm font-medium transition-colors">
+                            class="flex items-center gap-2 text-ppid-primary dark:text-white hover:text-ppid-accent text-sm font-medium transition-colors">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="w-4 h-4">
@@ -105,7 +105,7 @@
                 </div>
 
                 {{-- Contact Info --}}
-                <div class="bg-gradient-to-br from-[#1A305E] to-[#4A5568] rounded-xl p-6 md:p-8 text-white text-center">
+                <div class="bg-gradient-to-br from-ppid-primary to-ppid-text rounded-xl p-6 md:p-8 text-white text-center">
                     <h3 class="text-lg font-bold mb-2">Informasi & Pengaduan</h3>
                     <p class="text-white/90 text-sm">
                         Untuk informasi lebih lanjut atau menyampaikan pengaduan terkait pelayanan informasi publik,

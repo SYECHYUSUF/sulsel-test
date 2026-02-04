@@ -6,7 +6,7 @@
         <div class="container mx-auto px-4 py-6">
             {{-- Breadcrumb --}}
             <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mb-4">
-                <a href="/" class="hover:text-[#1A305E] dark:text-white transition-colors">
+                <a href="/" class="hover:text-ppid-primary dark:text-white transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="w-4 h-4">
@@ -20,20 +20,20 @@
                     <path d="m9 18 6-6-6-6" />
                 </svg>
                 <a href="/informasi-publik"
-                    class="hover:text-[#1A305E] dark:text-white transition-colors">{{ __('messages.breadcrumb.public_info') }}</a>
+                    class="hover:text-ppid-primary dark:text-white transition-colors">{{ __('messages.breadcrumb.public_info') }}</a>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="w-4 h-4 text-gray-400">
                     <path d="m9 18 6-6-6-6" />
                 </svg>
                 <span
-                    class="text-[#1A305E] dark:text-white font-medium">{{ __('messages.public_info_types.pengadaan') }}</span>
+                    class="text-ppid-primary dark:text-white font-medium">{{ __('messages.public_info_types.pengadaan') }}</span>
             </div>
 
             {{-- Title --}}
             <div class="flex items-end justify-between">
                 <div>
-                    <h1 class="text-2xl md:text-4xl font-bold text-[#1A305E] dark:text-white mb-2">
+                    <h1 class="text-2xl md:text-4xl font-bold text-ppid-primary dark:text-white mb-2">
                         {{ __('messages.public_info_pages.pengadaan_title') }}
                     </h1>
                     <p class="text-gray-600 dark:text-gray-300">
@@ -41,7 +41,7 @@
                     </p>
                 </div>
                 <div class="hidden md:block">
-                    <div class="w-20 h-1 bg-gradient-to-r from-[#1A305E] to-transparent rounded-full"></div>
+                    <div class="w-20 h-1 bg-gradient-to-r from-ppid-primary to-transparent rounded-full"></div>
                 </div>
             </div>
         </div>
@@ -65,12 +65,12 @@
                             </svg>
                             <input type="text" name="search" value="{{ request('search') }}"
                                 placeholder="{{ __('messages.common.search_placeholder') }}"
-                                class="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1A305E] dark:bg-slate-700 dark:text-white dark:focus:ring-blue-500" />
+                                class="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-ppid-primary dark:bg-slate-700 dark:text-white dark:focus:ring-blue-500" />
                         </div>
                     </div>
                     <div class="flex gap-2">
                         <button type="submit"
-                            class="px-6 py-2 bg-[#D4AF37] text-white rounded-lg hover:bg-[#B08D26] transition-colors font-medium">
+                            class="px-6 py-2 bg-ppid-accent text-white rounded-lg hover:bg-[#B08D26] transition-colors font-medium">
                             {{ __('messages.news.search_btn') }}
                         </button>
                         @if (request('search'))
@@ -87,7 +87,7 @@
                     class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 overflow-hidden">
                     <div class="overflow-x-auto">
                         <table class="w-full text-left border-collapse">
-                            <thead class="bg-[#1A305E] text-white">
+                            <thead class="bg-ppid-primary text-white">
                                 <tr>
                                 <tr>
                                     <th class="px-4 py-3 text-sm font-semibold">{{ __('messages.table.no') }}</th>
@@ -97,7 +97,7 @@
                             </thead>
                             <tbody class="divide-y divide-gray-200 dark:divide-slate-700">
                                 @foreach ($ikphns as $item)
-                                    <tr class="hover:bg-[#1A305E]/5 dark:hover:bg-slate-700 transition-colors">
+                                    <tr class="hover:bg-ppid-primary/5 dark:hover:bg-slate-700 transition-colors">
                                         <td class="px-4 py-3 text-sm text-gray-900 dark:text-white">
                                             {{ ($ikphns->currentPage() - 1) * $ikphns->perPage() + $loop->iteration }}
                                         </td>
@@ -108,7 +108,7 @@
                                             <div class="flex items-center gap-2">
                                                 @if($item->file)
                                                     <a href="{{ Storage::url($item->file) }}" target="_blank"
-                                                        class="text-xs font-bold text-white bg-[#1A305E] hover:bg-[#142344] px-3 py-1.5 rounded transition-colors inline-flex items-center gap-1">
+                                                        class="text-xs font-bold text-white bg-ppid-primary hover:bg-[#142344] px-3 py-1.5 rounded transition-colors inline-flex items-center gap-1">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
                                                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
