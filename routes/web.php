@@ -222,6 +222,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 
     // Profil Management Routes
     Route::resource('profil-ppid', \App\Http\Controllers\Admin\ProfilPpidController::class)->only(['index', 'store']);
+    Route::resource('integrated-services', \App\Http\Controllers\Admin\IntegratedServiceController::class);
     Route::resource('sambutan', \App\Http\Controllers\Admin\SambutanController::class)->only(['index', 'store']);
     Route::resource('visi-misi', \App\Http\Controllers\Admin\VisiMisiController::class)->only(['index', 'store']);
     Route::resource('tupoksi', \App\Http\Controllers\Admin\TupoksiController::class)->only(['index', 'store']);

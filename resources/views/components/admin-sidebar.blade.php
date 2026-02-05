@@ -106,7 +106,7 @@
             @endrole
 
             @role('admin')
-            <x-sidebar-dropdown label="Konten" :active="request()->routeIs('admin.data-sop.*') || request()->is('admin/berita*') || request()->is('admin/faq*') || request()->is('admin/slide-banner*')">
+            <x-sidebar-dropdown label="Konten" :active="request()->routeIs('admin.data-sop.*') || request()->is('admin/berita*') || request()->is('admin/faq*') || request()->is('admin/slide-banner*') || request()->routeIs('admin.integrated-services.*')">
                 <x-slot name="icon">
                     {{-- Icon Folder/Layout untuk Konten --}}
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -127,6 +127,9 @@
 
                 <x-sidebar-dropdown-link href="/admin/slide-banner" :active="request()->is('admin/slide-banner*')"
                     label="Slide Banner" />
+
+                <x-sidebar-dropdown-link href="{{ route('admin.integrated-services.index') }}"
+                    :active="request()->routeIs('admin.integrated-services.*')" label="Layanan Terpadu" />
 
                 <x-sidebar-dropdown-link href="{{ route('admin.footer-settings.index') }}"
                     :active="request()->routeIs('admin.footer-settings.*')" label="Footer Settings" />
