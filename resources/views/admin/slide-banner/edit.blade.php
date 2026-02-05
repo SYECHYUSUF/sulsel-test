@@ -27,7 +27,7 @@
                     @enderror
                 </div>
                 <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">
-                    Biarkan kosong jika tidak ingin mengubah gambar. Format: JPG, PNG, GIF (Max: 5MB).
+                    Biarkan kosong jika tidak ingin mengubah gambar. Format: JPG, PNG, GIF (Max: 5MB). Rekomendasi ukuran: 2752×1536 atau lebih besar.
                 </p>
             </div>
 
