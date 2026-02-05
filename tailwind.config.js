@@ -16,22 +16,22 @@ export default {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                'ppid-primary': '#800020', // Burgundy (Ganti dari Navy)
-                'ppid-primary-hover': '#4a0012', // Darker Burgundy
-                'ppid-primary-light': '#9b1c31', // Lighter Burgundy
-                'ppid-primary-dark': '#2a000a', // Deep Burgundy/Blackish
+                'ppid-primary': '#800020',
+                'ppid-primary-hover': '#4a0012',
+                'ppid-primary-light': '#9b1c31',
+                'ppid-primary-dark': '#2a000a',
 
-                'ppid-accent': '#D4AF37',  // Gold (Tetap)
-                'ppid-accent-hover': '#B08D26', // Darker Gold (Tetap)
+                'ppid-accent': '#D4AF37',
+                'ppid-accent-hover': '#B08D26',
 
-                'ppid-text': '#000000',    // Pure Black (Ganti dari Slate)
-                'ppid-text-light': '#666666', // Neutral Gray
+                'ppid-text': '#000000',
+                'ppid-text-light': '#666666',
 
-                'sidebar-bg': '#000000',   // Pure Black (Ganti dari Dark Gray Blue)
-                'sidebar-active': '#ffffff', // White (Tetap)
-                'sidebar-hover': 'rgba(255, 255, 255, 0.05)', // Configurable sidebar hover color
+                'sidebar-bg': '#000000',
+                'sidebar-active': '#ffffff',
+                'sidebar-hover': 'rgba(255, 255, 255, 0.05)',
 
-                'ppid-accent-light': '#EAC548', // Lighter Gold for gradients
+                'ppid-accent-light': '#EAC548',
 
                 // Status Colors (Tetap standar fungsional)
                 'ppid-error': '#D1001F',
@@ -40,16 +40,16 @@ export default {
                 'ppid-info': '#3B82F6',
 
                 // Custom Brand Colors (Disesuaikan ke tema Burgundy/Hitam)
-                'ppid-purple': '#800020', // Diubah ke Burgundy agar senada
-                'ppid-purple-light': '#9b1c31', // Diubah ke Light Burgundy
-                'ppid-blue': '#800020', // Diubah ke Burgundy (biasanya untuk link)
+                'ppid-purple': '#800020',
+                'ppid-purple-light': '#9b1c31',
+                'ppid-blue': '#800020',
 
                 // Functional Colors
                 'page-bg': '#ffffff',      // White
                 'page-bg-dark': '#000000', // Black
 
                 // Legacy Support
-                'dark-blue-gradient': '#000000', // Diubah ke Black
+                'dark-blue-gradient': '#000000',
             },
             backgroundImage: {
                 'ppid-gradient-main': 'linear-gradient(to right, #1A305E, #2c3e50)',

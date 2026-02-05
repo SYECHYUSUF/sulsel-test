@@ -62,7 +62,7 @@
             <div class="flex items-center justify-between">
                 <!-- Logo -->
                 <a href="/" class="flex items-center gap-3">
-                    <img src="{{ asset('images/logo-ppid.png') }}" alt="Logo PPID" class="h-10 w-auto">
+                    <img src="{{ asset('images/ppid-3.png') }}" alt="Logo PPID" class="h-10 w-auto">
                 </a>
                 
                 <!-- Right Actions -->

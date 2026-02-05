@@ -213,7 +213,7 @@
         @mousedown="startDragging($event)" 
         @touchstart="startDragging($event)"
         @click="if(!hasMoved) isOpen = !isOpen"
-        class="fixed w-14 h-14 bg-ppid-primary text-white rounded-full shadow-2xl flex items-center justify-center cursor-move hover:scale-110 active:scale-95 transition-transform z-[9999]"
+        class="fixed w-14 border border-orange-700 h-14 bg-ppid-primary text-white rounded-full shadow-2xl flex items-center justify-center cursor-move hover:scale-110 active:scale-95 transition-transform z-[9999]"
         :style="'left: ' + pos.x + 'px; top: ' + pos.y + 'px;'"
         aria-label="Aksesibilitas">
         

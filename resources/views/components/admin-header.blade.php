@@ -8,7 +8,7 @@
             </svg>
         </button>
 
-        <img src="{{ asset('images/ppid-2.png') }}" 
+        <img src="{{ asset('images/ppid-3.png') }}" 
             alt="Logo PPID Sulawesi Selatan"
             class="object-contain transition-all duration-300 h-12 w-auto" 
             :class="sidebarOpen ? 'h-7 w-7 md:h-12 md:w-auto' : 'h-7 w-7'" 

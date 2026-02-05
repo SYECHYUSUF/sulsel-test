@@ -53,13 +53,13 @@
                 <div class="relative z-10 flex flex-col items-center mt-8">
                     <!-- PPID LOGO -->
                     <div
-                        class="relative w-40 h-auto mb-6 transform transition-transform duration-500 hover:scale-105 drop-shadow-2xl">
-                        <img src="{{ asset('images/ppid-2.png') }}" alt="Logo PPID Sulsel"
+                        class="relative w- h-auto mb-6 transform transition-transform duration-500 hover:scale-105 drop-shadow-2xl">
+                        <img src="{{ asset('images/ppid-5.png') }}" alt="Logo PPID Sulsel"
                             class="w-full h-auto object-contain drop-shadow-lg">
                     </div>
 
-                    <h2 class="text-3xl font-bold text-white mb-2 tracking-tight leading-tight">PPID Utama<br><span
-                            class="text-ppid-accent">Sulawesi Selatan</span></h2>
+                    <h2 class="text-2xl font-bold text-white mb-2 tracking-tight leading-tight">Pejabat Pengelola
+                        Informasi dan Dokumentasi<br><span class="text-ppid-accent">Sulawesi Selatan</span></h2>
                     <div class="h-1 w-20 bg-ppid-accent rounded-full my-4"></div>
                     <p class="text-blue-50 text-sm font-light leading-relaxed max-w-[80%] mx-auto opacity-90">
                         Transparansi untuk Partisipasi. Akses informasi publik dengan mudah, cepat, dan akurat.
@@ -83,7 +83,7 @@
                 <!-- Mobile Header with Logo (Visible only on mobile) -->
                 <div
                     class="lg:hidden absolute top-0 left-0 w-full p-6 flex justify-between items-start bg-gradient-to-b from-gray-50 to-white border-b border-gray-100/50">
-                    <img src="{{ asset('images/logo-ppid.png') }}" alt="Logo" class="h-12 w-auto">
+                    <img src="{{ asset('images/ppid-3.png') }}" alt="Logo" class="h-12 w-auto">
                     <a href="{{ url('/') }}" class="p-2 bg-gray-100 rounded-full text-gray-600 hover:bg-gray-200">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

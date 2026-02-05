@@ -3,7 +3,7 @@
     :class="sidebarOpen ? 'w-72 translate-x-0' : 'w-20 -translate-x-full md:translate-x-0 md:w-24'">
 
     {{-- <div class="flex items-center h-20 bg-ppid-primary " :class="sidebarOpen ? 'px-8 gap-4' : 'px-0 justify-center'">
-        <img src="{{ asset('images/ppid-2.png') }}" alt="Logo PPID Sulawesi Selatan"
+        <img src="{{ asset('images/ppid-3.png') }}" alt="Logo PPID Sulawesi Selatan"
             class="object-contain transition-all duration-300 h-12 w-auto"
             :class="sidebarOpen ? 'h-12 w-auto' : 'h-7 w-7'" />
 

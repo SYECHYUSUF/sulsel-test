@@ -88,7 +88,7 @@
                     <img src="{{ asset('images/logo-sulsel.png') }}" 
                          alt="Logo Sulawesi Selatan" 
                          class="w-12 h-12 sm:w-16 sm:h-16 object-contain drop-shadow-2xl">
-                    <img src="{{ asset('images/ppid-2.png') }}" 
+                    <img src="{{ asset('images/ppid-3.png') }}" 
                          alt="Logo PPID" 
                          class="w-12 h-12 sm:w-16 sm:h-16 object-contain drop-shadow-2xl">
                 </div>
@@ -159,7 +159,7 @@
                     
                     {{-- Logo PPID (Right - Desktop Only) --}}
                     <div class="flex-shrink-0">
-                        <img src="{{ asset('images/ppid-2.png') }}" 
+                        <img src="{{ asset('images/ppid-3.png') }}" 
                              alt="Logo PPID" 
                              class="w-24 h-24 lg:w-32 lg:h-32 object-contain drop-shadow-2xl animate-pulse">
                     </div>

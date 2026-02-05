@@ -27,7 +27,7 @@
         :class="scrolled ? 'max-h-0 py-0 opacity-0 invisible' : 'max-h-32 py-4 md:py-6 opacity-100 visible'">
         <a href="/" class="flex items-center gap-3 group">
             {{-- Logo Image --}}
-            <img src="{{ asset('images/ppid-2.png') }}" alt="Logo PPID Sulawesi Selatan"
+            <img src="{{ asset('images/ppid-3.png') }}" alt="Logo PPID Sulawesi Selatan"
                 class="h-10 md:h-14 w-auto transition-transform group-hover:scale-105" />
 
             {{-- TEKS SAMPING LOGO --}}

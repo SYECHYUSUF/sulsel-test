@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             ProfilSeeder::class,
             InformationSeeder::class,
             InformasiPublikSeeder::class,
+            FaqSeeder::class,
         ]);
 
         // --- Konfigurasi User Admin 2 ---

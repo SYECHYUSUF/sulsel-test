@@ -19,10 +19,10 @@
             <div class="sm:col-span-2 text-center sm:text-left">
                 <div class="flex flex-col sm:flex-row items-center gap-4 mb-6">
                     <a href="">
-                        <img src="{{ asset('images/ppid-putih.png') }}" class="h-16 md:h-20 w-auto" alt="Logo PPID">
+                        <img src="{{ asset('images/ppid-4.png') }}" class="h-16 md:h-20 w-auto" alt="Logo PPID">
                     </a>
                     <div class="text-center sm:text-left">
-                    <h3 class="text-xl md:text-2xl font-extrabold uppercase tracking-tight text-white leading-tight">{{ __('messages.header.title_1') }}</h3>
+                    <h3 class="text-xl md:text-lg font-extrabold uppercase tracking-tight text-white leading-tight">{{ __('messages.header.title_1') }}</h3>
                         <p class="text-sm md:text-base text-ppid-accent font-bold tracking-widest mt-1">{{ __('messages.header.title_2') }}</p>
                     </div>
                 </div>
