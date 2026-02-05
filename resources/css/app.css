@@ -89,6 +89,53 @@
         box-shadow: 0 0 0 10000px rgba(0, 0, 0, 0.3);
     }
 
+    /* NEW ACCESSIBILITY FEATURES */
+
+    /* Hide Images */
+    .acc-hide-images img {
+        opacity: 0 !important;
+        visibility: hidden !important;
+    }
+
+    /* Text Alignment */
+    .acc-text-left main *,
+    .acc-text-left article *,
+    .acc-text-left .content * {
+        text-align: left !important;
+    }
+
+    .acc-text-center main *,
+    .acc-text-center article *,
+    .acc-text-center .content * {
+        text-align: center !important;
+    }
+
+    .acc-text-right main *,
+    .acc-text-right article *,
+    .acc-text-right .content * {
+        text-align: right !important;
+    }
+
+    /* Saturation */
+    .acc-high-saturation {
+        filter: saturate(200%);
+    }
+
+    .acc-low-saturation {
+        filter: grayscale(100%);
+    }
+
+    /* Text Spacing - Dyslexia Friendly */
+    .acc-text-spacing * {
+        letter-spacing: 0.12em !important;
+        line-height: 1.8 !important;
+    }
+
+    /* Widget Hidden State */
+    .acc-widget-hidden #accessibility-widget {
+        display: none !important;
+    }
+
     /* Global Dark Mode Text Fix */
     html.dark body {
         @apply bg-slate-900 text-white;

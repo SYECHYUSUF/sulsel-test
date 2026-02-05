@@ -1,0 +1,46 @@
+/* Accessibility Feature Styles */
+
+/* Hide Images */
+body.acc-hide-images img {
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+/* Text Alignment */
+body.acc-text-left main *,
+body.acc-text-left article *,
+body.acc-text-left .content * {
+    text-align: left !important;
+}
+
+body.acc-text-center main *,
+body.acc-text-center article *,
+body.acc-text-center .content * {
+    text-align: center !important;
+}
+
+body.acc-text-right main *,
+body.acc-text-right article *,
+body.acc-text-right .content * {
+    text-align: right !important;
+}
+
+/* Saturation */
+body.acc-high-saturation {
+    filter: saturate(200%);
+}
+
+body.acc-low-saturation {
+    filter: grayscale(100%);
+}
+
+/* Text Spacing - Dyslexia Friendly */
+body.acc-text-spacing * {
+    letter-spacing: 0.12em !important;
+    line-height: 1.8 !important;
+}
+
+/* Widget Hidden State */
+body.acc-widget-hidden #accessibility-widget {
+    display: none !important;
+}

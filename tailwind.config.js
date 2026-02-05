@@ -50,6 +50,18 @@ export default {
 
                 // Legacy Support
                 'dark-blue-gradient': '#000000',
+
+                // Accessibility Menu Colors
+                'access-primary': '#800020',        // Main theme color (matches ppid-primary)
+                'access-primary-hover': '#4a0012', // Hover state
+                'access-bg': '#ffffff',            // Panel background
+                'access-bg-gray': '#f9fafb',       // Gray background (gray-50)
+                'access-border': '#f3f4f6',        // Border color (gray-100)
+                'access-border-orange': '#c2410c', // Orange border (orange-700)
+                'access-button': '#f9fafb',        // Button background (gray-50)
+                'access-button-hover': '#f3f4f6',  // Button hover (gray-100)
+                'access-text': '#374151',          // Text color (gray-700)
+                'access-text-muted': '#9ca3af',    // Muted text (gray-400)
             },
             backgroundImage: {
                 'ppid-gradient-main': 'linear-gradient(to right, #1A305E, #2c3e50)',
