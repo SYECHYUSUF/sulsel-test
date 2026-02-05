@@ -424,6 +424,45 @@
                                     Jelaskan informasi yang dibutuhkan sejelas mungkin
                                 </p>
                             </div>
+
+                            {{-- Row 3: Format Informasi & Contoh Informasi --}}
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-2">
+                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                        Format Informasi <span class="text-red-500">*</span>
+                                    </label>
+                                    <select name="id_bentuk_informasi" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800" required>
+                                        <option value="">-- Pilih Format Informasi --</option>
+                                        @foreach($bentukInformasis as $bentuk)
+                                            <option value="{{ $bentuk->id }}" {{ old('id_bentuk_informasi') == $bentuk->id ? 'selected' : '' }}>
+                                                {{ $bentuk->judul }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="space-y-2">
+                                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                        Contoh Informasi (Link)
+                                    </label>
+                                    <div class="relative group">
+                                        <input type="text" name="contoh_informasi" id="contohInformasiInput" 
+                                            x-ref="contohInput"
+                                            value="{{ old('contoh_informasi') }}"
+                                            placeholder="https://contoh-link-informasi.com"
+                                            class="w-full pl-4 pr-12 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-ppid-primary focus:border-ppid-primary transition-all outline-none bg-white dark:bg-slate-800" />
+                                        <button type="button" @click="navigator.clipboard.readText().then(text => $refs.contohInput.value = text)"
+                                            class="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-gray-400 hover:text-ppid-primary transition-colors bg-white dark:bg-slate-800 rounded-md"
+                                            title="Paste dari clipboard">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <p class="text-xs text-gray-500 mt-1">Sertakan link jika ada contoh informasi yang dimaksud</p>
+                                </div>
+                            </div>
                         </div>
 
                         {{-- Submit Button --}}

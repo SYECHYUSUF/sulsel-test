@@ -32,6 +32,14 @@ class PermohonanInformasi extends Model
         return $this->hasMany(PermohonanDisposisi::class, 'id_permohonan', 'id_permohonan');
     }
 
+    /**
+     * Relasi ke model BentukInformasi
+     */
+    public function bentukInformasi(): BelongsTo
+    {
+        return $this->belongsTo(BentukInformasi::class, 'id_bentuk_informasi', 'id');
+    }
+
     // Status Constants
     const STATUS_PENDING = 0;
     const STATUS_PROSES = 1;

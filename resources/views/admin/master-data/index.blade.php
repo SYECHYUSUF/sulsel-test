@@ -13,12 +13,14 @@
         showAllDomisili: false,
         showAllPekerjaan: false,
         showAllAlasanPengajuan: false,
+        showAllBentukInformasi: false,
         limitedCount: 10,
         showDeleteKategori: false,
         showDeleteTahun: false,
         showDeleteDomisili: false,
         showDeletePekerjaan: false,
         showDeleteAlasan: false,
+        showDeleteBentukInformasi: false,
         deleteId: null,
         deleteUrl: ''
     }">
@@ -50,6 +52,11 @@
                     :class="activeTab === 'alasan' ? 'border-b-2 border-ppid-primary text-ppid-primary dark:border-blue-400 dark:text-blue-400' : 'text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'"
                     class="px-6 py-3 font-medium text-sm whitespace-nowrap transition-colors">
                     Alasan Pengajuan Keberatan
+                </button>
+                <button @click="activeTab = 'bentuk_informasi'"
+                    :class="activeTab === 'bentuk_informasi' ? 'border-b-2 border-ppid-primary text-ppid-primary dark:border-blue-400 dark:text-blue-400' : 'text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'"
+                    class="px-6 py-3 font-medium text-sm whitespace-nowrap transition-colors">
+                    Bentuk Informasi
                 </button>
             </div>
         </div>
@@ -465,6 +472,81 @@
                     </div>
                 @endif
             </div>
+
+            <!-- Bentuk Informasi Tab -->
+            <div x-show="activeTab === 'bentuk_informasi'" x-transition class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100">Bentuk Informasi</h3>
+                    <button @click="$dispatch('open-modal', 'modal-bentuk-informasi-create')"
+                        class="px-4 py-2 bg-ppid-primary text-white rounded-lg text-sm font-medium hover:bg-ppid-dark transition-colors flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4">
+                            </path>
+                        </svg>
+                        Tambah Bentuk
+                    </button>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-slate-600 dark:text-slate-300">
+                        <thead
+                            class="text-xs text-slate-500 dark:text-slate-400 uppercase bg-slate-50 dark:bg-slate-700/50 border-b border-slate-100 dark:border-slate-700">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">Judul Bentuk Informasi</th>
+                                <th scope="col" class="px-6 py-3 text-right">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bentuk-informasi-table-body">
+                            @forelse ($bentukInformasis as $index => $bentuk)
+                                <tr x-show="showAllBentukInformasi || {{ $index }} < limitedCount"
+                                    class="bg-white dark:bg-slate-800 border-b border-slate-100 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors">
+                                    <td class="px-6 py-4 font-medium text-slate-900 dark:text-slate-100">
+                                        {{ $bentuk->judul }}
+                                    </td>
+                                    <td class="px-6 py-4 text-right">
+                                        <div class="flex items-center justify-end gap-2">
+                                            <button
+                                                onclick="editBentukInformasi('{{ route('admin.master-data.bentuk-informasi.update', $bentuk->id) }}', {{ $bentuk->id }}, '{{ addslashes($bentuk->judul) }}')"
+                                                class="p-2 text-slate-500 dark:text-slate-400 hover:text-ppid-primary dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg transition-colors">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z">
+                                                    </path>
+                                                </svg>
+                                            </button>
+                                            <button
+                                                @click="deleteId = {{ $bentuk->id }}; deleteUrl = '{{ route('admin.master-data.bentuk-informasi.destroy', $bentuk->id) }}'; showDeleteBentukInformasi = true"
+                                                class="p-2 text-slate-500 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                                    </path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="2" class="px-6 py-8 text-center text-slate-500 dark:text-slate-400">
+                                        <p>Belum ada data bentuk informasi</p>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+
+                @if(count($bentukInformasis) > 10)
+                    <div class="mt-4 text-center">
+                        <button @click="showAllBentukInformasi = !showAllBentukInformasi"
+                            class="px-4 py-2 text-sm font-medium text-ppid-primary dark:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg transition-colors">
+                            <span
+                                x-text="showAllBentukInformasi ? 'Tampilkan Lebih Sedikit' : 'Tampilkan Seluruhnya ({{ count($bentukInformasis) }} items)'"></span>
+                        </button>
+                    </div>
+                @endif
+            </div>
         </div>
 
         <!-- Confirmation Dialogs -->
@@ -492,6 +574,11 @@
         <x-confirmation-dialog trigger="showDeleteAlasan" title="Hapus Alasan Pengajuan?"
             description="Data alasan pengajuan akan dihapus permanen dan tidak dapat dikembalikan." theme="danger"
             confirmText="Ya, Hapus" cancelText="Batal" url="deleteUrl" dynamic="true" method="DELETE" />
+
+        <!-- Delete Bentuk Informasi Confirmation -->
+        <x-confirmation-dialog trigger="showDeleteBentukInformasi" title="Hapus Bentuk Informasi?"
+            description="Data bentuk informasi akan dihapus permanen dan tidak dapat dikembalikan." theme="danger"
+            confirmText="Ya, Hapus" cancelText="Batal" url="deleteUrl" dynamic="true" method="DELETE" />
     </div>
 
     <!-- Include Modal Components -->
@@ -500,6 +587,16 @@
     @include('admin.master-data._modal-domisili')
     @include('admin.master-data._modal-pekerjaan')
     @include('admin.master-data._modal-alasan-pengajuan')
+    @include('admin.master-data._modal-bentuk-informasi')
+
+    {{-- Notification Modal --}}
+    @if (session('success'))
+        <x-notification-modal show="true" theme="success" title="Berhasil!" description="{{ session('success') }}" />
+    @endif
+
+    @if (session('error'))
+        <x-notification-modal show="true" theme="error" title="Gagal!" description="{{ session('error') }}" />
+    @endif
 
     <!-- JavaScript for AJAX Operations -->
     <x-slot name="extra_script">
@@ -547,6 +644,15 @@
                 document.getElementById('alasan-alasan').value = alasan;
                 document.getElementById('alasan-modal-title').textContent = 'Edit Alasan Pengajuan';
                 window.dispatchEvent(new CustomEvent('open-modal', { detail: 'modal-alasan-edit' }));
+            }
+
+            // Bentuk Informasi Functions
+            function editBentukInformasi(url, id, judul) {
+                document.getElementById('form-bentuk-informasi-edit').action = url;
+                document.getElementById('bentuk-informasi-id').value = id;
+                document.getElementById('bentuk-informasi-judul').value = judul;
+                document.getElementById('bentuk-informasi-modal-title').textContent = 'Edit Bentuk Informasi';
+                window.dispatchEvent(new CustomEvent('open-modal', { detail: 'modal-bentuk-informasi-edit' }));
             }
         </script>
     </x-slot>

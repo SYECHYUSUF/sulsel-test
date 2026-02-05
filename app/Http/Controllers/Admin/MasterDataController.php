@@ -8,6 +8,7 @@ use App\Models\MasterTahun;
 use App\Models\MasterDomisili;
 use App\Models\MasterPekerjaan;
 use App\Models\AlasanPengajuan;
+use App\Models\BentukInformasi;
 use Illuminate\Http\Request;
 
 class MasterDataController extends Controller
@@ -22,8 +23,9 @@ class MasterDataController extends Controller
         $domisilis = MasterDomisili::orderBy('nama_daerah')->get();
         $pekerjaans = MasterPekerjaan::orderBy('nama_pekerjaan')->get();
         $alasanPengajuans = AlasanPengajuan::orderBy('alasan')->get();
+        $bentukInformasis = BentukInformasi::orderBy('judul')->get();
 
-        return view('admin.master-data.index', compact('kategoris', 'tahuns', 'domisilis', 'pekerjaans', 'alasanPengajuans'));
+        return view('admin.master-data.index', compact('kategoris', 'tahuns', 'domisilis', 'pekerjaans', 'alasanPengajuans', 'bentukInformasis'));
     }
 
     /**
@@ -37,13 +39,10 @@ class MasterDataController extends Controller
             'is_active' => 'required|boolean',
         ]);
 
-        $kategori = KategoriInformasi::create($validated);
+        \App\Models\KategoriInformasi::create($validated);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Kategori Informasi berhasil ditambahkan.',
-            'data' => $kategori
-        ]);
+        return redirect()->route('admin.master-data.index', ['tab' => 'kategori'])
+            ->with('success', 'Kategori Informasi berhasil ditambahkan.');
     }
 
     /**
@@ -61,11 +60,8 @@ class MasterDataController extends Controller
 
         $kategori->update($validated);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Kategori Informasi berhasil diperbarui.',
-            'data' => $kategori
-        ]);
+        return redirect()->route('admin.master-data.index', ['tab' => 'kategori'])
+            ->with('success', 'Kategori Informasi berhasil diperbarui.');
     }
 
     // Unified Master Data Management Controller

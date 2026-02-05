@@ -35,6 +35,7 @@ return [
     ],
     'common' => [
         'home' => 'Home',
+        'close' => 'Close',
         'news' => 'News',
         'read_more' => 'Read More',
         'search_placeholder' => 'Search documents, news, or public information...',
@@ -68,7 +69,7 @@ return [
         'menu_title' => 'Accessibility Menu',
         'font_size' => 'Font Size',
         'reset_settings' => 'Reset Settings',
-        
+
         // Existing features
         'dark_mode' => 'Dark Mode',
         'contrast' => 'Contrast',
@@ -82,7 +83,7 @@ return [
         'big_cursor' => 'Big Cursor',
         'reading_mask' => 'Reading Mask',
         'reading_guide' => 'Reading Guide',
-        
+
         // New features
         'hide_images' => 'Hide Images',
         'text_align' => 'Text Alignment',

@@ -32,7 +32,7 @@ class StorePermohonanInformasiRequest extends FormRequest
             'alamat' => ['required', 'string', 'max:500'],
             'pekerjaan_id' => ['required', 'integer', 'exists:master_pekerjaan,id'],
             'domisili_id' => ['required', 'integer', 'exists:master_domisili,id'],
-            
+
             // File Upload - strict validation
             'foto_ktp' => [
                 'required',
@@ -42,12 +42,14 @@ class StorePermohonanInformasiRequest extends FormRequest
                 'max:5120', // 5MB
                 'dimensions:min_width=100,min_height=100,max_width=4000,max_height=4000',
             ],
-            
+
             // Information Details
             'nmr_pengesahan' => ['nullable', 'string', 'max:255'],
             'tujuan' => ['required', 'string', 'max:1000'],
             'rincian' => ['required', 'string', 'max:5000'],
-            
+            'id_bentuk_informasi' => ['required', 'integer', 'exists:ms_bentuk_informasi,id'],
+            'contoh_informasi' => ['nullable', 'string', 'max:500'],
+
             // Honeypot field - must be empty
             'website' => ['nullable', 'max:0'],
         ];
@@ -84,6 +86,7 @@ class StorePermohonanInformasiRequest extends FormRequest
             'tujuan' => $this->sanitizeString($this->tujuan),
             'rincian' => $this->sanitizeString($this->rincian),
             'nmr_pengesahan' => $this->sanitizeString($this->nmr_pengesahan),
+            'contoh_informasi' => $this->sanitizeString($this->contoh_informasi),
             'nik' => preg_replace('/[^0-9]/', '', $this->nik ?? ''),
             'no_kk' => preg_replace('/[^0-9]/', '', $this->no_kk ?? ''),
             'no_hp' => preg_replace('/[^0-9+]/', '', $this->no_hp ?? ''),
@@ -98,19 +101,19 @@ class StorePermohonanInformasiRequest extends FormRequest
         if ($value === null) {
             return null;
         }
-        
+
         // Strip HTML tags
         $value = strip_tags($value);
-        
+
         // Trim whitespace
         $value = trim($value);
-        
+
         // Remove any null bytes
         $value = str_replace(chr(0), '', $value);
-        
+
         // Convert special characters to HTML entities for safety
         $value = htmlspecialchars($value, ENT_QUOTES | ENT_HTML5, 'UTF-8', false);
-        
+
         return $value;
     }
 }

@@ -35,6 +35,7 @@ return [
     ],
     'common' => [
         'home' => 'Beranda',
+        'close' => 'Tutup',
         'news' => 'Berita',
         'read_more' => 'Baca Selengkapnya',
         'search_placeholder' => 'Cari dokumen, berita, atau informasi publik...',

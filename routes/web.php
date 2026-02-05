@@ -158,8 +158,9 @@ Route::middleware(['track.visitors'])->group(function () {
         // Use values() to reset keys ensuring valid JSON array for frontend
         $masterPekerjaan = MasterPekerjaan::active()->select('id', 'nama_pekerjaan')->orderBy('nama_pekerjaan')->get()->unique('nama_pekerjaan')->values();
         $masterDomisili = App\Models\MasterDomisili::active()->select('id', 'nama_daerah')->orderBy('nama_daerah')->get()->unique('nama_daerah')->values();
+        $bentukInformasis = \App\Models\BentukInformasi::all();
 
-        return view('pages.layanan.permohonan-informasi', compact('masterPekerjaan', 'masterDomisili'));
+        return view('pages.layanan.permohonan-informasi', compact('masterPekerjaan', 'masterDomisili', 'bentukInformasis'));
     });
     // Unified status check route
     Route::get('/layanan/cek-status', [StatusCheckController::class, 'showForm'])->name('layanan.cek-status');
@@ -322,6 +323,10 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::post('master-data/alasan-pengajuan', [\App\Http\Controllers\Admin\AlasanPengajuanController::class, 'store'])->name('master-data.alasan-pengajuan.store');
         Route::put('master-data/alasan-pengajuan/{id}', [\App\Http\Controllers\Admin\AlasanPengajuanController::class, 'update'])->name('master-data.alasan-pengajuan.update');
         Route::delete('master-data/alasan-pengajuan/{id}', [\App\Http\Controllers\Admin\AlasanPengajuanController::class, 'destroy'])->name('master-data.alasan-pengajuan.destroy');
+
+        Route::post('master-data/bentuk-informasi', [\App\Http\Controllers\Admin\BentukInformasiController::class, 'store'])->name('master-data.bentuk-informasi.store');
+        Route::put('master-data/bentuk-informasi/{id}', [\App\Http\Controllers\Admin\BentukInformasiController::class, 'update'])->name('master-data.bentuk-informasi.update');
+        Route::delete('master-data/bentuk-informasi/{id}', [\App\Http\Controllers\Admin\BentukInformasiController::class, 'destroy'])->name('master-data.bentuk-informasi.destroy');
 
         // Keep existing individual routes for backward compatibility
         Route::resource('master-pekerjaan', \App\Http\Controllers\Admin\MasterPekerjaanController::class);

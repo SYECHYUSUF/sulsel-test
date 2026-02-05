@@ -125,6 +125,27 @@
                             <p class="text-slate-900 dark:text-slate-100 mt-1">{{ $permohonan->salinan_informasi }}</p>
                         </div>
                     </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="text-xs text-slate-500 dark:text-slate-400 uppercase font-semibold">Bentuk Informasi</label>
+                            <p class="text-slate-900 dark:text-slate-100 mt-1">{{ $permohonan->bentukInformasi->judul ?? '-' }}</p>
+                        </div>
+                        <div>
+                            <label class="text-xs text-slate-500 dark:text-slate-400 uppercase font-semibold">Contoh Informasi (Link)</label>
+                            @if($permohonan->contoh_informasi)
+                                <p class="text-slate-900 dark:text-slate-100 mt-1 font-medium">
+                                    <a href="{{ $permohonan->contoh_informasi }}" target="_blank" class="text-ppid-primary hover:underline flex items-center gap-1">
+                                        {{ $permohonan->contoh_informasi }}
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                        </svg>
+                                    </a>
+                                </p>
+                            @else
+                                <p class="text-slate-900 dark:text-slate-100 mt-1">-</p>
+                            @endif
+                        </div>
+                    </div>
                 </div>
             </div>
 
