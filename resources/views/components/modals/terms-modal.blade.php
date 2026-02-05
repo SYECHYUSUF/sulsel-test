@@ -31,24 +31,9 @@
                 {{ __('messages.terms_conditions.last_updated') }}
             </p>
 
-            @foreach(__('messages.terms_conditions.sections') as $section)
-            <div class="space-y-2">
-                <h3 class="text-lg font-bold text-ppid-primary dark:text-ppid-accent">
-                    {{ $section['title'] }}
-                </h3>
-                <p class="text-sm leading-relaxed">
-                    {{ $section['content'] }}
-                </p>
-                
-                @if(isset($section['items']))
-                <ul class="list-disc list-inside space-y-1 ml-4 text-sm">
-                    @foreach($section['items'] as $item)
-                    <li>{{ $item }}</li>
-                    @endforeach
-                </ul>
-                @endif
+            <div class="prose dark:prose-invert max-w-none">
+                {!! \App\Models\Setting::getValue('terms_conditions', 'Syarat dan ketentuan belum diatur.') !!}
             </div>
-            @endforeach
         </div>
 
         {{-- Modal Footer --}}

@@ -127,6 +127,9 @@
 
                 <x-sidebar-dropdown-link href="/admin/slide-banner" :active="request()->is('admin/slide-banner*')"
                     label="Slide Banner" />
+
+                <x-sidebar-dropdown-link href="{{ route('admin.footer-settings.index') }}"
+                    :active="request()->routeIs('admin.footer-settings.*')" label="Footer Settings" />
             </x-sidebar-dropdown>
             @endrole
 

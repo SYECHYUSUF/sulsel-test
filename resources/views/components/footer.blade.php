@@ -19,15 +19,19 @@
             <div class="sm:col-span-2 text-center sm:text-left">
                 <div class="flex flex-col sm:flex-row items-center gap-4 mb-6">
                     <a href="">
-                        <img src="{{ asset('images/ppid-4.png') }}" class="h-16 md:h-20 w-auto" alt="Logo PPID">
+                        @if(\App\Models\Setting::getValue('footer_logo'))
+                            <img src="{{ asset('storage/' . \App\Models\Setting::getValue('footer_logo')) }}" class="h-16 md:h-20 w-auto" alt="Logo PPID">
+                        @else
+                            <img src="{{ asset('images/ppid-4.png') }}" class="h-16 md:h-20 w-auto" alt="Logo PPID">
+                        @endif
                     </a>
                     <div class="text-center sm:text-left">
-                    <h3 class="text-xl md:text-lg font-extrabold uppercase tracking-tight text-white leading-tight">{{ __('messages.header.title_1') }}</h3>
+                        <h3 class="text-xl md:text-lg font-extrabold uppercase tracking-tight text-white leading-tight">{{ __('messages.header.title_1') }}</h3>
                         <p class="text-sm md:text-base text-ppid-accent font-bold tracking-widest mt-1">{{ __('messages.header.title_2') }}</p>
                     </div>
                 </div>
                 <p class="text-gray-300 mb-6 leading-relaxed max-w-md mx-auto sm:mx-0 text-sm md:text-base">
-                    {{ __('messages.footer.description') }}
+                    {{ \App\Models\Setting::getValue('footer_description', __('messages.footer.description')) }}
                 </p>
 
                 {{-- Contact Info --}}
@@ -36,31 +40,41 @@
                         <div class="mt-1 flex-shrink-0 text-ppid-accent">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
                         </div>
-                        <span>{{ __('messages.footer.address_line') }}</span>
+                        <span>{{ \App\Models\Setting::getValue('footer_address', __('messages.footer.address_line')) }}</span>
                     </div>
                     <div class="flex items-center gap-3 justify-center sm:justify-start">
                         <div class="flex-shrink-0 text-ppid-accent">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                         </div>
-                        <span>(0411) 453192</span>
+                        <span>{{ \App\Models\Setting::getValue('footer_phone', '(0411) 453192') }}</span>
                     </div>
                     <div class="flex items-center gap-3 justify-center sm:justify-start">
                         <div class="flex-shrink-0 text-ppid-accent">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
                         </div>
-                        <span>ppid@sulawesiprov.go.id</span>
+                        <span>{{ \App\Models\Setting::getValue('footer_email', 'ppid@sulawesiprov.go.id') }}</span>
                     </div>
                 </div>
                 
                {{-- MEDIA SOSIAL --}}
                 <div class="flex justify-center sm:justify-start gap-4">
                     @php
-                        $socials = [
-                            ['name' => 'Facebook', 'link' => 'https://www.facebook.com/ppidsulsel', 'icon' => '<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>'],
-                            ['name' => 'Twitter', 'link' => 'https://twitter.com/ppidsulsel', 'icon' => '<path d="M4 4l11.733 16h4.267l-11.733 -16z M4 20l6.768 -6.768 M13.232 10.768l6.768 -6.768"></path>'],
-                            ['name' => 'Instagram', 'link' => 'https://www.instagram.com/ppidsulsel', 'icon' => '<rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>'],
-                            ['name' => 'YouTube', 'link' => 'https://www.youtube.com/@ppidsulsel', 'icon' => '<path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.42a2.78 2.78 0 0 0-1.94 2C1 8.14 1 12 1 12s0 3.86.46 5.58a2.78 2.78 0 0 0 1.94 2c1.72.42 8.6.42 8.6.42s6.88 0 8.6-.42a2.78 2.78 0 0 0 1.94-2C23 15.86 23 12 23 12s0-3.86-.46-5.58z"></path><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"></polygon>']
-                        ];
+                        $socials = array_filter([
+                            ['name' => 'Facebook', 'link' => \App\Models\Setting::getValue('social_facebook'), 'icon' => '<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>'],
+                            ['name' => 'Twitter', 'link' => \App\Models\Setting::getValue('social_twitter'), 'icon' => '<path d="M4 4l11.733 16h4.267l-11.733 -16z M4 20l6.768 -6.768 M13.232 10.768l6.768 -6.768"></path>'],
+                            ['name' => 'Instagram', 'link' => \App\Models\Setting::getValue('social_instagram'), 'icon' => '<rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>'],
+                            ['name' => 'YouTube', 'link' => \App\Models\Setting::getValue('social_youtube'), 'icon' => '<path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.42a2.78 2.78 0 0 0-1.94 2C1 8.14 1 12 1 12s0 3.86.46 5.58a2.78 2.78 0 0 0 1.94 2c1.72.42 8.6.42 8.6.42s6.88 0 8.6-.42a2.78 2.78 0 0 0 1.94-2C23 15.86 23 12 23 12s0-3.86-.46-5.58z"></path><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"></polygon>']
+                        ], function($soc) { return !empty($soc['link']); });
+
+                        // Default fallback if no settings
+                         if (empty($socials)) {
+                            $socials = [
+                                ['name' => 'Facebook', 'link' => 'https://www.facebook.com/ppidsulsel', 'icon' => '<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>'],
+                                ['name' => 'Twitter', 'link' => 'https://twitter.com/ppidsulsel', 'icon' => '<path d="M4 4l11.733 16h4.267l-11.733 -16z M4 20l6.768 -6.768 M13.232 10.768l6.768 -6.768"></path>'],
+                                ['name' => 'Instagram', 'link' => 'https://www.instagram.com/ppidsulsel', 'icon' => '<rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>'],
+                                ['name' => 'YouTube', 'link' => 'https://www.youtube.com/@ppidsulsel', 'icon' => '<path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.42a2.78 2.78 0 0 0-1.94 2C1 8.14 1 12 1 12s0 3.86.46 5.58a2.78 2.78 0 0 0 1.94 2c1.72.42 8.6.42 8.6.42s6.88 0 8.6-.42a2.78 2.78 0 0 0 1.94-2C23 15.86 23 12 23 12s0-3.86-.46-5.58z"></path><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"></polygon>']
+                            ];
+                        }
                     @endphp
 
                     @foreach($socials as $soc)

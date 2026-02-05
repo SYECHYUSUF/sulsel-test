@@ -283,6 +283,10 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         // Metadata Informasi
         Route::resource('kategori-informasi', KategoriInformasiController::class);
 
+        // Footer Settings
+        Route::get('/footer-settings', [\App\Http\Controllers\Admin\FooterSettingController::class, 'index'])->name('footer-settings.index');
+        Route::post('/footer-settings', [\App\Http\Controllers\Admin\FooterSettingController::class, 'update'])->name('footer-settings.update');
+
         // Survey Questions
         Route::resource('survey-questions', SurveyQuestionController::class);
         // Survey Responses
