@@ -37,6 +37,8 @@ return new class extends Migration {
         Schema::create('tbl_slide', function (Blueprint $table) {
             $table->integer('id_slide')->autoIncrement();
             $table->string('nm_slide')->nullable();
+            $table->integer('order')->default(0);
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
 

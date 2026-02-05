@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Models\SlideBanner;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BeritaController as GuestBeritaController;
 use App\Http\Controllers\DokumenPublikController as GuestDokumenPublikController;
@@ -53,7 +54,7 @@ RateLimiter::for('login', function ($request) {
 // Group Track Visitors
 Route::middleware(['track.visitors'])->group(function () {
     Route::get('/', function () {
-        $banners = \App\Models\SlideBanner::active()->orderBy('order')->get();
+        $banners = SlideBanner::active()->orderBy('order')->get();
         return view('welcome', compact('banners'));
     });
 

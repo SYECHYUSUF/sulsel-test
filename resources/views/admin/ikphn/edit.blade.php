@@ -46,33 +46,24 @@
                             class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-700 dark:border-slate-600 dark:text-white">
                     </div>
 
-                    <!-- SKPD -->
-                    <div class="mb-4">
-                        <label for="id_skpd" class="text-sm font-medium text-slate-700">SKPD Terkait</label>
-
-                        <x-searchable-select name="id_skpd" id="id_skpd" :options="$skpdList" idKey="id_skpd"
-                            :disabled="auth()->user()->hasRole('opd')" labelKey="nm_skpd" :value="old('id_skpd', $item->id_skpd)"
-                            placeholder="-- Pilih SKPD --" />
-
-                        @error('id_skpd')
-                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
 
                     <!-- File Upload -->
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-2">
                             Dokumen File
-                            <span class="text-xs text-gray-500 font-normal">(Biarkan kosong jika tidak ingin mengubah)</span>
+                            <span class="text-xs text-gray-500 font-normal">(Biarkan kosong jika tidak ingin
+                                mengubah)</span>
                         </label>
-                        
+
                         @if($item->file)
                             <div class="mb-2 text-sm text-gray-500 flex items-center gap-2">
                                 <span>File saat ini:</span>
                                 <a href="{{ Storage::url($item->file) }}" target="_blank"
                                     class="text-blue-500 hover:text-blue-700 underline flex items-center gap-1">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                        </path>
                                     </svg>
                                     Download
                                 </a>
@@ -80,40 +71,15 @@
                         @endif
 
                         <input type="file" class="filepond" name="file" id="file_upload">
-                        <p class="text-xs text-slate-500 mt-1">Format: PDF, DOC, DOCX, XLS, XLSX, JPG, PNG (Max: 50MB)</p>
+                        <p class="text-xs text-slate-500 mt-1">Format: PDF, DOC, DOCX, XLS, XLSX, JPG, PNG (Max: 50MB)
+                        </p>
                         @error('file')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
                     </div>
 
 
-                    <!-- Verification (Admin Only) -->
-                    @role('admin')
-                    <div class="mb-6 mt-4">
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Status
-                            Verifikasi</label>
-                        <div class="flex items-center gap-4">
-                            <label class="flex items-center gap-2">
-                                <input type="radio" name="verify" value="n"
-                                    {{ old('verify', $item->verify) == 'n' ? 'checked' : '' }}
-                                    class="text-blue-600 focus:ring-blue-500">
-                                <span class="text-gray-700 dark:text-gray-300">Pending</span>
-                            </label>
-                            <label class="flex items-center gap-2">
-                                <input type="radio" name="verify" value="y"
-                                    {{ old('verify', $item->verify) == 'y' ? 'checked' : '' }}
-                                    class="text-green-600 focus:ring-green-500">
-                                <span class="text-gray-700 dark:text-gray-300">Terverifikasi</span>
-                            </label>
-                            <label class="flex items-center gap-2">
-                                <input type="radio" name="verify" value="t"
-                                    {{ old('verify', $item->verify) == 't' ? 'checked' : '' }}
-                                    class="text-red-600 focus:ring-red-500">
-                                <span class="text-gray-700 dark:text-gray-300">Ditolak</span>
-                            </label>
-                        </div>
-                    </div>
-                    @endrole
+
 
                     <div class="flex justify-end gap-3 mt-6">
                         <a href="{{ route('admin.ikphns.index') }}"
@@ -148,15 +114,15 @@
             );
             FilePond.create(
                 document.querySelector('#file_upload'), {
-                    labelIdle: `Seret & Letakkan file atau <span class="filepond--label-action">Telusuri</span>`,
-                    storeAsFile: true,
-                    maxFileSize: '50MB',
+                labelIdle: `Seret & Letakkan file atau <span class="filepond--label-action">Telusuri</span>`,
+                storeAsFile: true,
+                maxFileSize: '50MB',
 
-                    // Konfigurasi PDF Preview
-                    allowPdfPreview: true,
-                    pdfPreviewHeight: 320,
-                    pdfComponentExtraParams: 'toolbar=0&view=fit&page=1'
-                }
+                // Konfigurasi PDF Preview
+                allowPdfPreview: true,
+                pdfPreviewHeight: 320,
+                pdfComponentExtraParams: 'toolbar=0&view=fit&page=1'
+            }
             );
         </script>
     </x-slot>

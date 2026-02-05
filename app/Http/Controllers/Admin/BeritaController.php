@@ -88,7 +88,7 @@ class BeritaController extends Controller
         if ($request->hasFile('img_berita')) {
             $file = $request->file('img_berita');
             $filename = time() . '_' . $file->getClientOriginalName();
-            $file->storeAs('img_berita', $filename, 'public');
+            $file->storeAs('berita', $filename, 'public');
             $data['img_berita'] = $filename;
         }
 

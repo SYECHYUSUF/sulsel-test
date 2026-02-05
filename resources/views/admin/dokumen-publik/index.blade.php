@@ -14,6 +14,19 @@
 
     <div x-data="{
         showFilters: false,
+        showDeleteDokumen: false,
+        deleteUrl: '',
+        confirmDelete(url) {
+            this.deleteUrl = url;
+            this.showDeleteDokumen = true;
+        },
+        selectedIds: [],
+        bulkAction: '',
+        bulkStatus: '',
+        confirmBulkAction() {
+            if (this.selectedIds.length === 0) return false;
+            return confirm('Apakah Anda yakin ingin melakukan tindakan massal ini?');
+        }
     }" class="space-y-4">
 
         {{-- Success/Error Messages --}}
@@ -77,16 +90,9 @@
                     {{-- Admin SKPD Filter dengan Searchable Select --}}
                     @if(auth()->user()->hasRole('admin'))
                         <div class="w-full md:flex-1 min-w-[200px]">
-                            <x-searchable-select 
-                                name="id_skpd" 
-                                :options="$skpdList" 
-                                :value="request('id_skpd')"
-                                idKey="id_skpd" 
-                                labelKey="nm_skpd" 
-                                placeholder="Filter Berdasarkan SKPD..." 
-                                :isFilter="true" 
-                                queryName="id_skpd" 
-                            />
+                            <x-searchable-select name="id_skpd" :options="$skpdList" :value="request('id_skpd')"
+                                idKey="id_skpd" labelKey="nm_skpd" placeholder="Filter Berdasarkan SKPD..." :isFilter="true"
+                                queryName="id_skpd" />
                         </div>
                     @endif
 
@@ -104,7 +110,7 @@
                 {{-- Bulk Actions --}}
                 <div class="flex gap-2" x-show="selectedIds.length > 0" x-cloak>
                     <form method="POST" action="{{ route('admin.dokumen-publik.bulk-delete') }}"
-                        @submit="return confirmBulkAction()">
+                        @submit.prevent="if(confirm('Hapus semua data terpilih?')) $el.submit()">
                         @csrf
                         <template x-for="id in selectedIds">
                             <input type="hidden" name="ids[]" :value="id">
@@ -122,7 +128,7 @@
                     </form>
 
                     <form method="POST" action="{{ route('admin.dokumen-publik.bulk-update-status') }}"
-                        @submit="return confirmBulkAction()">
+                        @submit.prevent="if(confirm('Ubah status data terpilih?')) $el.submit()">
                         @csrf
                         <template x-for="id in selectedIds">
                             <input type="hidden" name="ids[]" :value="id">
@@ -325,20 +331,15 @@
                                                 </path>
                                             </svg>
                                         </a>
-                                        <form action="{{ route('admin.dokumen-publik.destroy', $info->id_informasi) }}"
-                                            method="POST"
-                                            onsubmit="return confirm('Apakah Anda yakin ingin menghapus informasi ini?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit"
-                                                class="p-2 text-slate-500 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors">
-                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
-                                                    </path>
-                                                </svg>
-                                            </button>
-                                        </form>
+                                        <button type="button"
+                                            @click="confirmDelete('{{ route('admin.dokumen-publik.destroy', $info->id_informasi) }}')"
+                                            class="p-2 text-slate-500 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                                </path>
+                                            </svg>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
@@ -361,11 +362,18 @@
                 </table>
             </div>
 
+
+
             <div class="p-4 border-t border-slate-100 dark:border-slate-700">
                 {{ $informasi->withQueryString()->links() }}
             </div>
         </div>
+
+        <x-confirmation-dialog trigger="showDeleteDokumen" title="Hapus Dokumen?"
+            description="Data dokumen akan dihapus permanen dan tidak dapat dikembalikan." theme="danger"
+            confirmText="Ya, Hapus" cancelText="Batal" url="deleteUrl" dynamic="true" method="DELETE" />
     </div>
+
 
     <style>
         [x-cloak] {

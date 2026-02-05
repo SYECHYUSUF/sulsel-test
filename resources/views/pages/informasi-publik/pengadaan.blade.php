@@ -96,7 +96,7 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200 dark:divide-slate-700">
-                                @foreach ($ikphns as $item)
+                                @forelse ($ikphns as $item)
                                     <tr class="hover:bg-ppid-primary/5 dark:hover:bg-slate-700 transition-colors">
                                         <td class="px-4 py-3 text-sm text-gray-900 dark:text-white">
                                             {{ ($ikphns->currentPage() - 1) * $ikphns->perPage() + $loop->iteration }}
@@ -124,7 +124,14 @@
                                             </div>
                                         </td>
                                     </tr>
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="3"
+                                            class="px-4 py-12 text-center text-gray-500 dark:text-gray-400 italic">
+                                            {{ __('messages.table.no_data') }}
+                                        </td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

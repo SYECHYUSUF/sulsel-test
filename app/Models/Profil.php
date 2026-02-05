@@ -8,7 +8,7 @@ class Profil extends Model
 {
     protected $table = 'tbl_profil';
     protected $primaryKey = 'id_profil';
-    
+
     protected $fillable = [
         'nm_profil',
         'deskripsi',
@@ -18,6 +18,10 @@ class Profil extends Model
         'foto_gubernur',  // Profil Pemprov
         'foto_wakil',     // Profil Pemprov
         'foto_kepala',    // Sambutan
+        'ig_gubernur',
+        'fb_gubernur',
+        'ig_wakil',
+        'fb_wakil',
     ];
 
     protected $casts = [

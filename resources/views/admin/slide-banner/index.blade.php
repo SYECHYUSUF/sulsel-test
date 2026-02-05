@@ -1,8 +1,4 @@
 <x-admin-layout title="Banner Slide - Admin PPID">
-    <x-slot name="header">
-        Banner Slide
-    </x-slot>
-
     <div class="space-y-6" x-data="{
         deleteModalOpen: false,
         deleteUrl: '',
@@ -39,10 +35,12 @@
             </div>
         @endif
 
-        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden shadow-sm">
+        <div
+            class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden shadow-sm">
             <div class="overflow-x-auto">
                 <table class="w-full text-sm text-left">
-                    <thead class="bg-slate-50 dark:bg-slate-700/50 border-b border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 font-semibold">
+                    <thead
+                        class="bg-slate-50 dark:bg-slate-700/50 border-b border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 font-semibold">
                         <tr>
                             <th class="px-6 py-4 w-48">Pratinjau</th>
                             <th class="px-6 py-4">Nama File</th>
@@ -54,12 +52,14 @@
                         @forelse($slides as $slide)
                             <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-700/30 transition-colors">
                                 <td class="px-6 py-4">
-                                    <div class="w-32 h-20 rounded-lg overflow-hidden border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700">
+                                    <div
+                                        class="w-32 h-20 rounded-lg overflow-hidden border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700">
                                         @if($slide->nm_slide && \Illuminate\Support\Facades\Storage::disk('public')->exists('slide_banner/' . $slide->nm_slide))
                                             <img src="{{ asset('storage/slide_banner/' . $slide->nm_slide) }}"
                                                 class="w-full h-full object-cover" alt="Banner preview">
                                         @else
-                                            <div class="w-full h-full flex items-center justify-center text-slate-300 dark:text-slate-500">
+                                            <div
+                                                class="w-full h-full flex items-center justify-center text-slate-300 dark:text-slate-500">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none"
                                                     viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -71,7 +71,8 @@
                                 </td>
                                 <td class="px-6 py-4">
                                     <div class="font-medium text-slate-900 dark:text-slate-100">{{ $slide->nm_slide }}</div>
-                                    <div class="text-xs text-slate-400 dark:text-slate-500 mt-1">ID: #{{ $slide->id_slide }}</div>
+                                    <div class="text-xs text-slate-400 dark:text-slate-500 mt-1">ID: #{{ $slide->id_slide }}
+                                    </div>
                                 </td>
                                 <td class="px-6 py-4 text-slate-500 dark:text-slate-400">
                                     {{ $slide->created_at ? $slide->created_at->translatedFormat('d F Y') : '-' }}
@@ -86,7 +87,8 @@
                                                     d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                             </svg>
                                         </a>
-                                        <button type="button" @click="confirmDelete('{{ route('admin.slide-banner.destroy', $slide->id_slide) }}')"
+                                        <button type="button"
+                                            @click="confirmDelete('{{ route('admin.slide-banner.destroy', $slide->id_slide) }}')"
                                             class="p-2 text-slate-400 dark:text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-lg transition-all">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor">

@@ -13,18 +13,18 @@ class SlideBannerSeeder extends Seeder
     public function run(): void
     {
         $slides = [
-            'banner/welcome1.png',
-            'banner/bannertest.png',
-            'banner/20230807143405_Tata Cara Pengajuan Informasi Publik Bagi Penyandang Disabilitas.png',
-            'banner/20230915142948_Tata Cara Memperoleh Informasi Publik Revisi.png',
-            'banner/20230917024457_Tata Cara Pengaduan.png',
-            'banner/20230918134717_Maklumat pelayanan informasi publik.png',
-            'banner/20240920113831_Banner Web Keberatan.png'
+            '20230807143338_Welcome Banner.png',
+            '20230807143353_Alur Umum Permohonan Informasi (1).png',
+            '20230807143405_Tata Cara Pengajuan Informasi Publik Bagi Penyandang Disabilitas.png',
+            '20230915142948_Tata Cara Memperoleh Informasi Publik Revisi.png',
+            '20230917024457_Tata Cara Pengaduan.png',
+            '20230918134717_Maklumat pelayanan informasi publik.png',
+            '20240920113831_Banner Web Keberatan.png'
         ];
 
         foreach ($slides as $index => $image) {
             SlideBanner::firstOrCreate(
-                ['image_path' => $image],
+                ['nm_slide' => $image],
                 ['order' => $index, 'is_active' => true]
             );
         }

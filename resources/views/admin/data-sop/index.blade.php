@@ -4,8 +4,10 @@
     <div x-data="sopDataTable()" x-init="fetchData()" class="space-y-6">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-                <h1 class="text-2xl font-bold text-slate-900 dark:text-slate-100">Standar Operasional Prosedur (SOP)</h1>
-                <p class="text-slate-500 dark:text-slate-400 text-sm">Kelola dokumen pedoman pelayanan informasi publik.</p>
+                <h1 class="text-2xl font-bold text-slate-900 dark:text-slate-100">Standar Operasional Prosedur (SOP)
+                </h1>
+                <p class="text-slate-500 dark:text-slate-400 text-sm">Kelola dokumen pedoman pelayanan informasi publik.
+                </p>
             </div>
             <div class="flex items-center gap-3">
                 <div class="relative">
@@ -34,15 +36,16 @@
             </div>
         </div>
 
-        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden shadow-sm">
+        <div
+            class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden shadow-sm">
             <div class="overflow-x-auto">
                 <table class="w-full text-sm text-left">
-                    <thead class="bg-slate-50 dark:bg-slate-700/50 border-b border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 font-semibold">
+                    <thead
+                        class="bg-slate-50 dark:bg-slate-700/50 border-b border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 font-semibold">
                         <tr>
                             <th class="px-6 py-4">Judul Dokumen</th>
                             <th class="px-6 py-4">Tipe File</th>
                             <th class="px-6 py-4 text-center">Unduhan</th>
-                            <th class="px-6 py-4">Tanggal Update</th>
                             <th class="px-6 py-4 text-right">Aksi</th>
                         </tr>
                     </thead>
@@ -71,7 +74,8 @@
 
                         <template x-if="!loading && items.length === 0">
                             <tr>
-                                <td colspan="5" class="px-6 py-12 text-center text-slate-500 dark:text-slate-400 italic">
+                                <td colspan="5"
+                                    class="px-6 py-12 text-center text-slate-500 dark:text-slate-400 italic">
                                     Belum ada data SOP yang tersedia.
                                 </td>
                             </tr>
@@ -80,10 +84,12 @@
                         <template x-if="!loading">
                             <template x-for="item in items" :key="item.id">
                                 <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-700/30 transition-colors">
-                                    <td class="px-6 py-4 font-medium text-slate-900 dark:text-slate-100" x-text="item.judul"></td>
+                                    <td class="px-6 py-4 font-medium text-slate-900 dark:text-slate-100"
+                                        x-text="item.judul"></td>
                                     <td class="px-6 py-4">
                                         <div class="flex items-center gap-2">
-                                            <span class="p-1.5 bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 rounded-lg">
+                                            <span
+                                                class="p-1.5 bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 rounded-lg">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
                                                     viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -91,7 +97,8 @@
                                                         d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                                                 </svg>
                                             </span>
-                                            <span class="text-xs text-slate-500 dark:text-slate-400 uppercase font-semibold"
+                                            <span
+                                                class="text-xs text-slate-500 dark:text-slate-400 uppercase font-semibold"
                                                 x-text="getFileExtension(item.file)"></span>
                                         </div>
                                     </td>
@@ -100,8 +107,6 @@
                                             class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold"
                                             x-text="item.jumlah_download"></span>
                                     </td>
-                                    <td class="px-6 py-4 text-slate-500 dark:text-slate-400"
-                                        x-text="formatDate(item.updated_at || item.created_at)"></td>
                                     <td class="px-6 py-4 text-right">
                                         <div class="flex justify-end gap-2">
                                             <a :href="'/storage/sop/' + item.file" target="_blank"
@@ -151,8 +156,9 @@
         <div class="flex flex-col md:flex-row items-center justify-between gap-4 py-2"
             x-show="!loading && items.length > 0">
             <div class="text-sm text-slate-500 dark:text-slate-400">
-                Menampilkan <span class="font-medium text-slate-900 dark:text-slate-100" x-text="items.length"></span> dari <span
-                    class="font-medium text-slate-900 dark:text-slate-100" x-text="pagination.total"></span> data SOP
+                Menampilkan <span class="font-medium text-slate-900 dark:text-slate-100" x-text="items.length"></span>
+                dari <span class="font-medium text-slate-900 dark:text-slate-100" x-text="pagination.total"></span> data
+                SOP
             </div>
             <div class="flex items-center gap-2">
                 <button @click="changePage(pagination.prev_page_url)" :disabled="!pagination.prev_page_url"

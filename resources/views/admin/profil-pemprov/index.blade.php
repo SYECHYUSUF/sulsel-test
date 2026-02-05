@@ -67,6 +67,22 @@
                                accept="image/jpeg,image/png,image/jpg"
                                class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-ppid-primary file:text-white hover:file:bg-[#2A4A7E] cursor-pointer border-2 border-slate-300 dark:border-slate-600 rounded-xl focus:outline-none">
                         <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">Format: JPG, PNG • Max: 5MB</p>
+                        
+                        <div class="mt-4 space-y-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">Instagram Gubernur</label>
+                                <input type="text" name="ig_gubernur" value="{{ old('ig_gubernur', $profil->ig_gubernur ?? '') }}"
+                                       placeholder="https://instagram.com/..."
+                                       class="w-full px-3 py-2 text-sm border-2 border-slate-200 dark:border-slate-600 rounded-lg focus:outline-none focus:border-ppid-primary bg-white dark:bg-slate-700 text-slate-900 dark:text-white transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">Facebook Gubernur</label>
+                                <input type="text" name="fb_gubernur" value="{{ old('fb_gubernur', $profil->fb_gubernur ?? '') }}"
+                                       placeholder="https://facebook.com/..."
+                                       class="w-full px-3 py-2 text-sm border-2 border-slate-200 dark:border-slate-600 rounded-lg focus:outline-none focus:border-ppid-primary bg-white dark:bg-slate-700 text-slate-900 dark:text-white transition-all">
+                            </div>
+                        </div>
+
                         @error('foto_gubernur')
                             <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
                         @enderror
@@ -91,6 +107,22 @@
                                accept="image/jpeg,image/png,image/jpg"
                                class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-ppid-primary file:text-white hover:file:bg-[#2A4A7E] cursor-pointer border-2 border-slate-300 dark:border-slate-600 rounded-xl focus:outline-none">
                         <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">Format: JPG, PNG • Max: 5MB</p>
+
+                        <div class="mt-4 space-y-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">Instagram Wakil Gubernur</label>
+                                <input type="text" name="ig_wakil" value="{{ old('ig_wakil', $profil->ig_wakil ?? '') }}"
+                                       placeholder="https://instagram.com/..."
+                                       class="w-full px-3 py-2 text-sm border-2 border-slate-200 dark:border-slate-600 rounded-lg focus:outline-none focus:border-ppid-primary bg-white dark:bg-slate-700 text-slate-900 dark:text-white transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">Facebook Wakil Gubernur</label>
+                                <input type="text" name="fb_wakil" value="{{ old('fb_wakil', $profil->fb_wakil ?? '') }}"
+                                       placeholder="https://facebook.com/..."
+                                       class="w-full px-3 py-2 text-sm border-2 border-slate-200 dark:border-slate-600 rounded-lg focus:outline-none focus:border-ppid-primary bg-white dark:bg-slate-700 text-slate-900 dark:text-white transition-all">
+                            </div>
+                        </div>
+
                         @error('foto_wakil')
                             <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
                         @enderror

@@ -109,6 +109,7 @@ return [
         'action' => 'Action',
         'summary' => 'Summary',
         'file' => 'File',
+        'no_data' => 'No information data available.',
     ],
     'news' => [
         'title' => 'News & Articles',
@@ -379,11 +380,6 @@ return [
     'layanan_pages' => [
         'permohonan_title' => 'Information Request',
         'permohonan_subtitle' => 'Submit Public Information Request',
-
-        'permohonan_title' => 'Information Request',
-        'permohonan_subtitle' => 'Submit a public information request',
-        'permohonan_title' => 'Information Request',
-        'permohonan_subtitle' => 'Submit a public information request',
         'keberatan_title' => 'Objection Submission',
         'keberatan_subtitle' => 'Submit Objection to Information Service',
 
@@ -546,15 +542,6 @@ return [
         'setiap_saat' => 'Every Moment',
         'dikecualikan' => 'Excluded',
         'pengadaan' => 'Procurement',
-    ],
-    'ppid_pelaksana' => [
-        'title' => 'Implementing PPID',
-        'subtitle' => 'List of Implementing PPIDs in South Sulawesi Provincial Government',
-        'call_center' => 'Call Center',
-        'email' => 'Email',
-        'website' => 'Website',
-        'address' => 'Address',
-        'view_profile' => 'View Profile',
     ],
     'survey_questions' => [
         'q1' => 'What is your opinion about the Information Service System provided by PPID South Sulawesi through the Online Website/Portal?',

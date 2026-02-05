@@ -9,8 +9,11 @@ class SlideBanner extends Model
 {
     use HasFactory;
 
+    protected $table = 'tbl_slide';
+    protected $primaryKey = 'id_slide';
+
     protected $fillable = [
-        'image_path',
+        'nm_slide',
         'order',
         'is_active',
     ];

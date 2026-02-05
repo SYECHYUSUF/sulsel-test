@@ -127,7 +127,7 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200">
-                                @foreach ($matriksDip as $item)
+                                @forelse ($matriksDip as $item)
                                     <tr
                                         class="hover:bg-ppid-primary/5 transition-colors border-b border-gray-100 last:border-0">
                                         <td
@@ -147,7 +147,14 @@
                                             {{ $item->f }}
                                         </td>
                                     </tr>
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="7"
+                                            class="px-4 py-12 text-center text-gray-500 dark:text-gray-400 italic">
+                                            {{ __('messages.table.no_data') }}
+                                        </td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

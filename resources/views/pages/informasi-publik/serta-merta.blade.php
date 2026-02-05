@@ -108,7 +108,7 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200">
-                                @foreach ($informasiData as $item)
+                                @forelse ($informasiData as $item)
                                     <tr class="hover:bg-ppid-primary/5 transition-colors">
                                         <td class="px-4 py-3 text-sm text-gray-900 dark:text-white">
                                             {{ ($informasiData->currentPage() - 1) * $informasiData->perPage() + $loop->iteration }}
@@ -147,7 +147,14 @@
                                             </div>
                                         </td>
                                     </tr>
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="5"
+                                            class="px-4 py-12 text-center text-gray-500 dark:text-gray-400 italic">
+                                            {{ __('messages.table.no_data') }}
+                                        </td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

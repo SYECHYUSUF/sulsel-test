@@ -14,7 +14,7 @@ class ProfilPemprovController extends Controller
     public function index()
     {
         $profil = Profil::getByTipe('pemerintah');
-        
+
         if (!$profil) {
             $profil = new Profil([
                 'nm_profil' => 'Profil Pemerintah Sulawesi Selatan',
@@ -23,7 +23,7 @@ class ProfilPemprovController extends Controller
                 'deskripsi' => ''
             ]);
         }
-        
+
         return view('admin.profil-pemprov.index', compact('profil'));
     }
 
@@ -37,6 +37,10 @@ class ProfilPemprovController extends Controller
             'deskripsi' => 'required',
             'foto_gubernur' => 'nullable|image|mimes:jpg,jpeg,png|max:5120', // 5MB max
             'foto_wakil' => 'nullable|image|mimes:jpg,jpeg,png|max:5120',
+            'ig_gubernur' => 'nullable|string|max:255',
+            'fb_gubernur' => 'nullable|string|max:255',
+            'ig_wakil' => 'nullable|string|max:255',
+            'fb_wakil' => 'nullable|string|max:255',
         ]);
 
         $data = [
@@ -44,6 +48,10 @@ class ProfilPemprovController extends Controller
             'slug' => 'profil-pemprov',
             'deskripsi' => $request->deskripsi,
             'tipe' => 'pemerintah',
+            'ig_gubernur' => $request->ig_gubernur,
+            'fb_gubernur' => $request->fb_gubernur,
+            'ig_wakil' => $request->ig_wakil,
+            'fb_wakil' => $request->fb_wakil,
         ];
 
         $profil = Profil::where('tipe', 'pemerintah')->first();
@@ -54,7 +62,7 @@ class ProfilPemprovController extends Controller
             if ($profil && $profil->foto_gubernur && \Storage::disk('public')->exists($profil->foto_gubernur)) {
                 \Storage::disk('public')->delete($profil->foto_gubernur);
             }
-            
+
             $file = $request->file('foto_gubernur');
             $filename = 'gubernur_' . time() . '.' . $file->getClientOriginalExtension();
             $path = $file->storeAs('profil/pemerintah', $filename, 'public');
@@ -67,7 +75,7 @@ class ProfilPemprovController extends Controller
             if ($profil && $profil->foto_wakil && \Storage::disk('public')->exists($profil->foto_wakil)) {
                 \Storage::disk('public')->delete($profil->foto_wakil);
             }
-            
+
             $file = $request->file('foto_wakil');
             $filename = 'wakil_' . time() . '.' . $file->getClientOriginalExtension();
             $path = $file->storeAs('profil/pemerintah', $filename, 'public');

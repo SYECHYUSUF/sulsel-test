@@ -69,7 +69,7 @@ return [
         'menu_title' => 'Menu Aksesibilitas',
         'font_size' => 'Ukuran Tulisan',
         'reset_settings' => 'Reset Pengaturan',
-        
+
         // Existing features
         'dark_mode' => 'Mode Gelap',
         'contrast' => 'Kontras',
@@ -83,7 +83,7 @@ return [
         'big_cursor' => 'Kursor Besar',
         'reading_mask' => 'Masker Baca',
         'reading_guide' => 'Panduan',
-        
+
         // New features
         'hide_images' => 'Sembunyikan Gambar',
         'text_align' => 'Perataan Teks',
@@ -109,6 +109,7 @@ return [
         'action' => 'Aksi',
         'summary' => 'Ringkasan',
         'file' => 'File',
+        'no_data' => 'Belum ada data informasi yang tersedia.',
     ],
     'news' => [
         'title' => 'Berita & Artikel',
@@ -379,11 +380,6 @@ return [
     'layanan_pages' => [
         'permohonan_title' => 'Permohonan Informasi',
         'permohonan_subtitle' => 'Ajukan Permohonan Informasi Publik',
-
-        'permohonan_title' => 'Permohonan Informasi',
-        'permohonan_subtitle' => 'Ajukan permohonan informasi publik',
-        'permohonan_title' => 'Permohonan Informasi',
-        'permohonan_subtitle' => 'Ajukan permohonan informasi publik',
         'keberatan_title' => 'Pengajuan Keberatan',
         'keberatan_subtitle' => 'Ajukan Keberatan Layanan Informasi',
 
@@ -546,15 +542,6 @@ return [
         'setiap_saat' => 'Setiap Saat',
         'dikecualikan' => 'Dikecualikan',
         'pengadaan' => 'Pengadaan',
-    ],
-    'ppid_pelaksana' => [
-        'title' => 'PPID Pelaksana',
-        'subtitle' => 'Daftar PPID Pelaksana di Lingkungan Pemprov Sulsel',
-        'call_center' => 'Call Center',
-        'email' => 'Email',
-        'website' => 'Website',
-        'address' => 'Alamat',
-        'view_profile' => 'Lihat Profil',
     ],
     'survey_questions' => [
         'q1' => 'Bagaimana Pendapat Saudara Tentang Sistem Pelayanan Informasi Yang Disediakan Oleh PPID Provinsi Sulawesi Selatan Melalui Sistem Permohonan Informasi Secara Online Melalui Website/Portal PPID?',

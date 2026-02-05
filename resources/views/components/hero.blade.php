@@ -5,7 +5,7 @@
         direction: 'next',
         slides: [
             @foreach($banners as $banner)
-                '{{ asset('storage/' . $banner->image_path) }}',
+                '{{ asset('storage/slide-banner/' . $banner->nm_slide) }}',
             @endforeach
         ],
         showImageModal: false,

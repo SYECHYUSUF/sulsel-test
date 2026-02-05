@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Berita;
-use App\Models\Ikphn;
 use App\Models\Informasi;
 use App\Models\LogLogin;
+use App\Models\Notification;
 use App\Models\PengajuanKeberatan;
 use App\Models\PermohonanInformasi;
 use App\Models\Skpd;
@@ -54,15 +54,8 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
-        // Ambil IKPHN yang menunggu verifikasi
-        $pendingIkphn = Ikphn::with('skpd')
-            ->where('verify', 'n')
-            ->latest('created_at')
-            ->take(5)
-            ->get();
-
         // Ambil notifikasi terbaru untuk Admin
-        $notifications = \App\Models\Notification::where('to_user_id', Auth::id())
+        $notifications = Notification::where('to_user_id', Auth::id())
             ->latest()
             ->take(5)
             ->get();
@@ -76,7 +69,6 @@ class DashboardController extends Controller
             'recentLogins',
             'pendingDokumen',
             'pendingBerita',
-            'pendingIkphn',
             'notifications'
         ));
     }
@@ -94,7 +86,7 @@ class DashboardController extends Controller
         $permohonanByStatus = $this->getPermohonanByStatus($idSkpd);
 
         // Ambil notifikasi terbaru untuk OPD
-        $notifications = \App\Models\Notification::where(function ($query) use ($user) {
+        $notifications = Notification::where(function ($query) use ($user) {
             $query->where('to_user_id', $user->id)
                 ->orWhere('to_skpd_id', $user->id_skpd);
         })
