@@ -55,9 +55,8 @@
                         <span>{{ \App\Models\Setting::getValue('footer_email', 'ppid@sulawesiprov.go.id') }}</span>
                     </div>
                 </div>
-                
-               {{-- MEDIA SOSIAL --}}
-                <div class="flex justify-center sm:justify-start gap-4">
+               {{-- MEDIA SOSIAL & STATISTIK --}}
+                <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2 xl:gap-3">
                     @php
                         $socials = array_filter([
                             ['name' => 'Facebook', 'link' => \App\Models\Setting::getValue('social_facebook'), 'icon' => '<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>'],
@@ -84,6 +83,53 @@
                             </svg>
                         </a>
                     @endforeach
+
+                    {{-- Separator --}}
+                    @if($stats && !empty($socials))
+                        <div class="hidden sm:block w-px h-8 bg-white/10 mx-1"></div>
+                    @endif
+
+                    {{-- Statistics Section (Inline) --}}
+                    @if($stats)
+                        {{-- Total Visitors --}}
+                        <div class="flex items-center gap-2 group">
+                            <div class="w-10 h-10 xl:w-11 xl:h-11 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-ppid-accent group-hover:bg-ppid-accent group-hover:text-ppid-primary transition-all duration-500 shadow-sm relative" title="Total Pengunjung">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:scale-110">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                                </svg>
+                            </div>
+                            <div class="flex flex-col justify-center">
+                                <span class="text-[9px] xl:text-[10px] text-gray-400 font-medium uppercase tracking-wider leading-none mb-0.5 group-hover:text-ppid-accent transition-colors">Total</span>
+                                <span class="text-xs xl:text-sm font-bold text-white leading-none">{{ number_format($stats['visitors_total']) }}</span>
+                            </div>
+                        </div>
+
+                        {{-- Today Visitors --}}
+                        <div class="flex items-center gap-2 group">
+                            <div class="w-10 h-10 xl:w-11 xl:h-11 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-ppid-accent group-hover:bg-ppid-accent group-hover:text-ppid-primary transition-all duration-500 shadow-sm relative" title="Kunjungan Hari Ini">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:scale-110">
+                                    <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                                </svg>
+                            </div>
+                            <div class="flex flex-col justify-center">
+                                <span class="text-[9px] xl:text-[10px] text-gray-400 font-medium uppercase tracking-wider leading-none mb-0.5 group-hover:text-ppid-accent transition-colors">Hari Ini</span>
+                                <span class="text-xs xl:text-sm font-bold text-white leading-none">{{ number_format($stats['visitors_today']) }}</span>
+                            </div>
+                        </div>
+
+                        {{-- Downloads --}}
+                        <div class="flex items-center gap-2 group">
+                            <div class="w-10 h-10 xl:w-11 xl:h-11 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-ppid-accent group-hover:bg-ppid-accent group-hover:text-ppid-primary transition-all duration-500 shadow-sm relative" title="Total Download">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:scale-110">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                                </svg>
+                            </div>
+                            <div class="flex flex-col justify-center">
+                                <span class="text-[9px] xl:text-[10px] text-gray-400 font-medium uppercase tracking-wider leading-none mb-0.5 group-hover:text-ppid-accent transition-colors">Unduhan</span>
+                                <span class="text-xs xl:text-sm font-bold text-white leading-none">{{ number_format($stats['downloads_total']) }}</span>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
 
@@ -116,8 +162,10 @@
             @endforeach
         </div>
 
+
+
         {{-- Bottom Copyright --}}
-        <div class="mt-10 sm:mt-12 md:mt-16 pt-6 sm:pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 sm:gap-6 text-xs md:text-sm text-gray-500 text-center md:text-left">
+        <div class="mt-4 pt-4 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 sm:gap-6 text-xs md:text-sm text-gray-500 text-center md:text-left">
             <p>{{ __('messages.footer.rights') }}</p>
             <div class="flex gap-4 md:gap-6">
                 <button @click="$dispatch('open-modal', 'privacy-policy')" class="hover:text-ppid-accent transition-colors cursor-pointer">{{ __('messages.footer.privacy') }}</button>

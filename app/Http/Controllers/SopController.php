@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sop;
+use App\Models\DownloadLog;
 use Illuminate\Http\Request;
 
 class SopController extends Controller
@@ -31,6 +32,14 @@ class SopController extends Controller
         // Increment download count (handle NULL by treating as 0)
         $sop->update([
             'jumlah_download' => \DB::raw('COALESCE(jumlah_download, 0) + 1')
+        ]);
+
+        // Log the download
+        DownloadLog::create([
+            'ip_address' => request()->ip(),
+            'user_agent' => request()->userAgent(),
+            'downloadable_type' => Sop::class,
+            'downloadable_id' => $sop->getKey(), // Safe access to primary key
         ]);
 
         $filePath = 'sop/' . $sop->file;

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DokumenPublik;
 use App\Models\MasterTahun;
+use App\Models\DownloadLog;
 use Illuminate\Http\Request;
 
 class DokumenPublikController extends Controller
@@ -140,6 +141,14 @@ class DokumenPublikController extends Controller
         // Increment download count (handle NULL by treating as 0)
         $informasi->update([
             'jumlah_download' => \DB::raw('COALESCE(jumlah_download, 0) + 1')
+        ]);
+
+        // Log the download
+        DownloadLog::create([
+            'ip_address' => request()->ip(),
+            'user_agent' => request()->userAgent(),
+            'downloadable_type' => DokumenPublik::class,
+            'downloadable_id' => $informasi->getKey(),
         ]);
 
         $filePath = $informasi->file;

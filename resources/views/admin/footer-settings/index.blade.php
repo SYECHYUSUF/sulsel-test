@@ -19,6 +19,18 @@
             <!-- Branding Section -->
             <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 space-y-6">
                 <h2 class="text-lg font-bold text-slate-800 border-b border-slate-100 pb-4">Branding & Logo</h2>
+
+                <!-- Statistics Visibility -->
+                <div class="flex items-center justify-between bg-slate-50 p-4 rounded-lg border border-slate-200">
+                    <div>
+                        <h3 class="text-sm font-semibold text-slate-800">Tampilkan Statistik Website</h3>
+                        <p class="text-xs text-slate-500">Tampilkan jumlah pengunjung dan download di footer.</p>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" name="is_stats_visible" value="1" class="sr-only peer" {{ $settings['is_stats_visible'] ? 'checked' : '' }}>
+                        <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                    </label>
+                </div>
                 
                 <!-- Logo -->
                 <div class="space-y-4">

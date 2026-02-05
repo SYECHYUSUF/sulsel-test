@@ -28,6 +28,7 @@ class FooterSettingController extends Controller
             // Legal
             'privacy_policy' => Setting::getValue('privacy_policy', 'Isi Kebijakan Privasi disini...'),
             'terms_conditions' => Setting::getValue('terms_conditions', 'Isi Syarat dan Ketentuan disini...'),
+            'is_stats_visible' => Setting::getValue('is_stats_visible', '0'), // Default hidden
         ];
 
         return view('admin.footer-settings.index', compact('settings'));
@@ -62,7 +63,7 @@ class FooterSettingController extends Controller
         $fields = [
             'footer_description', 'footer_address', 'footer_phone', 'footer_email',
             'social_facebook', 'social_twitter', 'social_instagram', 'social_youtube',
-            'privacy_policy', 'terms_conditions'
+            'privacy_policy', 'terms_conditions', 'is_stats_visible'
         ];
 
         foreach ($fields as $field) {
