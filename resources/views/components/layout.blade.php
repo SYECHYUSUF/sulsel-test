@@ -48,11 +48,14 @@
 
     <main class="{{ request()->is('/') ? '' : 'pt-20 lg:pt-48' }}">
         {{ $slot }}
+        
+        <x-integrated-services />
     </main>
 
 
     {{-- Menu aksesibilitas --}}
     <x-accessibility-menu />
+    <x-footer />
 
     {{-- AOS JS --}}
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>

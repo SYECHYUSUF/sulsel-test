@@ -460,7 +460,6 @@
         </div>
     </main>
 
-    <x-footer />
 
     @if ($errors->any())
     <script>

@@ -189,5 +189,4 @@
         @endif
     </main>
 
-    <x-footer />
 </x-layout>

@@ -16,6 +16,4 @@
     <x-leadership />
     <x-legal-banner />
     <x-faq />
-
-    <x-footer />
 </x-layout>

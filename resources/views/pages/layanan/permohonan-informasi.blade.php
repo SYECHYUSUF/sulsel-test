@@ -639,5 +639,4 @@
         });
     </script>
 
-    <x-footer />
 </x-layout>

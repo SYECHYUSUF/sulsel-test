@@ -164,5 +164,4 @@
         </div>
     </main>
 
-    <x-footer />
 </x-layout>
