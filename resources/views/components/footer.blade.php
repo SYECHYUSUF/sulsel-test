@@ -33,63 +33,7 @@
             }
         @endphp
 
-        {{-- Top Section: Social Media & Statistics --}}
-        <div class="flex flex-col lg:flex-row justify-between items-center lg:items-center gap-8 mb-12 border-b border-white/10 pb-12">
-            {{-- Social Media Section --}}
-            <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2 xl:gap-3">
-                @foreach($socials as $soc)
-                    <a href="{{ $soc['link'] }}" title="{{ $soc['name'] }}" class="group relative w-11 h-11 bg-white/5 hover:bg-ppid-accent border border-white/10 hover:border-ppid-accent rounded-2xl flex items-center justify-center transition-all duration-500 hover:shadow-[0_0_20px_rgba(212,175,55,0.5)] hover:-translate-y-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="relative z-10 text-white/70 group-hover:text-ppid-primary group-hover:scale-125 group-hover:rotate-12 transition-all duration-500">
-                            {!! $soc['icon'] !!}
-                        </svg>
-                    </a>
-                @endforeach
-            </div>
-
-            {{-- Statistics Section --}}
-            @if($stats)
-            <div class="flex flex-wrap items-center justify-center lg:justify-end gap-2 xl:gap-3">
-                    {{-- Total Visitors --}}
-                    <div class="flex items-center gap-2 group">
-                        <div class="w-10 h-10 xl:w-11 xl:h-11 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-ppid-accent group-hover:bg-ppid-accent group-hover:text-ppid-primary transition-all duration-500 shadow-sm relative" title="Total Pengunjung">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:scale-110">
-                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                            </svg>
-                        </div>
-                        <div class="flex flex-col justify-center">
-                            <span class="text-[9px] xl:text-[10px] text-gray-400 font-medium uppercase tracking-wider leading-none mb-0.5 group-hover:text-ppid-accent transition-colors">Total</span>
-                            <span class="text-xs xl:text-sm font-bold text-white leading-none">{{ number_format($stats['visitors_total']) }}</span>
-                        </div>
-                    </div>
-
-                    {{-- Today Visitors --}}
-                    <div class="flex items-center gap-2 group">
-                        <div class="w-10 h-10 xl:w-11 xl:h-11 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-ppid-accent group-hover:bg-ppid-accent group-hover:text-ppid-primary transition-all duration-500 shadow-sm relative" title="Kunjungan Hari Ini">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:scale-110">
-                                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-                            </svg>
-                        </div>
-                        <div class="flex flex-col justify-center">
-                            <span class="text-[9px] xl:text-[10px] text-gray-400 font-medium uppercase tracking-wider leading-none mb-0.5 group-hover:text-ppid-accent transition-colors">Hari Ini</span>
-                            <span class="text-xs xl:text-sm font-bold text-white leading-none">{{ number_format($stats['visitors_today']) }}</span>
-                        </div>
-                    </div>
-
-                    {{-- Downloads --}}
-                    <div class="flex items-center gap-2 group">
-                        <div class="w-10 h-10 xl:w-11 xl:h-11 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-ppid-accent group-hover:bg-ppid-accent group-hover:text-ppid-primary transition-all duration-500 shadow-sm relative" title="Total Download">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:scale-110">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
-                            </svg>
-                        </div>
-                        <div class="flex flex-col justify-center">
-                            <span class="text-[9px] xl:text-[10px] text-gray-400 font-medium uppercase tracking-wider leading-none mb-0.5 group-hover:text-ppid-accent transition-colors">Unduhan</span>
-                            <span class="text-xs xl:text-sm font-bold text-white leading-none">{{ number_format($stats['downloads_total']) }}</span>
-                        </div>
-                    </div>
-            </div>
-            @endif
-        </div>
+        
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-10 lg:gap-12">
             
@@ -166,7 +110,63 @@
             @endforeach
         </div>
 
+          {{-- Top Section: Social Media & Statistics --}}
+        <div class="flex flex-col lg:flex-row justify-between items-center lg:items-center gap-8 mb-8 border-t border-white/10 pt-8">
+            {{-- Social Media Section --}}
+            <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2 xl:gap-3">
+                @foreach($socials as $soc)
+                    <a href="{{ $soc['link'] }}" title="{{ $soc['name'] }}" class="group relative w-11 h-11 bg-white/5 hover:bg-ppid-accent border border-white/10 hover:border-ppid-accent rounded-2xl flex items-center justify-center transition-all duration-500 hover:shadow-[0_0_20px_rgba(212,175,55,0.5)] hover:-translate-y-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="relative z-10 text-white/70 group-hover:text-ppid-primary group-hover:scale-125 group-hover:rotate-12 transition-all duration-500">
+                            {!! $soc['icon'] !!}
+                        </svg>
+                    </a>
+                @endforeach
+            </div>
 
+            {{-- Statistics Section --}}
+            @if($stats)
+            <div class="flex flex-wrap items-center justify-center lg:justify-end gap-2 xl:gap-3">
+                    {{-- Total Visitors --}}
+                    <div class="flex items-center gap-2 group">
+                        <div class="w-10 h-10 xl:w-11 xl:h-11 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-ppid-accent group-hover:bg-ppid-accent group-hover:text-ppid-primary transition-all duration-500 shadow-sm relative" title="Total Pengunjung">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:scale-110">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                        </div>
+                        <div class="flex flex-col justify-center">
+                            <span class="text-[9px] xl:text-[10px] text-gray-400 font-medium uppercase tracking-wider leading-none mb-0.5 group-hover:text-ppid-accent transition-colors">Total</span>
+                            <span class="text-xs xl:text-sm font-bold text-white leading-none">{{ number_format($stats['visitors_total']) }}</span>
+                        </div>
+                    </div>
+
+                    {{-- Today Visitors --}}
+                    <div class="flex items-center gap-2 group">
+                        <div class="w-10 h-10 xl:w-11 xl:h-11 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-ppid-accent group-hover:bg-ppid-accent group-hover:text-ppid-primary transition-all duration-500 shadow-sm relative" title="Kunjungan Hari Ini">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:scale-110">
+                                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                        </div>
+                        <div class="flex flex-col justify-center">
+                            <span class="text-[9px] xl:text-[10px] text-gray-400 font-medium uppercase tracking-wider leading-none mb-0.5 group-hover:text-ppid-accent transition-colors">Hari Ini</span>
+                            <span class="text-xs xl:text-sm font-bold text-white leading-none">{{ number_format($stats['visitors_today']) }}</span>
+                        </div>
+                    </div>
+
+                    {{-- Downloads --}}
+                    <div class="flex items-center gap-2 group">
+                        <div class="w-10 h-10 xl:w-11 xl:h-11 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-ppid-accent group-hover:bg-ppid-accent group-hover:text-ppid-primary transition-all duration-500 shadow-sm relative" title="Total Download">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:scale-110">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                            </svg>
+                        </div>
+                        <div class="flex flex-col justify-center">
+                            <span class="text-[9px] xl:text-[10px] text-gray-400 font-medium uppercase tracking-wider leading-none mb-0.5 group-hover:text-ppid-accent transition-colors">Unduhan</span>
+                            <span class="text-xs xl:text-sm font-bold text-white leading-none">{{ number_format($stats['downloads_total']) }}</span>
+                        </div>
+                    </div>
+            </div>
+            @endif
+        </div>      
 
         {{-- Bottom Copyright --}}
         <div class="mt-4 pt-4 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 sm:gap-6 text-xs md:text-sm text-gray-500 text-center md:text-left">
