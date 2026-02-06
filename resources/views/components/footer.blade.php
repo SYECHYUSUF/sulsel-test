@@ -13,6 +13,84 @@
     <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(circle, rgba(212, 175, 55, 0.3) 1px, transparent 1px); background-size: 20px 20px;"></div>
     
     <div class="container mx-auto px-4 sm:px-6 md:px-4 py-10 sm:py-12 md:py-16 relative z-10" data-aos="fade-up">
+
+        @php
+            $socials = array_filter([
+                ['name' => 'Facebook', 'link' => \App\Models\Setting::getValue('social_facebook'), 'icon' => '<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>'],
+                ['name' => 'Twitter', 'link' => \App\Models\Setting::getValue('social_twitter'), 'icon' => '<path d="M4 4l11.733 16h4.267l-11.733 -16z M4 20l6.768 -6.768 M13.232 10.768l6.768 -6.768"></path>'],
+                ['name' => 'Instagram', 'link' => \App\Models\Setting::getValue('social_instagram'), 'icon' => '<rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>'],
+                ['name' => 'YouTube', 'link' => \App\Models\Setting::getValue('social_youtube'), 'icon' => '<path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.42a2.78 2.78 0 0 0-1.94 2C1 8.14 1 12 1 12s0 3.86.46 5.58a2.78 2.78 0 0 0 1.94 2c1.72.42 8.6.42 8.6.42s6.88 0 8.6-.42a2.78 2.78 0 0 0 1.94-2C23 15.86 23 12 23 12s0-3.86-.46-5.58z"></path><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"></polygon>']
+            ], function($soc) { return !empty($soc['link']); });
+
+            // Default fallback if no settings
+            if (empty($socials)) {
+                $socials = [
+                    ['name' => 'Facebook', 'link' => 'https://www.facebook.com/ppidsulsel', 'icon' => '<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>'],
+                    ['name' => 'Twitter', 'link' => 'https://twitter.com/ppidsulsel', 'icon' => '<path d="M4 4l11.733 16h4.267l-11.733 -16z M4 20l6.768 -6.768 M13.232 10.768l6.768 -6.768"></path>'],
+                    ['name' => 'Instagram', 'link' => 'https://www.instagram.com/ppidsulsel', 'icon' => '<rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>'],
+                    ['name' => 'YouTube', 'link' => 'https://www.youtube.com/@ppidsulsel', 'icon' => '<path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.42a2.78 2.78 0 0 0-1.94 2C1 8.14 1 12 1 12s0 3.86.46 5.58a2.78 2.78 0 0 0 1.94 2c1.72.42 8.6.42 8.6.42s6.88 0 8.6-.42a2.78 2.78 0 0 0 1.94-2C23 15.86 23 12 23 12s0-3.86-.46-5.58z"></path><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"></polygon>']
+                ];
+            }
+        @endphp
+
+        {{-- Top Section: Social Media & Statistics --}}
+        <div class="flex flex-col lg:flex-row justify-between items-center lg:items-center gap-8 mb-12 border-b border-white/10 pb-12">
+            {{-- Social Media Section --}}
+            <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2 xl:gap-3">
+                @foreach($socials as $soc)
+                    <a href="{{ $soc['link'] }}" title="{{ $soc['name'] }}" class="group relative w-11 h-11 bg-white/5 hover:bg-ppid-accent border border-white/10 hover:border-ppid-accent rounded-2xl flex items-center justify-center transition-all duration-500 hover:shadow-[0_0_20px_rgba(212,175,55,0.5)] hover:-translate-y-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="relative z-10 text-white/70 group-hover:text-ppid-primary group-hover:scale-125 group-hover:rotate-12 transition-all duration-500">
+                            {!! $soc['icon'] !!}
+                        </svg>
+                    </a>
+                @endforeach
+            </div>
+
+            {{-- Statistics Section --}}
+            @if($stats)
+            <div class="flex flex-wrap items-center justify-center lg:justify-end gap-2 xl:gap-3">
+                    {{-- Total Visitors --}}
+                    <div class="flex items-center gap-2 group">
+                        <div class="w-10 h-10 xl:w-11 xl:h-11 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-ppid-accent group-hover:bg-ppid-accent group-hover:text-ppid-primary transition-all duration-500 shadow-sm relative" title="Total Pengunjung">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:scale-110">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                        </div>
+                        <div class="flex flex-col justify-center">
+                            <span class="text-[9px] xl:text-[10px] text-gray-400 font-medium uppercase tracking-wider leading-none mb-0.5 group-hover:text-ppid-accent transition-colors">Total</span>
+                            <span class="text-xs xl:text-sm font-bold text-white leading-none">{{ number_format($stats['visitors_total']) }}</span>
+                        </div>
+                    </div>
+
+                    {{-- Today Visitors --}}
+                    <div class="flex items-center gap-2 group">
+                        <div class="w-10 h-10 xl:w-11 xl:h-11 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-ppid-accent group-hover:bg-ppid-accent group-hover:text-ppid-primary transition-all duration-500 shadow-sm relative" title="Kunjungan Hari Ini">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:scale-110">
+                                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                        </div>
+                        <div class="flex flex-col justify-center">
+                            <span class="text-[9px] xl:text-[10px] text-gray-400 font-medium uppercase tracking-wider leading-none mb-0.5 group-hover:text-ppid-accent transition-colors">Hari Ini</span>
+                            <span class="text-xs xl:text-sm font-bold text-white leading-none">{{ number_format($stats['visitors_today']) }}</span>
+                        </div>
+                    </div>
+
+                    {{-- Downloads --}}
+                    <div class="flex items-center gap-2 group">
+                        <div class="w-10 h-10 xl:w-11 xl:h-11 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-ppid-accent group-hover:bg-ppid-accent group-hover:text-ppid-primary transition-all duration-500 shadow-sm relative" title="Total Download">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:scale-110">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                            </svg>
+                        </div>
+                        <div class="flex flex-col justify-center">
+                            <span class="text-[9px] xl:text-[10px] text-gray-400 font-medium uppercase tracking-wider leading-none mb-0.5 group-hover:text-ppid-accent transition-colors">Unduhan</span>
+                            <span class="text-xs xl:text-sm font-bold text-white leading-none">{{ number_format($stats['downloads_total']) }}</span>
+                        </div>
+                    </div>
+            </div>
+            @endif
+        </div>
+
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-10 lg:gap-12">
             
             {{-- Brand Section --}}
@@ -30,6 +108,7 @@
                         <p class="text-sm md:text-base text-ppid-accent font-bold tracking-widest mt-1">{{ __('messages.header.title_2') }}</p>
                     </div>
                 </div>
+
                 <p class="text-gray-300 mb-6 leading-relaxed max-w-md mx-auto sm:mx-0 text-sm md:text-base">
                     {{ \App\Models\Setting::getValue('footer_description', __('messages.footer.description')) }}
                 </p>
@@ -55,82 +134,7 @@
                         <span>{{ \App\Models\Setting::getValue('footer_email', 'ppid@sulawesiprov.go.id') }}</span>
                     </div>
                 </div>
-               {{-- MEDIA SOSIAL & STATISTIK --}}
-                <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2 xl:gap-3">
-                    @php
-                        $socials = array_filter([
-                            ['name' => 'Facebook', 'link' => \App\Models\Setting::getValue('social_facebook'), 'icon' => '<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>'],
-                            ['name' => 'Twitter', 'link' => \App\Models\Setting::getValue('social_twitter'), 'icon' => '<path d="M4 4l11.733 16h4.267l-11.733 -16z M4 20l6.768 -6.768 M13.232 10.768l6.768 -6.768"></path>'],
-                            ['name' => 'Instagram', 'link' => \App\Models\Setting::getValue('social_instagram'), 'icon' => '<rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>'],
-                            ['name' => 'YouTube', 'link' => \App\Models\Setting::getValue('social_youtube'), 'icon' => '<path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.42a2.78 2.78 0 0 0-1.94 2C1 8.14 1 12 1 12s0 3.86.46 5.58a2.78 2.78 0 0 0 1.94 2c1.72.42 8.6.42 8.6.42s6.88 0 8.6-.42a2.78 2.78 0 0 0 1.94-2C23 15.86 23 12 23 12s0-3.86-.46-5.58z"></path><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"></polygon>']
-                        ], function($soc) { return !empty($soc['link']); });
 
-                        // Default fallback if no settings
-                         if (empty($socials)) {
-                            $socials = [
-                                ['name' => 'Facebook', 'link' => 'https://www.facebook.com/ppidsulsel', 'icon' => '<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>'],
-                                ['name' => 'Twitter', 'link' => 'https://twitter.com/ppidsulsel', 'icon' => '<path d="M4 4l11.733 16h4.267l-11.733 -16z M4 20l6.768 -6.768 M13.232 10.768l6.768 -6.768"></path>'],
-                                ['name' => 'Instagram', 'link' => 'https://www.instagram.com/ppidsulsel', 'icon' => '<rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>'],
-                                ['name' => 'YouTube', 'link' => 'https://www.youtube.com/@ppidsulsel', 'icon' => '<path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.42a2.78 2.78 0 0 0-1.94 2C1 8.14 1 12 1 12s0 3.86.46 5.58a2.78 2.78 0 0 0 1.94 2c1.72.42 8.6.42 8.6.42s6.88 0 8.6-.42a2.78 2.78 0 0 0 1.94-2C23 15.86 23 12 23 12s0-3.86-.46-5.58z"></path><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"></polygon>']
-                            ];
-                        }
-                    @endphp
-
-                    @foreach($socials as $soc)
-                        <a href="{{ $soc['link'] }}" title="{{ $soc['name'] }}" class="group relative w-11 h-11 bg-white/5 hover:bg-ppid-accent border border-white/10 hover:border-ppid-accent rounded-2xl flex items-center justify-center transition-all duration-500 hover:shadow-[0_0_20px_rgba(212,175,55,0.5)] hover:-translate-y-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="relative z-10 text-white/70 group-hover:text-ppid-primary group-hover:scale-125 group-hover:rotate-12 transition-all duration-500">
-                                {!! $soc['icon'] !!}
-                            </svg>
-                        </a>
-                    @endforeach
-
-                    {{-- Separator --}}
-                    @if($stats && !empty($socials))
-                        <div class="hidden sm:block w-px h-8 bg-white/10 mx-1"></div>
-                    @endif
-
-                    {{-- Statistics Section (Inline) --}}
-                    @if($stats)
-                        {{-- Total Visitors --}}
-                        <div class="flex items-center gap-2 group">
-                            <div class="w-10 h-10 xl:w-11 xl:h-11 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-ppid-accent group-hover:bg-ppid-accent group-hover:text-ppid-primary transition-all duration-500 shadow-sm relative" title="Total Pengunjung">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:scale-110">
-                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                                </svg>
-                            </div>
-                            <div class="flex flex-col justify-center">
-                                <span class="text-[9px] xl:text-[10px] text-gray-400 font-medium uppercase tracking-wider leading-none mb-0.5 group-hover:text-ppid-accent transition-colors">Total</span>
-                                <span class="text-xs xl:text-sm font-bold text-white leading-none">{{ number_format($stats['visitors_total']) }}</span>
-                            </div>
-                        </div>
-
-                        {{-- Today Visitors --}}
-                        <div class="flex items-center gap-2 group">
-                            <div class="w-10 h-10 xl:w-11 xl:h-11 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-ppid-accent group-hover:bg-ppid-accent group-hover:text-ppid-primary transition-all duration-500 shadow-sm relative" title="Kunjungan Hari Ini">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:scale-110">
-                                    <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-                                </svg>
-                            </div>
-                            <div class="flex flex-col justify-center">
-                                <span class="text-[9px] xl:text-[10px] text-gray-400 font-medium uppercase tracking-wider leading-none mb-0.5 group-hover:text-ppid-accent transition-colors">Hari Ini</span>
-                                <span class="text-xs xl:text-sm font-bold text-white leading-none">{{ number_format($stats['visitors_today']) }}</span>
-                            </div>
-                        </div>
-
-                        {{-- Downloads --}}
-                        <div class="flex items-center gap-2 group">
-                            <div class="w-10 h-10 xl:w-11 xl:h-11 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-ppid-accent group-hover:bg-ppid-accent group-hover:text-ppid-primary transition-all duration-500 shadow-sm relative" title="Total Download">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:scale-110">
-                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
-                                </svg>
-                            </div>
-                            <div class="flex flex-col justify-center">
-                                <span class="text-[9px] xl:text-[10px] text-gray-400 font-medium uppercase tracking-wider leading-none mb-0.5 group-hover:text-ppid-accent transition-colors">Unduhan</span>
-                                <span class="text-xs xl:text-sm font-bold text-white leading-none">{{ number_format($stats['downloads_total']) }}</span>
-                            </div>
-                        </div>
-                    @endif
-                </div>
             </div>
 
             {{-- Links Sections --}}

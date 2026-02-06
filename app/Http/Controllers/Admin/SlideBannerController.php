@@ -75,7 +75,7 @@ class SlideBannerController extends Controller
         $slide = SlideBanner::findOrFail($id);
 
         $request->validate([
-            'nm_slide' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
+            'nm_slide' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120|dimensions:min_width=2752,min_height=1536',
         ]);
 
         $data = [];
