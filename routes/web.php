@@ -1,7 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\AlasanPengajuanController;
+use App\Http\Controllers\Admin\BentukInformasiController;
 use App\Http\Controllers\ProfileController;
-use App\Models\SlideBanner;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BeritaController as GuestBeritaController;
 use App\Http\Controllers\DokumenPublikController as GuestDokumenPublikController;
@@ -22,18 +23,35 @@ use App\Http\Controllers\Admin\SkpdController;
 use App\Http\Controllers\Admin\SlideBannerController;
 use App\Http\Controllers\Admin\SopController;
 use App\Http\Controllers\Admin\FaqController;
+use App\Http\Controllers\Admin\FooterSettingController;
+use App\Http\Controllers\Admin\IkphnController;
+use App\Http\Controllers\Admin\IntegratedServiceController;
 use App\Http\Controllers\Admin\KategoriInformasiController;
 use App\Http\Controllers\Admin\LogLoginController;
+use App\Http\Controllers\Admin\MaklumatController;
+use App\Http\Controllers\Admin\MasterDataController;
+use App\Http\Controllers\Admin\MasterDomisiliController;
+use App\Http\Controllers\Admin\MasterPekerjaanController;
+use App\Http\Controllers\Admin\MasterTahunController;
 use App\Http\Controllers\Admin\MatriksDIPController;
+use App\Http\Controllers\Admin\NotificationController;
+use App\Http\Controllers\Admin\ProfilPemprovController;
+use App\Http\Controllers\Admin\ProfilPpidController;
+use App\Http\Controllers\Admin\SambutanController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\SurveyQuestionController;
 use App\Http\Controllers\Admin\SurveyResponseController;
 use App\Http\Controllers\Admin\SosmedController;
-
+use App\Http\Controllers\Admin\StrukturOrganisasiController;
+use App\Http\Controllers\Admin\TupoksiController;
+use App\Http\Controllers\Admin\VisiMisiController;
 use App\Models\Setting;
 use App\Models\Skpd;
 use App\Models\MasterPekerjaan;
 use App\Models\AlasanPengajuan;
+use App\Models\BentukInformasi;
+use App\Models\Berita;
+use App\Models\Profil;
 use Illuminate\Support\Facades\RateLimiter;
 
 // Language Switcher
@@ -63,12 +81,12 @@ Route::middleware(['track.visitors'])->group(function () {
 
     // Profil Pages
     Route::get('/profil-ppid', function () {
-        $profil = \App\Models\Profil::getByTipe('profil-ppid');
+        $profil = Profil::getByTipe('profil-ppid');
         return view('pages.profil.profil-ppid', compact('profil'));
     });
     Route::get('/sambutan', function () {
-        $profil = \App\Models\Profil::getByTipe('sambutan');
-        $recentNews = \App\Models\Berita::where('verify', 'y')
+        $profil = Profil::getByTipe('sambutan');
+        $recentNews = Berita::where('verify', 'y')
             ->orderBy('tgl_upload', 'desc')
             ->take(4)
             ->get();
@@ -79,23 +97,23 @@ Route::middleware(['track.visitors'])->group(function () {
         return view('pages.profil.struktur-organisasi', compact('pdfPath'));
     });
     Route::get('/visi-misi', function () {
-        $profil = \App\Models\Profil::getByTipe('visi-misi');
-        $recentNews = \App\Models\Berita::where('verify', 'y')
+        $profil = Profil::getByTipe('visi-misi');
+        $recentNews = Berita::where('verify', 'y')
             ->orderBy('tgl_upload', 'desc')
             ->take(4)
             ->get();
         return view('pages.profil.visi-misi', compact('recentNews', 'profil'));
     });
     Route::get('/tupoksi', function () {
-        $profil = \App\Models\Profil::getByTipe('tupoksi');
+        $profil = Profil::getByTipe('tupoksi');
         return view('pages.profil.tupoksi', compact('profil'));
     });
     Route::get('/maklumat-pelayanan', function () {
-        $profil = \App\Models\Profil::getByTipe('maklumat');
+        $profil = Profil::getByTipe('maklumat');
         return view('pages.profil.maklumat', compact('profil'));
     });
     Route::get('/profil-pemprov', function () {
-        $profil = \App\Models\Profil::getByTipe('pemerintah');
+        $profil = Profil::getByTipe('pemerintah');
         return view('pages.profil.pemerintah', compact('profil'));
     });
 
@@ -158,7 +176,7 @@ Route::middleware(['track.visitors'])->group(function () {
         // Use values() to reset keys ensuring valid JSON array for frontend
         $masterPekerjaan = MasterPekerjaan::active()->select('id', 'nama_pekerjaan')->orderBy('nama_pekerjaan')->get()->unique('nama_pekerjaan')->values();
         $masterDomisili = App\Models\MasterDomisili::active()->select('id', 'nama_daerah')->orderBy('nama_daerah')->get()->unique('nama_daerah')->values();
-        $bentukInformasis = \App\Models\BentukInformasi::all();
+        $bentukInformasis = BentukInformasi::all();
 
         return view('pages.layanan.permohonan-informasi', compact('masterPekerjaan', 'masterDomisili', 'bentukInformasis'));
     });
@@ -219,28 +237,27 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     // Rute yang bisa diakses admin & odp
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('pengaturan', PengaturanController::class);
-    Route::resource('struktur-organisasi', \App\Http\Controllers\Admin\StrukturOrganisasiController::class);
+    Route::resource('struktur-organisasi', StrukturOrganisasiController::class);
 
     // Profil Management Routes
-    Route::resource('profil-ppid', \App\Http\Controllers\Admin\ProfilPpidController::class)->only(['index', 'store']);
-    Route::resource('integrated-services', \App\Http\Controllers\Admin\IntegratedServiceController::class);
-    Route::resource('sambutan', \App\Http\Controllers\Admin\SambutanController::class)->only(['index', 'store']);
-    Route::resource('visi-misi', \App\Http\Controllers\Admin\VisiMisiController::class)->only(['index', 'store']);
-    Route::resource('tupoksi', \App\Http\Controllers\Admin\TupoksiController::class)->only(['index', 'store']);
-    Route::resource('maklumat', \App\Http\Controllers\Admin\MaklumatController::class)->only(['index', 'store']);
-    Route::resource('profil-pemprov', \App\Http\Controllers\Admin\ProfilPemprovController::class)->only(['index', 'store']);
+    Route::resource('profil-ppid', ProfilPpidController::class)->only(['index', 'store']);
+    Route::resource('integrated-services', IntegratedServiceController::class);
+    Route::resource('sambutan', SambutanController::class)->only(['index', 'store']);
+    Route::resource('visi-misi', VisiMisiController::class)->only(['index', 'store']);
+    Route::resource('tupoksi', TupoksiController::class)->only(['index', 'store']);
+    Route::resource('maklumat', MaklumatController::class)->only(['index', 'store']);
+    Route::resource('profil-pemprov', ProfilPemprovController::class)->only(['index', 'store']);
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // Notifications
-    Route::get('notifications', [\App\Http\Controllers\Admin\NotificationController::class, 'index'])->name('notifications.index');
-    Route::post('notifications/{id}/read', [\App\Http\Controllers\Admin\NotificationController::class, 'markAsRead'])->name('notifications.read');
-    Route::post('notifications/mark-all-read', [\App\Http\Controllers\Admin\NotificationController::class, 'markAllAsRead'])->name('notifications.mark-all-read');
-    Route::delete('notifications/delete-all', [\App\Http\Controllers\Admin\NotificationController::class, 'deleteAll'])->name('notifications.delete-all');
-    Route::delete('notifications/{id}', [\App\Http\Controllers\Admin\NotificationController::class, 'destroy'])->name('notifications.destroy');
-
+    Route::get('notifications', [NotificationController::class, 'index'])->name('notifications.index');
+    Route::post('notifications/{id}/read', [NotificationController::class, 'markAsRead'])->name('notifications.read');
+    Route::post('notifications/mark-all-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.mark-all-read');
+    Route::delete('notifications/delete-all', [NotificationController::class, 'deleteAll'])->name('notifications.delete-all');
+    Route::delete('notifications/{id}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
 
     // Rute yang dibatasi berdasarkan ID SKPD menggunakan Middleware
     Route::middleware(['check_skpd'])->group(function () {
@@ -271,7 +288,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::post('permohonan-informasi/disposisi/{disposisiId}/respon', [PermohonanInformasiController::class, 'responStore'])->name('permohonan-informasi.respon.store');
 
         Route::resource('permohonan-informasi', PermohonanInformasiController::class);
-        Route::resource('ikphns', \App\Http\Controllers\Admin\IkphnController::class);
+        Route::resource('ikphns', IkphnController::class);
     });
 
     // Rute khusus Super Admin (Tanpa check_skpd karena mengelola semua SKPD)
@@ -286,8 +303,8 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::resource('kategori-informasi', KategoriInformasiController::class);
 
         // Footer Settings
-        Route::get('/footer-settings', [\App\Http\Controllers\Admin\FooterSettingController::class, 'index'])->name('footer-settings.index');
-        Route::post('/footer-settings', [\App\Http\Controllers\Admin\FooterSettingController::class, 'update'])->name('footer-settings.update');
+        Route::get('/footer-settings', [FooterSettingController::class, 'index'])->name('footer-settings.index');
+        Route::post('/footer-settings', [FooterSettingController::class, 'update'])->name('footer-settings.update');
 
         // Survey Questions
         Route::resource('survey-questions', SurveyQuestionController::class);
@@ -298,40 +315,40 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::resource('social-links', SosmedController::class);
 
         // Create Alasan Pengajuan Resource
-        Route::resource('alasan-pengajuan', \App\Http\Controllers\Admin\AlasanPengajuanController::class)->except(['show']);
+        Route::resource('alasan-pengajuan', AlasanPengajuanController::class)->except(['show']);
 
         // Unified Master Data Management
-        Route::get('master-data', [\App\Http\Controllers\Admin\MasterDataController::class, 'index'])->name('master-data.index');
+        Route::get('master-data', [MasterDataController::class, 'index'])->name('master-data.index');
 
         // CRUD Routes for Master Data components (used by forms)
-        Route::post('master-data/kategori', [\App\Http\Controllers\Admin\KategoriInformasiController::class, 'store'])->name('master-data.kategori.store');
-        Route::put('master-data/kategori/{id}', [\App\Http\Controllers\Admin\KategoriInformasiController::class, 'update'])->name('master-data.kategori.update');
-        Route::delete('master-data/kategori/{id}', [\App\Http\Controllers\Admin\KategoriInformasiController::class, 'destroy'])->name('master-data.kategori.destroy');
+        Route::post('master-data/kategori', [KategoriInformasiController::class, 'store'])->name('master-data.kategori.store');
+        Route::put('master-data/kategori/{id}', [KategoriInformasiController::class, 'update'])->name('master-data.kategori.update');
+        Route::delete('master-data/kategori/{id}', [KategoriInformasiController::class, 'destroy'])->name('master-data.kategori.destroy');
 
-        Route::post('master-data/tahun', [\App\Http\Controllers\Admin\MasterTahunController::class, 'store'])->name('master-data.tahun.store');
-        Route::put('master-data/tahun/{id}', [\App\Http\Controllers\Admin\MasterTahunController::class, 'update'])->name('master-data.tahun.update');
-        Route::delete('master-data/tahun/{id}', [\App\Http\Controllers\Admin\MasterTahunController::class, 'destroy'])->name('master-data.tahun.destroy');
+        Route::post('master-data/tahun', [MasterTahunController::class, 'store'])->name('master-data.tahun.store');
+        Route::put('master-data/tahun/{id}', [MasterTahunController::class, 'update'])->name('master-data.tahun.update');
+        Route::delete('master-data/tahun/{id}', [MasterTahunController::class, 'destroy'])->name('master-data.tahun.destroy');
 
-        Route::post('master-data/domisili', [\App\Http\Controllers\Admin\MasterDomisiliController::class, 'store'])->name('master-data.domisili.store');
-        Route::put('master-data/domisili/{id}', [\App\Http\Controllers\Admin\MasterDomisiliController::class, 'update'])->name('master-data.domisili.update');
-        Route::delete('master-data/domisili/{id}', [\App\Http\Controllers\Admin\MasterDomisiliController::class, 'destroy'])->name('master-data.domisili.destroy');
+        Route::post('master-data/domisili', [MasterDomisiliController::class, 'store'])->name('master-data.domisili.store');
+        Route::put('master-data/domisili/{id}', [MasterDomisiliController::class, 'update'])->name('master-data.domisili.update');
+        Route::delete('master-data/domisili/{id}', [MasterDomisiliController::class, 'destroy'])->name('master-data.domisili.destroy');
 
-        Route::post('master-data/pekerjaan', [\App\Http\Controllers\Admin\MasterPekerjaanController::class, 'store'])->name('master-data.pekerjaan.store');
-        Route::put('master-data/pekerjaan/{id}', [\App\Http\Controllers\Admin\MasterPekerjaanController::class, 'update'])->name('master-data.pekerjaan.update');
-        Route::delete('master-data/pekerjaan/{id}', [\App\Http\Controllers\Admin\MasterPekerjaanController::class, 'destroy'])->name('master-data.pekerjaan.destroy');
+        Route::post('master-data/pekerjaan', [MasterPekerjaanController::class, 'store'])->name('master-data.pekerjaan.store');
+        Route::put('master-data/pekerjaan/{id}', [MasterPekerjaanController::class, 'update'])->name('master-data.pekerjaan.update');
+        Route::delete('master-data/pekerjaan/{id}', [MasterPekerjaanController::class, 'destroy'])->name('master-data.pekerjaan.destroy');
 
-        Route::post('master-data/alasan-pengajuan', [\App\Http\Controllers\Admin\AlasanPengajuanController::class, 'store'])->name('master-data.alasan-pengajuan.store');
-        Route::put('master-data/alasan-pengajuan/{id}', [\App\Http\Controllers\Admin\AlasanPengajuanController::class, 'update'])->name('master-data.alasan-pengajuan.update');
-        Route::delete('master-data/alasan-pengajuan/{id}', [\App\Http\Controllers\Admin\AlasanPengajuanController::class, 'destroy'])->name('master-data.alasan-pengajuan.destroy');
+        Route::post('master-data/alasan-pengajuan', [AlasanPengajuanController::class, 'store'])->name('master-data.alasan-pengajuan.store');
+        Route::put('master-data/alasan-pengajuan/{id}', [AlasanPengajuanController::class, 'update'])->name('master-data.alasan-pengajuan.update');
+        Route::delete('master-data/alasan-pengajuan/{id}', [AlasanPengajuanController::class, 'destroy'])->name('master-data.alasan-pengajuan.destroy');
 
-        Route::post('master-data/bentuk-informasi', [\App\Http\Controllers\Admin\BentukInformasiController::class, 'store'])->name('master-data.bentuk-informasi.store');
-        Route::put('master-data/bentuk-informasi/{id}', [\App\Http\Controllers\Admin\BentukInformasiController::class, 'update'])->name('master-data.bentuk-informasi.update');
-        Route::delete('master-data/bentuk-informasi/{id}', [\App\Http\Controllers\Admin\BentukInformasiController::class, 'destroy'])->name('master-data.bentuk-informasi.destroy');
+        Route::post('master-data/bentuk-informasi', [BentukInformasiController::class, 'store'])->name('master-data.bentuk-informasi.store');
+        Route::put('master-data/bentuk-informasi/{id}', [BentukInformasiController::class, 'update'])->name('master-data.bentuk-informasi.update');
+        Route::delete('master-data/bentuk-informasi/{id}', [BentukInformasiController::class, 'destroy'])->name('master-data.bentuk-informasi.destroy');
 
         // Keep existing individual routes for backward compatibility
-        Route::resource('master-pekerjaan', \App\Http\Controllers\Admin\MasterPekerjaanController::class);
-        Route::resource('master-domisili', \App\Http\Controllers\Admin\MasterDomisiliController::class);
-        Route::resource('master-tahun', \App\Http\Controllers\Admin\MasterTahunController::class);
+        Route::resource('master-pekerjaan', MasterPekerjaanController::class);
+        Route::resource('master-domisili', MasterDomisiliController::class);
+        Route::resource('master-tahun', MasterTahunController::class);
     });
 });
 

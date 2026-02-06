@@ -10,30 +10,29 @@ class BeritaController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Berita::query();
+        $query = Berita::query()->with('skpd'); // Eager load relasi SKPD
 
-        // Search by title or description
+        // Logic pencarian yang Anda miliki
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function ($q) use ($search) {
                 $q->where('judul', 'like', '%' . $search . '%')
-                  ->orWhere('deskripsi', 'like', '%' . $search . '%');
+                ->orWhere('deskripsi', 'like', '%' . $search . '%');
             });
         }
 
-        // Filter by SKPD (as category)
+        // Filter berdasarkan kategori/SKPD
         if ($request->filled('category')) {
             $query->where('id_skpd', $request->category);
         }
 
-        // Only verified news
+        // Hanya berita terverifikasi
         $query->where('verify', 'y');
 
-        // Get latest news
+        // Ambil data terbaru dengan paginasi
         $berita = $query->latest('tgl_upload')->paginate(9);
         
-        // Get Categories (SKPDs that have news)
-        // Or just all SKPDs? Let's get SKPDs with news count
+        // Ambil data kategori untuk sidebar/dropdown
         $categories = Skpd::withCount(['berita' => function($q) {
                 $q->where('verify', 'y');
             }])
@@ -42,6 +41,12 @@ class BeritaController extends Controller
             })
             ->get();
 
+        // JIKA REQUEST ADALAH AJAX/JSON (Untuk Lazy Load/Alpine)
+        if ($request->wantsJson()) {
+            return response()->json($berita);
+        }
+
+        // Initial Load
         return view('pages.berita.index', compact('berita', 'categories'));
     }
 

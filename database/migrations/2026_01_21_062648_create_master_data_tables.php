@@ -45,7 +45,7 @@ return new class extends Migration
 
         Schema::create('log_login', function (Blueprint $table) {
             $table->id();
-            $table->string('id_user')->nullable();
+            $table->integer('id_user')->nullable();
             $table->string('tipe')->nullable();
             $table->string('ip')->nullable();
             $table->timestamp('createdAt')->nullable();
