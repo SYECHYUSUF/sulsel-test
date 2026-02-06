@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Models\SlideBanner;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -18,6 +19,7 @@ class Hero extends Component
      */
     public function __construct($banners = [])
     {
+        $banners = SlideBanner::active()->orderBy('order')->get();
         $this->banners = $banners;
     }
 

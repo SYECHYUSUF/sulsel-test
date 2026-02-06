@@ -3,6 +3,9 @@
         <link href="/vendor/filepond/index.css" rel="stylesheet" />
         <link href="/vendor/filepond/image-preview.css" rel="stylesheet" />
         <script src="/vendor/filepond/image-preview.js"></script>
+        <script src="/vendor/filepond/image-validate-size.js"></script>
+        <script src="/vendor/filepond/image-crop.js"></script>
+        <script src="/vendor/filepond/image-transform.js"></script>
         <script src="/vendor/filepond/index.js"></script>
     </x-slot>
 
@@ -26,7 +29,7 @@
                     @enderror
                 </div>
                 <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">
-                    Format: JPG, PNG, GIF (Max: 5MB). Rekomendasi ukuran: 2752×1536 atau lebih besar untuk hasil terbaik.
+                    Format: JPG, PNG, GIF (Max: 20MB). Rekomendasi ukuran: 2752×1536 atau lebih besar untuk hasil terbaik.
                 </p>
             </div>
 
@@ -48,13 +51,36 @@
 
     <x-slot name="extra_script">
         <script>
-            FilePond.registerPlugin(FilePondPluginImagePreview);
+            FilePond.registerPlugin(
+                FilePondPluginImagePreview,
+                FilePondPluginImageValidateSize,
+                FilePondPluginImageCrop,
+                FilePondPluginImageTransform
+            );
             FilePond.create(
                 document.querySelector('#nm_slide'),
                 {
-                    labelIdle: `Drag & Drop your banner or <span class="filepond--label-action">Browse</span>`,
+                    labelIdle: `Seret & Letakkan file atau <span class="filepond--label-action">Telusuri</span>`,
+                    
                     imagePreviewHeight: 300,
                     storeAsFile: true,
+
+                    server: null, 
+                    allowProcess: false,
+
+                    // Memaksa Rasio Gambar (Crop)
+                    imageCropAspectRatio: '2752:1536', 
+
+                    // Validasi Dimensi Minimum (Opsional tapi disarankan)
+                    imageValidateSizeMinWidth: 2752,
+                    imageValidateSizeMinHeight: 1536,
+
+                    // Paksa Format Output
+                    imageTransformOutputMimeType: 'image/jpeg',
+                    
+                    // Pesan error kustom
+                    labelFileTypeNotAllowed: 'File tidak valid',
+                    fileValidateSizeLabelExpectedMinSize: 'Ukuran minimum adalah {minWidth} x {minHeight}',
                 }
             );
         </script>

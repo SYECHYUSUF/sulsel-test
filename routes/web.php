@@ -54,8 +54,7 @@ RateLimiter::for('login', function ($request) {
 // Group Track Visitors
 Route::middleware(['track.visitors'])->group(function () {
     Route::get('/', function () {
-        $banners = SlideBanner::active()->orderBy('order')->get();
-        return view('welcome', compact('banners'));
+        return view('welcome');
     });
 
     Route::get('/contact', function () {

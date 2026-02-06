@@ -35,10 +35,12 @@ class BeritaController extends Controller
         // Get Categories (SKPDs that have news)
         // Or just all SKPDs? Let's get SKPDs with news count
         $categories = Skpd::withCount(['berita' => function($q) {
-            $q->where('verify', 'y');
-        }])
-        ->having('berita_count', '>', 0)
-        ->get();
+                $q->where('verify', 'y');
+            }])
+            ->whereHas('berita', function($q) {
+                $q->where('verify', 'y');
+            })
+            ->get();
 
         return view('pages.berita.index', compact('berita', 'categories'));
     }
@@ -61,11 +63,13 @@ class BeritaController extends Controller
                             ->get();
 
         $categories = Skpd::withCount(['berita' => function($q) {
-            $q->where('verify', 'y');
-        }])
-        ->having('berita_count', '>', 0)
-        ->get();
-
+                $q->where('verify', 'y');
+            }])
+            ->whereHas('berita', function($q) {
+                $q->where('verify', 'y');
+            })
+            ->get();
+            
         return view('pages.berita.show', compact('berita', 'recent_news', 'categories'));
     }
 }

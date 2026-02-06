@@ -1,7 +1,7 @@
 <x-layout>
     <x-header />
 
-    <x-hero :banners="$banners" />
+    <x-hero />
 
     <x-service-cards />
 

@@ -53,10 +53,12 @@ class MatriksDipController extends Controller
     public function pengadaan(Request $request)
     {
         $search = $request->query('search');
-        $ikphns = Ikphn::where('verify', '!=', 't')
+
+        $ikphns = Ikphn::query() // Mulai dengan query kosong
             ->when($search, function ($query, $search) {
-                return $query->where('nama_jabatan', 'LIKE', "%{$search}%");
+                return $query->where('nama_jabatan', 'ilike', "%{$search}%");
             })
+            ->latest() // Urutkan berdasarkan data terbaru (opsional)
             ->paginate(10)
             ->appends(['search' => $search]);
 

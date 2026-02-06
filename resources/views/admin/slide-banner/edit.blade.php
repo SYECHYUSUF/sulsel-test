@@ -3,6 +3,9 @@
         <link href="/vendor/filepond/index.css" rel="stylesheet" />
         <link href="/vendor/filepond/image-preview.css" rel="stylesheet" />
         <script src="/vendor/filepond/image-preview.js"></script>
+        <script src="/vendor/filepond/image-validate-size.js"></script>
+        <script src="/vendor/filepond/image-crop.js"></script>
+        <script src="/vendor/filepond/image-transform.js"></script>
         <script src="/vendor/filepond/index.js"></script>
     </x-slot>
 
@@ -49,17 +52,38 @@
 
     <x-slot name="extra_script">
         <script>
-            FilePond.registerPlugin(FilePondPluginImagePreview);
+            FilePond.registerPlugin(
+                FilePondPluginImagePreview,
+                FilePondPluginImageValidateSize,
+                FilePondPluginImageCrop,
+                FilePondPluginImageTransform
+            );
             FilePond.create(
                 document.querySelector('#nm_slide'),
                 {
-                    labelIdle: `Drag & Drop your banner or <span class="filepond--label-action">Browse</span>`,
+                    labelIdle: `Seret & Letakkan file atau <span class="filepond--label-action">Telusuri</span>`,
+                    
                     imagePreviewHeight: 300,
                     storeAsFile: true,
+
+                    // Memaksa Rasio Gambar (Crop)
+                    imageCropAspectRatio: '2752:1536', 
+
+                    // Validasi Dimensi Minimum (Opsional tapi disarankan)
+                    imageValidateSizeMinWidth: 2752,
+                    imageValidateSizeMinHeight: 1536,
+
+                    // Paksa Format Output
+                    imageTransformOutputMimeType: 'image/jpeg',
+                    
+                    // Pesan error kustom
+                    labelFileTypeNotAllowed: 'File tidak valid',
+                    fileValidateSizeLabelExpectedMinSize: 'Ukuran minimum adalah {minWidth} x {minHeight}',
+
                     files: [
                         @if($slide->nm_slide)
                             {
-                                source: '{{ asset('storage/slide_banner/' . $slide->nm_slide) }}',
+                                source: '{{ asset('storage/slide-banner/' . $slide->nm_slide) }}',
                                 options: {
                                     type: 'local',
                                 }

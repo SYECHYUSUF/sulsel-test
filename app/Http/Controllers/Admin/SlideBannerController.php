@@ -32,7 +32,7 @@ class SlideBannerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nm_slide' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120',
+            'nm_slide' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:20480',
         ]);
 
         $data = [];

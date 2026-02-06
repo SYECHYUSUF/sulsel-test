@@ -19,6 +19,7 @@ class SqlFileSeeder extends Seeder
             'permohonan-informasi.sql',
             'skpd.sql',
             'sops.sql',
+            'berita.sql',
         ];
 
         // Nonaktifkan pemeriksaan foreign key agar tidak error saat insert data yang berelasi

@@ -30,3 +30,6 @@ Thumbs.db
 /prompts/
 
 database/seeders/file/
+
+!storage/app/public/slide-banner/
+!storage/app/public/slide-banner/.gitkeep

@@ -54,8 +54,8 @@
                                 <td class="px-6 py-4">
                                     <div
                                         class="w-32 h-20 rounded-lg overflow-hidden border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700">
-                                        @if($slide->nm_slide && \Illuminate\Support\Facades\Storage::disk('public')->exists('slide_banner/' . $slide->nm_slide))
-                                            <img src="{{ asset('storage/slide_banner/' . $slide->nm_slide) }}"
+                                        @if($slide->nm_slide && \Illuminate\Support\Facades\Storage::disk('public')->exists('slide-banner/' . $slide->nm_slide))
+                                            <img src="{{ asset('storage/slide-banner/' . $slide->nm_slide) }}"
                                                 class="w-full h-full object-cover" alt="Banner preview">
                                         @else
                                             <div

@@ -236,13 +236,6 @@
                             class="absolute bottom-0 left-0 w-full h-[3px] bg-ppid-accent scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block {{ request()->is('informasi-publik/20*', 'informasi-publik/pengadaan*') ? 'scale-x-100' : '' }}"></span>
                     </div>
 
-                    {{-- Mengambil Data Tahun (Hanya dijalankan saat file ini dimuat) --}}
-                    @php
-                        $daftarTahun = \App\Models\MasterTahun::whereNotNull('waktu')
-                            ->orderBy('waktu', 'desc')
-                            ->get();
-                    @endphp
-
                     <ul x-show="openDaftar" x-transition:enter="transition ease-out duration-300 transform origin-top"
                         x-transition:enter-start="opacity-0 -translate-y-2 scale-95"
                         x-transition:enter-end="opacity-100 translate-y-0 scale-100"
@@ -277,13 +270,6 @@
                         <span
                             class="absolute bottom-0 left-0 w-full h-[3px] bg-ppid-accent scale-x-0 group-hover:scale-x-100 transition-transform origin-left hidden lg:block {{ request()->is('informasi-publik/serta-merta*', 'informasi-publik/setiap-saat*', 'informasi-publik/dikecualikan*', 'informasi-publik/berkala*', 'informasi-publik') ? 'scale-x-100' : '' }}"></span>
                     </div>
-
-                    {{-- Mengambil Data Kategori (Hanya dijalankan saat file ini dimuat) --}}
-                    @php
-                        $kategoriInfo = \App\Models\KategoriInformasi::where('is_active', 1)
-                            ->orderBy('nm_kat_info', 'asc')
-                            ->get();
-                    @endphp
 
                     <ul x-show="openInformasi"
                         x-transition:enter="transition ease-out duration-300 transform origin-top"
