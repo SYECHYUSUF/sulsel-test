@@ -32,12 +32,13 @@ class BeritaController extends Controller
         // Get latest news
         $berita = $query->latest('tgl_upload')->paginate(9);
         
-        // Get Categories (SKPDs that have news)
-        // Or just all SKPDs? Let's get SKPDs with news count
-        $categories = Skpd::withCount(['berita' => function($q) {
+        // Get Categories (SKPDs that have verified news)
+        $categories = Skpd::whereHas('berita', function($q) {
+            $q->where('verify', 'y');
+        })
+        ->withCount(['berita' => function($q) {
             $q->where('verify', 'y');
         }])
-        ->having('berita_count', '>', 0)
         ->get();
 
         return view('pages.berita.index', compact('berita', 'categories'));
@@ -60,10 +61,12 @@ class BeritaController extends Controller
                             ->limit(5)
                             ->get();
 
-        $categories = Skpd::withCount(['berita' => function($q) {
+        $categories = Skpd::whereHas('berita', function($q) {
+            $q->where('verify', 'y');
+        })
+        ->withCount(['berita' => function($q) {
             $q->where('verify', 'y');
         }])
-        ->having('berita_count', '>', 0)
         ->get();
 
         return view('pages.berita.show', compact('berita', 'recent_news', 'categories'));
