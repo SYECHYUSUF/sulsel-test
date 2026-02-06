@@ -45,6 +45,7 @@ use App\Http\Controllers\Admin\SosmedController;
 use App\Http\Controllers\Admin\StrukturOrganisasiController;
 use App\Http\Controllers\Admin\TupoksiController;
 use App\Http\Controllers\Admin\VisiMisiController;
+use App\Http\Controllers\Api\Auth\ApiLoginController;
 use App\Models\Setting;
 use App\Models\Skpd;
 use App\Models\MasterPekerjaan;
@@ -52,6 +53,7 @@ use App\Models\AlasanPengajuan;
 use App\Models\BentukInformasi;
 use App\Models\Berita;
 use App\Models\Profil;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 
 // Language Switcher
@@ -349,7 +351,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::resource('master-pekerjaan', MasterPekerjaanController::class);
         Route::resource('master-domisili', MasterDomisiliController::class);
         Route::resource('master-tahun', MasterTahunController::class);
-    });
+    });    
 });
 
 require __DIR__ . '/auth.php';

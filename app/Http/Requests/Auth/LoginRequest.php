@@ -30,23 +30,6 @@ class LoginRequest extends FormRequest
         return [
             'username' => ['required', 'string'],
             'password' => ['required', 'string'],
-            // Validasi reCAPTCHA
-            'g-recaptcha-response' => [
-                'required',
-                function ($attribute, $value, $fail) {
-                    $secret = config('services.recaptcha.secret_key');
-
-                    $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
-                        'secret' => $secret,
-                        'response' => $value,
-                        'remoteip' => $this->ip(),
-                    ]);
-
-                    if (!$response->json('success')) {
-                        $fail('Verifikasi Captcha gagal. Silakan coba lagi.');
-                    }
-                }
-            ],
         ];
     }
 
@@ -97,7 +80,6 @@ class LoginRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'g-recaptcha-response.required' => 'Silakan centang kotak "I\'m not a robot" untuk melanjutkan.',
         ];
     }
 
