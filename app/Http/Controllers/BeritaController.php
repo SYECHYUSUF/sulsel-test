@@ -6,8 +6,19 @@ use App\Models\Berita;
 use App\Models\Skpd;
 use Illuminate\Http\Request;
 
+/**
+ * @group Manajemen Berita
+ * * API untuk mengelola data berita
+ */
 class BeritaController extends Controller
 {
+    /**
+     * Daftar Berita
+     * * Mengambil semua data berita dengan filter pencarian dan verifikasi.
+     * @queryParam search string Kata kunci judul. Example: banjir
+     * @apiResourceCollection App\Http\Resources\BeritaResource
+     * @apiResourceModel App\Models\Berita
+     */
     public function index(Request $request)
     {
         $query = Berita::query()->with('skpd'); // Eager load relasi SKPD
