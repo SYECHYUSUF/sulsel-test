@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\BentukInformasi;
 use Illuminate\Http\Request;
 
 class BentukInformasiController extends Controller
@@ -10,24 +11,27 @@ class BentukInformasiController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(\Illuminate\Http\Request $request)
+    public function store(Request $request)
     {
         $validated = $request->validate([
             'judul' => 'required|string|max:255',
         ]);
 
-        \App\Models\BentukInformasi::create($validated);
-
-        return redirect()->route('admin.master-data.index', ['tab' => 'bentuk_informasi'])
-            ->with('success', 'Bentuk Informasi berhasil ditambahkan.');
+        BentukInformasi::create($validated);
+  
+        return response()->json([
+            'success' => true,
+            'message' => 'Bentuk Informasi berhasil ditambahkan.',
+            'data' => $validated
+        ], 200);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(\Illuminate\Http\Request $request, string $id)
+    public function update(Request $request, string $id)
     {
-        $bentukInformasi = \App\Models\BentukInformasi::findOrFail($id);
+        $bentukInformasi = BentukInformasi::findOrFail($id);
 
         $validated = $request->validate([
             'judul' => 'required|string|max:255',
@@ -35,8 +39,11 @@ class BentukInformasiController extends Controller
 
         $bentukInformasi->update($validated);
 
-        return redirect()->route('admin.master-data.index', ['tab' => 'bentuk_informasi'])
-            ->with('success', 'Bentuk Informasi berhasil diperbarui.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Bentuk Informasi berhasil diperbarui.',
+            'data' => $validated
+        ], 200);
     }
 
     /**
@@ -44,10 +51,12 @@ class BentukInformasiController extends Controller
      */
     public function destroy(string $id)
     {
-        $bentukInformasi = \App\Models\BentukInformasi::findOrFail($id);
+        $bentukInformasi = BentukInformasi::findOrFail($id);
         $bentukInformasi->delete();
 
-        return redirect()->route('admin.master-data.index', ['tab' => 'bentuk_informasi'])
-            ->with('success', 'Bentuk Informasi berhasil dihapus.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Bentuk Informasi berhasil dihapus.',
+        ], 200);
     }
 }

@@ -266,7 +266,6 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::resource('skpd', SkpdController::class);
 
         Route::resource('berita', BeritaController::class);
-        Route::resource('berita', BeritaController::class);
         // Permohonan Informasi moved to Admin group
         Route::resource('pengajuan-keberatan', PengajuanKeberatanController::class);
         Route::post('pengajuan-keberatan/{id}/feedback', [PengajuanKeberatanController::class, 'storeFeedback'])->name('pengajuan-keberatan.storeFeedback');

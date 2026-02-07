@@ -38,28 +38,11 @@ class BeritaController extends Controller
 
         $berita = $query->latest('tgl_upload')->paginate(10);
 
-        // Jika request meminta JSON
-        if ($request->expectsJson()) {
-            return response()->json($berita);
-        }
-
-        $skpdList = Skpd::all();
-        return view('admin.berita.index', compact('skpdList'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        $user = Auth::user();
-
-        // Jika user adalah OPD, hanya ambil SKPD miliknya. Jika admin, ambil semua.
-        $skpdList = $user->hasRole('opd') 
-            ? Skpd::where('id_skpd', $user->id_skpd)->get() 
-            : Skpd::orderBy('nm_skpd')->get();
-
-        return view('admin.berita.create', compact('skpdList'));
+        return response()->json([
+            'success' => true,
+            'message' => 'Daftar berita berhasil diambil',
+            'data' => $berita
+        ], 200);
     }
 
     /**
@@ -111,16 +94,22 @@ class BeritaController extends Controller
             }
         }
 
-        return redirect()->route('admin.berita.index')
-            ->with('success', 'Berita berhasil ditambahkan.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Berita berhasil ditambahkan',
+            'data' => $berita
+        ], 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Berita $berita) 
     {
-        //
+        return response()->json([
+            'success' => true,
+            'data' => $berita
+        ]);
     }
 
     /**
@@ -130,7 +119,12 @@ class BeritaController extends Controller
     {
         $berita = Berita::findOrFail($id);
         $skpdList = Skpd::orderBy('nm_skpd')->get();
-        return view('admin.berita.edit', compact('berita', 'skpdList'));
+
+        return response()->json([
+            'success' => true,
+            'data' => $berita,
+            'skpdList' => $skpdList,
+        ], 200);
     }
 
     /**
@@ -191,7 +185,11 @@ class BeritaController extends Controller
             ]);
         }
 
-        return redirect()->route('admin.berita.index')->with('success', 'Berita berhasil diperbarui');
+        return response()->json([
+            'success' => true,
+            'message' => 'Berita berhasil diperbarui',
+            'data' => $berita
+        ], 200);
     }
 
     /**
@@ -199,7 +197,11 @@ class BeritaController extends Controller
      */
     public function destroy(string $id)
     {
-        $berita = Berita::findOrFail($id);
+        $berita = Berita::find($id);
+
+        if (!$berita) {
+            return response()->json(['success' => false, 'message' => 'Berita tidak ditemukan'], 404);
+        }
 
         if ($berita->img_berita && Storage::disk('public')->exists('img_berita/' . $berita->img_berita)) {
             Storage::disk('public')->delete('img_berita/' . $berita->img_berita);
@@ -207,6 +209,9 @@ class BeritaController extends Controller
 
         $berita->delete();
 
-        return redirect()->route('admin.berita.index')->with('success', 'Berita berhasil dihapus');
+        return response()->json([
+            'success' => true,
+            'message' => 'Berita berhasil dihapus'
+        ], 200);
     }
 }

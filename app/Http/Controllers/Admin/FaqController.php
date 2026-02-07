@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Faq;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class FaqController extends Controller
@@ -11,7 +12,7 @@ class FaqController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
         $query = Faq::query();
 
@@ -27,15 +28,10 @@ class FaqController extends Controller
             return response()->json($faqs);
         }
 
-        return view('admin.faq.index', compact('faqs'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('admin.faq.create');
+        return response()->json([
+            'success' => true,
+            'data' => $faqs
+        ], 200);
     }
 
     /**
@@ -50,14 +46,18 @@ class FaqController extends Controller
             'urutan' => 'nullable|integer',
         ]);
 
-        Faq::create([
+        $faq = Faq::create([
             'pertanyaan' => $request->pertanyaan,
             'jawaban' => $request->jawaban,
             'is_active' => $request->has('is_active') ? $request->is_active : true, // Default true if not present or handle checkbox
             'urutan' => $request->urutan,
         ]);
 
-        return redirect()->route('admin.faq.index')->with('success', 'FAQ berhasil ditambahkan.');
+        return response()->json([
+            'success' => true,
+            'message' => 'FAQ berhasil ditambahkan.',
+            'data' => $faq
+        ], 200);
     }
 
     /**
@@ -66,16 +66,10 @@ class FaqController extends Controller
     public function show(string $id)
     {
         $faq = Faq::findOrFail($id);
-        return view('admin.faq.show', compact('faq'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        $faq = Faq::findOrFail($id);
-        return view('admin.faq.edit', compact('faq'));
+        return response()->json([
+            'success' => true,
+            'data' => $faq
+        ], 200);
     }
 
     /**
@@ -98,7 +92,11 @@ class FaqController extends Controller
             'urutan' => $request->urutan,
         ]);
 
-        return redirect()->route('admin.faq.index')->with('success', 'FAQ berhasil diperbarui.');
+        return response()->json([
+            'success' => true,
+            'message' => 'FAQ berhasil diperbarui',
+            'data' => $faq
+        ], 200);
     }
 
     /**
@@ -109,6 +107,9 @@ class FaqController extends Controller
         $faq = Faq::findOrFail($id);
         $faq->delete();
 
-        return redirect()->route('admin.faq.index')->with('success', 'FAQ berhasil dihapus.');
+        return response()->json([
+            'success' => true,
+            'message' => 'FAQ berhasil dihapus.',
+        ], 200);
     }
 }

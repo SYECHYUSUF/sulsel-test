@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Berita;
+use App\Models\DokumenPublik;
 use App\Models\Informasi;
 use App\Models\LogLogin;
 use App\Models\Notification;
@@ -11,96 +12,81 @@ use App\Models\PengajuanKeberatan;
 use App\Models\PermohonanInformasi;
 use App\Models\Skpd;
 use App\Models\Visitor;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(): JsonResponse
     {
         $user = Auth::user();
 
+        // Tentukan data berdasarkan role
         if ($user->hasRole('opd')) {
-            return $this->opdDashboard($user);
+            $data = $this->opdDashboardData($user);
+        } else {
+            $data = $this->adminDashboardData();
         }
 
-        return $this->adminDashboard();
+        return response()->json([
+            'success' => true,
+            'message' => 'Statistik dashboard berhasil dimuat',
+            'role' => $user->hasRole('opd') ? 'opd' : 'admin',
+            'data' => $data
+        ], 200);
     }
 
     /**
      * Admin Dashboard with full statistics
      */
-    private function adminDashboard()
+    private function adminDashboardData(): array
     {
-        $stats = $this->getStatistics();
-        $monthlyTrends = $this->getMonthlyTrends();
-        $recentActivities = $this->getRecentActivities();
-        $permohonanByStatus = $this->getPermohonanByStatus();
-
-        // Ambil 5 login terbaru dengan relasi user
-        $recentLogins = LogLogin::with('user')->orderBy('id', 'desc')->take(5)->get();
-
-        // Ambil dokumen publik yang menunggu verifikasi
-        $pendingDokumen = \App\Models\DokumenPublik::with(['kategori', 'skpd'])
-            ->where('verify', 'n')
-            ->latest('tgl_upload')
-            ->take(5)
-            ->get();
-
-        // Ambil Berita yang menunggu verifikasi
-        $pendingBerita = Berita::with('skpd')
-            ->where('verify', 'n')
-            ->latest('created_at')
-            ->take(5)
-            ->get();
-
-        // Ambil notifikasi terbaru untuk Admin
-        $notifications = Notification::where('to_user_id', Auth::id())
-            ->latest()
-            ->take(5)
-            ->get();
-
-        return view('admin.dashboard.admin', compact(
-            'stats',
-            'monthlyTrends',
-            'recentActivities',
-            'permohonanByStatus',
-            'recentLogins',
-            'recentLogins',
-            'pendingDokumen',
-            'pendingBerita',
-            'notifications'
-        ));
+        return [
+            'stats' => $this->getStatistics(),
+            'monthly_trends' => $this->getMonthlyTrends(),
+            'recent_activities' => $this->getRecentActivities(),
+            'permohonan_by_status' => $this->getPermohonanByStatus(),
+            'recent_logins' => LogLogin::with('user')->orderBy('id', 'desc')->take(5)->get(),
+            'pending_items' => [
+                'dokumen' => DokumenPublik::with(['kategori', 'skpd'])
+                    ->where('verify', 'n')
+                    ->latest('tgl_upload')
+                    ->take(5)
+                    ->get(),
+                'berita' => Berita::with('skpd')
+                    ->where('verify', 'n')
+                    ->latest('created_at')
+                    ->take(5)
+                    ->get(),
+            ],
+            'notifications' => Notification::where('to_user_id', Auth::id())
+                ->latest()
+                ->take(5)
+                ->get(),
+        ];
     }
-
+    
     /**
      * OPD Dashboard with SKPD-filtered statistics
      */
-    private function opdDashboard($user)
+    private function opdDashboardData($user): array
     {
         $idSkpd = $user->id_skpd;
 
-        $stats = $this->getStatistics($idSkpd);
-        $monthlyTrends = $this->getMonthlyTrends($idSkpd);
-        $recentActivities = $this->getRecentActivities($idSkpd);
-        $permohonanByStatus = $this->getPermohonanByStatus($idSkpd);
-
-        // Ambil notifikasi terbaru untuk OPD
-        $notifications = Notification::where(function ($query) use ($user) {
-            $query->where('to_user_id', $user->id)
-                ->orWhere('to_skpd_id', $user->id_skpd);
-        })
-            ->latest()
-            ->take(5)
-            ->get();
-
-        return view('admin.dashboard.opd', compact(
-            'stats',
-            'monthlyTrends',
-            'recentActivities',
-            'permohonanByStatus',
-            'notifications'
-        ));
+        return [
+            'stats' => $this->getStatistics($idSkpd),
+            'monthly_trends' => $this->getMonthlyTrends($idSkpd),
+            'recent_activities' => $this->getRecentActivities($idSkpd),
+            'permohonan_by_status' => $this->getPermohonanByStatus($idSkpd),
+            'notifications' => Notification::where(function ($query) use ($user) {
+                $query->where('to_user_id', $user->id)
+                    ->orWhere('to_skpd_id', $user->id_skpd);
+            })
+                ->latest()
+                ->take(5)
+                ->get(),
+        ];
     }
 
     /**

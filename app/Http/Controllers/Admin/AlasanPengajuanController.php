@@ -11,12 +11,12 @@ class AlasanPengajuanController extends Controller
     public function index()
     {
         $alasanPengajuans = AlasanPengajuan::orderBy('alasan')->get();
-        return view('admin.alasan-pengajuan.index', compact('alasanPengajuans'));
-    }
 
-    public function create()
-    {
-        return view('admin.alasan-pengajuan.create');
+        return response()->json([
+            'success' => true,
+            'message' => 'Alasan pengajuan berhasil dimuat',
+            'data' => $alasanPengajuans
+        ], 200);
     }
 
     public function store(Request $request)
@@ -27,14 +27,11 @@ class AlasanPengajuanController extends Controller
 
         AlasanPengajuan::create($validated);
 
-        return redirect()->route('admin.master-data.index', ['tab' => 'alasan'])
-            ->with('success', 'Alasan pengajuan berhasil ditambahkan.');
-    }
-
-    public function edit($id)
-    {
-        $alasan = AlasanPengajuan::findOrFail($id);
-        return view('admin.alasan-pengajuan.edit', compact('alasan'));
+        return response()->json([
+            'success' => true,
+            'message' => 'Alasan pengajuan berhasil ditambahkan.',
+            'data' => $validated
+        ], 200);
     }
 
     public function update(Request $request, $id)

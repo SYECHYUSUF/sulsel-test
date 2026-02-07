@@ -41,13 +41,12 @@ class BeritaController extends Controller
             })
             ->get();
 
-        // JIKA REQUEST ADALAH AJAX/JSON (Untuk Lazy Load/Alpine)
-        if ($request->wantsJson()) {
-            return response()->json($berita);
-        }
-
-        // Initial Load
-        return view('pages.berita.index', compact('berita', 'categories'));
+       
+        return response()->json([
+            'success' => true,
+            'data' => $berita,
+            'categories' => $categories,
+        ]);
     }
 
     public function show($slug)
@@ -75,6 +74,11 @@ class BeritaController extends Controller
             })
             ->get();
             
-        return view('pages.berita.show', compact('berita', 'recent_news', 'categories'));
+        return response()->json([
+            'success' => true,
+            'data' => $berita,
+            'recent_news' => $recent_news,
+            'categories' => $categories,
+        ]);
     }
 }

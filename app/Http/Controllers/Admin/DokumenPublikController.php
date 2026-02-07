@@ -5,10 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\DokumenPublik;
 use App\Models\Informasi;
-use App\Models\KategoriInformasi;
 use App\Models\Notification;
 use App\Models\User;
-use App\Models\Skpd;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -18,7 +17,7 @@ class DokumenPublikController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
         $user = Auth::user();
         $query = DokumenPublik::with(['kategori', 'skpd']); // Eager loading with SKPD
@@ -73,28 +72,11 @@ class DokumenPublikController extends Controller
         }
 
         $informasi = $query->paginate(10);
-        $kategoriList = KategoriInformasi::where('is_active', 1)->get();
-        $skpdList = $user->hasRole('opd')
-            ? Skpd::where('id_skpd', $user->id_skpd)->get()
-            : Skpd::orderBy('nm_skpd')->get();
 
-        return view('admin.dokumen-publik.index', compact('informasi', 'kategoriList', 'skpdList'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        $user = Auth::user();
-
-        $skpdList = $user->hasRole('opd')
-            ? Skpd::where('id_skpd', $user->id_skpd)->get()
-            : Skpd::orderBy('nm_skpd')->get();
-
-        $kategoriList = KategoriInformasi::where('is_active', 1)->get();
-
-        return view('admin.dokumen-publik.create', compact('skpdList', 'kategoriList'));
+        return response()->json([
+            'success' => true,
+            'data' => $informasi
+        ], 200);
     }
 
     /**
@@ -141,8 +123,11 @@ class DokumenPublikController extends Controller
             }
         }
 
-        return redirect()->route('admin.dokumen-publik.index')
-            ->with('success', 'Dokumen informasi berhasil ditambahkan.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Dokumen informasi berhasil ditambahkan.',
+            'data' => $informasi
+        ], 200);
     }
 
     public function show(string $id)
@@ -155,7 +140,10 @@ class DokumenPublikController extends Controller
             abort(403);
         }
 
-        return view('admin.dokumen-publik.show', compact('informasi'));
+        return response()->json([
+            'success' => true,
+            'data' => $informasi
+        ], 200);
     }
 
     /**
@@ -171,13 +159,10 @@ class DokumenPublikController extends Controller
             abort(403);
         }
 
-        $skpdList = $user->hasRole('opd')
-            ? Skpd::where('id_skpd', $user->id_skpd)->get()
-            : Skpd::orderBy('nm_skpd')->get();
-
-        $kategoriList = KategoriInformasi::where('is_active', 1)->get();
-
-        return view('admin.dokumen-publik.edit', compact('informasi', 'skpdList', 'kategoriList'));
+        return response()->json([
+            'success' => true,
+            'data' => $informasi
+        ], 200);
     }
 
     /**
@@ -211,8 +196,11 @@ class DokumenPublikController extends Controller
 
         $informasi->update($data);
 
-        return redirect()->route('admin.dokumen-publik.index')
-            ->with('success', 'Dokumen informasi berhasil diperbarui.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Dokumen informasi berhasil diperbarui.',
+            'data' => $informasi
+        ], 200);
     }
 
     /**
@@ -228,95 +216,9 @@ class DokumenPublikController extends Controller
 
         $informasi->delete();
 
-        return redirect()->route('admin.dokumen-publik.index')
-            ->with('success', 'Dokumen informasi berhasil dihapus.');
-    }
-
-    /**
-     * Bulk delete informasi
-     */
-    public function bulkDelete(Request $request)
-    {
-        $request->validate([
-            'ids' => 'required|array',
-            'ids.*' => 'exists:tbl_informasi,id_informasi',
-        ]);
-
-        $user = Auth::user();
-        $query = DokumenPublik::whereIn('id_informasi', $request->ids);
-
-        // Security check for OPD users
-        if ($user->hasRole('opd')) {
-            $query->where('id_skpd', $user->id_skpd);
-        }
-
-        $informasiList = $query->get();
-
-        if ($informasiList->isEmpty()) {
-            return redirect()->route('admin.dokumen-publik.index')
-                ->with('error', 'Tidak ada data yang dapat dihapus.');
-        }
-
-        // Delete files and records
-        foreach ($informasiList as $informasi) {
-            if ($informasi->file && Storage::disk('public')->exists($informasi->file)) {
-                Storage::disk('public')->delete($informasi->file);
-            }
-            $informasi->delete();
-        }
-
-        return redirect()->route('admin.dokumen-publik.index')
-            ->with('success', count($informasiList) . ' dokumen berhasil dihapus.');
-    }
-
-    /**
-     * Bulk update verification status
-     */
-    public function bulkUpdateStatus(Request $request)
-    {
-        $request->validate([
-            'ids' => 'required|array',
-            'ids.*' => 'exists:tbl_informasi,id_informasi',
-            'verify' => 'required|in:y,n,t',
-        ]);
-
-        $user = Auth::user();
-        $query = DokumenPublik::whereIn('id_informasi', $request->ids);
-
-        // Security check for OPD users
-        if ($user->hasRole('opd')) {
-            $query->where('id_skpd', $user->id_skpd);
-        }
-
-        $count = $query->update(['verify' => $request->verify]);
-
-        $statusText = match ($request->verify) {
-            'y' => 'Terverifikasi',
-            'n' => 'Pending',
-            't' => 'Ditolak',
-        };
-
-        $type = match ($request->verify) {
-            'y' => 'success',
-            'n' => 'info',
-            't' => 'error',
-        };
-
-        // Notify OPD users for each updated document
-        $updatedDocs = DokumenPublik::whereIn('id_informasi', $request->ids)->get();
-        foreach ($updatedDocs as $doc) {
-            Notification::send([
-                'to_skpd_id' => $doc->id_skpd,
-                'type' => $type,
-                'title' => 'Status Dokumen: ' . $statusText,
-                'message' => 'Dokumen "' . $doc->judul . '" telah ' . strtolower($statusText) . ' oleh admin.',
-                'url' => route('admin.dokumen-publik.show', $doc->id_informasi),
-                'notifiable_id' => $doc->id_informasi,
-                'notifiable_type' => get_class($doc),
-            ]);
-        }
-
-        return redirect()->route('admin.dokumen-publik.index')
-            ->with('success', $count . ' dokumen berhasil diubah menjadi ' . $statusText . '.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Dokumen informasi berhasil dihapus.',
+        ], 200);
     }
 }
