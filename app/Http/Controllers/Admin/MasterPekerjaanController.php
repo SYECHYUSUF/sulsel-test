@@ -4,22 +4,22 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\MasterPekerjaan;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class MasterPekerjaanController extends Controller
 {
-    public function index()
+    public function index(): JsonResponse
     {
         $data = MasterPekerjaan::orderBy('nama_pekerjaan')->get();
-        return view('admin.master-pekerjaan.index', compact('data'));
+
+        return response()->json([
+            'success' => true,
+            'data'    => $data
+        ], 200);
     }
 
-    public function create()
-    {
-        return view('admin.master-pekerjaan.form');
-    }
-
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $validated = $request->validate([
             'nama_pekerjaan' => 'required|string|max:255|unique:master_pekerjaan,nama_pekerjaan',
@@ -30,17 +30,14 @@ class MasterPekerjaanController extends Controller
 
         MasterPekerjaan::create($validated);
 
-        return redirect()->route('admin.master-data.index', ['tab' => 'pekerjaan'])
-            ->with('success', 'Data pekerjaan berhasil ditambahkan.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Data pekerjaan berhasil ditambahkan.',
+            'data'    => $validated
+        ], 200);
     }
 
-    public function edit($id)
-    {
-        $item = MasterPekerjaan::findOrFail($id);
-        return view('admin.master-pekerjaan.form', compact('item'));
-    }
-
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): JsonResponse
     {
         $item = MasterPekerjaan::findOrFail($id);
 
@@ -53,16 +50,21 @@ class MasterPekerjaanController extends Controller
 
         $item->update($validated);
 
-        return redirect()->route('admin.master-data.index', ['tab' => 'pekerjaan'])
-            ->with('success', 'Data pekerjaan berhasil diperbarui.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Data pekerjaan berhasil diperbarui.',
+            'data'    => $validated
+        ], 200);
     }
 
-    public function destroy($id)
+    public function destroy($id): JsonResponse
     {
         $item = MasterPekerjaan::findOrFail($id);
         $item->delete();
 
-        return redirect()->route('admin.master-data.index', ['tab' => 'pekerjaan'])
-            ->with('success', 'Data pekerjaan berhasil dihapus.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Data pekerjaan berhasil dihapus.',
+        ], 200);
     }
 }

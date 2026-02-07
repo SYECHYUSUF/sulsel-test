@@ -9,16 +9,15 @@ use App\Models\PengajuanKeberatan;
 use App\Models\PermohonanInformasi;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class PengajuanKeberatanController extends Controller
 {
-    public function store(StorePengajuanKeberatanRequest $request)
+    public function store(StorePengajuanKeberatanRequest $request): JsonResponse
     {
-        // Validation and sanitization already handled by Form Request
         $validated = $request->validated();
 
         try {
-            // Cari Data Permohonan Asli untuk mendapatkan ID SKPD
             $permohonan = PermohonanInformasi::where('no_pendaftaran', $validated['no_pendaftaran'])->first();
             $id_skpd = $permohonan ? $permohonan->id_skpd : null;
 
@@ -35,7 +34,6 @@ class PengajuanKeberatanController extends Controller
                 'pekerjaan_pemohon' => $validated['pekerjaan_pemohon'],
                 'no_telp_pemohon' => $validated['no_telp_pemohon'],
                 'email_pemohon' => $validated['email_pemohon'],
-                // Kuasa (Optional)
                 'nama_kuasa' => $validated['nama_kuasa'] ?? null,
                 'alamat_kuasa' => $validated['alamat_kuasa'] ?? null,
                 'address_kuasa' => $validated['address_kuasa'] ?? null,
@@ -54,7 +52,6 @@ class PengajuanKeberatanController extends Controller
                 ]);
             }
 
-            // Send notification to all admin users
             $adminUsers = User::whereHas('roles', function ($query) {
                 $query->where('name', 'admin');
             })->get();
@@ -71,16 +68,21 @@ class PengajuanKeberatanController extends Controller
                 ]);
             }
 
-            $msg = 'Pengajuan keberatan berhasil dikirim. Silakan cek status pengajuan secara berkala melalui menu "Cek Status".';
-
-            return redirect()->route('layanan.pengajuan-keberatan')->with('success', $msg);
+            return response()->json([
+                'success' => true,
+                'message' => 'Data domisili berhasil ditambahkan.',
+                'data'    => $pengajuan
+            ], 200);
 
         } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error('Pengajuan Keberatan Error: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat mengirim pengajuan. Silakan coba lagi.')->withInput();
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan saat mengirim pengajuan.'
+            ], 500);
         }
     }
-    public function checkStatus(Request $request)
+
+    public function checkStatus(Request $request): JsonResponse
     {
         $request->validate([
             'email' => 'required|email',
@@ -92,61 +94,48 @@ class PengajuanKeberatanController extends Controller
             ->get();
 
         if ($pengajuan->isEmpty()) {
-            if ($request->expectsJson() || $request->ajax()) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Tidak ada pengajuan keberatan ditemukan dengan email tersebut.'
-                ], 404);
-            }
-            return redirect()->back()->with('error', 'Tidak ada pengajuan keberatan ditemukan dengan email tersebut.');
-        }
-
-        // Transform data untuk menyertakan label status
-        if ($request->expectsJson() || $request->ajax()) {
-            $pengajuan->transform(function ($item) {
-                // Mapping status untuk pengajuan keberatan
-                // Status: 'p' = pending/proses, 'y' = disetujui, 't' = ditolak, 'a' = dijawab
-                $labels = [
-                    'p' => 'Dalam Proses',
-                    'y' => 'Disetujui',
-                    't' => 'Ditolak',
-                    'a' => 'Dijawab',
-                ];
-
-                // Check if feedback is empty/null - override status label
-                if (empty($item->feedback) && $item->status != 't') {
-                    $item->status_label_display = 'Belum Direspon';
-                    $item->display_status_code = 'belum_direspon'; // Custom status for frontend
-                } else {
-                    $item->status_label_display = $labels[$item->status] ?? 'Status Tidak Diketahui';
-                    $item->display_status_code = $item->status;
-                }
-
-                $item->formatted_date = $item->created_at->translatedFormat('d F Y H:i') . ' WITA';
-
-                return $item;
-            });
-
             return response()->json([
-                'success' => true,
-                'data' => $pengajuan
-            ]);
+                'success' => false,
+                'message' => 'Tidak ada pengajuan keberatan ditemukan dengan email tersebut.'
+            ], 404);
         }
 
-        return view('pages.layanan.cek-status-keberatan', compact('pengajuan'));
+        $pengajuan->transform(function ($item) {
+            $labels = [
+                'p' => 'Dalam Proses',
+                'y' => 'Disetujui',
+                't' => 'Ditolak',
+                'a' => 'Dijawab',
+            ];
+
+            if (empty($item->feedback) && $item->status != 't') {
+                $item->status_label_display = 'Belum Direspon';
+                $item->display_status_code = 'belum_direspon';
+            } else {
+                $item->status_label_display = $labels[$item->status] ?? 'Status Tidak Diketahui';
+                $item->display_status_code = $item->status;
+            }
+
+            $item->formatted_date = $item->created_at->translatedFormat('d F Y H:i') . ' WITA';
+
+            return $item;
+        });
+
+        return response()->json([
+            'success' => true,
+            'data'    => $pengajuan
+        ], 200);
     }
 
-    public function formCheckStatus()
-    {
-        return view('pages.layanan.cek-status-keberatan');
-    }
-
-    public function showDetail($no_pendaftaran)
+    public function showDetail($no_pendaftaran): JsonResponse
     {
         $pengajuan = PengajuanKeberatan::with(['alasanPengajuan', 'feedbackBy'])
             ->where('no_pendaftaran', $no_pendaftaran)
             ->firstOrFail();
 
-        return view('pages.layanan.detail-status-keberatan', compact('pengajuan'));
+        return response()->json([
+            'success' => true,
+            'data'    => $pengajuan
+        ], 200);
     }
 }

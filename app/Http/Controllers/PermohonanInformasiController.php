@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePermohonanInformasiRequest;
-use App\Http\Requests\CheckStatusRequest;
 use App\Models\PermohonanInformasi;
+use App\Models\User;
+use App\Models\Notification;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -14,19 +16,19 @@ class PermohonanInformasiController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePermohonanInformasiRequest $request)
+    public function store(StorePermohonanInformasiRequest $request): JsonResponse
     {
-        // Validation and sanitization already handled by Form Request
+        // Validasi otomatis ditangani oleh Form Request
         $validated = $request->validated();
 
         try {
             $data = collect($validated)->except(['foto_ktp', 'website', '_form_timestamp'])->toArray();
             
-            // Handle File Upload with secure filename
+            // Handle File Upload dengan secure filename
             if ($request->hasFile('foto_ktp')) {
                 $file = $request->file('foto_ktp');
                 
-                // Generate secure random filename to prevent path traversal
+                // Generate secure random filename
                 $extension = $file->getClientOriginalExtension();
                 $filename = Str::uuid() . '.' . $extension;
                 
@@ -38,16 +40,16 @@ class PermohonanInformasiController extends Controller
             $data['status'] = PermohonanInformasi::STATUS_PENDING;
             $data['is_cek'] = '0';
             
-            // Create the permohonan
+            // Simpan data permohonan
             $permohonan = PermohonanInformasi::create($data);
 
-            // Send notification to all admin users
-            $adminUsers = \App\Models\User::whereHas('roles', function ($query) {
+            // Kirim notifikasi ke semua admin
+            $adminUsers = User::whereHas('roles', function ($query) {
                 $query->where('name', 'admin');
             })->get();
 
             foreach ($adminUsers as $admin) {
-                \App\Models\Notification::send([
+                Notification::send([
                     'to_user_id' => $admin->id,
                     'type' => 'info',
                     'title' => 'Permohonan Informasi Baru',
@@ -58,25 +60,31 @@ class PermohonanInformasiController extends Controller
                 ]);
             }
 
-            return redirect()->back()->with('success', 'Permohonan informasi berhasil dikirim. Nomor pendaftaran: ' . $permohonan->no_pendaftaran);
+            return response()->json([
+                'success' => true,
+                'message' => 'Permohonan informasi berhasil dikirim.',
+                'data' => [
+                    'id' => $permohonan->id_permohonan,
+                    'no_pendaftaran' => $permohonan->no_pendaftaran,
+                    'nama' => $permohonan->nama,
+                    'status' => 'Menunggu Verifikasi'
+                ]
+            ], 201);
 
         } catch (\Exception $e) {
-            Log::error('Permohonan Informasi Error: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat mengirim permohonan. Silakan coba lagi.')->withInput();
+            Log::error('Permohonan Informasi Store Error: ' . $e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan sistem saat memproses permohonan.',
+                'error' => config('app.debug') ? $e->getMessage() : null
+            ], 500);
         }
     }
 
     /**
-     * Show check progress form.
-     */
-    public function checkProgressForm()
-    {
-        return view('pages.layanan.cek-status-permohonan');
-    }
-
-  
-    /**
      * Check progress by email.
+     * Mengembalikan list permohonan dalam format JSON.
      */
     public function checkProgress(Request $request)
     {
@@ -84,25 +92,21 @@ class PermohonanInformasiController extends Controller
             'email' => 'required|email',
         ]);
 
-        $permohonan = PermohonanInformasi::with(['skpd', 'disposisi.skpd', 'disposisi.respon'])
-            ->where('email', $request->email)
-            ->orderBy('created_at', 'desc')
-            ->get();
+        try {
+            $permohonan = PermohonanInformasi::with(['skpd', 'disposisi.skpd', 'disposisi.respon'])
+                ->where('email', $request->email)
+                ->orderBy('created_at', 'desc')
+                ->get();
 
-        if ($permohonan->isEmpty()) {
-            if ($request->expectsJson() || $request->ajax()) {
+            if ($permohonan->isEmpty()) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Tidak ada permohonan ditemukan dengan email tersebut.'
                 ], 404);
             }
-            return redirect()->back()->with('error', 'Tidak ada permohonan ditemukan dengan email tersebut.');
-        }
 
-        // Perbaikan: Transform data untuk menyertakan label status dan format tanggal
-        if ($request->expectsJson() || $request->ajax()) {
+            // Transform data untuk memperkaya response JSON
             $permohonan->transform(function ($item) {
-                // Mapping status secara manual agar aman jika accessor di model tidak diset ke $appends
                 $labels = [
                     0 => 'Menunggu Verifikasi',
                     1 => 'Diproses',
@@ -113,7 +117,6 @@ class PermohonanInformasiController extends Controller
                 ];
                 
                 $item->status_label = $labels[$item->status] ?? 'Status Tidak Diketahui';
-                // Format tanggal agar konsisten di frontend
                 $item->formatted_date = $item->created_at->translatedFormat('d F Y H:i') . ' WITA';
                 
                 return $item;
@@ -121,10 +124,17 @@ class PermohonanInformasiController extends Controller
 
             return response()->json([
                 'success' => true,
+                'message' => 'Data ditemukan.',
                 'data' => $permohonan
-            ]);
-        }
+            ], 200);
 
-        return view('pages.layanan.cek-status-permohonan', compact('permohonan'));
+        } catch (\Exception $e) {
+            Log::error('Permohonan Informasi Check Error: ' . $e->getMessage());
+            
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan saat mengambil data.'
+            ], 500);
+        }
     }
 }

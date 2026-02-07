@@ -5,29 +5,30 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreSurveyRequest;
 use App\Models\Survey;
 use App\Models\SurveyResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 
 class SurveyController extends Controller
 {
-    public function create()
+    public function create(): JsonResponse
     {
         $questions = Survey::orderBy('urutan')->get();
-        return view('pages.survey.isi-survey', compact('questions'));
+
+        return response()->json([
+            'success' => true,
+            'data'    => $questions
+        ], 200);
     }
 
-    public function store(StoreSurveyRequest $request)
+    public function store(StoreSurveyRequest $request): JsonResponse
     {
-        // Validation and sanitization already handled by Form Request
         $validated = $request->validated();
 
-        // Generate unique code for this submission
         $kode = 'SRV-' . date('Ymd') . '-' . strtoupper(Str::random(6));
 
-        // Get all questions
         $questions = Survey::orderBy('urutan')->get();
 
-        // Store each answer
         foreach ($questions as $question) {
             if (isset($validated['answer'][$question->id])) {
                 SurveyResponse::create([
@@ -44,7 +45,6 @@ class SurveyController extends Controller
             }
         }
 
-        // Store masukan/feedback if provided
         if (!empty($validated['masukan'])) {
             SurveyResponse::create([
                 'kode' => $kode,
@@ -59,10 +59,17 @@ class SurveyController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('success', 'Terima kasih! Survey Anda telah berhasil dikirim dan akan membantu kami meningkatkan kualitas pelayanan.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Terima kasih! Survey Anda telah berhasil dikirim.',
+            'data'    => [
+                'kode' => $kode,
+                'input' => $validated
+            ]
+        ], 200);
     }
 
-    public function showResults()
+    public function showResults(): JsonResponse
     {
         $questions = Survey::where('tipe', 'radio')->orderBy('urutan')->get();
         $options = ['Sangat Baik', 'Baik', 'Cukup Baik', 'Tidak Baik'];
@@ -70,13 +77,13 @@ class SurveyController extends Controller
         $results = [];
         foreach ($questions as $question) {
             $kode_soal = 'Q' . $question->urutan;
-            $totalResponses = \DB::table('tbl_survey')
+            $totalResponses = DB::table('tbl_survey')
                 ->where('kode_soal', $kode_soal)
                 ->count();
             
             $stats = [];
             foreach ($options as $option) {
-                $count = \DB::table('tbl_survey')
+                $count = DB::table('tbl_survey')
                     ->where('kode_soal', $kode_soal)
                     ->where('value', $option)
                     ->count();
@@ -96,6 +103,9 @@ class SurveyController extends Controller
             ];
         }
         
-        return view('pages.survey.hasil-survey', compact('results'));
+        return response()->json([
+            'success' => true,
+            'data'    => $results
+        ], 200);
     }
 }

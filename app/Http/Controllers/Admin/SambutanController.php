@@ -4,14 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Profil;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SambutanController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): JsonResponse
     {
         $profil = Profil::getByTipe('sambutan');
         
@@ -24,18 +26,21 @@ class SambutanController extends Controller
             ]);
         }
         
-        return view('admin.sambutan.index', compact('profil'));
+        return response()->json([
+            'success' => true,
+            'data'    => $profil
+        ], 200);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $request->validate([
             'nm_profil' => 'required|string|max:100',
             'deskripsi' => 'required',
-            'foto_kepala' => 'nullable|image|mimes:jpg,jpeg,png|max:5120', // 5MB max
+            'foto_kepala' => 'nullable|image|mimes:jpg,jpeg,png|max:5120',
         ]);
 
         $data = [
@@ -45,13 +50,11 @@ class SambutanController extends Controller
             'tipe' => 'sambutan',
         ];
 
-        // Handle foto kepala upload
         if ($request->hasFile('foto_kepala')) {
             $profil = Profil::where('tipe', 'sambutan')->first();
             
-            // Delete old file if exists
-            if ($profil && $profil->foto_kepala && \Storage::disk('public')->exists($profil->foto_kepala)) {
-                \Storage::disk('public')->delete($profil->foto_kepala);
+            if ($profil && $profil->foto_kepala && Storage::disk('public')->exists($profil->foto_kepala)) {
+                Storage::disk('public')->delete($profil->foto_kepala);
             }
             
             $file = $request->file('foto_kepala');
@@ -60,12 +63,15 @@ class SambutanController extends Controller
             $data['foto_kepala'] = $path;
         }
 
-        Profil::updateOrCreate(
+        $item = Profil::updateOrCreate(
             ['tipe' => 'sambutan'],
             $data
         );
 
-        return redirect()->route('admin.sambutan.index')
-            ->with('success', 'Sambutan berhasil diperbarui.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Sambutan berhasil diperbarui.',
+            'data'    => $item
+        ], 200);
     }
 }

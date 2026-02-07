@@ -4,11 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Ikphn;
-use App\Models\Notification;
-use App\Models\Skpd;
-use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class IkphnController extends Controller
@@ -16,7 +13,7 @@ class IkphnController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
         $query = Ikphn::query();
 
@@ -54,17 +51,12 @@ class IkphnController extends Controller
             $query->latest();
         }
 
-        $items = $query->paginate(10);
+        $ikphns = $query->paginate(10);
 
-        return view('admin.ikphn.index', compact('items'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('admin.ikphn.create');
+        return response()->json([
+            'success' => true,
+            'data' => $ikphns
+        ], 200);
     }
 
     /**
@@ -88,8 +80,11 @@ class IkphnController extends Controller
 
         Ikphn::create($data);
 
-        return redirect()->route('admin.ikphns.index')
-            ->with('success', 'Data Informasi Pengadaan berhasil ditambahkan.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Data Informasi Pengadaan berhasil ditambahkan.',
+            'data' => $data
+        ], 200);
     }
 
     /**
@@ -97,8 +92,12 @@ class IkphnController extends Controller
      */
     public function edit(string $id)
     {
-        $item = Ikphn::findOrFail($id);
-        return view('admin.ikphn.edit', compact('item'));
+        $ikphn = Ikphn::findOrFail($id);
+
+        return response()->json([
+            'success' => true,
+            'data' => $ikphn
+        ], 200);
     }
 
     /**
@@ -127,8 +126,11 @@ class IkphnController extends Controller
 
         $item->update($data);
 
-        return redirect()->route('admin.ikphns.index')
-            ->with('success', 'Data Informasi Pengadaan berhasil diperbarui.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Data Informasi Pengadaan berhasil diperbarui.',
+            'data' => $data
+        ], 200);
     }
 
     /**
@@ -144,7 +146,9 @@ class IkphnController extends Controller
 
         $item->delete();
 
-        return redirect()->route('admin.ikphns.index')
-            ->with('success', 'Data berhasil dihapus.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Data berhasil dihapus.',
+        ], 200);
     }
 }

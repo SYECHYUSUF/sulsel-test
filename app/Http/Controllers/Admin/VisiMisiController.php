@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Profil;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class VisiMisiController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): JsonResponse
     {
         $profil = Profil::getByTipe('visi-misi');
         
@@ -24,20 +25,23 @@ class VisiMisiController extends Controller
             ]);
         }
         
-        return view('admin.visi-misi.index', compact('profil'));
+        return response()->json([
+            'success' => true,
+            'data'    => $profil
+        ], 200);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
-        $request->validate([
+        $validated = $request->validate([
             'nm_profil' => 'required|string|max:100',
             'deskripsi' => 'required',
         ]);
 
-        Profil::updateOrCreate(
+        $profil = Profil::updateOrCreate(
             ['tipe' => 'visi-misi'],
             [
                 'nm_profil' => $request->nm_profil,
@@ -47,7 +51,10 @@ class VisiMisiController extends Controller
             ]
         );
 
-        return redirect()->route('admin.visi-misi.index')
-            ->with('success', 'Visi Misi berhasil diperbarui.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Visi Misi berhasil diperbarui.',
+            'data'    => $profil
+        ], 200);
     }
 }

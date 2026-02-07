@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\MatriksDip;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class MatriksDIPController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
         $query = MatriksDip::query();
 
@@ -22,15 +23,13 @@ class MatriksDIPController extends Controller
 
         $items = $query->paginate(10);
 
-        return view('admin.matriks-dip.index', compact('items'));
+        return response()->json([
+            'success' => true,
+            'data'    => $items
+        ], 200);
     }
 
-    public function create()
-    {
-        return view('admin.matriks-dip.create');
-    }
-
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $validated = $request->validate([
             'a' => 'nullable|string|max:255',
@@ -43,19 +42,26 @@ class MatriksDIPController extends Controller
             'h' => 'nullable|string|max:255',
         ]);
 
-        MatriksDip::create($validated);
+        $data = MatriksDip::create($validated);
 
-        return redirect()->route('admin.matriks-dip.index')
-            ->with('success', 'Informasi Daftar Publik berhasil ditambahkan.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Informasi Daftar Publik berhasil ditambahkan.',
+            'data'    => $data
+        ], 200);
     }
 
-    public function edit(string $id)
+    public function show(string $id): JsonResponse
     {
         $item = MatriksDip::findOrFail($id);
-        return view('admin.matriks-dip.edit', compact('item'));
+
+        return response()->json([
+            'success' => true,
+            'data'    => $item
+        ], 200);
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id): JsonResponse
     {
         $item = MatriksDip::findOrFail($id);
 
@@ -72,16 +78,22 @@ class MatriksDIPController extends Controller
 
         $item->update($validated);
 
-        return redirect()->route('admin.matriks-dip.index')
-            ->with('success', 'Informasi Daftar Publik berhasil diperbarui.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Informasi Daftar Publik berhasil diperbarui.',
+            'data'    => $item
+        ], 200);
     }
 
-    public function destroy(string $id)
+    public function destroy(string $id): JsonResponse
     {
         $item = MatriksDip::findOrFail($id);
         $item->delete();
 
-        return redirect()->route('admin.matriks-dip.index')
-            ->with('success', 'Informasi Daftar Publik berhasil dihapus.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Informasi Daftar Publik berhasil dihapus.',
+            'data'    => null
+        ], 200);
     }
 }

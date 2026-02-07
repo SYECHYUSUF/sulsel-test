@@ -5,33 +5,29 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Sosmed;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class SosmedController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): JsonResponse
     {
         $sosmeds = Sosmed::orderBy('urutan')->get();
-        return view('admin.sosmed.index', compact('sosmeds'));
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        $predefinedIcons = Sosmed::getPredefinedIcons();
-        return view('admin.sosmed.create', compact('predefinedIcons'));
+        return response()->json([
+            'success' => true,
+            'data'    => $sosmeds
+        ], 200);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
-        $request->validate([
+        $validated = $request->validate([
             'sosmed' => 'required|string|max:100|unique:tbl_sosmed,sosmed',
             'link_sosmed' => 'required|url',
             'icon_sosmed' => 'required|string',
@@ -39,10 +35,9 @@ class SosmedController extends Controller
             'judul' => 'nullable|string|max:100',
         ]);
 
-        // Auto-increment logic for id_sosmed if not handled by DB
         $id = Sosmed::max('id_sosmed') + 1;
 
-        Sosmed::create([
+        $data = Sosmed::create([
             'id_sosmed' => $id,
             'sosmed' => $request->sosmed,
             'link_sosmed' => $request->link_sosmed,
@@ -51,25 +46,32 @@ class SosmedController extends Controller
             'judul' => $request->judul ?? $request->sosmed,
         ]);
 
-        return redirect()->route('admin.social-links.index')->with('success', 'Media Sosial berhasil ditambahkan.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Media Sosial berhasil ditambahkan.',
+            'data'    => $data
+        ], 200);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Display the specified resource.
      */
-    public function edit(string $id)
+    public function show(string $id): JsonResponse
     {
         $sosmed = Sosmed::findOrFail($id);
-        $predefinedIcons = Sosmed::getPredefinedIcons();
-        return view('admin.sosmed.edit', compact('sosmed', 'predefinedIcons'));
+
+        return response()->json([
+            'success' => true,
+            'data'    => $sosmed
+        ], 200);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id): JsonResponse
     {
-        $request->validate([
+        $validated = $request->validate([
             'sosmed' => 'required|string|max:100|unique:tbl_sosmed,sosmed,' . $id . ',id_sosmed',
             'link_sosmed' => 'required|url',
             'icon_sosmed' => 'required|string',
@@ -86,17 +88,25 @@ class SosmedController extends Controller
             'judul' => $request->judul ?? $request->sosmed,
         ]);
 
-        return redirect()->route('admin.social-links.index')->with('success', 'Media Sosial berhasil diperbarui.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Media Sosial berhasil diperbarui.',
+            'data'    => $sosmed
+        ], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): JsonResponse
     {
         $sosmed = Sosmed::findOrFail($id);
         $sosmed->delete();
 
-        return redirect()->route('admin.social-links.index')->with('success', 'Media Sosial berhasil dihapus.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Media Sosial berhasil dihapus.',
+            'data'    => null
+        ], 200);
     }
 }

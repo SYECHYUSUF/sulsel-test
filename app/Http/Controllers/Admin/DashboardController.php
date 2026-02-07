@@ -32,7 +32,6 @@ class DashboardController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Statistik dashboard berhasil dimuat',
-            'role' => $user->hasRole('opd') ? 'opd' : 'admin',
             'data' => $data
         ], 200);
     }

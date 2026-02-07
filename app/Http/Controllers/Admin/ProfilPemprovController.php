@@ -5,13 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Profil;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Storage;
 
 class ProfilPemprovController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): JsonResponse
     {
         $profil = Profil::getByTipe('pemerintah');
 
@@ -24,13 +26,16 @@ class ProfilPemprovController extends Controller
             ]);
         }
 
-        return view('admin.profil-pemprov.index', compact('profil'));
+        return response()->json([
+            'success' => true,
+            'data'    => $profil
+        ], 200);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $request->validate([
             'nm_profil' => 'required|string|max:100',
@@ -59,8 +64,8 @@ class ProfilPemprovController extends Controller
         // Handle foto gubernur upload
         if ($request->hasFile('foto_gubernur')) {
             // Delete old file if exists
-            if ($profil && $profil->foto_gubernur && \Storage::disk('public')->exists($profil->foto_gubernur)) {
-                \Storage::disk('public')->delete($profil->foto_gubernur);
+            if ($profil && $profil->foto_gubernur && Storage::disk('public')->exists($profil->foto_gubernur)) {
+                Storage::disk('public')->delete($profil->foto_gubernur);
             }
 
             $file = $request->file('foto_gubernur');
@@ -72,8 +77,8 @@ class ProfilPemprovController extends Controller
         // Handle foto wakil upload
         if ($request->hasFile('foto_wakil')) {
             // Delete old file if exists
-            if ($profil && $profil->foto_wakil && \Storage::disk('public')->exists($profil->foto_wakil)) {
-                \Storage::disk('public')->delete($profil->foto_wakil);
+            if ($profil && $profil->foto_wakil && Storage::disk('public')->exists($profil->foto_wakil)) {
+                Storage::disk('public')->delete($profil->foto_wakil);
             }
 
             $file = $request->file('foto_wakil');
@@ -82,12 +87,15 @@ class ProfilPemprovController extends Controller
             $data['foto_wakil'] = $path;
         }
 
-        Profil::updateOrCreate(
+        $updatedProfil = Profil::updateOrCreate(
             ['tipe' => 'pemerintah'],
             $data
         );
 
-        return redirect()->route('admin.profil-pemprov.index')
-            ->with('success', 'Profil Pemerintah Sulawesi Selatan berhasil diperbarui.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Profil Pemerintah Sulawesi Selatan berhasil diperbarui.',
+            'data'    => $updatedProfil
+        ], 200);
     }
 }

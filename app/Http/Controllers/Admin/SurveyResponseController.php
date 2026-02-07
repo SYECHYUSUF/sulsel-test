@@ -6,13 +6,14 @@ use App\Models\SurveyResponse;
 use App\Models\Survey;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 
 class SurveyResponseController extends Controller
 {
     /**
      * Display a listing of survey responses.
      */
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
         $search = $request->get('search');
         
@@ -30,19 +31,25 @@ class SurveyResponseController extends Controller
         
         $responses = $query->orderBy('created_at', 'desc')->paginate(15);
         
-        return view('admin.survey-responses.index', compact('responses', 'search'));
+        return response()->json([
+            'success' => true,
+            'data'    => $responses
+        ], 200);
     }
 
     /**
      * Display the specified survey response.
      */
-    public function show($kode)
+    public function show($kode): JsonResponse
     {
         // Get all responses for this submission
         $responses = SurveyResponse::where('kode', $kode)->get();
         
         if ($responses->isEmpty()) {
-            abort(404, 'Survey response not found');
+            return response()->json([
+                'success' => false,
+                'message' => 'Survey response not found'
+            ], 404);
         }
         
         // Get respondent info from first response
@@ -60,24 +67,39 @@ class SurveyResponseController extends Controller
                 $answersMap[$response->kode_soal] = $response->value;
             }
         }
+
+        $data = [
+            'respondent' => $respondent,
+            'questions' => $questions,
+            'answersMap' => $answersMap,
+            'kode' => $kode
+        ];
         
-        return view('admin.survey-responses.show', compact('respondent', 'questions', 'answersMap', 'kode'));
+        return response()->json([
+            'success' => true,
+            'data'    => $data
+        ], 200);
     }
 
     /**
      * Remove the specified survey response from storage.
      */
-    public function destroy($kode)
+    public function destroy($kode): JsonResponse
     {
         // Delete all responses with this code
         $deleted = SurveyResponse::where('kode', $kode)->delete();
         
         if ($deleted) {
-            return redirect()->route('admin.survey-responses.index')
-                ->with('success', 'Survey berhasil dihapus.');
+            return response()->json([
+                'success' => true,
+                'message' => 'Survey berhasil dihapus.',
+                'data'    => null
+            ], 200);
         }
         
-        return redirect()->route('admin.survey-responses.index')
-            ->with('error', 'Survey tidak ditemukan.');
+        return response()->json([
+            'success' => false,
+            'message' => 'Survey tidak ditemukan.'
+        ], 404);
     }
 }

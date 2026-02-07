@@ -9,15 +9,6 @@ use App\Models\PengajuanKeberatan;
 class StatusCheckController extends Controller
 {
     /**
-     * Show unified status check form.
-     */
-    public function showForm(Request $request)
-    {
-        $type = $request->query('type', 'permohonan'); // Default to permohonan
-        return view('pages.layanan.cek-status', compact('type'));
-    }
-
-    /**
      * Check status for both permohonan and keberatan.
      */
     public function checkStatus(Request $request)

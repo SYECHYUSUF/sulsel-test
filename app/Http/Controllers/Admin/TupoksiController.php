@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Profil;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class TupoksiController extends Controller
@@ -11,7 +12,7 @@ class TupoksiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): JsonResponse
     {
         $profil = Profil::getByTipe('tupoksi');
         
@@ -24,20 +25,23 @@ class TupoksiController extends Controller
             ]);
         }
         
-        return view('admin.tupoksi.index', compact('profil'));
+        return response()->json([
+            'success' => true,
+            'data'    => $profil
+        ], 200);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $request->validate([
             'nm_profil' => 'required|string|max:100',
             'deskripsi' => 'required',
         ]);
 
-        Profil::updateOrCreate(
+        $profil = Profil::updateOrCreate(
             ['tipe' => 'tupoksi'],
             [
                 'nm_profil' => $request->nm_profil,
@@ -47,7 +51,10 @@ class TupoksiController extends Controller
             ]
         );
 
-        return redirect()->route('admin.tupoksi.index')
-            ->with('success', 'Tupoksi berhasil diperbarui.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Tupoksi berhasil diperbarui.',
+            'data'    => $profil
+        ], 200);
     }
 }

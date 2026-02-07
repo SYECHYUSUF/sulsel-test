@@ -4,22 +4,22 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Survey;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class SurveyQuestionController extends Controller
 {
-    public function index()
+    public function index(): JsonResponse
     {
-        $questions = Survey::orderBy('urutan')->paginate(20);
-        return view('admin.survey-questions.index', compact('questions'));
+        $questions = Survey::orderBy('urutan')->get();
+
+        return response()->json([
+            'success' => true,
+            'data'    => $questions
+        ], 200);
     }
 
-    public function create()
-    {
-        return view('admin.survey-questions.create');
-    }
-
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $validated = $request->validate([
             'urutan' => 'required|integer|min:1',
@@ -27,18 +27,24 @@ class SurveyQuestionController extends Controller
             'tipe' => 'required|in:radio,textarea'
         ]);
 
-        Survey::create($validated);
+        $survey = Survey::create($validated);
 
-        return redirect()->route('admin.survey-questions.index')
-            ->with('success', 'Pertanyaan berhasil ditambahkan!');
+        return response()->json([
+            'success' => true,
+            'message' => 'Pertanyaan berhasil ditambahkan!',
+            'data'    => $survey
+        ], 201);
     }
 
-    public function edit(Survey $surveyQuestion)
+    public function show(Survey $surveyQuestion): JsonResponse
     {
-        return view('admin.survey-questions.edit', compact('surveyQuestion'));
+        return response()->json([
+            'success' => true,
+            'data'    => $surveyQuestion
+        ], 200);
     }
 
-    public function update(Request $request, Survey $surveyQuestion)
+    public function update(Request $request, Survey $surveyQuestion): JsonResponse
     {
         $validated = $request->validate([
             'urutan' => 'required|integer|min:1',
@@ -48,15 +54,20 @@ class SurveyQuestionController extends Controller
 
         $surveyQuestion->update($validated);
 
-        return redirect()->route('admin.survey-questions.index')
-            ->with('success', 'Pertanyaan berhasil diperbarui!');
+        return response()->json([
+            'success' => true,
+            'message' => 'Pertanyaan berhasil diperbarui!',
+            'data'    => $surveyQuestion
+        ], 200);
     }
 
-    public function destroy(Survey $surveyQuestion)
+    public function destroy(Survey $surveyQuestion): JsonResponse
     {
         $surveyQuestion->delete();
 
-        return redirect()->route('admin.survey-questions.index')
-            ->with('success', 'Pertanyaan berhasil dihapus!');
+        return response()->json([
+            'success' => true,
+            'message' => 'Pertanyaan berhasil dihapus!'
+        ], 200);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\SlideBanner;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -12,24 +13,20 @@ class SlideBannerController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): JsonResponse
     {
         $slides = SlideBanner::latest()->paginate(10);
-        return view('admin.slide-banner.index', compact('slides'));
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('admin.slide-banner.create');
+        return response()->json([
+            'success' => true,
+            'data'    => $slides
+        ], 200);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $request->validate([
             'nm_slide' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:20480',
@@ -44,33 +41,32 @@ class SlideBannerController extends Controller
             $data['nm_slide'] = $filename;
         }
 
-        SlideBanner::create($data);
+        $slide = SlideBanner::create($data);
 
-        return redirect()->route('admin.slide-banner.index')
-            ->with('success', 'Banner berhasil ditambahkan.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Banner berhasil ditambahkan.',
+            'data'    => $slide
+        ], 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        abort(404);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function show(string $id): JsonResponse
     {
         $slide = SlideBanner::findOrFail($id);
-        return view('admin.slide-banner.edit', compact('slide'));
+
+        return response()->json([
+            'success' => true,
+            'data'    => $slide
+        ], 200);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id): JsonResponse
     {
         $slide = SlideBanner::findOrFail($id);
 
@@ -94,14 +90,17 @@ class SlideBannerController extends Controller
 
         $slide->update($data);
 
-        return redirect()->route('admin.slide-banner.index')
-            ->with('success', 'Banner berhasil diperbarui.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Banner berhasil diperbarui.',
+            'data'    => $slide
+        ], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): JsonResponse
     {
         $slide = SlideBanner::findOrFail($id);
 
@@ -111,7 +110,9 @@ class SlideBannerController extends Controller
 
         $slide->delete();
 
-        return redirect()->route('admin.slide-banner.index')
-            ->with('success', 'Banner berhasil dihapus.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Banner berhasil dihapus.'
+        ], 200);
     }
 }

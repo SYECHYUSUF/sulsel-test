@@ -4,22 +4,21 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\MasterDomisili;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class MasterDomisiliController extends Controller
 {
-    public function index()
+    public function index(): JsonResponse
     {
         $data = MasterDomisili::orderBy('nama_daerah')->get();
-        return view('admin.master-domisili.index', compact('data'));
+        return response()->json([
+            'success' => true,
+            'data'    => $data
+        ], 200);
     }
 
-    public function create()
-    {
-        return view('admin.master-domisili.form');
-    }
-
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $validated = $request->validate([
             'nama_daerah' => 'required|string|max:255',
@@ -31,17 +30,24 @@ class MasterDomisiliController extends Controller
 
         MasterDomisili::create($validated);
 
-        return redirect()->route('admin.master-data.index', ['tab' => 'domisili'])
-            ->with('success', 'Data domisili berhasil ditambahkan.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Data domisili berhasil ditambahkan.',
+            'data'    => $validated
+        ], 200);
     }
 
-    public function edit($id)
+    public function show($id): JsonResponse
     {
-        $item = MasterDomisili::findOrFail($id);
-        return view('admin.master-domisili.form', compact('item'));
+        $data = MasterDomisili::findOrFail($id);
+
+        return response()->json([
+            'success' => true,
+            'data'    => $data
+        ], 200);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): JsonResponse
     {
         $item = MasterDomisili::findOrFail($id);
 
@@ -55,8 +61,11 @@ class MasterDomisiliController extends Controller
 
         $item->update($validated);
 
-        return redirect()->route('admin.master-data.index', ['tab' => 'domisili'])
-            ->with('success', 'Data domisili berhasil diperbarui.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Data domisili berhasil diperbarui.',
+            'data'    => $validated
+        ], 200);
     }
 
     public function destroy($id)
@@ -64,7 +73,9 @@ class MasterDomisiliController extends Controller
         $item = MasterDomisili::findOrFail($id);
         $item->delete();
 
-        return redirect()->route('admin.master-data.index', ['tab' => 'domisili'])
-            ->with('success', 'Data domisili berhasil dihapus.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Data domisili berhasil dihapus.',
+        ], 200);
     }
 }

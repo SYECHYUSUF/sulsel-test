@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Profil;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class ProfilPpidController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): JsonResponse
     {
         $profil = Profil::getByTipe('profil-ppid');
         
@@ -24,20 +25,23 @@ class ProfilPpidController extends Controller
             ]);
         }
         
-        return view('admin.profil-ppid.index', compact('profil'));
+        return response()->json([
+            'success' => true,
+            'data'    => $profil
+        ], 200);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
-        $request->validate([
+        $validated = $request->validate([
             'nm_profil' => 'required|string|max:100',
             'deskripsi' => 'required',
         ]);
 
-        Profil::updateOrCreate(
+        $profil = Profil::updateOrCreate(
             ['tipe' => 'profil-ppid'],
             [
                 'nm_profil' => $request->nm_profil,
@@ -47,7 +51,10 @@ class ProfilPpidController extends Controller
             ]
         );
 
-        return redirect()->route('admin.profil-ppid.index')
-            ->with('success', 'Profil PPID berhasil diperbarui.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Profil PPID berhasil diperbarui.',
+            'data'    => $profil
+        ], 200);
     }
 }

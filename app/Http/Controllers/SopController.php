@@ -5,49 +5,89 @@ namespace App\Http\Controllers;
 use App\Models\Sop;
 use App\Models\DownloadLog;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Http\JsonResponse;
 
 class SopController extends Controller
 {
     /**
-     * Menampilkan daftar SOP.
+     * Menampilkan daftar SOP dalam format JSON.
      */
-
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
-        $query = Sop::query();
+        try {
+            $query = Sop::query();
 
-        if ($request->filled('search')) {
-            $query->where('judul', 'like', '%' . $request->search . '%');
+            if ($request->filled('search')) {
+                $query->where('judul', 'ilike', '%' . $request->search . '%');
+            }
+
+            $sopData = $query->latest()->paginate(10);
+
+            return response()->json([
+                'success' => true,
+                'data'    => $sopData
+            ], 200);
+
+        } catch (\Exception $e) {
+            Log::error('SOP Index Error: ' . $e->getMessage());
+            
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal memuat daftar SOP.'
+            ], 500);
         }
-
-        $sopData = $query->latest()->paginate(10);
-
-        return view('pages.layanan.sop', compact('sopData'));
     }
 
+    /**
+     * Mengunduh file SOP.
+     * Menggunakan response()->download() untuk memperbaiki error 'Undefined method download' pada Storage facade.
+     */
     public function download($id)
     {
-        $sop = Sop::findOrFail($id);
+        try {
+            $sop = Sop::find($id);
 
-        // Increment download count (handle NULL by treating as 0)
-        $sop->update([
-            'jumlah_download' => \DB::raw('COALESCE(jumlah_download, 0) + 1')
-        ]);
+            if (!$sop) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Data SOP tidak ditemukan.'
+                ], 404);
+            }
 
-        // Log the download
-        DownloadLog::create([
-            'ip_address' => request()->ip(),
-            'user_agent' => request()->userAgent(),
-            'downloadable_type' => Sop::class,
-            'downloadable_id' => $sop->getKey(), // Safe access to primary key
-        ]);
+            $sop->update([
+                'jumlah_download' => DB::raw('COALESCE(jumlah_download, 0) + 1')
+            ]);
 
-        $filePath = 'sop/' . $sop->file;
+            DownloadLog::create([
+                'ip_address' => request()->ip(),
+                'user_agent' => request()->userAgent(),
+                'downloadable_type' => Sop::class,
+                'downloadable_id' => $sop->getKey(),
+            ]);
 
-        if (!\Storage::disk('public')->exists($filePath)) {
-            abort(404, 'File not found');
+            $filePath = storage_path('app/public/sop/' . $sop->file);
+
+            if (!file_exists($filePath)) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Berkas fisik tidak ditemukan di storage.'
+                ], 404);
+            }
+
+            return response()->download(
+                $filePath, 
+                $sop->judul . '.' . pathinfo($sop->file, PATHINFO_EXTENSION)
+            );
+
+        } catch (\Exception $e) {
+            Log::error('SOP Download Error: ' . $e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan saat memproses unduhan.'
+            ], 500);
         }
-
-        return \Storage::disk('public')->download($filePath, $sop->judul . '.' . pathinfo($sop->file, PATHINFO_EXTENSION));
     }
 }
