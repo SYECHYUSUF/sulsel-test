@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\DokumenPublik;
 use App\Models\MasterTahun;
 use App\Models\DownloadLog;
+use App\Models\Ikphn;
 use App\Models\KategoriInformasi;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -53,58 +54,11 @@ class DokumenPublikController extends Controller
     }
 
     /**
-     * Reusable logic for document categories.
-     */
-    private function getDocumentsByCategory(Request $request, int $categoryId): JsonResponse
-    {
-        $validator = Validator::make($request->all(), [
-            'search' => 'nullable|string|max:255',
-            'tahun'  => 'nullable|integer|digits:4',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
-        }
-
-        $search = $request->query('search');
-        $tahun = $request->query('tahun');
-        
-        $availableYears = MasterTahun::whereNotNull('waktu')
-            ->orderBy('waktu', 'desc')
-            ->pluck('waktu'); // Hanya ambil tahunnya saja untuk efisiensi API
-
-        $informasiData = DokumenPublik::with(['kategori', 'skpd'])
-            ->where('id_kat_info', $categoryId)
-            ->where('verify', 'y')
-            ->when($search, function ($query, $search) {
-                return $query->where(function ($q) use ($search) {
-                    $q->where('judul', 'LIKE', "%{$search}%")
-                        ->orWhere('ket', 'LIKE', "%{$search}%");
-                });
-            })
-            ->when($tahun, function ($query, $tahun) {
-                return $query->whereYear('tgl_upload', $tahun);
-            })
-            ->paginate(10);
-
-        return response()->json([
-            'success' => true,
-            'data' => $informasiData,
-            'available_years' => $availableYears,
-            'filters' => [
-                'search' => $search,
-                'tahun' => $tahun
-            ]
-        ]);
-    }
-
-    /**
      * Ambil data dokumen berdasarkan slug kategori dengan filter pencarian dan tahun.
      */
-    public function getByCategory(Request $request, $id): JsonResponse
+    public function getByCategory(Request $request, $slug): JsonResponse
     {
-        // Validasi keberadaan kategori berdasarkan ID
-        $kategori = KategoriInformasi::find($id);
+        $kategori = KategoriInformasi::where('slug', $slug)->firstOrFail();
 
         if (!$kategori) {
             return response()->json([
@@ -115,7 +69,7 @@ class DokumenPublikController extends Controller
 
         // Query dokumen dengan relasi terkait
         $query = DokumenPublik::with(['skpd', 'kategori'])
-            ->where('id_kat_info', $id)
+            ->where('id_kat_info', $kategori->id)
             ->where('verify', 'y');
 
         // Filter Pencarian (Judul/Keterangan)
@@ -163,6 +117,29 @@ class DokumenPublikController extends Controller
         return response()->json([
             'success' => true,
             'data' => $informasi
+        ]);
+    }
+
+    /**
+     * Daftar pengadaan (Ikphn).
+     */
+    public function pengadaan(Request $request): JsonResponse
+    {
+        $search = $request->query('search');
+
+        $ikphns = Ikphn::query()
+            ->when($search, function ($query, $search) {
+                return $query->where('nama_jabatan', 'ilike', "%{$search}%");
+            })
+            ->latest()
+            ->paginate(10);
+
+        return response()->json([
+            'success' => true,
+            'data' => $ikphns,
+            'filters' => [
+                'search' => $search
+            ]
         ]);
     }
 

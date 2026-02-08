@@ -15,7 +15,6 @@ class SqlFileSeeder extends Seeder
             'users.sql',
             'daftar-informasi-publik.sql',
             'ikphns.sql',
-            'informasi.sql',
             'permohonan-informasi.sql',
             'skpd.sql',
             'sops.sql',

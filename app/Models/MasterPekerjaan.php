@@ -30,6 +30,6 @@ class MasterPekerjaan extends Model
      */
     public function permohonanInformasi()
     {
-        return $this->hasMany(\App\Models\PermohonanInformasi::class, 'pekerjaan_id');
+        return $this->hasMany(PermohonanInformasi::class, 'pekerjaan_id');
     }
 }

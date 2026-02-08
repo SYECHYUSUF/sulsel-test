@@ -5,11 +5,21 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Public\AuthController as PublicAuthController;
 use App\Http\Controllers\Public\DokumenPublikController;
+use App\Http\Controllers\Public\MasterDataController;
+use App\Http\Controllers\Public\MatriksDipController;
 
 Route::post('/auth/login', [PublicAuthController::class, 'login']);
 Route::post('/track-visitor', 'VisitorController@track');
 
-Route::get('/public/informasi/kategori/{id}', [DokumenPublikController::class, 'getByCategory']);
+
+// Master Data
+Route::get('/public/informasi/tahun', [MasterDataController::class, 'tahun']);
+Route::get('/public/informasi/kategori', [MasterDataController::class, 'kategori']);
+Route::get('/public/domisili', [MasterDataController::class, 'domisili']);
+Route::get('/public/pekerjaan', [MasterDataController::class, 'pekerjaan']);
+Route::get('/public/alasan-pengajuan', [MasterDataController::class, 'alasanPengajuan']);
+
+Route::get('/public/informasi/kategori/{slug}', [DokumenPublikController::class, 'getByCategory']);
 Route::get('/public/informasi/detail/{id}', [DokumenPublikController::class, 'show']);
 Route::get('/public/informasi/download/{id}', [DokumenPublikController::class, 'download']);
 
@@ -18,6 +28,8 @@ Route::namespace('App\Http\Controllers\Public')->prefix('public')->group(functio
     Route::apiResource('/berita', 'BeritaController');
     Route::apiResource('/matriks-dip', 'MatriksDipController');
     Route::apiResource('/skpd', 'SkpdController');
+
+    Route::get('/informasi/tahun/{tahun}', [MatriksDipController::class, 'tahun']);
 });
 
 // --- Rute Terproteksi (Sanctum) ---

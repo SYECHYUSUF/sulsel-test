@@ -36,6 +36,7 @@ return new class extends Migration {
         Schema::create('tbl_kat_informasi', function (Blueprint $table) {
             $table->integer('id_kat_info')->autoIncrement();
             $table->string('nm_kat_info');
+            $table->string('slug');
             $table->string('icon');
             $table->integer('is_active')->default(1);
             $table->timestamps();

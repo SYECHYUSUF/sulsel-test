@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
-use App\Models\Ikphn;
 use App\Models\MatriksDip;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -62,29 +61,6 @@ class MatriksDipController extends Controller
             'success' => true,
             'tahun' => $tahun,
             'data' => $matriksDip,
-            'filters' => [
-                'search' => $search
-            ]
-        ]);
-    }
-
-    /**
-     * Ambil daftar pengadaan (Ikphn).
-     */
-    public function pengadaan(Request $request): JsonResponse
-    {
-        $search = $request->query('search');
-
-        $ikphns = Ikphn::query()
-            ->when($search, function ($query, $search) {
-                return $query->where('nama_jabatan', 'ilike', "%{$search}%");
-            })
-            ->latest()
-            ->paginate(10);
-
-        return response()->json([
-            'success' => true,
-            'data' => $ikphns,
             'filters' => [
                 'search' => $search
             ]
