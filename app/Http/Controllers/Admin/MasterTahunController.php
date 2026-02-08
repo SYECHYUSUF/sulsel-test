@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 
 class MasterTahunController extends Controller
 {
+    /**
+     * Menampilkan daftar tahun yang tersedia di sistem.
+     */
     public function index(): JsonResponse
     {
         $data = MasterTahun::orderBy('waktu')->get();
@@ -19,6 +22,9 @@ class MasterTahunController extends Controller
         ], 200);
     }
 
+    /**
+     * Menambahkan data tahun baru.
+     */
     public function store(Request $request): JsonResponse
     {
         $validated = $request->validate([
@@ -34,6 +40,9 @@ class MasterTahunController extends Controller
         ], 200);
     }
 
+    /**
+     * Memperbarui nilai tahun.
+     */
     public function update(Request $request, $id): JsonResponse
     {
         $item = MasterTahun::findOrFail($id);
@@ -51,6 +60,9 @@ class MasterTahunController extends Controller
         ], 200);
     }
 
+    /**
+     * Menghapus data tahun dari database.
+     */
     public function destroy($id): JsonResponse
     {
         $item = MasterTahun::findOrFail($id);

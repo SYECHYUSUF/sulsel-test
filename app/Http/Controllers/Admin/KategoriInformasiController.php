@@ -4,14 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\KategoriInformasi;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class KategoriInformasiController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Menampilkan daftar kategori informasi dengan fitur pencarian.
      */
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
         $query = KategoriInformasi::query();
 
@@ -21,71 +23,117 @@ class KategoriInformasiController extends Controller
 
         $kategoris = $query->paginate(10);
 
-        return view('admin.kategori-informasi.index', compact('kategoris'));
+        return response()->json([
+            'success' => true,
+            'message' => 'Daftar kategori informasi berhasil diambil',
+            'data' => $kategoris
+        ], 200);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Menyimpan kategori informasi baru.
      */
-    public function create()
+    public function store(Request $request): JsonResponse
     {
-        return view('admin.kategori-informasi.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
             'nm_kat_info' => 'required|string|max:255',
             'icon' => 'required|string|max:10',
             'is_active' => 'required|boolean',
         ]);
 
-        KategoriInformasi::create($validated);
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal',
+                'errors' => $validator->errors()
+            ], 422);
+        }
 
-        return redirect()->route('admin.master-data.index', ['tab' => 'kategori'])
-            ->with('success', 'Kategori Informasi berhasil ditambahkan.');
+        $kategori = KategoriInformasi::create($validator->validated());
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Kategori Informasi berhasil ditambahkan',
+            'data' => $kategori
+        ], 201);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Mengambil detail kategori informasi untuk disunting.
      */
-    public function edit(string $id)
+    public function edit(string $id): JsonResponse
     {
-        $kategori = KategoriInformasi::findOrFail($id);
-        return view('admin.kategori-informasi.edit', compact('kategori'));
+        $kategori = KategoriInformasi::find($id);
+
+        if (!$kategori) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Kategori tidak ditemukan'
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $kategori
+        ], 200);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Memperbarui data kategori informasi.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id): JsonResponse
     {
-        $kategori = KategoriInformasi::findOrFail($id);
+        $kategori = KategoriInformasi::find($id);
 
-        $validated = $request->validate([
+        if (!$kategori) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Kategori tidak ditemukan'
+            ], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
             'nm_kat_info' => 'required|string|max:255',
             'icon' => 'required|string|max:10',
             'is_active' => 'required|boolean',
         ]);
 
-        $kategori->update($validated);
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal',
+                'errors' => $validator->errors()
+            ], 422);
+        }
 
-        return redirect()->route('admin.master-data.index', ['tab' => 'kategori'])
-            ->with('success', 'Kategori Informasi berhasil diperbarui.');
+        $kategori->update($validator->validated());
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Kategori Informasi berhasil diperbarui',
+            'data' => $kategori
+        ], 200);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Menghapus kategori informasi secara permanen.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): JsonResponse
     {
-        $kategori = KategoriInformasi::findOrFail($id);
+        $kategori = KategoriInformasi::find($id);
+
+        if (!$kategori) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Kategori tidak ditemukan'
+            ], 404);
+        }
+
         $kategori->delete();
 
-        return redirect()->route('admin.master-data.index', ['tab' => 'kategori'])
-            ->with('success', 'Kategori Informasi berhasil dihapus.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Kategori Informasi berhasil dihapus'
+        ], 200);
     }
 }

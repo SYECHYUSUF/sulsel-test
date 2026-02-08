@@ -10,20 +10,19 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class BeritaController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Menampilkan daftar berita dengan filter pencarian dan verifikasi.
      */
     public function index(Request $request): JsonResponse
     {
         $user = Auth::user();
-        $query = Berita::with('skpd'); // Eager Loading untuk mencegah N+1
+        $query = Berita::with('skpd');
 
-        // Filter otomatis jika role adalah 'opd'
-        // Pastikan tabel 'tbl_berita' memiliki kolom 'id_skpd'
         if ($user->hasRole('opd')) {
             $query->where('id_skpd', $user->id_skpd);
         }
@@ -46,12 +45,11 @@ class BeritaController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Menyimpan berita baru dan mengirim notifikasi jika dibuat oleh OPD.
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
-        // Validasi Input
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required',
             'id_skpd' => 'required',
@@ -59,15 +57,18 @@ class BeritaController extends Controller
             'verify' => 'required|in:y,n,t',
         ]);
 
-        $data = $request->all();
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal.',
+                'errors' => $validator->errors()
+            ], 422);
+        }
 
-        // Generate Slug Otomatis
+        $data = $request->all();
         $data['slug'] = Str::slug($request->judul) . '-' . rand(100, 999);
-        
-        // Set Default Viewers
         $data['viewers'] = 0;
 
-        // Handle Upload Gambar
         if ($request->hasFile('img_berita')) {
             $file = $request->file('img_berita');
             $filename = time() . '_' . $file->getClientOriginalName();
@@ -75,10 +76,9 @@ class BeritaController extends Controller
             $data['img_berita'] = $filename;
         }
 
-        // Simpan ke Database
         $berita = Berita::create($data);
 
-        // Notify Admins if created by OPD
+        // Notifikasi ke Admin jika berita ditambahkan oleh akun OPD
         if (Auth::user()->hasRole('opd')) {
             $admins = User::whereHasRole('admin')->get();
             foreach ($admins as $admin) {
@@ -102,7 +102,7 @@ class BeritaController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Menampilkan detail satu berita.
      */
     public function show(Berita $berita): JsonResponse
     {
@@ -113,13 +113,17 @@ class BeritaController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Memperbarui data berita dan mengirim notifikasi status verifikasi.
      */
     public function update(Request $request, string $id): JsonResponse
     {
-        $berita = Berita::findOrFail($id);
+        $berita = Berita::find($id);
 
-        $request->validate([
+        if (!$berita) {
+            return response()->json(['success' => false, 'message' => 'Berita tidak ditemukan'], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required',
             'img_berita' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -127,11 +131,18 @@ class BeritaController extends Controller
             'verify' => 'required|in:y,n,t',
         ]);
 
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal.',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
         $data = $request->except('img_berita');
         $data['slug'] = Str::slug($request->judul) . '-' . rand(100, 999);
 
         if ($request->hasFile('img_berita')) {
-            // Hapus gambar lama jika ada
             if ($berita->img_berita && Storage::disk('public')->exists('img_berita/' . $berita->img_berita)) {
                 Storage::disk('public')->delete('img_berita/' . $berita->img_berita);
             }
@@ -144,21 +155,17 @@ class BeritaController extends Controller
 
         $berita->update($data);
 
-        // Notify OPD user if verify status changed and user is admin
+        // Kirim notifikasi ke OPD jika status verifikasi diubah oleh Admin
         if (Auth::user()->hasRole('admin') && $berita->wasChanged('verify')) {
-            $statusText = match ($berita->verify) {
-                'y' => 'Terverifikasi',
-                'n' => 'Pending',
-                't' => 'Ditolak',
-            };
+            $statusMapping = [
+                'y' => ['Terverifikasi', 'success'],
+                'n' => ['Pending', 'info'],
+                't' => ['Ditolak', 'error'],
+            ];
 
-            $type = match ($berita->verify) {
-                'y' => 'success',
-                'n' => 'info',
-                't' => 'error',
-            };
+            $statusText = $statusMapping[$berita->verify][0] ?? 'Berubah';
+            $type = $statusMapping[$berita->verify][1] ?? 'info';
 
-            // Notify the SKPD owner
             Notification::send([
                 'to_skpd_id' => $berita->id_skpd,
                 'type' => $type,
@@ -178,11 +185,11 @@ class BeritaController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Menghapus berita dan file gambarnya dari penyimpanan.
      */
     public function destroy(string $id): JsonResponse
     {
-        $berita = Berita::findOrFail($id);
+        $berita = Berita::find($id);
 
         if (!$berita) {
             return response()->json(['success' => false, 'message' => 'Berita tidak ditemukan'], 404);

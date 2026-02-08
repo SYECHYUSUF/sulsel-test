@@ -5,10 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\AlasanPengajuan;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Validator;
 
 class AlasanPengajuanController extends Controller
 {
-    public function index()
+    /**
+     * Tampilkan semua alasan pengajuan.
+     */
+    public function index(): JsonResponse
     {
         $alasanPengajuans = AlasanPengajuan::orderBy('alasan')->get();
 
@@ -19,41 +24,86 @@ class AlasanPengajuanController extends Controller
         ], 200);
     }
 
-    public function store(Request $request)
+    /**
+     * Simpan alasan pengajuan baru.
+     */
+    public function store(Request $request): JsonResponse
     {
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
             'alasan' => 'required|string|max:255',
         ]);
 
-        AlasanPengajuan::create($validated);
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal.',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $alasan = AlasanPengajuan::create($validator->validated());
 
         return response()->json([
             'success' => true,
             'message' => 'Alasan pengajuan berhasil ditambahkan.',
-            'data' => $validated
-        ], 200);
+            'data' => $alasan
+        ], 201); // 201 Created
     }
 
-    public function update(Request $request, $id)
+    /**
+     * Perbarui alasan pengajuan.
+     */
+    public function update(Request $request, $id): JsonResponse
     {
-        $alasan = AlasanPengajuan::findOrFail($id);
+        $alasan = AlasanPengajuan::find($id);
 
-        $validated = $request->validate([
+        if (!$alasan) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data tidak ditemukan.'
+            ], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
             'alasan' => 'required|string|max:255',
         ]);
 
-        $alasan->update($validated);
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal.',
+                'errors' => $validator->errors()
+            ], 422);
+        }
 
-        return redirect()->route('admin.master-data.index', ['tab' => 'alasan'])
-            ->with('success', 'Alasan pengajuan berhasil diperbarui.');
+        $alasan->update($validator->validated());
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Alasan pengajuan berhasil diperbarui.',
+            'data' => $alasan
+        ], 200);
     }
 
-    public function destroy($id)
+    /**
+     * Hapus alasan pengajuan.
+     */
+    public function destroy($id): JsonResponse
     {
-        $alasan = AlasanPengajuan::findOrFail($id);
+        $alasan = AlasanPengajuan::find($id);
+
+        if (!$alasan) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data tidak ditemukan.'
+            ], 404);
+        }
+
         $alasan->delete();
 
-        return redirect()->route('admin.master-data.index', ['tab' => 'alasan'])
-            ->with('success', 'Alasan pengajuan berhasil dihapus.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Alasan pengajuan berhasil dihapus.'
+        ], 200);
     }
 }

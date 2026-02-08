@@ -7,24 +7,16 @@ use App\Models\Profil;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class SambutanController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Menampilkan data sambutan pimpinan.
      */
     public function index(): JsonResponse
     {
-        $profil = Profil::getByTipe('sambutan');
-        
-        if (!$profil) {
-            $profil = new Profil([
-                'nm_profil' => 'Sambutan',
-                'slug' => 'sambutan',
-                'tipe' => 'sambutan',
-                'deskripsi' => ''
-            ]);
-        }
+        $profil = Profil::where('tipe', 'sambutan')->first();
         
         return response()->json([
             'success' => true,
@@ -33,15 +25,23 @@ class SambutanController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Memperbarui konten sambutan dan foto pimpinan.
      */
     public function store(Request $request): JsonResponse
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'nm_profil' => 'required|string|max:100',
-            'deskripsi' => 'required',
+            'deskripsi' => 'required|string',
             'foto_kepala' => 'nullable|image|mimes:jpg,jpeg,png|max:5120',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal',
+                'errors' => $validator->errors()
+            ], 422);
+        }
 
         $data = [
             'nm_profil' => $request->nm_profil,
@@ -57,20 +57,14 @@ class SambutanController extends Controller
                 Storage::disk('public')->delete($profil->foto_kepala);
             }
             
-            $file = $request->file('foto_kepala');
-            $filename = 'kepala_' . time() . '.' . $file->getClientOriginalExtension();
-            $path = $file->storeAs('profil/sambutan', $filename, 'public');
-            $data['foto_kepala'] = $path;
+            $data['foto_kepala'] = $request->file('foto_kepala')->store('profil/sambutan', 'public');
         }
 
-        $item = Profil::updateOrCreate(
-            ['tipe' => 'sambutan'],
-            $data
-        );
+        $item = Profil::updateOrCreate(['tipe' => 'sambutan'], $data);
 
         return response()->json([
             'success' => true,
-            'message' => 'Sambutan berhasil diperbarui.',
+            'message' => 'Sambutan berhasil diperbarui',
             'data'    => $item
         ], 200);
     }

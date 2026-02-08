@@ -6,24 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Models\Profil;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Validator;
 
 class ProfilPpidController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Menampilkan data profil PPID.
      */
     public function index(): JsonResponse
     {
-        $profil = Profil::getByTipe('profil-ppid');
-        
-        if (!$profil) {
-            $profil = new Profil([
-                'nm_profil' => 'Profil PPID',
-                'slug' => 'profil-ppid',
-                'tipe' => 'profil-ppid',
-                'deskripsi' => ''
-            ]);
-        }
+        $profil = Profil::where('tipe', 'profil-ppid')->first();
         
         return response()->json([
             'success' => true,
@@ -32,14 +24,22 @@ class ProfilPpidController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Menyimpan atau memperbarui konten profil PPID.
      */
     public function store(Request $request): JsonResponse
     {
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
             'nm_profil' => 'required|string|max:100',
-            'deskripsi' => 'required',
+            'deskripsi' => 'required|string',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal',
+                'errors' => $validator->errors()
+            ], 422);
+        }
 
         $profil = Profil::updateOrCreate(
             ['tipe' => 'profil-ppid'],
@@ -53,7 +53,7 @@ class ProfilPpidController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Profil PPID berhasil diperbarui.',
+            'message' => 'Profil PPID berhasil diperbarui',
             'data'    => $profil
         ], 200);
     }

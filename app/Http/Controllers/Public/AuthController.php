@@ -12,7 +12,6 @@ class AuthController extends Controller
     {
         $request->authenticate();
 
-
         $user = $request->user();
 
         // Hapus token lama jika Anda ingin membatasi satu sesi per user

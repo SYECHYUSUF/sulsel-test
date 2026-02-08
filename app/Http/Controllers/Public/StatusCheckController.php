@@ -16,7 +16,6 @@ class StatusCheckController extends Controller
      */
     public function checkStatus(Request $request): JsonResponse
     {
-        // Menggunakan Validator manual agar kita bisa mengontrol response error JSON-nya
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'type' => 'required|in:permohonan,keberatan',

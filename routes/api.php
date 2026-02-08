@@ -3,100 +3,97 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Admin\{
-    DashboardController, BeritaController, DokumenPublikController,
-    PermohonanInformasiController, PengajuanKeberatanController, SkpdController,
-    SopController, FaqController, IkphnController, SlideBannerController,
-    VisiMisiController, MaklumatController, ProfilPpidController,
-    StrukturOrganisasiController, TupoksiController, SambutanController,
-    ProfilPemprovController, SosmedController, FooterSettingController,
-    SurveyQuestionController, SurveyResponseController, NotificationController,
-    MatriksDIPController, InformasiController, KategoriInformasiController,
-    BentukInformasiController, AlasanPengajuanController, MasterPekerjaanController,
-    MasterDomisiliController, MasterTahunController, IntegratedServiceController,
-    LogLoginController
-};
-
 use App\Http\Controllers\Public\AuthController as PublicAuthController;
+use App\Http\Controllers\Public\DokumenPublikController;
 
 Route::post('/auth/login', [PublicAuthController::class, 'login']);
+Route::post('/track-visitor', 'VisitorController@track');
 
-Route::namespace('App\Http\Controllers\Public')->group(function () {
-    Route::post('/track-visitor', 'VisitorController@track');
-    Route::get('/public/slide-banner', 'SlideBannerController@index');
+Route::get('/public/informasi/kategori/{id}', [DokumenPublikController::class, 'getByCategory']);
+Route::get('/public/informasi/detail/{id}', [DokumenPublikController::class, 'show']);
+Route::get('/public/informasi/download/{id}', [DokumenPublikController::class, 'download']);
+
+Route::namespace('App\Http\Controllers\Public')->prefix('public')->group(function () {
+    Route::apiResource('/slide-banner', 'SlideBannerController');
+    Route::apiResource('/berita', 'BeritaController');
+    Route::apiResource('/matriks-dip', 'MatriksDipController');
+    Route::apiResource('/skpd', 'SkpdController');
 });
 
 // --- Rute Terproteksi (Sanctum) ---
 Route::middleware('auth:sanctum')
     ->prefix('admin')
-    ->namespace('App\Http\Controllers\Admin')
+    ->namespace('App\Http\Controllers\Admin') 
     ->group(function () {
 
     // Auth & Profile
+    // Tetap gunakan array untuk logout karena menggunakan PublicAuthController
     Route::post('/auth/logout', [PublicAuthController::class, 'logout']);
+    
     Route::get('/user', function (Request $request) {
         return $request->user()->load('skpd:id_skpd,nm_skpd');
     });
 
     // Dashboard & Stats
-    Route::get('/dashboard/stats', [DashboardController::class, 'index']);
-    Route::get('/logs/login', [LogLoginController::class, 'index']);
+    Route::apiResource('/dashboard/stats', 'DashboardController');
+    Route::apiResource('/logs/login', 'LogLoginController');
 
-    // Manajemen Konten & Berita
-    Route::apiResource('berita', BeritaController::class);
-    Route::get('berita/{id}/edit', [BeritaController::class, 'edit']); // Untuk data form edit
-    Route::apiResource('slide-banner', SlideBannerController::class);
-    Route::apiResource('faq', FaqController::class);
-    Route::apiResource('sop', SopController::class);
+    // Manajemen Konten
+    Route::apiResource('berita', 'BeritaController');
+    Route::apiResource('slide-banner', 'SlideBannerController');
+    Route::apiResource('faq', 'FaqController');
+    Route::apiResource('sop', 'SopController');
 
     // Layanan Informasi (Permohonan & Keberatan)
     Route::prefix('permohonan-informasi')->group(function () {
-        Route::get('/', [PermohonanInformasiController::class, 'index']);
-        Route::get('/{id}', [PermohonanInformasiController::class, 'show']);
-        Route::put('/{id}', [PermohonanInformasiController::class, 'update']);
-        Route::delete('/{id}', [PermohonanInformasiController::class, 'destroy']);
-        Route::post('/{id}/disposisi', [PermohonanInformasiController::class, 'disposisiStore']);
-        Route::post('/disposisi/{disposisiId}/respon', [PermohonanInformasiController::class, 'responStore']);
+        Route::get('/', 'PermohonanInformasiController@index');
+        Route::get('/{id}', 'PermohonanInformasiController@show');
+        Route::put('/{id}', 'PermohonanInformasiController@update');
+        Route::delete('/{id}', 'PermohonanInformasiController@destroy');
+        Route::post('/{id}/disposisi', 'PermohonanInformasiController@disposisiStore');
+        Route::post('/disposisi/{disposisiId}/respon', 'PermohonanInformasiController@responStore');
     });
-    Route::apiResource('pengajuan-keberatan', PengajuanKeberatanController::class);
+    Route::apiResource('pengajuan-keberatan', 'PengajuanKeberatanController');
 
     // Dokumen & Publikasi
-    Route::apiResource('dokumen-publik', DokumenPublikController::class);
-    Route::apiResource('matriks-dip', MatriksDIPController::class);
-    Route::apiResource('informasi', InformasiController::class);
+    Route::apiResource('dokumen-publik', 'DokumenPublikController');
+    Route::apiResource('matriks-dip', 'MatriksDIPController');
+    Route::apiResource('informasi', 'InformasiController');
 
     // Profil Lembaga & Pengaturan
-    Route::apiResource('visi-misi', VisiMisiController::class);
-    Route::apiResource('maklumat', MaklumatController::class);
-    Route::apiResource('profil-ppid', ProfilPpidController::class);
-    Route::apiResource('struktur-organisasi', StrukturOrganisasiController::class);
-    Route::apiResource('tupoksi', TupoksiController::class);
-    Route::apiResource('sambutan', SambutanController::class);
-    Route::apiResource('profil-pemprov', ProfilPemprovController::class);
+    Route::apiResource('visi-misi', 'VisiMisiController');
+    Route::apiResource('maklumat', 'MaklumatController');
+    Route::apiResource('profil-ppid', 'ProfilPpidController');
+    Route::apiResource('struktur-organisasi', 'StrukturOrganisasiController');
+    Route::apiResource('tupoksi', 'TupoksiController');
+    Route::apiResource('sambutan', 'SambutanController');
+    Route::apiResource('profil-pemprov', 'ProfilPemprovController');
     
     // Konfigurasi & Master Data
-    Route::apiResource('skpd', SkpdController::class);
-    Route::apiResource('sosmed', SosmedController::class);
-    Route::apiResource('footer-setting', FooterSettingController::class);
-    Route::apiResource('integrated-service', IntegratedServiceController::class);
+    Route::apiResource('skpd', 'SkpdController');
+    Route::apiResource('sosmed', 'SosmedController');
+    Route::apiResource('footer-setting', 'FooterSettingController');
+    Route::apiResource('integrated-service', 'IntegratedServiceController');
 
-    // Master Data Groups (Mirip struktur web.php)
+    // Master Data Groups
     Route::prefix('master-data')->group(function () {
-        Route::apiResource('pekerjaan', MasterPekerjaanController::class);
-        Route::apiResource('domisili', MasterDomisiliController::class);
-        Route::apiResource('alasan-pengajuan', AlasanPengajuanController::class);
-        Route::apiResource('bentuk-informasi', BentukInformasiController::class);
-        Route::apiResource('kategori-informasi', KategoriInformasiController::class);
-        Route::apiResource('tahun', MasterTahunController::class);
+        Route::apiResource('pekerjaan', 'MasterPekerjaanController');
+        Route::apiResource('domisili', 'MasterDomisiliController');
+        Route::apiResource('alasan-pengajuan', 'AlasanPengajuanController');
+        Route::apiResource('bentuk-informasi', 'BentukInformasiController');
+        Route::apiResource('kategori-informasi', 'KategoriInformasiController');
+        Route::apiResource('tahun', 'MasterTahunController');
     });
 
     // Survey & Feedback
-    Route::apiResource('survey-questions', SurveyQuestionController::class);
-    Route::get('survey-responses', [SurveyResponseController::class, 'index']);
-    Route::apiResource('ikphn', IkphnController::class);
+    Route::apiResource('survey-questions', 'SurveyQuestionController');
+    // Untuk index manual (non-resource)
+    Route::get('survey-responses', 'SurveyResponseController@index');
+    Route::apiResource('ikphn', 'IkphnController');
 
     // Notifikasi
-    Route::get('notifications', [NotificationController::class, 'index']);
-    Route::put('notifications/{id}/read', [NotificationController::class, 'markAsRead']);
+    Route::get('notifications', 'NotificationController@index');
+    // Menggunakan ID untuk markAsRead
+    Route::put('notifications/{id}/read', 'NotificationController@markAsRead');
 
 });

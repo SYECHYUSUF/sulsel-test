@@ -11,7 +11,7 @@ use Illuminate\Http\JsonResponse;
 class SurveyResponseController extends Controller
 {
     /**
-     * Display a listing of survey responses.
+     * Menampilkan daftar respon survei yang dikelompokkan berdasarkan kode unik.
      */
     public function index(Request $request): JsonResponse
     {
@@ -38,27 +38,22 @@ class SurveyResponseController extends Controller
     }
 
     /**
-     * Display the specified survey response.
+     * Menampilkan detail jawaban dari satu responden berdasarkan kode survei.
      */
-    public function show($kode): JsonResponse
+    public function show(string $kode): JsonResponse
     {
-        // Get all responses for this submission
         $responses = SurveyResponse::where('kode', $kode)->get();
         
         if ($responses->isEmpty()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Survey response not found'
+                'message' => 'Data respon tidak ditemukan.'
             ], 404);
         }
         
-        // Get respondent info from first response
         $respondent = $responses->first();
-        
-        // Get all questions
         $questions = Survey::orderBy('urutan')->get();
         
-        // Map answers to questions
         $answersMap = [];
         foreach ($responses as $response) {
             if ($response->kode_soal === 'MASUKAN') {
@@ -68,38 +63,34 @@ class SurveyResponseController extends Controller
             }
         }
 
-        $data = [
-            'respondent' => $respondent,
-            'questions' => $questions,
-            'answersMap' => $answersMap,
-            'kode' => $kode
-        ];
-        
         return response()->json([
             'success' => true,
-            'data'    => $data
+            'data'    => [
+                'respondent' => $respondent,
+                'questions'  => $questions,
+                'answers'    => $answersMap,
+                'kode'       => $kode
+            ]
         ], 200);
     }
 
     /**
-     * Remove the specified survey response from storage.
+     * Menghapus seluruh data respon terkait satu kode survei.
      */
-    public function destroy($kode): JsonResponse
+    public function destroy(string $kode): JsonResponse
     {
-        // Delete all responses with this code
         $deleted = SurveyResponse::where('kode', $kode)->delete();
         
-        if ($deleted) {
+        if (!$deleted) {
             return response()->json([
-                'success' => true,
-                'message' => 'Survey berhasil dihapus.',
-                'data'    => null
-            ], 200);
+                'success' => false,
+                'message' => 'Respon gagal dihapus atau data tidak ditemukan.'
+            ], 404);
         }
         
         return response()->json([
-            'success' => false,
-            'message' => 'Survey tidak ditemukan.'
-        ], 404);
+            'success' => true,
+            'message' => 'Data survei berhasil dihapus.'
+        ], 200);
     }
 }

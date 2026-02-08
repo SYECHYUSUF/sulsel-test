@@ -11,14 +11,33 @@ use App\Models\PermohonanInformasi;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Validator;
 
 class PengajuanKeberatanController extends Controller
 {
-    public function store(StorePengajuanKeberatanRequest $request): JsonResponse
+    /**
+     * Simpan pengajuan keberatan baru.
+     */
+    public function store(Request $request): JsonResponse
     {
-        $validated = $request->validated();
+        $formRequest = new StorePengajuanKeberatanRequest();
+    
+        // Validasi manual untuk menghindari redirect otomatis
+        $validator = Validator::make($request->all(), $formRequest->rules(), $formRequest->messages());
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal',
+                'errors'  => $validator->errors()
+            ], 422);
+        }
+
+        // Ambil data yang sudah lulus validasi
+        $validated = $validator->validated();
 
         try {
+            // Cari relasi ke permohonan informasi
             $permohonan = PermohonanInformasi::where('no_pendaftaran', $validated['no_pendaftaran'])->first();
             $id_skpd = $permohonan ? $permohonan->id_skpd : null;
 
@@ -36,16 +55,11 @@ class PengajuanKeberatanController extends Controller
                 'no_telp_pemohon' => $validated['no_telp_pemohon'],
                 'email_pemohon' => $validated['email_pemohon'],
                 'nama_kuasa' => $validated['nama_kuasa'] ?? null,
-                'alamat_kuasa' => $validated['alamat_kuasa'] ?? null,
-                'address_kuasa' => $validated['address_kuasa'] ?? null,
-                'apt_kuasa' => $validated['apt_kuasa'] ?? null,
-                'city_kuasa' => $validated['city_kuasa'] ?? null,
-                'state_kuasa' => $validated['state_kuasa'] ?? null,
-                'no_telp_kuasa' => $validated['no_telp_kuasa'] ?? null,
                 'kasus' => $validated['kasus'],
                 'status' => 'n',
             ]);
 
+            // Simpan daftar alasan yang dipilih
             foreach ($validated['alasan'] as $alasan) {
                 AlasanPengajuan::create([
                     'id_pengajuan' => $pengajuan->id_pengajuan,
@@ -53,6 +67,7 @@ class PengajuanKeberatanController extends Controller
                 ]);
             }
 
+            // Kirim notifikasi ke user dengan role admin
             $adminUsers = User::whereHas('roles', function ($query) {
                 $query->where('name', 'admin');
             })->get();
@@ -62,7 +77,7 @@ class PengajuanKeberatanController extends Controller
                     'to_user_id' => $admin->id,
                     'type' => 'info',
                     'title' => 'Pengajuan Keberatan Baru',
-                    'message' => 'Pengajuan keberatan baru dari ' . $pengajuan->nama_pemohon . ' (' . $pengajuan->email_pemohon . ')',
+                    'message' => "Keberatan baru dari {$pengajuan->nama_pemohon}",
                     'url' => route('admin.pengajuan-keberatan.show', $pengajuan->id_pengajuan),
                     'notifiable_type' => 'App\\Models\\PengajuanKeberatan',
                     'notifiable_id' => $pengajuan->id_pengajuan,
@@ -71,72 +86,15 @@ class PengajuanKeberatanController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Data domisili berhasil ditambahkan.',
+                'message' => 'Pengajuan keberatan berhasil dikirim.',
                 'data'    => $pengajuan
-            ], 200);
+            ], 201);
 
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Terjadi kesalahan saat mengirim pengajuan.'
+                'message' => 'Terjadi kesalahan sistem.'
             ], 500);
         }
-    }
-
-    public function checkStatus(Request $request): JsonResponse
-    {
-        $request->validate([
-            'email' => 'required|email',
-        ]);
-
-        $pengajuan = PengajuanKeberatan::with(['feedbackBy', 'alasanPengajuan'])
-            ->where('email_pemohon', $request->email)
-            ->orderBy('created_at', 'desc')
-            ->get();
-
-        if ($pengajuan->isEmpty()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Tidak ada pengajuan keberatan ditemukan dengan email tersebut.'
-            ], 404);
-        }
-
-        $pengajuan->transform(function ($item) {
-            $labels = [
-                'p' => 'Dalam Proses',
-                'y' => 'Disetujui',
-                't' => 'Ditolak',
-                'a' => 'Dijawab',
-            ];
-
-            if (empty($item->feedback) && $item->status != 't') {
-                $item->status_label_display = 'Belum Direspon';
-                $item->display_status_code = 'belum_direspon';
-            } else {
-                $item->status_label_display = $labels[$item->status] ?? 'Status Tidak Diketahui';
-                $item->display_status_code = $item->status;
-            }
-
-            $item->formatted_date = $item->created_at->translatedFormat('d F Y H:i') . ' WITA';
-
-            return $item;
-        });
-
-        return response()->json([
-            'success' => true,
-            'data'    => $pengajuan
-        ], 200);
-    }
-
-    public function showDetail($no_pendaftaran): JsonResponse
-    {
-        $pengajuan = PengajuanKeberatan::with(['alasanPengajuan', 'feedbackBy'])
-            ->where('no_pendaftaran', $no_pendaftaran)
-            ->firstOrFail();
-
-        return response()->json([
-            'success' => true,
-            'data'    => $pengajuan
-        ], 200);
     }
 }

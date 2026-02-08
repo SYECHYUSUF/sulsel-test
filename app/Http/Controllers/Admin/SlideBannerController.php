@@ -7,11 +7,12 @@ use App\Models\SlideBanner;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class SlideBannerController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Menampilkan daftar banner slide.
      */
     public function index(): JsonResponse
     {
@@ -24,95 +25,101 @@ class SlideBannerController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Menambahkan banner slide baru.
      */
     public function store(Request $request): JsonResponse
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'nm_slide' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:20480',
         ]);
 
-        $data = [];
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal',
+                'errors' => $validator->errors()
+            ], 422);
+        }
 
+        $data = [];
         if ($request->hasFile('nm_slide')) {
-            $file = $request->file('nm_slide');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->storeAs('slide-banner', $filename, 'public');
-            $data['nm_slide'] = $filename;
+            $data['nm_slide'] = $request->file('nm_slide')->store('slide-banner', 'public');
         }
 
         $slide = SlideBanner::create($data);
 
         return response()->json([
             'success' => true,
-            'message' => 'Banner berhasil ditambahkan.',
+            'message' => 'Banner berhasil ditambahkan',
             'data'    => $slide
         ], 201);
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id): JsonResponse
-    {
-        $slide = SlideBanner::findOrFail($id);
-
-        return response()->json([
-            'success' => true,
-            'data'    => $slide
-        ], 200);
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Memperbarui file banner slide.
      */
     public function update(Request $request, string $id): JsonResponse
     {
-        $slide = SlideBanner::findOrFail($id);
+        $slide = SlideBanner::find($id);
 
-        $request->validate([
-            'nm_slide' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120|dimensions:min_width=2752,min_height=1536',
-        ]);
-
-        $data = [];
-
-        if ($request->hasFile('nm_slide')) {
-            // Hapus gambar lama jika ada
-            if ($slide->nm_slide && Storage::disk('public')->exists('slide-banner/' . $slide->nm_slide)) {
-                Storage::disk('public')->delete('slide-banner/' . $slide->nm_slide);
-            }
-
-            $file = $request->file('nm_slide');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->storeAs('slide-banner', $filename, 'public');
-            $data['nm_slide'] = $filename;
+        if (!$slide) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Banner tidak ditemukan'
+            ], 404);
         }
 
-        $slide->update($data);
+        $validator = Validator::make($request->all(), [
+            'nm_slide' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        if ($request->hasFile('nm_slide')) {
+            if ($slide->nm_slide && Storage::disk('public')->exists($slide->nm_slide)) {
+                Storage::disk('public')->delete($slide->nm_slide);
+            }
+            $slide->update([
+                'nm_slide' => $request->file('nm_slide')->store('slide-banner', 'public')
+            ]);
+        }
 
         return response()->json([
             'success' => true,
-            'message' => 'Banner berhasil diperbarui.',
+            'message' => 'Banner berhasil diperbarui',
             'data'    => $slide
         ], 200);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Menghapus banner slide.
      */
     public function destroy(string $id): JsonResponse
     {
-        $slide = SlideBanner::findOrFail($id);
+        $slide = SlideBanner::find($id);
 
-        if ($slide->nm_slide && Storage::disk('public')->exists('slide-banner/' . $slide->nm_slide)) {
-            Storage::disk('public')->delete('slide-banner/' . $slide->nm_slide);
+        if (!$slide) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Banner tidak ditemukan'
+            ], 404);
+        }
+
+        if ($slide->nm_slide && Storage::disk('public')->exists($slide->nm_slide)) {
+            Storage::disk('public')->delete($slide->nm_slide);
         }
 
         $slide->delete();
 
         return response()->json([
             'success' => true,
-            'message' => 'Banner berhasil dihapus.'
+            'message' => 'Banner berhasil dihapus'
         ], 200);
     }
 }

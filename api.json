@@ -1,7 +1,7 @@
 {
     "openapi": "3.1.0",
     "info": {
-        "title": "Laravel",
+        "title": "ppid_pemprov_sulsel",
         "version": "0.0.1",
         "description": "Dokumentasi API untuk pengelolaan berita, permohonan informasi, dan layanan publik lainnya."
     },
@@ -11,7 +11,7 @@
         }
     ],
     "paths": {
-        "/user": {
+        "/admin/user": {
             "get": {
                 "responses": {
                     "200": {
@@ -30,7 +30,7 @@
                 }
             }
         },
-        "/master-data/alasan-pengajuan": {
+        "/admin/master-data/alasan-pengajuan": {
             "get": {
                 "operationId": "alasan-pengajuan.index",
                 "tags": [
@@ -137,7 +137,7 @@
                 }
             }
         },
-        "/master-data/alasan-pengajuan/{id}": {
+        "/admin/master-data/alasan-pengajuan/{id}": {
             "put": {
                 "operationId": "alasan-pengajuan.update",
                 "tags": [
@@ -282,7 +282,7 @@
                 }
             }
         },
-        "/auth/logout": {
+        "/admin/auth/logout": {
             "post": {
                 "operationId": "auth.logout",
                 "tags": [
@@ -316,7 +316,7 @@
                 }
             }
         },
-        "/master-data/bentuk-informasi": {
+        "/admin/master-data/bentuk-informasi": {
             "post": {
                 "operationId": "bentuk-informasi.store",
                 "summary": "Store a newly created resource in storage",
@@ -381,7 +381,7 @@
                 }
             }
         },
-        "/master-data/bentuk-informasi/{id}": {
+        "/admin/master-data/bentuk-informasi/{id}": {
             "put": {
                 "operationId": "bentuk-informasi.update",
                 "summary": "Update the specified resource in storage",
@@ -503,7 +503,7 @@
                 }
             }
         },
-        "/berita": {
+        "/admin/berita": {
             "get": {
                 "operationId": "berita.index",
                 "summary": "Display a listing of the resource",
@@ -633,7 +633,7 @@
                 }
             }
         },
-        "/berita/{beritum}": {
+        "/admin/berita/{beritum}": {
             "get": {
                 "operationId": "berita.show",
                 "summary": "Display the specified resource",
@@ -679,7 +679,7 @@
                 }
             }
         },
-        "/berita/{id}": {
+        "/admin/berita/{id}": {
             "put": {
                 "operationId": "berita.update",
                 "summary": "Update the specified resource in storage",
@@ -852,60 +852,7 @@
                 }
             }
         },
-        "/berita/{id}/edit": {
-            "get": {
-                "operationId": "berita.edit",
-                "summary": "Show the form for editing the specified resource",
-                "tags": [
-                    "Berita"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean"
-                                        },
-                                        "data": {
-                                            "type": "string"
-                                        },
-                                        "skpdList": {
-                                            "type": "array",
-                                            "items": {
-                                                "$ref": "#/components/schemas/Skpd"
-                                            }
-                                        }
-                                    },
-                                    "required": [
-                                        "success",
-                                        "data",
-                                        "skpdList"
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/AuthenticationException"
-                    }
-                }
-            }
-        },
-        "/dashboard/stats": {
+        "/admin/dashboard/stats": {
             "get": {
                 "operationId": "dashboard.index",
                 "tags": [
@@ -1165,7 +1112,7 @@
                 }
             }
         },
-        "/dokumen-publik": {
+        "/admin/dokumen-publik": {
             "get": {
                 "operationId": "dokumen-publik.index",
                 "summary": "Display a listing of the resource",
@@ -1305,7 +1252,7 @@
                 }
             }
         },
-        "/dokumen-publik/{id}": {
+        "/admin/dokumen-publik/{id}": {
             "get": {
                 "operationId": "dokumen-publik.show",
                 "tags": [
@@ -1523,7 +1470,7 @@
                 }
             }
         },
-        "/faq": {
+        "/admin/faq": {
             "get": {
                 "operationId": "faq.index",
                 "summary": "Display a listing of the resource",
@@ -1642,7 +1589,7 @@
                 }
             }
         },
-        "/faq/{id}": {
+        "/admin/faq/{id}": {
             "get": {
                 "operationId": "faq.show",
                 "summary": "Display the specified resource",
@@ -1821,7 +1768,7 @@
                 }
             }
         },
-        "/footer-setting": {
+        "/admin/footer-setting": {
             "get": {
                 "operationId": "footer-setting.index",
                 "tags": [
@@ -1844,7 +1791,7 @@
                 }
             }
         },
-        "/footer-setting/{footer_setting}": {
+        "/admin/footer-setting/{footer_setting}": {
             "put": {
                 "operationId": "footer-setting.update",
                 "tags": [
@@ -1965,7 +1912,7 @@
                 }
             }
         },
-        "/ikphn": {
+        "/admin/ikphn": {
             "get": {
                 "operationId": "ikphn.index",
                 "summary": "Display a listing of the resource",
@@ -2085,7 +2032,7 @@
                 }
             }
         },
-        "/ikphn/{id}": {
+        "/admin/ikphn/{id}": {
             "put": {
                 "operationId": "ikphn.update",
                 "summary": "Update the specified resource in storage",
@@ -2224,7 +2171,7 @@
                 }
             }
         },
-        "/informasi": {
+        "/admin/informasi": {
             "get": {
                 "operationId": "informasi.index",
                 "summary": "Display a listing of the resource",
@@ -2331,7 +2278,7 @@
                 }
             }
         },
-        "/informasi/{id}": {
+        "/admin/informasi/{id}": {
             "get": {
                 "operationId": "informasi.show",
                 "summary": "Display the specified resource",
@@ -2474,7 +2421,7 @@
                 }
             }
         },
-        "/integrated-service": {
+        "/admin/integrated-service": {
             "get": {
                 "operationId": "integrated-service.index",
                 "summary": "Display a listing of the resource",
@@ -2487,7 +2434,26 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Daftar layanan terintegrasi berhasil diambil"
+                                            ]
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/LengthAwarePaginator"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message",
+                                        "data"
+                                    ]
                                 }
                             }
                         }
@@ -2541,18 +2507,63 @@
                     }
                 },
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Layanan berhasil ditambahkan"
+                                            ]
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/IntegratedService"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message",
+                                        "data"
+                                    ]
                                 }
                             }
                         }
                     },
                     "422": {
-                        "$ref": "#/components/responses/ValidationException"
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Validasi gagal"
+                                            ]
+                                        },
+                                        "errors": {
+                                            "$ref": "#/components/schemas/MessageBag"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message",
+                                        "errors"
+                                    ]
+                                }
+                            }
+                        }
                     },
                     "401": {
                         "$ref": "#/components/responses/AuthenticationException"
@@ -2560,7 +2571,76 @@
                 }
             }
         },
-        "/integrated-service/{integratedService}": {
+        "/admin/integrated-service/{id}": {
+            "get": {
+                "operationId": "integrated-service.show",
+                "summary": "Display the specified resource",
+                "tags": [
+                    "IntegratedService"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Layanan tidak ditemukan"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            },
             "put": {
                 "operationId": "integrated-service.update",
                 "summary": "Update the specified resource in storage",
@@ -2569,12 +2649,11 @@
                 ],
                 "parameters": [
                     {
-                        "name": "integratedService",
+                        "name": "id",
                         "in": "path",
                         "required": true,
-                        "description": "The integrated service ID",
                         "schema": {
-                            "type": "integer"
+                            "type": "string"
                         }
                     }
                 ],
@@ -2623,16 +2702,83 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Layanan berhasil diperbarui"
+                                            ]
+                                        },
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message",
+                                        "data"
+                                    ]
                                 }
                             }
                         }
                     },
                     "422": {
-                        "$ref": "#/components/responses/ValidationException"
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Validasi gagal"
+                                            ]
+                                        },
+                                        "errors": {
+                                            "$ref": "#/components/schemas/MessageBag"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message",
+                                        "errors"
+                                    ]
+                                }
+                            }
+                        }
                     },
                     "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Layanan tidak ditemukan"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
                     },
                     "401": {
                         "$ref": "#/components/responses/AuthenticationException"
@@ -2647,12 +2793,11 @@
                 ],
                 "parameters": [
                     {
-                        "name": "integratedService",
+                        "name": "id",
                         "in": "path",
                         "required": true,
-                        "description": "The integrated service ID",
                         "schema": {
-                            "type": "integer"
+                            "type": "string"
                         }
                     }
                 ],
@@ -2662,13 +2807,50 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string"
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Layanan berhasil dihapus"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message"
+                                    ]
                                 }
                             }
                         }
                     },
                     "404": {
-                        "$ref": "#/components/responses/ModelNotFoundException"
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Layanan tidak ditemukan"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
                     },
                     "401": {
                         "$ref": "#/components/responses/AuthenticationException"
@@ -2676,7 +2858,7 @@
                 }
             }
         },
-        "/master-data/kategori-informasi": {
+        "/admin/master-data/kategori-informasi": {
             "get": {
                 "operationId": "kategori-informasi.index",
                 "summary": "Display a listing of the resource",
@@ -2753,7 +2935,7 @@
                 }
             }
         },
-        "/master-data/kategori-informasi/{id}": {
+        "/admin/master-data/kategori-informasi/{id}": {
             "put": {
                 "operationId": "kategori-informasi.update",
                 "summary": "Update the specified resource in storage",
@@ -2850,7 +3032,7 @@
                 }
             }
         },
-        "/logs/login": {
+        "/admin/logs/login": {
             "get": {
                 "operationId": "logLogin.index",
                 "tags": [
@@ -2873,7 +3055,7 @@
                 }
             }
         },
-        "/maklumat": {
+        "/admin/maklumat": {
             "get": {
                 "operationId": "maklumat.index",
                 "summary": "Display a listing of the resource",
@@ -2954,7 +3136,7 @@
                 }
             }
         },
-        "/master-data/domisili": {
+        "/admin/master-data/domisili": {
             "get": {
                 "operationId": "domisili.index",
                 "tags": [
@@ -3062,7 +3244,7 @@
                 }
             }
         },
-        "/master-data/domisili/{id}": {
+        "/admin/master-data/domisili/{id}": {
             "get": {
                 "operationId": "domisili.show",
                 "tags": [
@@ -3233,7 +3415,7 @@
                 }
             }
         },
-        "/master-data/pekerjaan": {
+        "/admin/master-data/pekerjaan": {
             "get": {
                 "operationId": "pekerjaan.index",
                 "tags": [
@@ -3336,7 +3518,7 @@
                 }
             }
         },
-        "/master-data/pekerjaan/{id}": {
+        "/admin/master-data/pekerjaan/{id}": {
             "put": {
                 "operationId": "pekerjaan.update",
                 "tags": [
@@ -3459,7 +3641,7 @@
                 }
             }
         },
-        "/master-data/tahun": {
+        "/admin/master-data/tahun": {
             "get": {
                 "operationId": "tahun.index",
                 "tags": [
@@ -3559,7 +3741,7 @@
                 }
             }
         },
-        "/master-data/tahun/{id}": {
+        "/admin/master-data/tahun/{id}": {
             "put": {
                 "operationId": "tahun.update",
                 "tags": [
@@ -3679,7 +3861,7 @@
                 }
             }
         },
-        "/matriks-dip": {
+        "/admin/matriks-dip": {
             "get": {
                 "operationId": "matriks-dip.index",
                 "tags": [
@@ -3824,7 +4006,7 @@
                 }
             }
         },
-        "/matriks-dip/{id}": {
+        "/admin/matriks-dip/{id}": {
             "get": {
                 "operationId": "matriks-dip.show",
                 "tags": [
@@ -4039,7 +4221,7 @@
                 }
             }
         },
-        "/notifications": {
+        "/admin/notifications": {
             "get": {
                 "operationId": "notification.index",
                 "summary": "Display all notifications",
@@ -4075,7 +4257,7 @@
                 }
             }
         },
-        "/notifications/{id}/read": {
+        "/admin/notifications/{id}/read": {
             "put": {
                 "operationId": "notification.markAsRead",
                 "summary": "Mark notification as read",
@@ -4149,7 +4331,7 @@
                 }
             }
         },
-        "/pengajuan-keberatan": {
+        "/admin/pengajuan-keberatan": {
             "get": {
                 "operationId": "pengajuan-keberatan.index",
                 "tags": [
@@ -4184,7 +4366,7 @@
                 }
             }
         },
-        "/pengajuan-keberatan/{id}": {
+        "/admin/pengajuan-keberatan/{id}": {
             "get": {
                 "operationId": "pengajuan-keberatan.show",
                 "tags": [
@@ -4383,7 +4565,7 @@
                 }
             }
         },
-        "/permohonan-informasi": {
+        "/admin/permohonan-informasi": {
             "get": {
                 "operationId": "permohonanInformasi.index",
                 "summary": "Display a listing of the resource",
@@ -4419,7 +4601,7 @@
                 }
             }
         },
-        "/permohonan-informasi/{id}": {
+        "/admin/permohonan-informasi/{id}": {
             "get": {
                 "operationId": "permohonanInformasi.show",
                 "summary": "Display the specified resource",
@@ -4635,7 +4817,7 @@
                 }
             }
         },
-        "/permohonan-informasi/{id}/disposisi": {
+        "/admin/permohonan-informasi/{id}/disposisi": {
             "post": {
                 "operationId": "permohonanInformasi.disposisiStore",
                 "summary": "Process disposisi to multiple SKPDs",
@@ -4715,7 +4897,7 @@
                 }
             }
         },
-        "/permohonan-informasi/disposisi/{disposisiId}/respon": {
+        "/admin/permohonan-informasi/disposisi/{disposisiId}/respon": {
             "post": {
                 "operationId": "permohonanInformasi.responStore",
                 "summary": "Store SKPD response to disposition",
@@ -4828,7 +5010,7 @@
                 }
             }
         },
-        "/profil-pemprov": {
+        "/admin/profil-pemprov": {
             "get": {
                 "operationId": "profil-pemprov.index",
                 "summary": "Display a listing of the resource",
@@ -4978,7 +5160,7 @@
                 }
             }
         },
-        "/profil-ppid": {
+        "/admin/profil-ppid": {
             "get": {
                 "operationId": "profil-ppid.index",
                 "summary": "Display a listing of the resource",
@@ -5081,7 +5263,7 @@
                 }
             }
         },
-        "/sambutan": {
+        "/admin/sambutan": {
             "get": {
                 "operationId": "sambutan.index",
                 "summary": "Display a listing of the resource",
@@ -5193,7 +5375,7 @@
                 }
             }
         },
-        "/skpd": {
+        "/admin/skpd": {
             "get": {
                 "operationId": "skpd.index",
                 "summary": "Display a listing of the resource",
@@ -5377,7 +5559,7 @@
                 }
             }
         },
-        "/skpd/{skpd}": {
+        "/admin/skpd/{skpd}": {
             "get": {
                 "operationId": "skpd.show",
                 "summary": "Display the specified resource",
@@ -5637,7 +5819,43 @@
                 }
             }
         },
-        "/slide-banner": {
+        "/public/slide-banner": {
+            "get": {
+                "operationId": "public.slideBanner.index",
+                "summary": "Display a listing of the resource",
+                "tags": [
+                    "SlideBanner"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/SlideBanner"
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/slide-banner": {
             "get": {
                 "operationId": "slide-banner.index",
                 "summary": "Display a listing of the resource",
@@ -5738,7 +5956,7 @@
                 }
             }
         },
-        "/slide-banner/{id}": {
+        "/admin/slide-banner/{id}": {
             "get": {
                 "operationId": "slide-banner.show",
                 "summary": "Display the specified resource",
@@ -5905,7 +6123,7 @@
                 }
             }
         },
-        "/sop": {
+        "/admin/sop": {
             "get": {
                 "operationId": "sop.index",
                 "summary": "Menampilkan daftar SOP",
@@ -6011,7 +6229,7 @@
                 }
             }
         },
-        "/sop/{sop}": {
+        "/admin/sop/{sop}": {
             "get": {
                 "operationId": "sop.show",
                 "summary": "Display the specified resource",
@@ -6202,7 +6420,7 @@
                 }
             }
         },
-        "/sosmed": {
+        "/admin/sosmed": {
             "get": {
                 "operationId": "sosmed.index",
                 "summary": "Display a listing of the resource",
@@ -6326,7 +6544,7 @@
                 }
             }
         },
-        "/sosmed/{id}": {
+        "/admin/sosmed/{id}": {
             "get": {
                 "operationId": "sosmed.show",
                 "summary": "Display the specified resource",
@@ -6518,7 +6736,7 @@
                 }
             }
         },
-        "/struktur-organisasi": {
+        "/admin/struktur-organisasi": {
             "get": {
                 "operationId": "struktur-organisasi.index",
                 "summary": "Display a listing of the resource",
@@ -6617,7 +6835,7 @@
                 }
             }
         },
-        "/survey-questions": {
+        "/admin/survey-questions": {
             "get": {
                 "operationId": "survey-questions.index",
                 "tags": [
@@ -6730,7 +6948,7 @@
                 }
             }
         },
-        "/survey-questions/{surveyQuestion}": {
+        "/admin/survey-questions/{surveyQuestion}": {
             "get": {
                 "operationId": "survey-questions.show",
                 "tags": [
@@ -6918,7 +7136,7 @@
                 }
             }
         },
-        "/survey-responses": {
+        "/admin/survey-responses": {
             "get": {
                 "operationId": "surveyResponse.index",
                 "summary": "Display a listing of survey responses",
@@ -6963,7 +7181,7 @@
                 }
             }
         },
-        "/tupoksi": {
+        "/admin/tupoksi": {
             "get": {
                 "operationId": "tupoksi.index",
                 "summary": "Display a listing of the resource",
@@ -7066,7 +7284,7 @@
                 }
             }
         },
-        "/visi-misi": {
+        "/admin/visi-misi": {
             "get": {
                 "operationId": "visi-misi.index",
                 "summary": "Display a listing of the resource",
@@ -7165,6 +7383,55 @@
                     },
                     "401": {
                         "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/track-visitor": {
+            "post": {
+                "operationId": "visitor.track",
+                "tags": [
+                    "Visitor"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "anyOf": [
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                        "already_counted"
+                                                    ]
+                                                }
+                                            },
+                                            "required": [
+                                                "status"
+                                            ]
+                                        },
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                        "counted"
+                                                    ]
+                                                }
+                                            },
+                                            "required": [
+                                                "status"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -7487,6 +7754,54 @@
                 ],
                 "title": "Informasi"
             },
+            "IntegratedService": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "link": {
+                        "type": "string"
+                    },
+                    "icon": {
+                        "type": "string"
+                    },
+                    "is_active": {
+                        "type": "boolean"
+                    },
+                    "created_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "id",
+                    "title",
+                    "description",
+                    "link",
+                    "icon",
+                    "is_active",
+                    "created_at",
+                    "updated_at"
+                ],
+                "title": "IntegratedService"
+            },
             "LengthAwarePaginator": {
                 "type": "object",
                 "properties": {
@@ -7790,6 +8105,16 @@
                     "updated_at"
                 ],
                 "title": "MatriksDip"
+            },
+            "MessageBag": {
+                "type": "object",
+                "additionalProperties": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "title": "MessageBag"
             },
             "Notification": {
                 "type": "object",

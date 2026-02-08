@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class NotificationController extends Controller
 {
     /**
-     * Display all notifications
+     * Menampilkan daftar notifikasi milik user atau SKPD terkait.
      */
     public function index(): JsonResponse
     {
@@ -30,17 +30,23 @@ class NotificationController extends Controller
     }
 
     /**
-     * Mark notification as read
+     * Menandai satu notifikasi sebagai telah dibaca.
      */
     public function markAsRead(string $id): JsonResponse
     {
-        $notification = Notification::findOrFail($id);
+        $notification = Notification::find($id);
 
-        // Security check
+        if (!$notification) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Notifikasi tidak ditemukan.'
+            ], 404);
+        }
+
         if ($notification->to_user_id !== Auth::id() && $notification->to_skpd_id !== Auth::user()->id_skpd) {
             return response()->json([
                 'success' => false,
-                'message' => 'Unauthorized'
+                'message' => 'Anda tidak memiliki akses ke notifikasi ini.'
             ], 403);
         }
 
@@ -53,17 +59,23 @@ class NotificationController extends Controller
     }
 
     /**
-     * Delete notification
+     * Menghapus satu notifikasi secara permanen.
      */
     public function destroy(string $id): JsonResponse
     {
-        $notification = Notification::findOrFail($id);
+        $notification = Notification::find($id);
 
-        // Security check
+        if (!$notification) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Notifikasi tidak ditemukan.'
+            ], 404);
+        }
+
         if ($notification->to_user_id !== Auth::id() && $notification->to_skpd_id !== Auth::user()->id_skpd) {
             return response()->json([
                 'success' => false,
-                'message' => 'Unauthorized'
+                'message' => 'Anda tidak memiliki akses untuk menghapus notifikasi ini.'
             ], 403);
         }
 
@@ -76,7 +88,7 @@ class NotificationController extends Controller
     }
 
     /**
-     * Mark all as read
+     * Menandai semua notifikasi milik user/SKPD sebagai telah dibaca.
      */
     public function markAllAsRead(): JsonResponse
     {
@@ -96,7 +108,7 @@ class NotificationController extends Controller
     }
 
     /**
-     * Delete all notifications
+     * Menghapus seluruh riwayat notifikasi milik user/SKPD.
      */
     public function deleteAll(): JsonResponse
     {

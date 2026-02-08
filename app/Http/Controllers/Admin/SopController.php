@@ -7,11 +7,12 @@ use App\Models\Sop;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class SopController extends Controller
 {
     /**
-     * Menampilkan daftar SOP.
+     * Menampilkan daftar SOP dengan fitur pencarian.
      */
     public function index(Request $request): JsonResponse
     {
@@ -30,51 +31,69 @@ class SopController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Menyimpan data SOP baru beserta unggahan file.
      */
     public function store(Request $request): JsonResponse
     {
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
             'judul' => 'required|string|max:255',
             'file' => 'required|file|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png|max:5120',
         ]);
 
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal.',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $data = $request->only('judul');
+
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $filename = time() . '_' . preg_replace('/[^a-zA-Z0-9._-]/', '_', $file->getClientOriginalName());
-            $file->storeAs('sop', $filename, 'public');
-            $validated['file'] = $filename;
+            $path = $file->storeAs('sop', $filename, 'public');
+            $data['file'] = $filename;
         }
 
-        $sop = Sop::create($validated);
+        $sop = Sop::create($data);
 
         return response()->json([
             'success' => true,
             'message' => 'SOP berhasil ditambahkan.',
             'data'    => $sop
-        ], 200);
+        ], 201);
     }
 
     /**
-     * Display the specified resource.
+     * Memperbarui data SOP dan mengganti file jika ada unggahan baru.
      */
-    public function show(Sop $sop): JsonResponse
+    public function update(Request $request, string $id): JsonResponse
     {
-        return response()->json([
-            'success' => true,
-            'data'    => $sop
-        ], 200);
-    }
+        $sop = Sop::find($id);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Sop $sop): JsonResponse
-    {
-        $validated = $request->validate([
+        if (!$sop) {
+            return response()->json([
+                'success' => false,
+                'message' => 'SOP tidak ditemukan.'
+            ], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
             'judul' => 'required|string|max:255',
             'file' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png|max:5120',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal.',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $data = $request->only('judul');
 
         if ($request->hasFile('file')) {
             if ($sop->file && Storage::disk('public')->exists('sop/' . $sop->file)) {
@@ -84,10 +103,10 @@ class SopController extends Controller
             $file = $request->file('file');
             $filename = time() . '_' . preg_replace('/[^a-zA-Z0-9._-]/', '_', $file->getClientOriginalName());
             $file->storeAs('sop', $filename, 'public');
-            $validated['file'] = $filename;
+            $data['file'] = $filename;
         }
 
-        $sop->update($validated);
+        $sop->update($data);
 
         return response()->json([
             'success' => true,
@@ -97,10 +116,19 @@ class SopController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Menghapus data SOP dan file fisiknya dari storage.
      */
-    public function destroy(Sop $sop): JsonResponse
+    public function destroy(string $id): JsonResponse
     {
+        $sop = Sop::find($id);
+
+        if (!$sop) {
+            return response()->json([
+                'success' => false,
+                'message' => 'SOP tidak ditemukan.'
+            ], 404);
+        }
+
         if ($sop->file && Storage::disk('public')->exists('sop/' . $sop->file)) {
             Storage::disk('public')->delete('sop/' . $sop->file);
         }
@@ -109,8 +137,7 @@ class SopController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'SOP berhasil dihapus.',
-            'data'    => null
+            'message' => 'SOP berhasil dihapus.'
         ], 200);
     }
 }

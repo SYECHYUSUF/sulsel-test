@@ -6,24 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Models\Profil;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Validator;
 
 class VisiMisiController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Menampilkan data Visi dan Misi.
      */
     public function index(): JsonResponse
     {
-        $profil = Profil::getByTipe('visi-misi');
-        
-        if (!$profil) {
-            $profil = new Profil([
-                'nm_profil' => 'Visi Misi',
-                'slug' => 'visi-misi',
-                'tipe' => 'visi-misi',
-                'deskripsi' => ''
-            ]);
-        }
+        $profil = Profil::where('tipe', 'visi-misi')->first();
         
         return response()->json([
             'success' => true,
@@ -32,28 +24,36 @@ class VisiMisiController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Memperbarui konten Visi dan Misi.
      */
     public function store(Request $request): JsonResponse
     {
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
             'nm_profil' => 'required|string|max:100',
-            'deskripsi' => 'required',
+            'deskripsi' => 'required|string',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal',
+                'errors'  => $validator->errors()
+            ], 422);
+        }
 
         $profil = Profil::updateOrCreate(
             ['tipe' => 'visi-misi'],
             [
                 'nm_profil' => $request->nm_profil,
-                'slug' => 'visi-misi',
+                'slug'      => 'visi-misi',
                 'deskripsi' => $request->deskripsi,
-                'tipe' => 'visi-misi',
+                'tipe'      => 'visi-misi',
             ]
         );
 
         return response()->json([
             'success' => true,
-            'message' => 'Visi Misi berhasil diperbarui.',
+            'message' => 'Visi & Misi berhasil diperbarui.',
             'data'    => $profil
         ], 200);
     }

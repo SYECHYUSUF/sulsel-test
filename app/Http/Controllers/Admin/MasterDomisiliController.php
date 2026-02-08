@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 
 class MasterDomisiliController extends Controller
 {
+    /**
+     * Menampilkan daftar semua daerah domisili.
+     */
     public function index(): JsonResponse
     {
         $data = MasterDomisili::orderBy('nama_daerah')->get();
@@ -18,6 +21,9 @@ class MasterDomisiliController extends Controller
         ], 200);
     }
 
+    /**
+     * Menyimpan data domisili baru ke database.
+     */
     public function store(Request $request): JsonResponse
     {
         $validated = $request->validate([
@@ -37,6 +43,9 @@ class MasterDomisiliController extends Controller
         ], 200);
     }
 
+    /**
+     * Menampilkan detail informasi satu daerah domisili.
+     */
     public function show($id): JsonResponse
     {
         $data = MasterDomisili::findOrFail($id);
@@ -47,6 +56,9 @@ class MasterDomisiliController extends Controller
         ], 200);
     }
 
+    /**
+     * Memperbarui informasi data domisili yang sudah ada.
+     */
     public function update(Request $request, $id): JsonResponse
     {
         $item = MasterDomisili::findOrFail($id);
@@ -68,6 +80,9 @@ class MasterDomisiliController extends Controller
         ], 200);
     }
 
+    /**
+     * Menghapus data domisili dari sistem.
+     */
     public function destroy($id)
     {
         $item = MasterDomisili::findOrFail($id);

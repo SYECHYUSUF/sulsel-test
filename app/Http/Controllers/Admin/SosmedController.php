@@ -6,11 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Sosmed;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Validator;
 
 class SosmedController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Menampilkan daftar media sosial berdasarkan urutan.
      */
     public function index(): JsonResponse
     {
@@ -23,11 +24,11 @@ class SosmedController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Menambahkan akun media sosial baru.
      */
     public function store(Request $request): JsonResponse
     {
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
             'sosmed' => 'required|string|max:100|unique:tbl_sosmed,sosmed',
             'link_sosmed' => 'required|url',
             'icon_sosmed' => 'required|string',
@@ -35,9 +36,17 @@ class SosmedController extends Controller
             'judul' => 'nullable|string|max:100',
         ]);
 
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal.',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
         $id = Sosmed::max('id_sosmed') + 1;
 
-        $data = Sosmed::create([
+        $sosmed = Sosmed::create([
             'id_sosmed' => $id,
             'sosmed' => $request->sosmed,
             'link_sosmed' => $request->link_sosmed,
@@ -49,29 +58,25 @@ class SosmedController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Media Sosial berhasil ditambahkan.',
-            'data'    => $data
-        ], 200);
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id): JsonResponse
-    {
-        $sosmed = Sosmed::findOrFail($id);
-
-        return response()->json([
-            'success' => true,
             'data'    => $sosmed
-        ], 200);
+        ], 201);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Memperbarui informasi akun media sosial.
      */
     public function update(Request $request, string $id): JsonResponse
     {
-        $validated = $request->validate([
+        $sosmed = Sosmed::find($id);
+
+        if (!$sosmed) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Media sosial tidak ditemukan.'
+            ], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
             'sosmed' => 'required|string|max:100|unique:tbl_sosmed,sosmed,' . $id . ',id_sosmed',
             'link_sosmed' => 'required|url',
             'icon_sosmed' => 'required|string',
@@ -79,7 +84,14 @@ class SosmedController extends Controller
             'judul' => 'nullable|string|max:100',
         ]);
 
-        $sosmed = Sosmed::findOrFail($id);
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal.',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
         $sosmed->update([
             'sosmed' => $request->sosmed,
             'link_sosmed' => $request->link_sosmed,
@@ -96,17 +108,24 @@ class SosmedController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Menghapus media sosial.
      */
     public function destroy(string $id): JsonResponse
     {
-        $sosmed = Sosmed::findOrFail($id);
+        $sosmed = Sosmed::find($id);
+
+        if (!$sosmed) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Media sosial tidak ditemukan.'
+            ], 404);
+        }
+
         $sosmed->delete();
 
         return response()->json([
             'success' => true,
-            'message' => 'Media Sosial berhasil dihapus.',
-            'data'    => null
+            'message' => 'Media Sosial berhasil dihapus.'
         ], 200);
     }
 }

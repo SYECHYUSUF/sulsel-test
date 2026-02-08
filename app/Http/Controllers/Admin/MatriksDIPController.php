@@ -6,9 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\MatriksDip;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Validator;
 
 class MatriksDIPController extends Controller
 {
+    /**
+     * Menampilkan daftar Matriks DIP dengan fitur pencarian.
+     */
     public function index(Request $request): JsonResponse
     {
         $query = MatriksDip::query();
@@ -21,17 +25,18 @@ class MatriksDIPController extends Controller
             });
         }
 
-        $items = $query->paginate(10);
-
         return response()->json([
             'success' => true,
-            'data'    => $items
+            'data'    => $query->paginate(10)
         ], 200);
     }
 
+    /**
+     * Menyimpan data Matriks DIP baru.
+     */
     public function store(Request $request): JsonResponse
     {
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
             'a' => 'nullable|string|max:255',
             'b' => 'nullable|string|max:255',
             'c' => 'nullable|string|max:255',
@@ -42,18 +47,36 @@ class MatriksDIPController extends Controller
             'h' => 'nullable|string|max:255',
         ]);
 
-        $data = MatriksDip::create($validated);
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal.',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $data = MatriksDip::create($request->all());
 
         return response()->json([
             'success' => true,
             'message' => 'Informasi Daftar Publik berhasil ditambahkan.',
             'data'    => $data
-        ], 200);
+        ], 201);
     }
 
+    /**
+     * Menampilkan detail Matriks DIP.
+     */
     public function show(string $id): JsonResponse
     {
-        $item = MatriksDip::findOrFail($id);
+        $item = MatriksDip::find($id);
+
+        if (!$item) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data tidak ditemukan.'
+            ], 404);
+        }
 
         return response()->json([
             'success' => true,
@@ -61,11 +84,21 @@ class MatriksDIPController extends Controller
         ], 200);
     }
 
+    /**
+     * Memperbarui data Matriks DIP.
+     */
     public function update(Request $request, string $id): JsonResponse
     {
-        $item = MatriksDip::findOrFail($id);
+        $item = MatriksDip::find($id);
 
-        $validated = $request->validate([
+        if (!$item) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data tidak ditemukan.'
+            ], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
             'a' => 'nullable|string|max:255',
             'b' => 'nullable|string|max:255',
             'c' => 'nullable|string|max:255',
@@ -76,7 +109,15 @@ class MatriksDIPController extends Controller
             'h' => 'nullable|string|max:255',
         ]);
 
-        $item->update($validated);
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal.',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $item->update($request->all());
 
         return response()->json([
             'success' => true,
@@ -85,15 +126,25 @@ class MatriksDIPController extends Controller
         ], 200);
     }
 
+    /**
+     * Menghapus data Matriks DIP secara permanen.
+     */
     public function destroy(string $id): JsonResponse
     {
-        $item = MatriksDip::findOrFail($id);
+        $item = MatriksDip::find($id);
+
+        if (!$item) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data tidak ditemukan.'
+            ], 404);
+        }
+
         $item->delete();
 
         return response()->json([
             'success' => true,
-            'message' => 'Informasi Daftar Publik berhasil dihapus.',
-            'data'    => null
+            'message' => 'Data berhasil dihapus.'
         ], 200);
     }
 }

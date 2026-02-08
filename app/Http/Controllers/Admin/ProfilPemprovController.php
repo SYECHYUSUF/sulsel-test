@@ -7,24 +7,16 @@ use App\Models\Profil;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class ProfilPemprovController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Menampilkan profil Pemerintah Provinsi Sulawesi Selatan.
      */
     public function index(): JsonResponse
     {
-        $profil = Profil::getByTipe('pemerintah');
-
-        if (!$profil) {
-            $profil = new Profil([
-                'nm_profil' => 'Profil Pemerintah Sulawesi Selatan',
-                'slug' => 'profil-pemprov',
-                'tipe' => 'pemerintah',
-                'deskripsi' => ''
-            ]);
-        }
+        $profil = Profil::where('tipe', 'pemerintah')->first();
 
         return response()->json([
             'success' => true,
@@ -33,69 +25,46 @@ class ProfilPemprovController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Memperbarui informasi profil pemerintah termasuk foto pimpinan.
      */
     public function store(Request $request): JsonResponse
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'nm_profil' => 'required|string|max:100',
             'deskripsi' => 'required',
-            'foto_gubernur' => 'nullable|image|mimes:jpg,jpeg,png|max:5120', // 5MB max
+            'foto_gubernur' => 'nullable|image|mimes:jpg,jpeg,png|max:5120',
             'foto_wakil' => 'nullable|image|mimes:jpg,jpeg,png|max:5120',
-            'ig_gubernur' => 'nullable|string|max:255',
-            'fb_gubernur' => 'nullable|string|max:255',
-            'ig_wakil' => 'nullable|string|max:255',
-            'fb_wakil' => 'nullable|string|max:255',
         ]);
 
-        $data = [
-            'nm_profil' => $request->nm_profil,
-            'slug' => 'profil-pemprov',
-            'deskripsi' => $request->deskripsi,
-            'tipe' => 'pemerintah',
-            'ig_gubernur' => $request->ig_gubernur,
-            'fb_gubernur' => $request->fb_gubernur,
-            'ig_wakil' => $request->ig_wakil,
-            'fb_wakil' => $request->fb_wakil,
-        ];
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal.',
+                'errors' => $validator->errors()
+            ], 422);
+        }
 
         $profil = Profil::where('tipe', 'pemerintah')->first();
+        $data = $request->except(['foto_gubernur', 'foto_wakil']);
 
-        // Handle foto gubernur upload
+        // Handle Foto Gubernur
         if ($request->hasFile('foto_gubernur')) {
-            // Delete old file if exists
-            if ($profil && $profil->foto_gubernur && Storage::disk('public')->exists($profil->foto_gubernur)) {
-                Storage::disk('public')->delete($profil->foto_gubernur);
-            }
-
-            $file = $request->file('foto_gubernur');
-            $filename = 'gubernur_' . time() . '.' . $file->getClientOriginalExtension();
-            $path = $file->storeAs('profil/pemerintah', $filename, 'public');
-            $data['foto_gubernur'] = $path;
+            if ($profil && $profil->foto_gubernur) Storage::disk('public')->delete($profil->foto_gubernur);
+            $data['foto_gubernur'] = $request->file('foto_gubernur')->store('profil/pemerintah', 'public');
         }
 
-        // Handle foto wakil upload
+        // Handle Foto Wakil
         if ($request->hasFile('foto_wakil')) {
-            // Delete old file if exists
-            if ($profil && $profil->foto_wakil && Storage::disk('public')->exists($profil->foto_wakil)) {
-                Storage::disk('public')->delete($profil->foto_wakil);
-            }
-
-            $file = $request->file('foto_wakil');
-            $filename = 'wakil_' . time() . '.' . $file->getClientOriginalExtension();
-            $path = $file->storeAs('profil/pemerintah', $filename, 'public');
-            $data['foto_wakil'] = $path;
+            if ($profil && $profil->foto_wakil) Storage::disk('public')->delete($profil->foto_wakil);
+            $data['foto_wakil'] = $request->file('foto_wakil')->store('profil/pemerintah', 'public');
         }
 
-        $updatedProfil = Profil::updateOrCreate(
-            ['tipe' => 'pemerintah'],
-            $data
-        );
+        $result = Profil::updateOrCreate(['tipe' => 'pemerintah'], $data);
 
         return response()->json([
             'success' => true,
-            'message' => 'Profil Pemerintah Sulawesi Selatan berhasil diperbarui.',
-            'data'    => $updatedProfil
+            'message' => 'Profil Pemerintah berhasil diperbarui.',
+            'data' => $result
         ], 200);
     }
 }

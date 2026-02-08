@@ -4,17 +4,23 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\LogLogin;
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class LogLoginController extends Controller
 {
-    public function index()
+    /**
+     * Menampilkan daftar log riwayat login pengguna.
+     */
+    public function index(): JsonResponse
     {
-        // Mengambil data log dengan eager loading user, diurutkan dari yang terbaru
         $logs = LogLogin::with('user')
                 ->orderBy('id', 'desc') 
                 ->paginate(20);
         
-        return view('admin.log-login.index', compact('logs'));
+        return response()->json([
+            'success' => true,
+            'message' => 'Daftar log login berhasil diambil',
+            'data' => $logs
+        ], 200);
     }
 }

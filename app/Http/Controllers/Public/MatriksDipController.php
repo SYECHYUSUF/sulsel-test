@@ -1,19 +1,22 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Public;
 
+use App\Http\Controllers\Controller;
 use App\Models\Ikphn;
 use App\Models\MatriksDip;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class MatriksDipController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Ambil daftar Matriks DIP aktif.
      */
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
         $search = $request->query('search');
+        
         $matriksDip = MatriksDip::where('is_active', 1)
             ->when($search, function ($query, $search) {
                 return $query->where('b', 'LIKE', "%{$search}%")
@@ -23,15 +26,24 @@ class MatriksDipController extends Controller
                     ->orWhere('f', 'LIKE', "%{$search}%")
                     ->orWhere('g', 'LIKE', "%{$search}%");
             })
-            ->paginate(10)
-            ->appends(['search' => $search]);
+            ->paginate(10);
 
-        return view('pages.informasi-publik.index', compact('matriksDip', 'search'));
+        return response()->json([
+            'success' => true,
+            'data' => $matriksDip,
+            'filters' => [
+                'search' => $search
+            ]
+        ]);
     }
 
-    public function tahun(Request $request, $tahun)
+    /**
+     * Ambil Matriks DIP berdasarkan tahun tertentu.
+     */
+    public function tahun(Request $request, $tahun): JsonResponse
     {
         $search = $request->query('search');
+        
         $matriksDip = MatriksDip::where('g', 'LIKE', "%{$tahun}%")
             ->where('is_active', 1)
             ->when($search, function ($query, $search) {
@@ -44,24 +56,38 @@ class MatriksDipController extends Controller
                         ->orWhere('g', 'LIKE', "%{$search}%");
                 });
             })
-            ->paginate(10)
-            ->appends(['search' => $search]);
+            ->paginate(10);
 
-        return view('pages.informasi-publik.tahun', compact('matriksDip', 'search', 'tahun'));
+        return response()->json([
+            'success' => true,
+            'tahun' => $tahun,
+            'data' => $matriksDip,
+            'filters' => [
+                'search' => $search
+            ]
+        ]);
     }
 
-    public function pengadaan(Request $request)
+    /**
+     * Ambil daftar pengadaan (Ikphn).
+     */
+    public function pengadaan(Request $request): JsonResponse
     {
         $search = $request->query('search');
 
-        $ikphns = Ikphn::query() // Mulai dengan query kosong
+        $ikphns = Ikphn::query()
             ->when($search, function ($query, $search) {
                 return $query->where('nama_jabatan', 'ilike', "%{$search}%");
             })
-            ->latest() // Urutkan berdasarkan data terbaru (opsional)
-            ->paginate(10)
-            ->appends(['search' => $search]);
+            ->latest()
+            ->paginate(10);
 
-        return view('pages.informasi-publik.pengadaan', compact('ikphns', 'search'));
+        return response()->json([
+            'success' => true,
+            'data' => $ikphns,
+            'filters' => [
+                'search' => $search
+            ]
+        ]);
     }
 }

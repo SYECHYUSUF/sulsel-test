@@ -8,12 +8,13 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Menampilkan daftar pengguna beserta relasi SKPD.
      */
     public function index(Request $request): JsonResponse
     {
@@ -36,11 +37,11 @@ class UserController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Mendaftarkan pengguna baru ke sistem.
      */
     public function store(Request $request): JsonResponse
     {
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
             'name'     => 'required|string|max:255',
             'username' => 'required|string|max:255|unique:users',
             'email'    => 'required|string|email|max:255|unique:users',
@@ -48,9 +49,21 @@ class UserController extends Controller
             'id_skpd'  => 'nullable|exists:tbl_skpd,id_skpd',
         ]);
 
-        $validated['password'] = Hash::make($request->password);
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal',
+                'errors'  => $validator->errors()
+            ], 422);
+        }
 
-        $user = User::create($validated);
+        $user = User::create([
+            'name'     => $request->name,
+            'username' => $request->username,
+            'email'    => $request->email,
+            'password' => Hash::make($request->password),
+            'id_skpd'  => $request->id_skpd,
+        ]);
 
         return response()->json([
             'success' => true,
@@ -60,26 +73,17 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id): JsonResponse
-    {
-        $user = User::with(['skpd', 'roles', 'lastLogin'])->findOrFail($id);
-
-        return response()->json([
-            'success' => true,
-            'data'    => $user
-        ], 200);
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Memperbarui profil pengguna.
      */
     public function update(Request $request, string $id): JsonResponse
     {
-        $user = User::findOrFail($id);
+        $user = User::find($id);
 
-        $validated = $request->validate([
+        if (!$user) {
+            return response()->json(['success' => false, 'message' => 'User tidak ditemukan.'], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
             'name'     => 'required|string|max:255',
             'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user->id)],
             'email'    => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
@@ -87,13 +91,20 @@ class UserController extends Controller
             'id_skpd'  => 'nullable|exists:tbl_skpd,id_skpd',
         ]);
 
-        if ($request->filled('password')) {
-            $validated['password'] = Hash::make($request->password);
-        } else {
-            unset($validated['password']);
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal',
+                'errors'  => $validator->errors()
+            ], 422);
         }
 
-        $user->update($validated);
+        $data = $request->only(['name', 'username', 'email', 'id_skpd']);
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        }
+
+        $user->update($data);
 
         return response()->json([
             'success' => true,
@@ -103,13 +114,17 @@ class UserController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Menghapus akun pengguna (Dilarang menghapus diri sendiri).
      */
     public function destroy(string $id): JsonResponse
     {
-        $user = User::findOrFail($id);
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json(['success' => false, 'message' => 'User tidak ditemukan.'], 404);
+        }
         
-        if ($user->id === Auth::user()->id) {
+        if ($user->id === Auth::id()) {
             return response()->json([
                 'success' => false,
                 'message' => 'Anda tidak dapat menghapus akun Anda sendiri.'

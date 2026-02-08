@@ -6,24 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Models\Profil;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class TupoksiController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Menampilkan data Tugas Pokok dan Fungsi (Tupoksi).
      */
     public function index(): JsonResponse
     {
-        $profil = Profil::getByTipe('tupoksi');
-        
-        if (!$profil) {
-            $profil = new Profil([
-                'nm_profil' => 'Tupoksi',
-                'slug' => 'tupoksi',
-                'tipe' => 'tupoksi',
-                'deskripsi' => ''
-            ]);
-        }
+        $profil = Profil::where('tipe', 'tupoksi')->first();
         
         return response()->json([
             'success' => true,
@@ -32,22 +24,30 @@ class TupoksiController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Memperbarui konten Tupoksi.
      */
     public function store(Request $request): JsonResponse
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'nm_profil' => 'required|string|max:100',
-            'deskripsi' => 'required',
+            'deskripsi' => 'required|string',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal',
+                'errors'  => $validator->errors()
+            ], 422);
+        }
 
         $profil = Profil::updateOrCreate(
             ['tipe' => 'tupoksi'],
             [
                 'nm_profil' => $request->nm_profil,
-                'slug' => 'tupoksi',
+                'slug'      => 'tupoksi',
                 'deskripsi' => $request->deskripsi,
-                'tipe' => 'tupoksi',
+                'tipe'      => 'tupoksi',
             ]
         );
 

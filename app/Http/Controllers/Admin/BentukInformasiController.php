@@ -5,53 +5,104 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\BentukInformasi;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Validator;
 
 class BentukInformasiController extends Controller
 {
     /**
-     * Store a newly created resource in storage.
+     * Menyimpan data bentuk informasi baru ke dalam database.
+     * * @param Request $request
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
-        $validated = $request->validate([
+        // Validasi input dari request
+        $validator = Validator::make($request->all(), [
             'judul' => 'required|string|max:255',
         ]);
 
-        BentukInformasi::create($validated);
+        // Jika validasi gagal, kembalikan pesan error dalam format JSON
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal.',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        // Membuat data baru berdasarkan input yang telah divalidasi
+        $bentukInformasi = BentukInformasi::create($validator->validated());
   
         return response()->json([
             'success' => true,
             'message' => 'Bentuk Informasi berhasil ditambahkan.',
-            'data' => $validated
-        ], 200);
+            'data' => $bentukInformasi
+        ], 201);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Memperbarui data bentuk informasi yang sudah ada di database.
+     * * @param Request $request
+     * @param string $id
+     * @return JsonResponse
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id): JsonResponse
     {
-        $bentukInformasi = BentukInformasi::findOrFail($id);
+        // Mencari data berdasarkan ID
+        $bentukInformasi = BentukInformasi::find($id);
 
-        $validated = $request->validate([
+        // Jika data tidak ditemukan, kembalikan error 404
+        if (!$bentukInformasi) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Bentuk informasi tidak ditemukan.'
+            ], 404);
+        }
+
+        // Validasi input pembaruan
+        $validator = Validator::make($request->all(), [
             'judul' => 'required|string|max:255',
         ]);
 
-        $bentukInformasi->update($validated);
+        // Jika validasi gagal
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal.',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        // Memperbarui data di database
+        $bentukInformasi->update($validator->validated());
 
         return response()->json([
             'success' => true,
             'message' => 'Bentuk Informasi berhasil diperbarui.',
-            'data' => $validated
+            'data' => $bentukInformasi
         ], 200);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Menghapus data bentuk informasi dari database.
+     * * @param string $id
+     * @return JsonResponse
      */
-    public function destroy(string $id)
+    public function destroy(string $id): JsonResponse
     {
-        $bentukInformasi = BentukInformasi::findOrFail($id);
+        // Mencari data berdasarkan ID
+        $bentukInformasi = BentukInformasi::find($id);
+
+        // Jika data tidak ditemukan
+        if (!$bentukInformasi) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Bentuk informasi tidak ditemukan.'
+            ], 404);
+        }
+
+        // Melakukan penghapusan data
         $bentukInformasi->delete();
 
         return response()->json([

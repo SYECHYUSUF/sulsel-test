@@ -7,15 +7,16 @@ use App\Models\Skpd;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class SkpdController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Menampilkan daftar seluruh SKPD.
      */
     public function index(): JsonResponse
     {
-        $skpd = Skpd::all(); //
+        $skpd = Skpd::all();
 
         return response()->json([
             'success' => true,
@@ -24,11 +25,11 @@ class SkpdController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Menyimpan data SKPD baru.
      */
     public function store(Request $request): JsonResponse
     {
-        $validated = $request->validate([ //
+        $validator = Validator::make($request->all(), [
             'nm_skpd'   => 'required|string|max:255',
             'alamat'    => 'nullable|string',
             'email'     => 'nullable|email|max:150',
@@ -43,39 +44,44 @@ class SkpdController extends Controller
             'is_active' => 'required|in:1,0',
         ]);
 
-        if ($request->hasFile('logo')) { //
-            $file = $request->file('logo');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->storeAs('logo-skpd', $filename, 'public');
-            $validated['logo'] = $filename;
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal',
+                'errors' => $validator->errors()
+            ], 422);
         }
 
-        Skpd::create($validated);
+        $data = $request->all();
+
+        if ($request->hasFile('logo')) {
+            $data['logo'] = $request->file('logo')->store('logo-skpd', 'public');
+        }
+
+        $skpd = Skpd::create($data);
 
         return response()->json([
             'success' => true,
-            'message' => 'Data SKPD berhasil ditambahkan.',
-            'data'    => $validated
-        ], 200);
+            'message' => 'Data SKPD berhasil ditambahkan',
+            'data'    => $skpd
+        ], 201);
     }
 
     /**
-     * Display the specified resource.
+     * Memperbarui data SKPD yang ada.
      */
-    public function show(Skpd $skpd): JsonResponse
+    public function update(Request $request, string $id): JsonResponse
     {
-        return response()->json([
-            'success' => true,
-            'data'    => $skpd //
-        ], 200);
-    }
+        $skpd = Skpd::find($id);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Skpd $skpd): JsonResponse
-    {
-        $validated = $request->validate([ //
+        if (!$skpd) {
+            return response()->json([
+                'success' => false,
+                'message' => 'SKPD tidak ditemukan'
+            ], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
             'nm_skpd'   => 'required|string|max:255',
             'alamat'    => 'nullable|string',
             'email'     => 'nullable|email|max:150',
@@ -90,41 +96,55 @@ class SkpdController extends Controller
             'is_active' => 'required|in:1,0',
         ]);
 
-        if ($request->hasFile('logo')) { //
-            // Hapus logo lama jika ada
-            if ($skpd->logo && Storage::disk('public')->exists('logo-skpd/' . $skpd->logo)) {
-                Storage::disk('public')->delete('logo-skpd/' . $skpd->logo);
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $data = $request->all();
+
+        if ($request->hasFile('logo')) {
+            if ($skpd->logo && Storage::disk('public')->exists($skpd->logo)) {
+                Storage::disk('public')->delete($skpd->logo);
             }
-
-            $file = $request->file('logo');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->storeAs('logo-skpd', $filename, 'public');
-            $validated['logo'] = $filename;
+            $data['logo'] = $request->file('logo')->store('logo-skpd', 'public');
         }
 
-        $skpd->update($validated); //
+        $skpd->update($data);
 
         return response()->json([
             'success' => true,
-            'message' => 'Data SKPD berhasil diperbarui.',
-            'data'    => $validated
+            'message' => 'Data SKPD berhasil diperbarui',
+            'data'    => $skpd
         ], 200);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Menghapus data SKPD secara permanen.
      */
-    public function destroy(Skpd $skpd): JsonResponse
+    public function destroy(string $id): JsonResponse
     {
-        if ($skpd->logo && Storage::disk('public')->exists('logo-skpd/' . $skpd->logo)) {
-            Storage::disk('public')->delete('logo-skpd/' . $skpd->logo);
+        $skpd = Skpd::find($id);
+
+        if (!$skpd) {
+            return response()->json([
+                'success' => false,
+                'message' => 'SKPD tidak ditemukan'
+            ], 404);
+        }
+
+        if ($skpd->logo && Storage::disk('public')->exists($skpd->logo)) {
+            Storage::disk('public')->delete($skpd->logo);
         }
 
         $skpd->delete();
 
         return response()->json([
             'success' => true,
-            'message' => 'Data SKPD berhasil dihapus.'
+            'message' => 'Data SKPD berhasil dihapus'
         ], 200);
     }
 }

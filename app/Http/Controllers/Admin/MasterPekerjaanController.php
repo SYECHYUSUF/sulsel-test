@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 
 class MasterPekerjaanController extends Controller
 {
+    /**
+     * Menampilkan seluruh daftar master data pekerjaan.
+     */
     public function index(): JsonResponse
     {
         $data = MasterPekerjaan::orderBy('nama_pekerjaan')->get();
@@ -19,6 +22,9 @@ class MasterPekerjaanController extends Controller
         ], 200);
     }
 
+    /**
+     * Menambahkan jenis pekerjaan baru.
+     */
     public function store(Request $request): JsonResponse
     {
         $validated = $request->validate([
@@ -37,6 +43,9 @@ class MasterPekerjaanController extends Controller
         ], 200);
     }
 
+    /**
+     * Memperbarui nama atau status aktif data pekerjaan.
+     */
     public function update(Request $request, $id): JsonResponse
     {
         $item = MasterPekerjaan::findOrFail($id);
@@ -57,6 +66,9 @@ class MasterPekerjaanController extends Controller
         ], 200);
     }
 
+    /**
+     * Menghapus data pekerjaan secara permanen.
+     */
     public function destroy($id): JsonResponse
     {
         $item = MasterPekerjaan::findOrFail($id);

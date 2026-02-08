@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\IntegratedService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -11,9 +12,9 @@ use Illuminate\Support\Facades\Validator;
 class IntegratedServiceController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Menampilkan daftar layanan terintegrasi.
      */
-    public function index()
+    public function index(): JsonResponse
     {
         $services = IntegratedService::latest()->paginate(10);
         
@@ -25,9 +26,9 @@ class IntegratedServiceController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Menyimpan layanan terintegrasi baru.
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
@@ -63,9 +64,9 @@ class IntegratedServiceController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Menampilkan detail layanan terintegrasi.
      */
-    public function show($id)
+    public function show(string $id): JsonResponse
     {
         $service = IntegratedService::find($id);
 
@@ -83,9 +84,9 @@ class IntegratedServiceController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Memperbarui data layanan terintegrasi.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, string $id): JsonResponse
     {
         $service = IntegratedService::find($id);
 
@@ -114,7 +115,7 @@ class IntegratedServiceController extends Controller
         $data = $request->only(['title', 'description', 'link', 'is_active']);
 
         if ($request->hasFile('icon')) {
-            // Hapus icon lama
+            // Menghapus ikon lama dari penyimpanan sebelum mengunggah yang baru
             if ($service->icon && Storage::disk('public')->exists('integrated_services/' . $service->icon)) {
                 Storage::disk('public')->delete('integrated_services/' . $service->icon);
             }
@@ -135,9 +136,9 @@ class IntegratedServiceController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Menghapus layanan terintegrasi.
      */
-    public function destroy($id)
+    public function destroy(string $id): JsonResponse
     {
         $service = IntegratedService::find($id);
 

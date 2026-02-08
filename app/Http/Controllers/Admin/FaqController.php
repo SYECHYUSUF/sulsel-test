@@ -6,110 +6,99 @@ use App\Http\Controllers\Controller;
 use App\Models\Faq;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class FaqController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Menampilkan daftar FAQ dengan fitur pencarian.
      */
     public function index(Request $request): JsonResponse
     {
         $query = Faq::query();
-
-        if ($request->has('search')) {
-            $search = $request->search;
-            $query->where('pertanyaan', 'LIKE', "%{$search}%")
-                ->orWhere('jawaban', 'LIKE', "%{$search}%");
+        if ($request->filled('search')) {
+            $query->where('pertanyaan', 'LIKE', "%{$request->search}%")
+                  ->orWhere('jawaban', 'LIKE', "%{$request->search}%");
         }
 
-        $faqs = $query->orderBy('created_at', 'desc')->paginate(10);
-
-        if ($request->expectsJson()) {
-            return response()->json($faqs);
-        }
-
-        return response()->json([
-            'success' => true,
-            'data' => $faqs
-        ], 200);
+        return response()->json(['success' => true, 'data' => $query->orderBy('created_at', 'desc')->paginate(10)]);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Menyimpan FAQ baru.
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'pertanyaan' => 'required|string|max:255',
             'jawaban' => 'required|string',
             'is_active' => 'boolean',
             'urutan' => 'nullable|integer',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
+        }
 
         $faq = Faq::create([
             'pertanyaan' => $request->pertanyaan,
             'jawaban' => $request->jawaban,
-            'is_active' => $request->has('is_active') ? $request->is_active : true, // Default true if not present or handle checkbox
+            'is_active' => $request->get('is_active', true),
             'urutan' => $request->urutan,
         ]);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'FAQ berhasil ditambahkan.',
-            'data' => $faq
-        ], 200);
+        return response()->json(['success' => true, 'message' => 'FAQ berhasil ditambahkan.', 'data' => $faq], 201);
     }
 
     /**
-     * Display the specified resource.
+     * Menampilkan detail FAQ.
      */
-    public function show(string $id)
+    public function show(string $id): JsonResponse
     {
-        $faq = Faq::findOrFail($id);
-        return response()->json([
-            'success' => true,
-            'data' => $faq
-        ], 200);
+        $faq = Faq::find($id);
+        if (!$faq) {
+            return response()->json(['success' => false, 'message' => 'Data tidak ditemukan.'], 404);
+        }
+        return response()->json(['success' => true, 'data' => $faq]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Memperbarui data FAQ.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id): JsonResponse
     {
-        $request->validate([
+        $faq = Faq::find($id);
+        if (!$faq) {
+            return response()->json(['success' => false, 'message' => 'Data tidak ditemukan.'], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
             'pertanyaan' => 'required|string|max:255',
             'jawaban' => 'required|string',
             'is_active' => 'boolean',
             'urutan' => 'nullable|integer',
         ]);
 
-        $faq = Faq::findOrFail($id);
-        $faq->update([
-            'pertanyaan' => $request->pertanyaan,
-            'jawaban' => $request->jawaban,
-            'is_active' => $request->is_active,
-            'urutan' => $request->urutan,
-        ]);
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
+        }
 
-        return response()->json([
-            'success' => true,
-            'message' => 'FAQ berhasil diperbarui',
-            'data' => $faq
-        ], 200);
+        $faq->update($validator->validated());
+
+        return response()->json(['success' => true, 'message' => 'FAQ berhasil diperbarui', 'data' => $faq]);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Menghapus FAQ.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): JsonResponse
     {
-        $faq = Faq::findOrFail($id);
+        $faq = Faq::find($id);
+        if (!$faq) {
+            return response()->json(['success' => false, 'message' => 'Data tidak ditemukan.'], 404);
+        }
         $faq->delete();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'FAQ berhasil dihapus.',
-        ], 200);
+        return response()->json(['success' => true, 'message' => 'FAQ berhasil dihapus.']);
     }
 }

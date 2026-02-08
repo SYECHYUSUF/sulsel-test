@@ -4,14 +4,17 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class FooterSettingController extends Controller
 {
-    public function index()
+    /**
+     * Mengambil semua pengaturan footer.
+     */
+    public function index(): JsonResponse
     {
-        // Load all settings needed for the footer
         $settings = [
             'footer_logo' => Setting::getValue('footer_logo'),
             'footer_description' => Setting::getValue('footer_description', 'Portal Resmi Pejabat Pengelola Informasi dan Dokumentasi (PPID) Utama Pemerintah Provinsi Sulawesi Selatan.'),
@@ -19,24 +22,31 @@ class FooterSettingController extends Controller
             'footer_phone' => Setting::getValue('footer_phone', '(0411) 453192'),
             'footer_email' => Setting::getValue('footer_email', 'ppid@sulawesiprov.go.id'),
             
-            // Social Media
+            // Media Sosial
             'social_facebook' => Setting::getValue('social_facebook', 'https://www.facebook.com/ppidsulsel'),
             'social_twitter' => Setting::getValue('social_twitter', 'https://twitter.com/ppidsulsel'),
             'social_instagram' => Setting::getValue('social_instagram', 'https://www.instagram.com/ppidsulsel'),
             'social_youtube' => Setting::getValue('social_youtube', 'https://www.youtube.com/@ppidsulsel'),
             
-            // Legal
+            // Hukum dan Statistik
             'privacy_policy' => Setting::getValue('privacy_policy', 'Isi Kebijakan Privasi disini...'),
             'terms_conditions' => Setting::getValue('terms_conditions', 'Isi Syarat dan Ketentuan disini...'),
-            'is_stats_visible' => Setting::getValue('is_stats_visible', '0'), // Default hidden
+            'is_stats_visible' => Setting::getValue('is_stats_visible', '0'),
         ];
 
-        return view('admin.footer-settings.index', compact('settings'));
+        return response()->json([
+            'success' => true,
+            'message' => 'Data pengaturan footer berhasil diambil.',
+            'data' => $settings
+        ], 200);
     }
 
-    public function update(Request $request)
+    /**
+     * Memperbarui pengaturan footer.
+     */
+    public function update(Request $request): JsonResponse
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'footer_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'footer_description' => 'nullable|string',
             'footer_address' => 'nullable|string',
@@ -48,9 +58,18 @@ class FooterSettingController extends Controller
             'social_youtube' => 'nullable|url',
             'privacy_policy' => 'nullable|string',
             'terms_conditions' => 'nullable|string',
+            'is_stats_visible' => 'nullable|boolean',
         ]);
 
-        // Handle File Upload
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal.',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        // Proses unggah file logo jika ada
         if ($request->hasFile('footer_logo')) {
             $path = $request->file('footer_logo')->store('images', 'public');
             Setting::updateOrCreate(
@@ -59,21 +78,25 @@ class FooterSettingController extends Controller
             );
         }
 
-        // Handle other fields
         $fields = [
             'footer_description', 'footer_address', 'footer_phone', 'footer_email',
             'social_facebook', 'social_twitter', 'social_instagram', 'social_youtube',
             'privacy_policy', 'terms_conditions', 'is_stats_visible'
         ];
 
+        // Iterasi field untuk pembaruan massal pada tabel settings
         foreach ($fields as $field) {
-            Setting::updateOrCreate(
-                ['key' => $field],
-                ['value' => $request->input($field)]
-            );
+            if ($request->has($field)) {
+                Setting::updateOrCreate(
+                    ['key' => $field],
+                    ['value' => $request->input($field)]
+                );
+            }
         }
 
-        return redirect()->route('admin.footer-settings.index')
-            ->with('success', 'Pengaturan Footer berhasil diperbarui.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Pengaturan footer berhasil diperbarui.'
+        ], 200);
     }
 }

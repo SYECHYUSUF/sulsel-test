@@ -6,10 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\DokumenPublik;
 use App\Models\MasterTahun;
 use App\Models\DownloadLog;
+use App\Models\KategoriInformasi;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 
 class DokumenPublikController extends Controller
@@ -98,24 +98,55 @@ class DokumenPublikController extends Controller
         ]);
     }
 
-    public function sertaMerta(Request $request): JsonResponse
+    /**
+     * Ambil data dokumen berdasarkan slug kategori dengan filter pencarian dan tahun.
+     */
+    public function getByCategory(Request $request, $id): JsonResponse
     {
-        return $this->getDocumentsByCategory($request, 22);
-    }
+        // Validasi keberadaan kategori berdasarkan ID
+        $kategori = KategoriInformasi::find($id);
 
-    public function setiapSaat(Request $request): JsonResponse
-    {
-        return $this->getDocumentsByCategory($request, 33);
-    }
+        if (!$kategori) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Kategori informasi tidak ditemukan'
+            ], 404);
+        }
 
-    public function berkala(Request $request): JsonResponse
-    {
-        return $this->getDocumentsByCategory($request, 103);
-    }
+        // Query dokumen dengan relasi terkait
+        $query = DokumenPublik::with(['skpd', 'kategori'])
+            ->where('id_kat_info', $id)
+            ->where('verify', 'y');
 
-    public function dikecualikan(Request $request): JsonResponse
-    {
-        return $this->getDocumentsByCategory($request, 100);
+        // Filter Pencarian (Judul/Keterangan)
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('judul', 'like', '%' . $search . '%')
+                  ->orWhere('ket', 'like', '%' . $search . '%');
+            });
+        }
+
+        // Filter Berdasarkan Tahun
+        if ($request->filled('year')) {
+            $query->where('tahun', $request->year);
+        }
+
+        // Eksekusi pagination
+        $data = $query->latest('tgl_upload')->paginate(10);
+
+        // Ambil Master Tahun untuk kebutuhan filter di frontend
+        $availableYears = MasterTahun::orderBy('waktu', 'desc')->get();
+
+        return response()->json([
+            'success' => true,
+            'category' => [
+                'id' => $kategori->id_kat_info,
+                'name' => $kategori->nm_kat_info,
+            ],
+            'data' => $data,
+            'available_years' => $availableYears
+        ]);
     }
 
     public function show($id): JsonResponse
@@ -135,23 +166,27 @@ class DokumenPublikController extends Controller
         ]);
     }
 
+    /**
+     * Unduh berkas dokumen publik.
+     */
     public function download($id)
     {
-        // Method download tetap mengembalikan BinaryFileResponse atau Redirect
-        // karena ini adalah aksi unduh file langsung, bukan sekadar data JSON.
-        
+        // Cari data informasi publik berdasarkan ID
         $informasi = DokumenPublik::find($id);
 
         if (!$informasi) {
-            return response()->json(['success' => false, 'message' => 'File tidak ditemukan'], 404);
+            return response()->json([
+                'success' => false, 
+                'message' => 'Data tidak ditemukan'
+            ], 404);
         }
 
-        // Update download count
+        // Update statistik jumlah unduhan secara atomik
         $informasi->update([
             'jumlah_download' => DB::raw('COALESCE(jumlah_download, 0) + 1')
         ]);
 
-        // Log the download
+        // Catat log unduhan untuk keperluan statistik
         DownloadLog::create([
             'ip_address' => request()->ip(),
             'user_agent' => request()->userAgent(),
@@ -162,20 +197,31 @@ class DokumenPublikController extends Controller
         $filePath = $informasi->file;
 
         if (!$filePath) {
-            return response()->json(['success' => false, 'message' => 'Path file kosong'], 404);
+            return response()->json([
+                'success' => false, 
+                'message' => 'Path berkas kosong'
+            ], 404);
         }
 
+        // Jika path berupa URL eksternal, lakukan redirect
         if (str_starts_with($filePath, 'http')) {
             return redirect($filePath);
         }
 
-        if (!Storage::disk('public')->exists($filePath)) {
-            return response()->json(['success' => false, 'message' => 'File fisik tidak ditemukan di storage'], 404);
+        // Gunakan storage_path untuk memastikan file ditemukan oleh sistem
+        $fullPath = storage_path('app/public/' . $filePath);
+
+        if (!file_exists($fullPath)) {
+            return response()->json([
+                'success' => false, 
+                'message' => 'Berkas fisik tidak ditemukan di server'
+            ], 404);
         }
 
-        return Storage::disk('public')->download(
-            $filePath, 
-            $informasi->judul . '.' . pathinfo($filePath, PATHINFO_EXTENSION)
+        // Menggunakan response()->download() sebagai alternatif yang lebih stabil daripada Storage::download()
+        return response()->download(
+            $fullPath, 
+            $informasi->judul . '.' . pathinfo($fullPath, PATHINFO_EXTENSION)
         );
     }
 }
