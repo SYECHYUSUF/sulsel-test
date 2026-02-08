@@ -18,7 +18,9 @@ return Application::configure(basePath: dirname(__DIR__))
             users: '/admin',
         );
         $middleware->validateCsrfTokens(except: [
-            'api/auth/login', 
+            'api/auth/login',
+            'api/public/permohonan-informasi',
+            'api/public/survey/store', 
         ]);
         $middleware->web(append: [
             \App\Http\Middleware\SetLocale::class,
