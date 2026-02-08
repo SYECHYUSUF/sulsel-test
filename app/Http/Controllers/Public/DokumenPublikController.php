@@ -77,7 +77,7 @@ class DokumenPublikController extends Controller
             $search = $request->search;
             $query->where(function ($q) use ($search) {
                 $q->where('judul', 'like', '%' . $search . '%')
-                  ->orWhere('ket', 'like', '%' . $search . '%');
+                    ->orWhere('ket', 'like', '%' . $search . '%');
             });
         }
 
@@ -121,24 +121,41 @@ class DokumenPublikController extends Controller
     }
 
     /**
-     * Daftar pengadaan (Ikphn).
+     * Daftar pengadaan (Ikphn) dengan filter pencarian dan tahun.
      */
     public function pengadaan(Request $request): JsonResponse
     {
         $search = $request->query('search');
+        $year = $request->query('year');
 
-        $ikphns = Ikphn::query()
-            ->when($search, function ($query, $search) {
-                return $query->where('nama_jabatan', 'ilike', "%{$search}%");
-            })
-            ->latest()
-            ->paginate(10);
+        $query = Ikphn::query();
+
+        // Filter pencarian
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('nama_jabatan', 'ilike', "%{$search}%")
+                    ->orWhere('nama_pejabat', 'ilike', "%{$search}%")
+                    ->orWhere('informasi_rencana', 'ilike', "%{$search}%");
+            });
+        }
+
+        // Filter tahun
+        if ($year) {
+            $query->where('tahun', $year);
+        }
+
+        $ikphns = $query->latest()->paginate(10);
+
+        // Ambil Master Tahun untuk kebutuhan filter di frontend
+        $availableYears = MasterTahun::orderBy('waktu', 'desc')->get();
 
         return response()->json([
             'success' => true,
             'data' => $ikphns,
+            'available_years' => $availableYears,
             'filters' => [
-                'search' => $search
+                'search' => $search,
+                'year' => $year
             ]
         ]);
     }
@@ -153,7 +170,7 @@ class DokumenPublikController extends Controller
 
         if (!$informasi) {
             return response()->json([
-                'success' => false, 
+                'success' => false,
                 'message' => 'Data tidak ditemukan'
             ], 404);
         }
@@ -175,7 +192,7 @@ class DokumenPublikController extends Controller
 
         if (!$filePath) {
             return response()->json([
-                'success' => false, 
+                'success' => false,
                 'message' => 'Path berkas kosong'
             ], 404);
         }
@@ -190,14 +207,14 @@ class DokumenPublikController extends Controller
 
         if (!file_exists($fullPath)) {
             return response()->json([
-                'success' => false, 
+                'success' => false,
                 'message' => 'Berkas fisik tidak ditemukan di server'
             ], 404);
         }
 
         // Menggunakan response()->download() sebagai alternatif yang lebih stabil daripada Storage::download()
         return response()->download(
-            $fullPath, 
+            $fullPath,
             $informasi->judul . '.' . pathinfo($fullPath, PATHINFO_EXTENSION)
         );
     }
