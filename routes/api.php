@@ -3,7 +3,6 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Admin\{
     DashboardController, BeritaController, DokumenPublikController,
     PermohonanInformasiController, PengajuanKeberatanController, SkpdController,
@@ -18,14 +17,23 @@ use App\Http\Controllers\Admin\{
     LogLoginController
 };
 
-// --- Rute Publik ---
-Route::post('/auth/login', [AuthController::class, 'login']);
+use App\Http\Controllers\Public\AuthController as PublicAuthController;
+
+Route::post('/auth/login', [PublicAuthController::class, 'login']);
+
+Route::namespace('App\Http\Controllers\Public')->group(function () {
+    Route::post('/track-visitor', 'VisitorController@track');
+    Route::get('/public/slide-banner', 'SlideBannerController@index');
+});
 
 // --- Rute Terproteksi (Sanctum) ---
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:sanctum')
+    ->prefix('admin')
+    ->namespace('App\Http\Controllers\Admin')
+    ->group(function () {
 
     // Auth & Profile
-    Route::post('/auth/logout', [AuthController::class, 'logout']);
+    Route::post('/auth/logout', [PublicAuthController::class, 'logout']);
     Route::get('/user', function (Request $request) {
         return $request->user()->load('skpd:id_skpd,nm_skpd');
     });

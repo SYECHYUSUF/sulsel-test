@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Berita;
-use App\Models\Skpd;
 use App\Models\User;
 use App\Models\Notification;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -17,7 +17,7 @@ class BeritaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
         $user = Auth::user();
         $query = Berita::with('skpd'); // Eager Loading untuk mencegah N+1
@@ -29,7 +29,7 @@ class BeritaController extends Controller
         }
 
         if ($request->filled('search')) {
-            $query->where('judul', 'like', '%' . $request->search . '%');
+            $query->where('judul', 'ilike', '%' . $request->search . '%');
         }
 
         if ($request->filled('verify')) {
@@ -104,7 +104,7 @@ class BeritaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Berita $berita) 
+    public function show(Berita $berita): JsonResponse
     {
         return response()->json([
             'success' => true,
@@ -113,24 +113,9 @@ class BeritaController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        $berita = Berita::findOrFail($id);
-        $skpdList = Skpd::orderBy('nm_skpd')->get();
-
-        return response()->json([
-            'success' => true,
-            'data' => $berita,
-            'skpdList' => $skpdList,
-        ], 200);
-    }
-
-    /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id): JsonResponse
     {
         $berita = Berita::findOrFail($id);
 
@@ -195,9 +180,9 @@ class BeritaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): JsonResponse
     {
-        $berita = Berita::find($id);
+        $berita = Berita::findOrFail($id);
 
         if (!$berita) {
             return response()->json(['success' => false, 'message' => 'Berita tidak ditemukan'], 404);

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Public;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePermohonanInformasiRequest;
 use App\Models\PermohonanInformasi;
 use App\Models\User;

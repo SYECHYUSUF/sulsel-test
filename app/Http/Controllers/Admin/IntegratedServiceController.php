@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\IntegratedService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class IntegratedServiceController extends Controller
 {
@@ -15,15 +16,12 @@ class IntegratedServiceController extends Controller
     public function index()
     {
         $services = IntegratedService::latest()->paginate(10);
-        return view('admin.integrated-services.index', compact('services'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('admin.integrated-services.create');
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'Daftar layanan terintegrasi berhasil diambil',
+            'data' => $services
+        ], 200);
     }
 
     /**
@@ -31,12 +29,20 @@ class IntegratedServiceController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:255',
             'link' => 'required|url|max:255',
             'icon' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal',
+                'errors' => $validator->errors()
+            ], 422);
+        }
 
         $data = $request->only(['title', 'description', 'link', 'is_active']);
 
@@ -47,38 +53,70 @@ class IntegratedServiceController extends Controller
             $data['icon'] = $filename;
         }
 
-        IntegratedService::create($data);
+        $service = IntegratedService::create($data);
 
-        return redirect()->route('admin.integrated-services.index')
-            ->with('success', 'Layanan berhasil ditambahkan.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Layanan berhasil ditambahkan',
+            'data' => $service
+        ], 201);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Display the specified resource.
      */
-    public function edit(IntegratedService $integratedService)
+    public function show($id)
     {
-        return view('admin.integrated-services.edit', compact('integratedService'));
+        $service = IntegratedService::find($id);
+
+        if (!$service) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Layanan tidak ditemukan'
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $service
+        ], 200);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, IntegratedService $integratedService)
+    public function update(Request $request, $id)
     {
-        $request->validate([
+        $service = IntegratedService::find($id);
+
+        if (!$service) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Layanan tidak ditemukan'
+            ], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:255',
             'link' => 'required|url|max:255',
             'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
         $data = $request->only(['title', 'description', 'link', 'is_active']);
 
         if ($request->hasFile('icon')) {
-            // Delete old icon
-            if ($integratedService->icon && Storage::disk('public')->exists('integrated_services/' . $integratedService->icon)) {
-                Storage::disk('public')->delete('integrated_services/' . $integratedService->icon);
+            // Hapus icon lama
+            if ($service->icon && Storage::disk('public')->exists('integrated_services/' . $service->icon)) {
+                Storage::disk('public')->delete('integrated_services/' . $service->icon);
             }
 
             $file = $request->file('icon');
@@ -87,24 +125,38 @@ class IntegratedServiceController extends Controller
             $data['icon'] = $filename;
         }
 
-        $integratedService->update($data);
+        $service->update($data);
 
-        return redirect()->route('admin.integrated-services.index')
-            ->with('success', 'Layanan berhasil diperbarui.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Layanan berhasil diperbarui',
+            'data' => $service
+        ], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(IntegratedService $integratedService)
+    public function destroy($id)
     {
-        if ($integratedService->icon && Storage::disk('public')->exists('integrated_services/' . $integratedService->icon)) {
-            Storage::disk('public')->delete('integrated_services/' . $integratedService->icon);
+        $service = IntegratedService::find($id);
+
+        if (!$service) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Layanan tidak ditemukan'
+            ], 404);
         }
 
-        $integratedService->delete();
+        if ($service->icon && Storage::disk('public')->exists('integrated_services/' . $service->icon)) {
+            Storage::disk('public')->delete('integrated_services/' . $service->icon);
+        }
 
-        return redirect()->route('admin.integrated-services.index')
-            ->with('success', 'Layanan berhasil dihapus.');
+        $service->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Layanan berhasil dihapus'
+        ], 200);
     }
 }

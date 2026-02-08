@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Public;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSurveyRequest;
 use App\Models\Survey;
 use App\Models\SurveyResponse;

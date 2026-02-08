@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePengajuanKeberatanRequest;
 use App\Models\AlasanPengajuan;
 use App\Models\Notification;
