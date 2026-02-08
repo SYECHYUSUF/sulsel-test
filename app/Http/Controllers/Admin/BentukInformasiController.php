@@ -11,6 +11,19 @@ use Illuminate\Support\Facades\Validator;
 class BentukInformasiController extends Controller
 {
     /**
+     * Menampilkan daftar semua bentuk informasi.
+     */
+    public function index(): JsonResponse
+    {
+        $data = BentukInformasi::orderBy('judul')->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => $data
+        ], 200);
+    }
+
+    /**
      * Menyimpan data bentuk informasi baru ke dalam database.
      * * @param Request $request
      * @return JsonResponse
