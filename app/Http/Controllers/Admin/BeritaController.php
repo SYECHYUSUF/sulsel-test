@@ -53,7 +53,7 @@ class BeritaController extends Controller
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required',
             'id_skpd' => 'required',
-            'img_berita' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'img_berita' => 'required|image|mimes:jpeg,png,jpg,gif|max:20048',
             'verify' => 'required|in:y,n,t',
         ]);
 

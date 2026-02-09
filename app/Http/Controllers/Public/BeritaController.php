@@ -62,4 +62,18 @@ class BeritaController extends Controller
             'recent_news' => BeritaResource::collection($recent_news),
         ]);
     }
+
+    /**
+     * Mengambil berita terbaru untuk landing page.
+     */
+    public function latest()
+    {
+        $berita = Berita::with('skpd')
+            ->where('verify', 'y')
+            ->latest('tgl_upload')
+            ->limit(3)
+            ->get();
+
+        return BeritaResource::collection($berita);
+    }
 }

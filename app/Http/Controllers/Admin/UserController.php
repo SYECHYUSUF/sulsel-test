@@ -37,6 +37,29 @@ class UserController extends Controller
     }
 
     /**
+     * Menampilkan detail data pengguna berdasarkan ID.
+     */
+    public function show(string $id): JsonResponse
+    {
+        // Mencari user beserta relasi yang dibutuhkan
+        $user = User::with(['skpd', 'lastLogin'])->find($id);
+
+        // Jika user tidak ditemukan, kembalikan response 404
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'User tidak ditemukan.'
+            ], 404);
+        }
+
+        // Kembalikan data user dalam format JSON
+        return response()->json([
+            'success' => true,
+            'data'    => $user
+        ], 200);
+    }
+
+    /**
      * Mendaftarkan pengguna baru ke sistem.
      */
     public function store(Request $request): JsonResponse

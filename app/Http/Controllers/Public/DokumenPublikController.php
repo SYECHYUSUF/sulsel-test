@@ -69,7 +69,7 @@ class DokumenPublikController extends Controller
 
         // Query dokumen dengan relasi terkait
         $query = DokumenPublik::with(['skpd', 'kategori'])
-            ->where('id_kat_info', $kategori->id)
+            ->where('id_kat_info', $kategori->id_kat_info)
             ->where('verify', 'y');
 
         // Filter Pencarian (Judul/Keterangan)

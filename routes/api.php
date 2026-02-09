@@ -4,13 +4,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Public\AuthController as PublicAuthController;
+use App\Http\Controllers\Public\BeritaController;
 use App\Http\Controllers\Public\DokumenPublikController;
 use App\Http\Controllers\Public\MasterDataController;
 use App\Http\Controllers\Public\MatriksDipController;
+use App\Http\Controllers\Public\SopController;
 
 Route::post('/auth/login', [PublicAuthController::class, 'login']);
 // Route::post('/track-visitor', 'VisitorController@track'); // Commented out if controller doesn't exist
-
 
 // Master Data
 Route::get('/public/informasi/tahun', [MasterDataController::class, 'tahun']);
@@ -20,9 +21,8 @@ Route::get('/public/pekerjaan', [MasterDataController::class, 'pekerjaan']);
 Route::get('/public/alasan-pengajuan', [MasterDataController::class, 'alasanPengajuan']);
 Route::get('/public/bentuk-informasi', [MasterDataController::class, 'bentukInformasi']);
 
-// Pengadaan (must be before the generic kategori/{slug} route)
-Route::get('/public/pengadaan', [DokumenPublikController::class, 'pengadaan']);
-
+Route::get('/public/informasi/pengadaan', [DokumenPublikController::class, 'pengadaan']);
+Route::get('/public/informasi/tahun/{year}', [MatriksDipController::class, 'tahun']);
 Route::get('/public/informasi/kategori/{slug}', [DokumenPublikController::class, 'getByCategory']);
 Route::get('/public/informasi/detail/{id}', [DokumenPublikController::class, 'show']);
 Route::get('/public/informasi/download/{id}', [DokumenPublikController::class, 'download']);
@@ -30,19 +30,29 @@ Route::get('/public/informasi/download/{id}', [DokumenPublikController::class, '
 // Search Suggestions
 Route::get('/dokumen-publik/search-suggestions', [DokumenPublikController::class, 'suggestions']);
 
+// Berita terbaru
+Route::get('/public/berita/latest', [BeritaController::class, 'latest']);
+
 Route::
         namespace('App\Http\Controllers\Public')->prefix('public')->group(function () {
             Route::apiResource('/slide-banner', 'SlideBannerController');
             Route::apiResource('/berita', 'BeritaController');
             Route::apiResource('/matriks-dip', 'MatriksDipController');
             Route::apiResource('/skpd', 'SkpdController');
+            Route::apiResource('/faq', 'FaqController');
 
+    Route::get('/sop', [SopController::class, 'index']);
+    Route::get('/sop/download', [SopController::class, 'download']);
+
+    Route::apiResource('/sosmed', 'SosmedController');
     Route::apiResource('/permohonan-informasi', 'PermohonanInformasiController');
 
     Route::get('/survey/questions', 'SurveyController@create');
     Route::post('/survey/store', 'SurveyController@store');
     Route::get('/survey/results', 'SurveyController@showResults');
 
+    Route::get('/profil-pemprov', 'ProfilPemprovController@index');
+    
     Route::prefix('profil')->group(function () {
         Route::get('ppid', 'ProfilController@ppid');
         Route::get('pemerintah', 'ProfilController@pemprov');
@@ -56,7 +66,7 @@ Route::
     // Social Links
     Route::get('/social-links', 'SocialLinksController@index');
 
-            Route::get('/informasi/tahun/{tahun}', [MatriksDipController::class, 'tahun']);
+            Route::get('/infuserormasi/tahun/{tahun}', [MatriksDipController::class, 'tahun']);
         });
 
 // --- Rute Terproteksi (Sanctum) ---
@@ -74,8 +84,10 @@ Route::middleware('auth:sanctum')
         });
 
         // Dashboard & Stats
-        Route::apiResource('/dashboard/stats', 'DashboardController');
+        Route::apiResource('/dashboard', 'DashboardController');
         Route::apiResource('/logs/login', 'LogLoginController');
+
+        Route::apiResource('/users', 'UserController');
 
         // Manajemen Konten
         Route::apiResource('berita', 'BeritaController');
@@ -115,33 +127,26 @@ Route::middleware('auth:sanctum')
     Route::apiResource('integrated-service', 'IntegratedServiceController');
 
     // Social Links Management
-    Route::prefix('social-links')->group(function () {
-        Route::get('/', 'SocialLinksController@index');
-        Route::post('/', 'SocialLinksController@store');
-        Route::put('/{id}', 'SocialLinksController@update');
-        Route::delete('/{id}', 'SocialLinksController@destroy');
-        Route::post('/update-order', 'SocialLinksController@updateOrder');
+    Route::apiResource('sosmed', 'SosmedController');
+
+    // Master Data Groups
+    Route::prefix('master-data')->group(function () {
+        Route::apiResource('pekerjaan', 'MasterPekerjaanController');
+        Route::apiResource('domisili', 'MasterDomisiliController');
+        Route::apiResource('alasan-pengajuan', 'AlasanPengajuanController');
+        Route::apiResource('bentuk-informasi', 'BentukInformasiController');
+        Route::apiResource('kategori-informasi', 'KategoriInformasiController');
+        Route::apiResource('tahun', 'MasterTahunController');
     });
 
-        // Master Data Groups
-        Route::prefix('master-data')->group(function () {
-            Route::apiResource('pekerjaan', 'MasterPekerjaanController');
-            Route::apiResource('domisili', 'MasterDomisiliController');
-            Route::apiResource('alasan-pengajuan', 'AlasanPengajuanController');
-            Route::apiResource('bentuk-informasi', 'BentukInformasiController');
-            Route::apiResource('kategori-informasi', 'KategoriInformasiController');
-            Route::apiResource('tahun', 'MasterTahunController');
-        });
+    // Survey & Feedback
+    Route::apiResource('survey-questions', 'SurveyQuestionController');
+    // Untuk index manual (non-resource)
+    Route::get('survey-responses', 'SurveyResponseController@index');
+    Route::apiResource('ikphn', 'IkphnController');
 
-        // Survey & Feedback
-        Route::apiResource('survey-questions', 'SurveyQuestionController');
-        // Untuk index manual (non-resource)
-        Route::get('survey-responses', 'SurveyResponseController@index');
-        Route::apiResource('ikphn', 'IkphnController');
-
-        // Notifikasi
-        Route::get('notifications', 'NotificationController@index');
-        // Menggunakan ID untuk markAsRead
-        Route::put('notifications/{id}/read', 'NotificationController@markAsRead');
-
-    });
+    // Notifikasi
+    Route::get('notifications', 'NotificationController@index');
+    // Menggunakan ID untuk markAsRead
+    Route::put('notifications/{id}/read', 'NotificationController@markAsRead');
+});
