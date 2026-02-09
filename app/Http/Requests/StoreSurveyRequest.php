@@ -24,19 +24,32 @@ class StoreSurveyRequest extends FormRequest
     {
         $validAnswers = ['Sangat Baik', 'Baik', 'Cukup Baik', 'Tidak Baik'];
         
-        return [
+        $rules = [
             'email' => ['required', 'email:rfc,dns', 'max:255'],
             'nama' => ['required', 'string', 'max:255', 'regex:/^[\pL\s\.\-\']+$/u'],
             'lembaga' => ['required', 'string', 'max:255'],
             'alamat' => ['required', 'string', 'max:500'],
             'tanggal' => ['required', 'date', 'before_or_equal:today'],
             'answer' => ['required', 'array'],
-            'answer.*' => ['nullable', 'string', 'in:' . implode(',', $validAnswers)],
             'masukan' => ['nullable', 'string', 'max:2000'],
             
             // Honeypot field
             'website' => ['nullable', 'max:0'],
         ];
+
+        // Apply rules for Radio questions
+        $radioQuestions = Survey::where('tipe', 'radio')->pluck('id');
+        foreach ($radioQuestions as $id) {
+            $rules["answer.$id"] = ['nullable', 'string', \Illuminate\Validation\Rule::in($validAnswers)];
+        }
+
+        // Apply rules for Textarea questions
+        $textQuestions = Survey::where('tipe', 'textarea')->pluck('id');
+        foreach ($textQuestions as $id) {
+            $rules["answer.$id"] = ['nullable', 'string', 'max:2000'];
+        }
+
+        return $rules;
     }
 
     /**

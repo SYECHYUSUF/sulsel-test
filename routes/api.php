@@ -18,6 +18,7 @@ Route::get('/public/informasi/kategori', [MasterDataController::class, 'kategori
 Route::get('/public/domisili', [MasterDataController::class, 'domisili']);
 Route::get('/public/pekerjaan', [MasterDataController::class, 'pekerjaan']);
 Route::get('/public/alasan-pengajuan', [MasterDataController::class, 'alasanPengajuan']);
+Route::get('/public/bentuk-informasi', [MasterDataController::class, 'bentukInformasi']);
 
 // Pengadaan (must be before the generic kategori/{slug} route)
 Route::get('/public/pengadaan', [DokumenPublikController::class, 'pengadaan']);
@@ -35,6 +36,25 @@ Route::
             Route::apiResource('/berita', 'BeritaController');
             Route::apiResource('/matriks-dip', 'MatriksDipController');
             Route::apiResource('/skpd', 'SkpdController');
+
+    Route::apiResource('/permohonan-informasi', 'PermohonanInformasiController');
+
+    Route::get('/survey/questions', 'SurveyController@create');
+    Route::post('/survey/store', 'SurveyController@store');
+    Route::get('/survey/results', 'SurveyController@showResults');
+
+    Route::prefix('profil')->group(function () {
+        Route::get('ppid', 'ProfilController@ppid');
+        Route::get('pemerintah', 'ProfilController@pemprov');
+        Route::get('visi-misi', 'ProfilController@visiMisi');
+        Route::get('tupoksi', 'ProfilController@tupoksi');
+        Route::get('struktur-organisasi', 'ProfilController@strukturOrganisasi');
+        Route::get('sambutan', 'ProfilController@sambutan');
+        Route::get('maklumat', 'ProfilController@maklumat');
+    });
+
+    // Social Links
+    Route::get('/social-links', 'SocialLinksController@index');
 
             Route::get('/informasi/tahun/{tahun}', [MatriksDipController::class, 'tahun']);
         });
@@ -63,36 +83,45 @@ Route::middleware('auth:sanctum')
         Route::apiResource('faq', 'FaqController');
         Route::apiResource('sop', 'SopController');
 
-        // Layanan Informasi (Permohonan & Keberatan)
-        Route::prefix('permohonan-informasi')->group(function () {
-            Route::get('/', 'PermohonanInformasiController@index');
-            Route::get('/{id}', 'PermohonanInformasiController@show');
-            Route::put('/{id}', 'PermohonanInformasiController@update');
-            Route::delete('/{id}', 'PermohonanInformasiController@destroy');
-            Route::post('/{id}/disposisi', 'PermohonanInformasiController@disposisiStore');
-            Route::post('/disposisi/{disposisiId}/respon', 'PermohonanInformasiController@responStore');
-        });
-        Route::apiResource('pengajuan-keberatan', 'PengajuanKeberatanController');
+    // Layanan Informasi (Permohonan & Keberatan)
+    Route::prefix('permohonan-informasi')->name('admin.permohonan-informasi.')->group(function () {
+        Route::get('/', 'PermohonanInformasiController@index')->name('index');
+        Route::get('/{id}', 'PermohonanInformasiController@show')->name('show');
+        Route::put('/{id}', 'PermohonanInformasiController@update')->name('update');
+        Route::delete('/{id}', 'PermohonanInformasiController@destroy')->name('destroy');
+        Route::post('/{id}/disposisi', 'PermohonanInformasiController@disposisiStore')->name('disposisi.store');
+        Route::post('/disposisi/{disposisiId}/respon', 'PermohonanInformasiController@responStore')->name('respon.store');
+    });
+    Route::apiResource('pengajuan-keberatan', 'PengajuanKeberatanController');
 
         // Dokumen & Publikasi
         Route::apiResource('dokumen-publik', 'DokumenPublikController');
         Route::apiResource('matriks-dip', 'MatriksDIPController');
         Route::apiResource('informasi', 'InformasiController');
 
-        // Profil Lembaga & Pengaturan
-        Route::apiResource('visi-misi', 'VisiMisiController');
-        Route::apiResource('maklumat', 'MaklumatController');
-        Route::apiResource('profil-ppid', 'ProfilPpidController');
-        Route::apiResource('struktur-organisasi', 'StrukturOrganisasiController');
-        Route::apiResource('tupoksi', 'TupoksiController');
-        Route::apiResource('sambutan', 'SambutanController');
-        Route::apiResource('profil-pemprov', 'ProfilPemprovController');
+    // Profil Lembaga & Pengaturan
+    Route::apiResource('visi-misi', 'VisiMisiController');
+    Route::apiResource('maklumat', 'MaklumatController');
+    Route::apiResource('profil-ppid', 'ProfilPpidController');
+    Route::apiResource('struktur-organisasi', 'StrukturOrganisasiController');
+    Route::apiResource('tupoksi', 'TupoksiController');
+    Route::apiResource('sambutan', 'SambutanController');
+    Route::apiResource('profil-pemprov', 'ProfilPemprovController');
+    
+    // Konfigurasi & Master Data
+    Route::apiResource('skpd', 'SkpdController');
+    Route::apiResource('sosmed', 'SosmedController');
+    Route::apiResource('footer-setting', 'FooterSettingController');
+    Route::apiResource('integrated-service', 'IntegratedServiceController');
 
-        // Konfigurasi & Master Data
-        Route::apiResource('skpd', 'SkpdController');
-        Route::apiResource('sosmed', 'SosmedController');
-        Route::apiResource('footer-setting', 'FooterSettingController');
-        Route::apiResource('integrated-service', 'IntegratedServiceController');
+    // Social Links Management
+    Route::prefix('social-links')->group(function () {
+        Route::get('/', 'SocialLinksController@index');
+        Route::post('/', 'SocialLinksController@store');
+        Route::put('/{id}', 'SocialLinksController@update');
+        Route::delete('/{id}', 'SocialLinksController@destroy');
+        Route::post('/update-order', 'SocialLinksController@updateOrder');
+    });
 
         // Master Data Groups
         Route::prefix('master-data')->group(function () {

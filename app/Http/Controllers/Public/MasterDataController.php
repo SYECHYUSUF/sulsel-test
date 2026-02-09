@@ -8,6 +8,7 @@ use App\Models\MasterTahun;
 use App\Models\MasterDomisili;
 use App\Models\MasterPekerjaan;
 use App\Models\AlasanPengajuan;
+use App\Models\BentukInformasi;
 use Illuminate\Http\JsonResponse;
 
 class MasterDataController extends Controller
@@ -67,6 +68,17 @@ class MasterDataController extends Controller
     public function alasanPengajuan(): JsonResponse
     {
         $data = AlasanPengajuan::select(['id', 'alasan'])
+            ->get();
+
+        return response()->json(['data' => $data], 200);
+    }
+
+    /**
+     * Menampilkan daftar bentuk informasi.
+     */
+    public function bentukInformasi(): JsonResponse
+    {
+        $data = BentukInformasi::select(['id', 'judul'])
             ->get();
 
         return response()->json(['data' => $data], 200);
