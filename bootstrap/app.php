@@ -17,9 +17,6 @@ return Application::configure(basePath: dirname(__DIR__))
             guests: '/login',
             users: '/admin',
         );
-        $middleware->validateCsrfTokens(except: [
-            'api/auth/login', 
-        ]);
         $middleware->web(append: [
             \App\Http\Middleware\SetLocale::class,
         ]);

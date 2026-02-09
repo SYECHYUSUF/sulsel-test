@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\DB;
 class DokumenPublikController extends Controller
 {
     /**
-     * Get search suggestions for documents.
+     * Memperoleh saran pencarian untuk dokumen publik.
      */
     public function suggestions(Request $request): JsonResponse
     {
@@ -103,6 +103,9 @@ class DokumenPublikController extends Controller
         ]);
     }
 
+    /**
+     * Menampilkan detail dokumen publik berdasarkan ID.
+     */
     public function show($id): JsonResponse
     {
         $informasi = DokumenPublik::with(['kategori', 'skpd'])->find($id);

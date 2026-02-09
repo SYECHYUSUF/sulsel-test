@@ -30,7 +30,7 @@ return [
          /*
          * Description rendered on the home page of the API documentation (`/docs/api`).
          */
-        'description' => 'Dokumentasi API untuk pengelolaan berita, permohonan informasi, dan layanan publik lainnya.',
+        'description' => 'Dokumentasi API PPID Pemprov Sulsel.',
     ],
 
     /*
