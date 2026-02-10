@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\SkpdVisiMisiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -106,10 +107,10 @@ Route::middleware('auth:sanctum')
     });
     Route::apiResource('pengajuan-keberatan', 'PengajuanKeberatanController');
 
-        // Dokumen & Publikasi
-        Route::apiResource('dokumen-publik', 'DokumenPublikController');
-        Route::apiResource('matriks-dip', 'MatriksDIPController');
-        Route::apiResource('informasi', 'InformasiController');
+    // Dokumen & Publikasi
+    Route::apiResource('dokumen-publik', 'DokumenPublikController');
+    Route::apiResource('matriks-dip', 'MatriksDIPController');
+    Route::apiResource('informasi', 'InformasiController');
 
     // Profil Lembaga & Pengaturan
     Route::apiResource('visi-misi', 'VisiMisiController');
@@ -122,9 +123,13 @@ Route::middleware('auth:sanctum')
     
     // Konfigurasi & Master Data
     Route::apiResource('skpd', 'SkpdController');
+    Route::get('/skpd/{id}/visi-misi', [SkpdVisiMisiController::class, 'show']);
+    Route::put('/skpd/{id}/visi-misi', [SkpdVisiMisiController::class, 'update']);
+
     Route::apiResource('sosmed', 'SosmedController');
     Route::apiResource('footer-setting', 'FooterSettingController');
     Route::apiResource('integrated-service', 'IntegratedServiceController');
+    Route::apiResource('ikphn', 'IkphnController');
 
     // Social Links Management
     Route::apiResource('sosmed', 'SosmedController');
@@ -143,7 +148,6 @@ Route::middleware('auth:sanctum')
     Route::apiResource('survey-questions', 'SurveyQuestionController');
     // Untuk index manual (non-resource)
     Route::get('survey-responses', 'SurveyResponseController@index');
-    Route::apiResource('ikphn', 'IkphnController');
 
     // Notifikasi
     Route::get('notifications', 'NotificationController@index');
