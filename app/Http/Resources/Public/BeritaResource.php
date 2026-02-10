@@ -19,7 +19,7 @@ class BeritaResource extends JsonResource
             'title' => $this->judul,
             'slug' => $this->slug,
             'content' => $this->deskripsi,
-            'image' => $this->img_berita,
+            'image' => $this->img_berita ? asset('storage/berita/' . $this->img_berita) : null,
             'viewers' => $this->viewers,
             'date' => $this->tgl_upload,
             'category' => new CategoryResource($this->whenLoaded('skpd')),
