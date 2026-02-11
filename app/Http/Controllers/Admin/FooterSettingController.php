@@ -16,17 +16,13 @@ class FooterSettingController extends Controller
     public function index(): JsonResponse
     {
         $settings = [
-            'footer_logo' => Setting::getValue('footer_logo'),
+            'footer_logo' => Setting::getValue('footer_logo') 
+                ? asset('storage/' . Setting::getValue('footer_logo')) 
+                : null,
             'footer_description' => Setting::getValue('footer_description', 'Portal Resmi Pejabat Pengelola Informasi dan Dokumentasi (PPID) Utama Pemerintah Provinsi Sulawesi Selatan.'),
             'footer_address' => Setting::getValue('footer_address', 'Jl. Urip Sumoharjo No. 269, Makassar, Sulawesi Selatan, 90231'),
             'footer_phone' => Setting::getValue('footer_phone', '(0411) 453192'),
             'footer_email' => Setting::getValue('footer_email', 'ppid@sulawesiprov.go.id'),
-            
-            // Media Sosial
-            'social_facebook' => Setting::getValue('social_facebook', 'https://www.facebook.com/ppidsulsel'),
-            'social_twitter' => Setting::getValue('social_twitter', 'https://twitter.com/ppidsulsel'),
-            'social_instagram' => Setting::getValue('social_instagram', 'https://www.instagram.com/ppidsulsel'),
-            'social_youtube' => Setting::getValue('social_youtube', 'https://www.youtube.com/@ppidsulsel'),
             
             // Hukum dan Statistik
             'privacy_policy' => Setting::getValue('privacy_policy', 'Isi Kebijakan Privasi disini...'),
@@ -44,7 +40,7 @@ class FooterSettingController extends Controller
     /**
      * Memperbarui pengaturan footer.
      */
-    public function update(Request $request): JsonResponse
+    public function store(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'footer_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -52,10 +48,6 @@ class FooterSettingController extends Controller
             'footer_address' => 'nullable|string',
             'footer_phone' => 'nullable|string',
             'footer_email' => 'nullable|email',
-            'social_facebook' => 'nullable|url',
-            'social_twitter' => 'nullable|url',
-            'social_instagram' => 'nullable|url',
-            'social_youtube' => 'nullable|url',
             'privacy_policy' => 'nullable|string',
             'terms_conditions' => 'nullable|string',
             'is_stats_visible' => 'nullable|boolean',
@@ -80,7 +72,6 @@ class FooterSettingController extends Controller
 
         $fields = [
             'footer_description', 'footer_address', 'footer_phone', 'footer_email',
-            'social_facebook', 'social_twitter', 'social_instagram', 'social_youtube',
             'privacy_policy', 'terms_conditions', 'is_stats_visible'
         ];
 
