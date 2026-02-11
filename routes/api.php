@@ -47,6 +47,7 @@ Route::
     Route::get('/sop/download', [SopController::class, 'download']);
 
     Route::apiResource('/sosmed', 'SosmedController');
+    Route::get('/permohonan-informasi/search', 'PermohonanInformasiController@search');
     Route::apiResource('/permohonan-informasi', 'PermohonanInformasiController');
 
     Route::get('/survey/questions', 'SurveyController@create');

@@ -44,7 +44,12 @@ class PermohonanInformasiController extends Controller
     public function show(string $id): JsonResponse
     {
         // Cari permohonan informasi beserta relasi skpd-nya
-        $permohonan = PermohonanInformasi::with('skpd')->find($id);
+        $permohonan = PermohonanInformasi::with([
+            'skpd', 
+            'disposisi.skpd', 
+            'disposisi.respon.respondedBy', 
+            'disposisi.disposisiBy'
+        ])->find($id);
 
         // Jika permohonan informasi tidak ditemukan
         if (!$permohonan) {
@@ -52,6 +57,18 @@ class PermohonanInformasiController extends Controller
                 'success' => false,
                 'message' => 'Permohonan informasi tidak ditemukan'
             ], 404);
+        }
+
+        $user = Auth::user();
+        // Jika user adalah OPD, pastikan dia punya disposisi untuk permohonan ini
+        if ($user->hasRole('opd') && $user->id_skpd) {
+            $hasDisposisi = $permohonan->disposisi->contains('id_skpd', $user->id_skpd);
+            if (!$hasDisposisi) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Anda tidak memiliki akses ke permohonan ini.'
+                ], 403);
+            }
         }
 
         // Return response konsisten dengan method index/store
@@ -68,12 +85,12 @@ class PermohonanInformasiController extends Controller
         $permohonan = PermohonanInformasi::findOrFail($id);
         
         $validated = $request->validate([
-            'skpd_ids' => 'required|array|min:1',
-            'skpd_ids.*' => 'exists:tbl_skpd,id_skpd',
+            'id_skpd' => 'required|array|min:1',
+            'id_skpd.*' => 'exists:tbl_skpd,id_skpd',
             'catatan' => 'nullable|string',
         ]);
 
-        foreach ($validated['skpd_ids'] as $skpdId) {
+        foreach ($validated['id_skpd'] as $skpdId) {
             $exists = PermohonanDisposisi::where('id_permohonan', $permohonan->id_permohonan)
                         ->where('id_skpd', $skpdId)
                         ->exists();
@@ -105,7 +122,7 @@ class PermohonanInformasiController extends Controller
             $currentSkpdIds = is_array($decoded) ? $decoded : [$permohonan->id_skpd];
         }
         
-        $mergedSkpdIds = array_values(array_unique(array_merge($currentSkpdIds, $validated['skpd_ids'])));
+        $mergedSkpdIds = array_values(array_unique(array_merge($currentSkpdIds, $validated['id_skpd'])));
 
         $permohonan->update([
             'status' => PermohonanInformasi::STATUS_DISPOSISI,
@@ -127,7 +144,7 @@ class PermohonanInformasiController extends Controller
         $disposisi = PermohonanDisposisi::findOrFail($disposisiId);
         $user = Auth::user();
 
-        if (!$user->hasRole('admin') && $user->id_skpd !== $disposisi->id_skpd) {
+        if (!$user->hasRole('admin') && $user->id_skpd != $disposisi->id_skpd) {
             return response()->json(['success' => false, 'message' => 'Forbidden access.'], 403);
         }
 
@@ -150,10 +167,31 @@ class PermohonanInformasiController extends Controller
         $disposisi->update(['status' => $validated['status']]);
 
         $permohonan = $disposisi->permohonan;
-        $allCompleted = $permohonan->disposisi()->whereIn('status', ['selesai', 'ditolak'])->count() === $permohonan->disposisi()->count();
-        
-        if ($allCompleted) {
-            $permohonan->update(['status' => PermohonanInformasi::STATUS_SELESAI]);
+
+        // NEW: Sync response to parent PermohonanInformasi if status is 'selesai'
+        if ($validated['status'] === 'selesai') {
+            $updateData = [
+                'status' => PermohonanInformasi::STATUS_SELESAI,
+                'jawaban' => $validated['respon'],
+                'responded_by' => 'OPD (' . $disposisi->skpd->nm_skpd . ')',
+                'updated_at' => now(), // Ensure updated_at changes
+            ];
+
+            // If file exists, copy/link it to the parent record
+            if ($filePath) {
+                $updateData['file'] = $filePath;
+            }
+
+            $permohonan->update($updateData);
+        } else {
+             // Check if all are completed (fallback logic)
+            $allCompleted = $permohonan->disposisi()->whereIn('status', ['selesai', 'ditolak'])->count() === $permohonan->disposisi()->count();
+            if ($allCompleted) {
+                 // Note: This might overwrite the specific answer above if multiple finish at once, 
+                 // but typically we want at least ONE answer to populate the parent.
+                 // Ideally we append, but for now let's just mark as finished.
+                $permohonan->update(['status' => PermohonanInformasi::STATUS_SELESAI]);
+            }
         }
 
         Notification::send([
@@ -190,7 +228,7 @@ class PermohonanInformasiController extends Controller
 
         $data = ['status' => $validated['status']];
 
-        if ($validated['status'] == PermohonanInformasi::STATUS_PROSES && $request->has('jawaban')) {
+        if (($validated['status'] == PermohonanInformasi::STATUS_PROSES || $validated['status'] == PermohonanInformasi::STATUS_SELESAI) && $request->has('jawaban')) {
             $data['jawaban'] = $validated['jawaban'];
             $data['responded_by'] = 'Admin';
         }
