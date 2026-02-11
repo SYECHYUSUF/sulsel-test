@@ -53,7 +53,7 @@ class BeritaController extends Controller
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required',
             'id_skpd' => 'required',
-            'img_berita' => 'required|image|mimes:jpeg,png,jpg,gif|max:20048',
+            'img_berita' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:20048',
             'verify' => 'required|in:y,n,t',
         ]);
 
@@ -102,14 +102,26 @@ class BeritaController extends Controller
     }
 
     /**
-     * Menampilkan detail satu berita.
+     * Menampilkan detail satu berita dengan relasi dan proteksi akses.
      */
-    public function show(Berita $berita): JsonResponse
+    public function show(string $id): JsonResponse
     {
+        // Cari berita beserta relasi skpd-nya
+        $berita = Berita::with('skpd')->find($id);
+
+        // Jika berita tidak ditemukan
+        if (!$berita) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Berita tidak ditemukan'
+            ], 404);
+        }
+
+       
+        // Return response konsisten dengan method index/store
         return response()->json([
-            'success' => true,
             'data' => $berita
-        ]);
+        ], 200);
     }
 
     /**
@@ -117,6 +129,7 @@ class BeritaController extends Controller
      */
     public function update(Request $request, string $id): JsonResponse
     {
+        /** @var Berita $berita */ // Menambahkan type hinting
         $berita = Berita::find($id);
 
         if (!$berita) {
@@ -126,7 +139,7 @@ class BeritaController extends Controller
         $validator = Validator::make($request->all(), [
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required',
-            'img_berita' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'img_berita' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:20048',
             'id_skpd' => 'required|exists:tbl_skpd,id_skpd',
             'verify' => 'required|in:y,n,t',
         ]);
@@ -189,6 +202,7 @@ class BeritaController extends Controller
      */
     public function destroy(string $id): JsonResponse
     {
+        /** @var Berita $berita */ // Menambahkan type hinting
         $berita = Berita::find($id);
 
         if (!$berita) {
