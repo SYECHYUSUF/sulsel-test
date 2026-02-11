@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\PengajuanKeberatanController;
 use App\Http\Controllers\Admin\PermohonanInformasiController;
 use App\Http\Controllers\Admin\SkpdVisiMisiController;
 use Illuminate\Http\Request;
@@ -42,6 +43,8 @@ Route::
             Route::apiResource('/matriks-dip', 'MatriksDipController');
             Route::apiResource('/skpd', 'SkpdController');
             Route::apiResource('/faq', 'FaqController');
+
+    Route::apiResource('footer-setting', 'FooterSettingController');
 
     Route::get('/sop', [SopController::class, 'index']);
     Route::get('/sop/download', [SopController::class, 'download']);
@@ -113,7 +116,21 @@ Route::middleware('auth:sanctum')
         Route::post('disposisi/{disposisiId}/respon', [PermohonanInformasiController::class, 'responStore']);
     });
 
+    // Resource route untuk index, show, update, destroy
     Route::apiResource('pengajuan-keberatan', 'PengajuanKeberatanController');
+
+    // Route tambahan untuk fungsi spesifik di PengajuanKeberatanController
+    Route::prefix('pengajuan-keberatan')->group(function () {
+        // Route untuk Feedback
+        Route::post('{id}/feedback', [PengajuanKeberatanController::class, 'storeFeedback'])->name('pengajuan-keberatan.storeFeedback');
+        Route::get('{id}/feedback', [PengajuanKeberatanController::class, 'loadFeedback'])->name('pengajuan-keberatan.loadFeedback');
+        
+        // Route untuk Disposisi (Store ke banyak SKPD)
+        Route::post('{id}/disposisi', [PengajuanKeberatanController::class, 'disposisiStore'])->name('pengajuan-keberatan.disposisi.store');
+        
+        // Route untuk Respon (Dari SKPD ke admin)
+        Route::post('disposisi/{disposisiId}/respon', [PengajuanKeberatanController::class, 'responStore'])->name('pengajuan-keberatan.respon.store');
+    });
 
     // Dokumen & Publikasi
     Route::apiResource('dokumen-publik', 'DokumenPublikController');
