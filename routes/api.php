@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\PermohonanInformasiController;
 use App\Http\Controllers\Admin\SkpdVisiMisiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -97,14 +98,21 @@ Route::middleware('auth:sanctum')
         Route::apiResource('sop', 'SopController');
 
     // Layanan Informasi (Permohonan & Keberatan)
-    Route::prefix('permohonan-informasi')->name('admin.permohonan-informasi.')->group(function () {
-        Route::get('/', 'PermohonanInformasiController@index')->name('index');
-        Route::get('/{id}', 'PermohonanInformasiController@show')->name('show');
-        Route::put('/{id}', 'PermohonanInformasiController@update')->name('update');
-        Route::delete('/{id}', 'PermohonanInformasiController@destroy')->name('destroy');
-        Route::post('/{id}/disposisi', 'PermohonanInformasiController@disposisiStore')->name('disposisi.store');
-        Route::post('/disposisi/{disposisiId}/respon', 'PermohonanInformasiController@responStore')->name('respon.store');
+    // Route::prefix('permohonan-informasi')->name('admin.permohonan-informasi.')->group(function () {
+    //     Route::get('/', 'PermohonanInformasiController@index')->name('index');
+    //     Route::get('/{id}', 'PermohonanInformasiController@show')->name('show');
+    //     Route::put('/{id}', 'PermohonanInformasiController@update')->name('update');
+    //     Route::delete('/{id}', 'PermohonanInformasiController@destroy')->name('destroy');
+    //     Route::post('/{id}/disposisi', 'PermohonanInformasiController@disposisiStore')->name('disposisi.store');
+    //     Route::post('/disposisi/{disposisiId}/respon', 'PermohonanInformasiController@responStore')->name('respon.store');
+    // });
+
+    Route::apiResource('permohonan-informasi', 'PermohonanInformasiController');
+    Route::prefix('permohonan-informasi')->group(function () {
+        Route::post('{id}/disposisi', [PermohonanInformasiController::class, 'disposisiStore']);
+        Route::post('disposisi/{disposisiId}/respon', [PermohonanInformasiController::class, 'responStore']);
     });
+
     Route::apiResource('pengajuan-keberatan', 'PengajuanKeberatanController');
 
     // Dokumen & Publikasi
