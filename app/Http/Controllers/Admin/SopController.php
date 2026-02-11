@@ -67,6 +67,26 @@ class SopController extends Controller
     }
 
     /**
+     * Menampilkan detail SOP.
+     */
+    public function show(string $id): JsonResponse
+    {
+        $sop = Sop::find($id);
+
+        if (!$sop) {
+            return response()->json([
+                'success' => false,
+                'message' => 'SOP tidak ditemukan.'
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data'    => $sop
+        ], 200);
+    }
+
+    /**
      * Memperbarui data SOP dan mengganti file jika ada unggahan baru.
      */
     public function update(Request $request, string $id): JsonResponse
