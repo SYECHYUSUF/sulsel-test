@@ -4,8 +4,84 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "245b973a51862755c63abd342ea0410e",
+    "content-hash": "95c35e0a2e6259f8f7fbf765b4f87445",
     "packages": [
+        {
+            "name": "albetnov/sanctum-refresh",
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/albetnov/sanctum-refresh.git",
+                "reference": "1524e3337653deb8b57e00dc5f0933f9c6864f6e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/albetnov/sanctum-refresh/zipball/1524e3337653deb8b57e00dc5f0933f9c6864f6e",
+                "reference": "1524e3337653deb8b57e00dc5f0933f9c6864f6e",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^11.0|^12.0",
+                "laravel/sanctum": "^4.0",
+                "nesbot/carbon": "^3.8",
+                "php": "^8.2",
+                "spatie/laravel-package-tools": "^1.18.0"
+            },
+            "require-dev": {
+                "larastan/larastan": "^3.0",
+                "laravel/pint": "^1.0",
+                "nunomaduro/collision": "^8.5",
+                "orchestra/testbench": "^9.0|^10.0",
+                "pestphp/pest": "^3.7",
+                "pestphp/pest-plugin-laravel": "^3.0",
+                "phpstan/extension-installer": "^1.4",
+                "phpstan/phpstan-deprecation-rules": "^2.0",
+                "phpstan/phpstan-phpunit": "^2.0",
+                "phpunit/phpunit": "^11.5",
+                "spatie/pest-plugin-test-time": "^2.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "SanctumRefresh": "Albet\\SanctumRefresh\\Facades\\SanctumRefresh"
+                    },
+                    "providers": [
+                        "Albet\\SanctumRefresh\\SanctumRefreshServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Albet\\SanctumRefresh\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Albet Novendo",
+                    "email": "ryxinfrvr@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "This package extends sanctum ability to be able to provide refresh token as well",
+            "homepage": "https://github.com/albetnov/sanctum-refresh",
+            "keywords": [
+                "albetnov",
+                "laravel",
+                "refresh-token",
+                "sanctum-refresh",
+                "sanctum-refresh-token"
+            ],
+            "support": {
+                "issues": "https://github.com/albetnov/sanctum-refresh/issues",
+                "source": "https://github.com/albetnov/sanctum-refresh/tree/2.0.1"
+            },
+            "time": "2025-03-26T03:24:39+00:00"
+        },
         {
             "name": "barryvdh/laravel-dompdf",
             "version": "v3.1.1",

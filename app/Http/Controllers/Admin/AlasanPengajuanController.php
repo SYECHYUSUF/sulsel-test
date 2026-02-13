@@ -55,6 +55,7 @@ class AlasanPengajuanController extends Controller
      */
     public function update(Request $request, $id): JsonResponse
     {
+        /** @var AlasanPengajuan $alasan */ // Menambahkan type hinting
         $alasan = AlasanPengajuan::find($id);
 
         if (!$alasan) {
@@ -90,6 +91,7 @@ class AlasanPengajuanController extends Controller
      */
     public function destroy($id): JsonResponse
     {
+        /** @var AlasanPengajuan $alasan */ // Menambahkan type hinting
         $alasan = AlasanPengajuan::find($id);
 
         if (!$alasan) {

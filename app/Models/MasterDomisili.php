@@ -31,6 +31,26 @@ class MasterDomisili extends Model
      */
     public function permohonanInformasi()
     {
-        return $this->hasMany(\App\Models\PermohonanInformasi::class, 'domisili_id');
+        return $this->hasMany(PermohonanInformasi::class, 'domisili_id');
+    }
+
+  
+
+    /**
+     * Relationship: Has many pengajuan keberatan
+    */
+    public function daftarPengajuanPemohon()
+    {
+        // Mencari di mana ID kota ini muncul di kolom pemohon_domisili_id
+        return $this->hasMany(PengajuanKeberatan::class, 'pemohon_domisili_id', 'id');
+    }
+
+    /**
+     * Relationship: Has many pengajuan keberatan
+    */
+    public function daftarPengajuanKuasa()
+    {
+        // Mencari di mana ID kota ini muncul di kolom kuasa_domisili_id
+        return $this->hasMany(PengajuanKeberatan::class, 'kuasa_domisili_id', 'id');
     }
 }

@@ -25,7 +25,13 @@ class PengajuanKeberatanController extends Controller
 
         // Filter Berdasarkan Role (User Data Integration)
         if ($user->hasRole('opd')) {
-            $query->where('id_skpd', $user->id_skpd);
+            $query->where(function ($q) use ($user) {
+                $q->where('id_skpd', $user->id_skpd)
+                // ATAU jika ada record di tabel disposisi yang diarahkan ke id_skpd user
+                ->orWhereHas('disposisi', function ($sub) use ($user) {
+                    $sub->where('id_skpd', $user->id_skpd);
+                });
+            });
         }
 
         // Filter Pencarian
@@ -65,7 +71,10 @@ class PengajuanKeberatanController extends Controller
             'alasanPengajuan', 
             'feedbackBy', 
             'disposisi.skpd', 
-            'disposisi.respon.user'
+            'disposisi.respon.responBy',
+            'domisiliPemohon',
+            'domisiliKuasa',
+            'pekerjaan'
         ])->find($id);
 
         if (!$pengajuan) {
@@ -73,7 +82,6 @@ class PengajuanKeberatanController extends Controller
         }
 
         return response()->json([
-            'success' => true,
             'data'    => $pengajuan,
             'extra'   => [
                 'all_skpd' => Skpd::all(),

@@ -44,5 +44,19 @@ class DatabaseSeeder extends Seeder
         // User::where('email', $esdmData['email'])->orWhere('username', $esdmData['username'])->delete();
         // $userEsdm = User::create($esdmData);
         // $userEsdm->addRole('opd');
+
+        // --- Konfigurasi User dpmd 2 ---
+        // $esdmData = [
+        //     'id' => 6001,
+        //     'name' => 'DPMD 2',
+        //     'username' => 'dpmd2',
+        //     'email' => 'dpmd2@gmail.com',
+        //     'password' => Hash::make('dpmd123'),
+        //     'id_skpd' => 'SKPD006',
+        // ];
+
+        // User::where('email', $esdmData['email'])->orWhere('username', $esdmData['username'])->delete();
+        // $userEsdm = User::create($esdmData);
+        // $userEsdm->addRole('opd');
     }
 }

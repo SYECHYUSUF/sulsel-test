@@ -16,9 +16,6 @@ class PermohonanInformasi extends Model
     /**
      * Relasi ke model Skpd
      */
-    /**
-     * Relasi ke model Skpd
-     */
     public function skpd(): BelongsTo
     {
         return $this->belongsTo(Skpd::class, 'id_skpd', 'id_skpd');

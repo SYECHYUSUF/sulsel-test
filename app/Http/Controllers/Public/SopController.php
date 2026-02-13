@@ -48,6 +48,7 @@ class SopController extends Controller
     public function download($id)
     {
         try {
+            /** @var Sop $sop */ // Menambahkan type hinting
             $sop = Sop::find($id);
 
             if (!$sop) {

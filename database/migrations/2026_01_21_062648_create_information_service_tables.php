@@ -88,25 +88,23 @@ return new class extends Migration {
             $table->text('tujuan')->nullable();
             $table->string('nama_pemohon')->nullable();
             $table->text('alamat_pemohon')->nullable();
-            $table->text('address_pemohon')->nullable();
-            $table->text('apt_pemohon')->nullable();
-            $table->string('city_pemohon')->nullable();
-            $table->string('state_pemohon')->nullable();
-            $table->string('pekerjaan_pemohon')->nullable();
+            $table->string('pemohon_domisili_id')->nullable();
+            $table->string('pekerjaan_id')->nullable();
             $table->string('no_telp_pemohon')->nullable();
             $table->string('email_pemohon')->nullable();
             $table->string('nama_kuasa')->nullable();
             $table->text('alamat_kuasa')->nullable();
-            $table->text('address_kuasa')->nullable();
-            $table->text('apt_kuasa')->nullable();
-            $table->string('city_kuasa')->nullable();
-            $table->string('state_kuasa')->nullable();
+            $table->string('kuasa_domisili_id')->nullable();
             $table->string('no_telp_kuasa')->nullable();
             $table->text('kasus')->nullable();
-            $table->enum('status', ['n', 'y', 't', 'a', 'p', 'd'])->nullable();
+            $table->enum('status', ['n', 'y', 't', 'a', 'd'])->nullable();
             $table->enum('is_cek', ['0', '1'])->default('0');
             $table->string('id_skpd')->nullable();
             $table->string('alasan')->nullable();
+            $table->enum('metode_respon', ['website', 'whatsapp'])->default('website')->after('status');
+            $table->text('feedback')->nullable()->after('status');
+            $table->timestamp('tgl_feedback')->nullable()->after('feedback');
+            $table->unsignedBigInteger('feedback_by')->nullable()->after('tgl_feedback');
             $table->string('keterangan')->nullable();
             $table->string('file')->nullable();
             $table->timestamps();
@@ -125,7 +123,6 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-        // Tambahkan ini di dalam function up() file create_information_service_tables.php
         $extraTables = ['informasis', 'informasiis', 'informasiiis'];
         foreach ($extraTables as $tableName) {
             Schema::create($tableName, function (Blueprint $table) {

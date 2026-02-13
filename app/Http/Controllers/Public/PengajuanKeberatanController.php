@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePengajuanKeberatanRequest;
@@ -11,6 +11,8 @@ use App\Models\PermohonanInformasi;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
+
 use Illuminate\Support\Facades\Validator;
 
 class PengajuanKeberatanController extends Controller
@@ -47,11 +49,14 @@ class PengajuanKeberatanController extends Controller
                 'tujuan' => $validated['tujuan'],
                 'nama_pemohon' => $validated['nama_pemohon'],
                 'alamat_pemohon' => $validated['alamat_pemohon'],
-                'address_pemohon' => $validated['address_pemohon'] ?? null,
-                'apt_pemohon' => $validated['apt_pemohon'] ?? null,
-                'city_pemohon' => $validated['city_pemohon'],
-                'state_pemohon' => $validated['state_pemohon'],
-                'pekerjaan_pemohon' => $validated['pekerjaan_pemohon'],
+                'pemohon_domisili_id' => $validated['pemohon_domisili_id'],
+
+                'nama_kuasa' => $validated['nama_kuasa'] ?? null,
+                'alamat_kuasa' => $validated['alamat_kuasa'] ?? null,
+                'kuasa_domisili_id' => $validated['kuasa_domisili_id'] ?? null,
+                'no_telp_kuasa' => $validated['no_telp_kuasa'] ?? null,
+
+                'pekerjaan_id' => $validated['pekerjaan_id'],
                 'no_telp_pemohon' => $validated['no_telp_pemohon'],
                 'email_pemohon' => $validated['email_pemohon'],
                 'nama_kuasa' => $validated['nama_kuasa'] ?? null,
@@ -78,7 +83,7 @@ class PengajuanKeberatanController extends Controller
                     'type' => 'info',
                     'title' => 'Pengajuan Keberatan Baru',
                     'message' => "Keberatan baru dari {$pengajuan->nama_pemohon}",
-                    'url' => route('admin.pengajuan-keberatan.show', $pengajuan->id_pengajuan),
+                    'url' => env('FRONTEND_URL') . '/admin/pengajuan-keberatan/' . $pengajuan->id_pengajuan,
                     'notifiable_type' => 'App\\Models\\PengajuanKeberatan',
                     'notifiable_id' => $pengajuan->id_pengajuan,
                 ]);
@@ -91,6 +96,13 @@ class PengajuanKeberatanController extends Controller
             ], 201);
 
         } catch (\Exception $e) {
+            Log::error('Error saat menyimpan pengajuan keberatan', [
+                'message' => $e->getMessage(),
+                'file'    => $e->getFile(),
+                'line'    => $e->getLine(),
+                'trace'   => $e->getTraceAsString(),
+            ]);
+
             return response()->json([
                 'success' => false,
                 'message' => 'Terjadi kesalahan sistem.'

@@ -32,4 +32,12 @@ class MasterPekerjaan extends Model
     {
         return $this->hasMany(PermohonanInformasi::class, 'pekerjaan_id');
     }
+
+    /**
+     * Relationship: Has many pengajuan keberatan
+     */
+    public function pengajuanKeberatan()
+    {
+        return $this->hasMany(PengajuanKeberatan::class, 'pekerjaan_id');
+    }
 }

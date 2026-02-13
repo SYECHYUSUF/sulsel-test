@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\Request;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -13,19 +14,17 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->statefulApi();
-        $middleware->redirectTo(
-            guests: '/login',
-            users: '/admin',
-        );
-        $middleware->web(append: [
-            \App\Http\Middleware\SetLocale::class,
-        ]);
+
         $middleware->alias([
             'check_skpd' => \App\Http\Middleware\CheckSkpd::class,
-            'track.visitors' => \App\Http\Middleware\TrackVisitors::class,
             'honeypot' => \App\Http\Middleware\HoneypotProtection::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        $exceptions->shouldRenderJsonWhen(function (Request $request, Throwable $e) {
+            if ($request->is('api/*')) {
+                return true;
+            }
+            return $request->expectsJson();
+        });
     })->create();

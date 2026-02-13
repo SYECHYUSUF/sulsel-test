@@ -29,10 +29,11 @@ class StorePengajuanKeberatanRequest extends FormRequest
             // Pemohon identity
             'nama_pemohon' => ['required', 'string', 'max:255', 'regex:/^[\pL\s\.\-\']+$/u'],
             'alamat_pemohon' => ['required', 'string', 'max:500'],
-            'address_pemohon' => ['nullable', 'string', 'max:255'],
-            'city_pemohon' => ['required', 'string', 'max:100'],
-            'state_pemohon' => ['required', 'string', 'max:100'],
-            'pekerjaan_pemohon' => ['required', 'string', 'max:100'],
+
+            'pemohon_domisili_id' => ['required', 'exists:master_domisili,id'],
+
+            'pekerjaan_id' => ['required', 'exists:master_pekerjaan,id'],
+
             'no_telp_pemohon' => ['required', 'string', 'min:10', 'max:12', 'regex:/^(08|628|\+628)[0-9]{8,10}$/'],
             'email_pemohon' => ['required', 'email:rfc,dns', 'max:255'],
 
@@ -46,10 +47,8 @@ class StorePengajuanKeberatanRequest extends FormRequest
             // Kuasa (Optional)
             'nama_kuasa' => ['nullable', 'string', 'max:255', 'regex:/^[\pL\s\.\-\']*$/u'],
             'alamat_kuasa' => ['nullable', 'string', 'max:500'],
-            'address_kuasa' => ['nullable', 'string', 'max:255'],
-            'apt_kuasa' => ['nullable', 'string', 'max:100'],
-            'city_kuasa' => ['nullable', 'string', 'max:100'],
-            'state_kuasa' => ['nullable', 'string', 'max:100'],
+            'kuasa_domisili_id' => ['nullable', 'exists:master_domisili,id'],
+
             'no_telp_kuasa' => ['nullable', 'string', 'min:10', 'max:12', 'regex:/^(08|628|\+628)?[0-9]{8,10}$/'],
 
             // Hidden fields
@@ -75,6 +74,10 @@ class StorePengajuanKeberatanRequest extends FormRequest
             'email_pemohon.email' => 'Format email tidak valid.',
             'alasan.required' => 'Pilih minimal satu alasan keberatan.',
             'alasan.min' => 'Pilih minimal satu alasan keberatan.',
+            'pemohon_domisili_id.exists' => 'Kota/Kabupaten asal tidak valid.',
+            'kuasa_domisili_id.exists' => 'Kota/Kabupaten kuasa tidak valid.',
+            'pekerjaan_id.exists' => 'Pilihan pekerjaan tidak valid.',
+            'pemohon_domisili_id.required' => 'Kota/Kabupaten pemohon wajib dipilih.',
         ];
     }
 

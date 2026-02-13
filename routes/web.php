@@ -15,4 +15,3 @@ Route::get('/uploads/{path}', function ($path) {
     );
 })->where('path', '.*');
 
-require __DIR__ . '/auth.php';

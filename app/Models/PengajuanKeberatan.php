@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PengajuanKeberatan extends Model
 {
@@ -31,12 +32,35 @@ class PengajuanKeberatan extends Model
         return $this->belongsTo(User::class, 'feedback_by');
     }
 
+    /**
+     * Relasi ke tabel Master Domisili
+     */
+    public function domisiliPemohon(): BelongsTo
+    {
+        return $this->belongsTo(MasterDomisili::class, 'pemohon_domisili_id', 'id');
+    }
+
+    /**
+     * Relasi ke tabel Master Domisili (Kota Kuasa) jika diperlukan
+     */
+    public function domisiliKuasa(): BelongsTo
+    {
+        return $this->belongsTo(MasterDomisili::class, 'kuasa_domisili_id', 'id');
+    }
+    
+    /**
+     * Relasi ke data Master Pekerjaan
+     */
+    public function pekerjaan()
+    {
+         return $this->belongsTo(MasterPekerjaan::class, 'pekerjaan_id', 'id');
+    }
+
     // Status Accessor for Label
     public function getStatusLabelAttribute()
     {
         return match ($this->status) {
-            'n' => 'Baru',
-            'p' => 'Menunggu Verifikasi',
+            'n' => 'Menunggu Verifikasi',
             'd' => 'Disposisi',
             'a' => 'Dijawab',
             't' => 'Ditolak',
