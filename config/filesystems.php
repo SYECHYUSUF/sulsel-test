@@ -60,6 +60,14 @@ return [
             'report' => false,
         ],
 
+        'supabase' => [
+            'driver' => 'supabase',
+            'key' => env('SUPABASE_STORAGE_KEY'), // Use a privileged key
+            'bucket' => env('SUPABASE_STORAGE_BUCKET'),
+            'endpoint' => env('SUPABASE_STORAGE_ENDPOINT'),
+            'public' => true, // Default to true
+        ],
+
     ],
 
     /*
