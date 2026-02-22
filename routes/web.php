@@ -18,14 +18,13 @@ Route::get('/', function () {
 
 // Redirect dari URL lokal ke URL publik Supabase
 Route::get('/uploads/{path}', function ($path) {
-    // Ambil base URL Supabase dari .env atau config
-    // Contoh: https://[PROJECT_ID].supabase.co/storage/v1/object/public/
-    $supabaseUrl = str_replace('.supabase.co', '', parse_url(env('DB_URL'), PHP_URL_HOST));
-    $projectId = explode('.', $supabaseUrl)[0];
-    
-    $bucket = env('SUPABASE_STORAGE_BUCKET');
+    // Gunakan Project ID yang benar dari URL valid kamu
+    $projectId = 'jlosrcqjysykztuhegqs';
+    $bucket = env('SUPABASE_STORAGE_BUCKET', 'ppid-sulselprov-bucket');
+
+    // Susun URL sesuai format yang valid
     $publicUrl = "https://{$projectId}.supabase.co/storage/v1/object/public/{$bucket}/{$path}";
 
-    // Lakukan redirect 302 (Temporary Redirect)
-    return Redirect::to($publicUrl);
+    // Gunakan away() untuk memastikan redirect ke domain eksternal secara penuh
+    return Redirect::away($publicUrl);
 })->where('path', '.*');
