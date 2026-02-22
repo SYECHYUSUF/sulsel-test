@@ -4,23 +4,12 @@
     "functions": {
         "api/index.php": { "runtime": "vercel-php@0.7.1" }
     },
-    "headers": [
+    "routes": [
         {
-            "source": "/api/(.*)",
-            "headers": [
-                {
-                    "key": "Access-Control-Allow-Origin",
-                    "value": "https://ppid-sulselprov.vercel.app"
-                },
-                {
-                    "key": "Access-Control-Allow-Methods",
-                    "value": "GET,POST,PUT,DELETE,OPTIONS"
-                },
-                { "key": "Access-Control-Allow-Headers", "value": "*" }
-            ]
+            "src": "/(.*)",
+            "dest": "/api/index.php"
         }
     ],
-
     "env": {
         "APP_ENV": "production",
         "APP_DEBUG": "true",
