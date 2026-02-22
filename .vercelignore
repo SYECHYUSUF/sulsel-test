@@ -1,2 +1,6 @@
-/vendor
 /node_modules
+/storage
+/tests
+/docker
+.git
+.env
