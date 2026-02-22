@@ -8,7 +8,8 @@ return [
      */
     'expiration' => [
         // set the fallback of access token expiration
-        'access_token' => 60, // 60 minutes,
+        // 'access_token' => 60, // 60 minutes,
+        'access_token' => 1, // 1 minutes untuk testing,
         // set the fallback of refresh token expiration
         'refresh_token' => 10080, // 7 day in minutes
     ],

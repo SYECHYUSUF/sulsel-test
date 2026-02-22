@@ -22,14 +22,6 @@ class IkphnController extends Controller
             $query->where('nama_jabatan', 'like', '%' . $request->search . '%');
         }
 
-        if ($request->filled('start_date')) {
-            $query->whereDate('created_at', '>=', $request->start_date);
-        }
-
-        if ($request->filled('end_date')) {
-            $query->whereDate('created_at', '<=', $request->end_date);
-        }
-
         if ($request->filled('sort')) {
             switch ($request->sort) {
                 case 'oldest': $query->oldest(); break;
@@ -69,7 +61,18 @@ class IkphnController extends Controller
         $data['jumlah_download'] = 0;
 
         if ($request->hasFile('file')) {
-            $data['file'] = $request->file('file')->store('ikphn', 'public');
+            $file = $request->file('file');
+            
+            // 1. Generate nama file yang unik (agar tidak menimpa file dengan nama sama)
+            // Jika ingin nama asli: $fileName = $file->getClientOriginalName();
+            $fileName = $file->getClientOriginalName();
+
+            // 2. Simpan file ke storage/app/public/ikphn tetap menggunakan folder,
+            // tapi kita hanya mengambil nama filenya saja.
+            $file->storeAs('ikphn', $fileName, 'public');
+
+            // 3. Masukkan HANYA nama file ke array data untuk disimpan di DB
+            $data['file'] = $fileName;
         }
 
         $ikphn = Ikphn::create($data);
@@ -79,26 +82,6 @@ class IkphnController extends Controller
             'message' => 'Data Informasi Pengadaan berhasil ditambahkan.',
             'data' => $ikphn
         ], 201);
-    }
-
-    /**
-     * Mengambil detail data IKPHN untuk disunting.
-     */
-    public function edit(string $id): JsonResponse
-    {
-        $ikphn = Ikphn::find($id);
-
-        if (!$ikphn) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Data tidak ditemukan.'
-            ], 404);
-        }
-
-        return response()->json([
-            'success' => true,
-            'data' => $ikphn
-        ], 200);
     }
 
     /**
@@ -132,10 +115,20 @@ class IkphnController extends Controller
 
         if ($request->hasFile('file')) {
             // Hapus file lama jika ada unggahan baru
-            if ($item->file && Storage::disk('public')->exists($item->file)) {
-                Storage::disk('public')->delete($item->file);
+            $oldFilePath = 'ikphn/' . $item->file;
+            
+            if ($item->file && Storage::disk('public')->exists($oldFilePath)) {
+                Storage::disk('public')->delete($oldFilePath);
             }
-            $data['file'] = $request->file('file')->store('ikphn', 'public');
+
+            $file = $request->file('file');
+
+            $fileName = $file->getClientOriginalName();
+
+            $file->storeAs('ikphn', $fileName, 'public');
+
+            // 3. Masukkan HANYA nama file ke array data untuk disimpan di DB
+            $data['file'] = $fileName;
         }
 
         $item->update($data);
@@ -161,8 +154,10 @@ class IkphnController extends Controller
             ], 404);
         }
 
-        if ($item->file && Storage::disk('public')->exists($item->file)) {
-            Storage::disk('public')->delete($item->file);
+        $oldFilePath = 'ikphn/' . $item->file;
+            
+        if ($item->file && Storage::disk('public')->exists($oldFilePath)) {
+            Storage::disk('public')->delete($oldFilePath);
         }
 
         $item->delete();

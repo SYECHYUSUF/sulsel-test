@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\KategoriInformasiResource;
+use App\Http\Resources\TahunInformasiResource;
 use App\Models\KategoriInformasi;
 use App\Models\MasterTahun;
 use App\Models\MasterDomisili;
@@ -10,6 +12,7 @@ use App\Models\MasterPekerjaan;
 use App\Models\AlasanPengajuan;
 use App\Models\BentukInformasi;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Cache;
 
 class MasterDataController extends Controller
 {
@@ -18,11 +21,13 @@ class MasterDataController extends Controller
      */
     public function tahun(): JsonResponse
     {
-        $data = MasterTahun::select('waktu')
+        $data = Cache::remember('tahun_informasi', 3600, function () {
+            return MasterTahun::select('waktu')
             ->orderBy('waktu', 'desc')
             ->get();
+        });
 
-        return response()->json(['data' => $data], 200);
+        return response()->json(TahunInformasiResource::collection($data));
     }
 
     /**
@@ -30,10 +35,11 @@ class MasterDataController extends Controller
      */
     public function kategori(): JsonResponse
     {
-        $data = KategoriInformasi::select(['nm_kat_info', 'slug'])
-            ->get();
+        $data = Cache::remember('kategori_informasi', 3600, function () {
+            return KategoriInformasi::select(['nm_kat_info', 'slug'])->get();
+        });
 
-        return response()->json(['data' => $data]);
+        return response()->json(KategoriInformasiResource::collection($data));
     }
 
     /**

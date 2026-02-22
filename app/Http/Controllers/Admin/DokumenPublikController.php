@@ -25,10 +25,16 @@ class DokumenPublikController extends Controller
 
         if ($user->hasRole('opd')) {
             $query->where('id_skpd', $user->id_skpd);
-        }
+        }   
 
         if ($request->filled('search')) {
             $query->where('judul', 'like', '%' . $request->search . '%');
+        }
+
+        if ($request->filled('kategori_slug')) {
+            $query->whereHas('kategori', function($q) use ($request) {
+                $q->where('slug', $request->kategori_slug);
+            });
         }
 
         if ($request->filled('id_kat_info')) {

@@ -25,7 +25,6 @@ class KategoriInformasiController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Daftar kategori informasi berhasil diambil',
             'data' => $kategoris
         ], 200);
     }

@@ -11,6 +11,7 @@
         "barryvdh/laravel-dompdf": "^3.0",
         "dedoc/scramble": "^0.13.12",
         "laravel/framework": "^12.0",
+        "laravel/octane": "^2.13",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.10.1",
         "maatwebsite/excel": "^3.1",

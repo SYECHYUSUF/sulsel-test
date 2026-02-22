@@ -169,6 +169,7 @@ class DokumenPublikController extends Controller
     public function download($id)
     {
         // Cari data informasi publik berdasarkan ID
+        /** @var DokumenPublik $informasi */ 
         $informasi = DokumenPublik::find($id);
 
         if (!$informasi) {

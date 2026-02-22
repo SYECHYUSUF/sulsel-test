@@ -157,7 +157,6 @@ Route::middleware('auth:sanctum')
         Route::prefix('master-data')->group(function () {
             Route::apiResource('pekerjaan', 'MasterPekerjaanController');
             Route::apiResource('domisili', 'MasterDomisiliController');
-            Route::apiResource('alasan-pengajuan', 'AlasanPengajuanController');
             Route::apiResource('bentuk-informasi', 'BentukInformasiController');
             Route::apiResource('kategori-informasi', 'KategoriInformasiController');
             Route::apiResource('tahun', 'MasterTahunController');

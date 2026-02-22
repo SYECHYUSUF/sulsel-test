@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class KategoriInformasiResource extends JsonResource
+class TahunInformasiResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,8 +15,7 @@ class KategoriInformasiResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'name' => $this->nm_kat_info,
-            'slug' => $this->slug,
+            'waktu' => $this->waktu,
         ];
     }
 }

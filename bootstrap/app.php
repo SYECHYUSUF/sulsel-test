@@ -19,6 +19,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'check_skpd' => \App\Http\Middleware\CheckSkpd::class,
             'honeypot' => \App\Http\Middleware\HoneypotProtection::class,
         ]);
+
+        $middleware->redirectGuestsTo(fn () => response()->json(['message' => 'Unauthenticated.'], 401));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(function (Request $request, Throwable $e) {
