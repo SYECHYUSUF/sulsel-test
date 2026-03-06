@@ -69,6 +69,25 @@ class StatusCheckController extends Controller
             $item->status_label_display = $labels[$item->status] ?? 'Status Tidak Diketahui';
             $item->formatted_date = $item->created_at->translatedFormat('d F Y H:i') . ' WITA';
 
+            // Build the file URL – use the field on the record itself (synced by admin or OPD response)
+            $fileUrl = $item->file ? url('/storage/' . $item->file) : null;
+
+            // Fallback: look for a file in completed disposition responses
+            if (!$fileUrl && $item->disposisi) {
+                $latestRespon = $item->disposisi
+                    ->where('status', 'selesai')
+                    ->pluck('respon')
+                    ->flatten()
+                    ->sortByDesc('created_at')
+                    ->first();
+
+                if ($latestRespon && $latestRespon->file) {
+                    $fileUrl = url('/storage/' . $latestRespon->file);
+                }
+            }
+
+            $item->file = $fileUrl;
+
             return $item;
         });
 
