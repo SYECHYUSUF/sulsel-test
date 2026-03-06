@@ -12,15 +12,31 @@ use Illuminate\Support\Facades\Validator;
 class SkpdController extends Controller
 {
     /**
-     * Menampilkan daftar seluruh SKPD.
+     * Menampilkan daftar seluruh SKPD beserta data singkat User.
      */
     public function index(): JsonResponse
     {
-        $skpd = Skpd::all();
+        // Mengambil SKPD beserta user dan last login terkait
+        $skpd = Skpd::with([
+            'user' => function ($query) {
+                $query->select('id', 'username', 'id_skpd');
+            },
+            'user.lastLogin'
+        ])->get();
+
+        // Transformasi data agar rapi
+        $data = $skpd->map(function ($item) {
+            return [
+                'id_skpd' => $item->id_skpd,
+                'nm_skpd' => $item->nm_skpd,
+                'username' => $item->user->username ?? '-',
+                'last_login' => $item->user->lastLogin->createdAt ?? '-',
+            ];
+        });
 
         return response()->json([
             'success' => true,
-            'data'    => $skpd
+            'data' => $data
         ], 200);
     }
 
@@ -29,7 +45,11 @@ class SkpdController extends Controller
      */
     public function show(string $id): JsonResponse
     {
-        $skpd = Skpd::find($id);
+        $skpd = Skpd::with([
+            'user' => function ($q) {
+                $q->with('lastLogin');
+            }
+        ])->find($id);
 
         if (!$skpd) {
             return response()->json([
@@ -41,7 +61,7 @@ class SkpdController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Detail Data SKPD',
-            'data'    => $skpd
+            'data' => $skpd
         ], 200);
     }
 
@@ -51,17 +71,17 @@ class SkpdController extends Controller
     public function store(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'nm_skpd'   => 'required|string|max:255',
-            'alamat'    => 'nullable|string',
-            'email'     => 'nullable|email|max:150',
-            'no_tlp'    => 'nullable|string|max:20',
-            'website'   => 'nullable|url|max:255',
-            'kadis'     => 'nullable|string|max:200',
-            'sek'       => 'nullable|string|max:200',
-            'visimisi'  => 'nullable|string',
-            'tupoksi'   => 'nullable|string',
-            'logo'      => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'jenis'     => 'nullable|in:opd,kab',
+            'nm_skpd' => 'required|string|max:255',
+            'alamat' => 'nullable|string',
+            'email' => 'nullable|email|max:150',
+            'no_tlp' => 'nullable|string|max:20',
+            'website' => 'nullable|url|max:255',
+            'kadis' => 'nullable|string|max:200',
+            'sek' => 'nullable|string|max:200',
+            'visimisi' => 'nullable|string',
+            'tupoksi' => 'nullable|string',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'jenis' => 'nullable|in:opd,kab',
             'is_active' => 'required|in:1,0',
         ]);
 
@@ -84,7 +104,7 @@ class SkpdController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Data SKPD berhasil ditambahkan',
-            'data'    => $skpd
+            'data' => $skpd
         ], 201);
     }
 
@@ -102,19 +122,19 @@ class SkpdController extends Controller
 
         // Modifikasi Validasi: tupoksi bisa berupa File ATAU String
         $validator = Validator::make($request->all(), [
-            'nm_skpd'   => 'required|string|max:255',
-            'alamat'    => 'nullable|string',
-            'email'     => 'nullable|email|max:150',
-            'no_tlp'    => 'nullable|string|max:20',
-            'website'   => 'nullable|string|max:255',
-            'kadis'     => 'nullable|string|max:200',
-            'sek'       => 'nullable|string|max:200',
-            'visimisi'  => 'nullable|string',
-            'logo'      => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'jenis'     => 'nullable|in:opd,kab',
+            'nm_skpd' => 'required|string|max:255',
+            'alamat' => 'nullable|string',
+            'email' => 'nullable|email|max:150',
+            'no_tlp' => 'nullable|string|max:20',
+            'website' => 'nullable|string|max:255',
+            'kadis' => 'nullable|string|max:200',
+            'sek' => 'nullable|string|max:200',
+            'visimisi' => 'nullable|string',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'jenis' => 'nullable|in:opd,kab',
             'is_active' => 'required|in:1,0',
             // Jika tupoksi dikirim sebagai file, validasi mimes. Jika string, abaikan mimes.
-            'tupoksi'   => $request->hasFile('tupoksi') ? 'file|mimes:pdf|max:5120' : 'nullable|string',
+            'tupoksi' => $request->hasFile('tupoksi') ? 'file|mimes:pdf|max:5120' : 'nullable|string',
         ]);
 
         if ($validator->fails()) {
@@ -141,26 +161,26 @@ class SkpdController extends Controller
         if ($request->hasFile('tupoksi')) {
             // JIKA INPUT ADALAH FILE PDF
             $fileTupoksi = $request->file('tupoksi');
-            
+
             // Hapus file lama jika ada (hanya jika sebelumnya juga berupa file)
             if ($skpd->tupoksi && str_ends_with(strtolower($skpd->tupoksi), '.pdf')) {
                 if (Storage::disk('public')->exists('tupoksi-skpd/' . $skpd->tupoksi)) {
                     Storage::disk('public')->delete('tupoksi-skpd/' . $skpd->tupoksi);
                 }
             }
-            
+
             $fileTupoksi->store('tupoksi-skpd', 'public');
             $data['tupoksi'] = $fileTupoksi->hashName();
         } else if ($request->has('tupoksi')) {
             // JIKA INPUT ADALAH TEKS HTML DARI TINYMCE
-            
+
             // Hapus file fisik lama jika user beralih dari PDF ke Teks
             if ($skpd->tupoksi && str_ends_with(strtolower($skpd->tupoksi), '.pdf')) {
                 if (Storage::disk('public')->exists('tupoksi-skpd/' . $skpd->tupoksi)) {
                     Storage::disk('public')->delete('tupoksi-skpd/' . $skpd->tupoksi);
                 }
             }
-            
+
             $data['tupoksi'] = $request->tupoksi;
         }
 
@@ -169,7 +189,7 @@ class SkpdController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Data SKPD berhasil diperbarui',
-            'data'    => $skpd
+            'data' => $skpd
         ], 200);
     }
 

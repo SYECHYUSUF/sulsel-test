@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\PengajuanKeberatanController;
 use App\Http\Controllers\Admin\PermohonanInformasiController;
+use App\Http\Controllers\Admin\SkpdTupoksiController;
 use App\Http\Controllers\Admin\SkpdVisiMisiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,7 +30,7 @@ Route::get('/public/pekerjaan', [MasterDataController::class, 'pekerjaan']);
 Route::get('/public/bentuk-informasi', [MasterDataController::class, 'bentukInformasi']);
 
 Route::get('/public/informasi/pengadaan', [DokumenPublikController::class, 'pengadaan']);
-Route::get('/public/informasi/tahun/{year}', [MatriksDipController::class, 'tahun']);
+Route::get('/public/informasi/tahun/{year}', [DokumenPublikController::class, 'getByYear']);
 Route::get('/public/informasi/kategori/{slug}', [DokumenPublikController::class, 'getByCategory']);
 Route::get('/public/informasi/detail/{id}', [DokumenPublikController::class, 'show']);
 Route::get('/public/informasi/download/{id}', [DokumenPublikController::class, 'download']);
@@ -92,11 +93,16 @@ Route::middleware('auth:sanctum')
             return $request->user()->load('skpd:id_skpd,nm_skpd');
         });
 
+        Route::get('/user/profile', function (Request $request) {
+            return $request->user()->load('skpd:id_skpd,nm_skpd', 'lastLogin');
+        });
+
         // Dashboard & Stats
         Route::apiResource('/dashboard', 'DashboardController');
         Route::apiResource('/logs/login', 'LogLoginController');
 
         Route::apiResource('/users', 'UserController');
+        Route::post('/users/{id}/change-password', 'UserController@changePassword');
 
         // Manajemen Konten
         Route::apiResource('berita', 'BeritaController');
@@ -144,6 +150,8 @@ Route::middleware('auth:sanctum')
         Route::apiResource('skpd', 'SkpdController');
         Route::get('/skpd/{id}/visi-misi', [SkpdVisiMisiController::class, 'show']);
         Route::put('/skpd/{id}/visi-misi', [SkpdVisiMisiController::class, 'update']);
+        Route::get('/skpd/{id}/tupoksi', [SkpdTupoksiController::class, 'show']);
+        Route::put('/skpd/{id}/tupoksi', [SkpdTupoksiController::class, 'update']);
 
         Route::apiResource('sosmed', 'SosmedController');
         Route::apiResource('footer-setting', 'FooterSettingController');
@@ -169,6 +177,7 @@ Route::middleware('auth:sanctum')
 
         // Notifikasi
         Route::get('notifications', 'NotificationController@index');
-        // Menggunakan ID untuk markAsRead
         Route::put('notifications/{id}/read', 'NotificationController@markAsRead');
+        Route::post('notifications/mark-all-read', 'NotificationController@markAllAsRead');
+        Route::delete('notifications/delete-all', 'NotificationController@deleteAll');
     });

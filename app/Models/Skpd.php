@@ -16,4 +16,9 @@ class Skpd extends Model
     {
         return $this->hasMany(Berita::class, 'id_skpd', 'id_skpd');
     }
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id_skpd', 'id_skpd');
+    }
 }

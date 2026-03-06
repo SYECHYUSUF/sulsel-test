@@ -23,8 +23,8 @@ class MasterDataController extends Controller
     {
         $data = Cache::remember('tahun_informasi', 3600, function () {
             return MasterTahun::select('waktu')
-            ->orderBy('waktu', 'desc')
-            ->get();
+                ->orderBy('waktu', 'desc')
+                ->get();
         });
 
         return response()->json(TahunInformasiResource::collection($data));
@@ -36,7 +36,7 @@ class MasterDataController extends Controller
     public function kategori(): JsonResponse
     {
         $data = Cache::remember('kategori_informasi', 3600, function () {
-            return KategoriInformasi::select(['nm_kat_info', 'slug'])->get();
+            return KategoriInformasi::select(['id_kat_info', 'nm_kat_info', 'slug'])->get();
         });
 
         return response()->json(KategoriInformasiResource::collection($data));

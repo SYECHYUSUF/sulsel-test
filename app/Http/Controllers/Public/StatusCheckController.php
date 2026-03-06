@@ -84,10 +84,18 @@ class StatusCheckController extends Controller
      */
     private function checkKeberatanStatus(string $email): JsonResponse
     {
-        $pengajuan = PengajuanKeberatan::with(['feedbackBy', 'alasanPengajuan'])
-            ->where('email_pemohon', $email)
-            ->orderBy('created_at', 'desc')
-            ->get();
+        // Mengambil data dengan relasi yang diperlukan saja
+        $pengajuan = PengajuanKeberatan::with([
+            'feedbackBy:id,name', 
+            'alasanPengajuan:id,id_pengajuan,alasan',
+            'disposisi' => function($query) {
+                $query->select('id_disposisi', 'id_pengajuan', 'id_skpd', 'catatan_disposisi', 'status', 'created_at');
+            },
+            'disposisi.skpd:id_skpd,nm_skpd'
+        ])
+        ->where('email_pemohon', $email)
+        ->orderBy('created_at', 'desc')
+        ->get();
 
         if ($pengajuan->isEmpty()) {
             return response()->json([
@@ -97,21 +105,24 @@ class StatusCheckController extends Controller
         }
 
         $pengajuan->transform(function ($item) {
+            // Pemetaan status sesuai dengan Enum di database: n, y, t, a, d
             $labels = [
-                'p' => 'Dalam Proses',
-                'y' => 'Disetujui',
-                't' => 'Ditolak',
-                'a' => 'Dijawab',
+                'n' => 'Menunggu Verifikasi', // Baru masuk
+                'd' => 'Sedang Didisposisikan', // Diteruskan ke SKPD
+                'y' => 'Keberatan Disetujui',   // Diterima
+                't' => 'Keberatan Ditolak',    // Ditolak
+                'a' => 'Selesai / Dijawab',    // Sudah diberi feedback/jawaban
             ];
 
-            if (empty($item->feedback) && $item->status != 't') {
-                $item->status_label_display = 'Belum Direspon';
-                $item->display_status_code = 'belum_direspon';
+            // Logika label display
+            if ($item->status === 'n' && empty($item->feedback)) {
+                $item->status_label_display = 'Menunggu Verifikasi';
             } else {
                 $item->status_label_display = $labels[$item->status] ?? 'Status Tidak Diketahui';
-                $item->display_status_code = $item->status;
             }
 
+            // Mapping kode warna/status untuk frontend
+            $item->display_status_code = $item->status;
             $item->formatted_date = $item->created_at->translatedFormat('d F Y H:i') . ' WITA';
 
             return $item;

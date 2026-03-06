@@ -67,14 +67,14 @@ class PengajuanKeberatanController extends Controller
     public function show(string $id): JsonResponse
     {
         $pengajuan = PengajuanKeberatan::with([
-            'skpd', 
+            'skpd:id_skpd,nm_skpd', 
             'alasanPengajuan', 
-            'feedbackBy', 
-            'disposisi.skpd', 
+            'feedbackBy:id,name', 
+            'disposisi.skpd:id_skpd,nm_skpd', 
             'disposisi.respon.responBy',
-            'domisiliPemohon',
-            'domisiliKuasa',
-            'pekerjaan'
+            'domisiliPemohon:id,nama_daerah,provinsi',
+            'domisiliKuasa:id,nama_daerah,provinsi',
+            'pekerjaan:id,nama_pekerjaan'
         ])->find($id);
 
         if (!$pengajuan) {
@@ -84,7 +84,7 @@ class PengajuanKeberatanController extends Controller
         return response()->json([
             'data'    => $pengajuan,
             'extra'   => [
-                'all_skpd' => Skpd::all(),
+                'all_skpd' => Skpd::select('id_skpd', 'nm_skpd')->get(),
                 'existing_skpd_ids' => $pengajuan->disposisi()->pluck('id_skpd')->toArray()
             ]
         ], 200);

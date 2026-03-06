@@ -52,9 +52,7 @@ class PermohonanInformasiController extends Controller
             $permohonan = PermohonanInformasi::create($data);
 
             // Berikan notifikasi ke semua admin
-            $adminUsers = User::whereHas('roles', function ($query) {
-                $query->where('name', 'admin');
-            })->get();
+            $adminUsers = User::whereHasRole('admin')->get();
 
             foreach ($adminUsers as $admin) {
                 Notification::send([

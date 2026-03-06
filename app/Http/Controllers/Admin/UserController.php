@@ -32,7 +32,7 @@ class UserController extends Controller
 
         return response()->json([
             'success' => true,
-            'data'    => $users
+            'data' => $users
         ], 200);
     }
 
@@ -55,7 +55,7 @@ class UserController extends Controller
         // Kembalikan data user dalam format JSON
         return response()->json([
             'success' => true,
-            'data'    => $user
+            'data' => $user
         ], 200);
     }
 
@@ -65,33 +65,33 @@ class UserController extends Controller
     public function store(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'name'     => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'username' => 'required|string|max:255|unique:users',
-            'email'    => 'required|string|email|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
-            'id_skpd'  => 'nullable|exists:tbl_skpd,id_skpd',
+            'id_skpd' => 'nullable|exists:tbl_skpd,id_skpd',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
                 'message' => 'Validasi gagal',
-                'errors'  => $validator->errors()
+                'errors' => $validator->errors()
             ], 422);
         }
 
         $user = User::create([
-            'name'     => $request->name,
+            'name' => $request->name,
             'username' => $request->username,
-            'email'    => $request->email,
+            'email' => $request->email,
             'password' => Hash::make($request->password),
-            'id_skpd'  => $request->id_skpd,
+            'id_skpd' => $request->id_skpd,
         ]);
 
         return response()->json([
             'success' => true,
             'message' => 'User berhasil ditambahkan.',
-            'data'    => $user
+            'data' => $user
         ], 201);
     }
 
@@ -107,18 +107,18 @@ class UserController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'name'     => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user->id)],
-            'email'    => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
             'password' => 'nullable|string|min:8',
-            'id_skpd'  => 'nullable|exists:tbl_skpd,id_skpd',
+            'id_skpd' => 'nullable|exists:tbl_skpd,id_skpd',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
                 'message' => 'Validasi gagal',
-                'errors'  => $validator->errors()
+                'errors' => $validator->errors()
             ], 422);
         }
 
@@ -132,7 +132,7 @@ class UserController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'User berhasil diperbarui.',
-            'data'    => $user
+            'data' => $user
         ], 200);
     }
 
@@ -146,7 +146,7 @@ class UserController extends Controller
         if (!$user) {
             return response()->json(['success' => false, 'message' => 'User tidak ditemukan.'], 404);
         }
-        
+
         if ($user->id === Auth::id()) {
             return response()->json([
                 'success' => false,
@@ -160,5 +160,33 @@ class UserController extends Controller
             'success' => true,
             'message' => 'User berhasil dihapus.'
         ], 200);
+    }
+
+    /**
+     * Mengubah password pengguna. Tidak perlu pengecekan password lama karena hanya diakses melalui admin
+     */
+    public function changePassword(Request $request, string $id): JsonResponse
+    {
+        if (!$request->user()->hasRole('admin')) {
+            return response()->json(['success' => false, 'message' => 'User bukan sebagai admin.'], 401);
+        }
+
+        $user = User::find($id);
+        if (!$user) {
+            return response()->json(['success' => false, 'message' => 'User tidak ditemukan.'], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'new_password' => 'required|string|min:8|confirmed',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
+        }
+
+        $user->update(['password' => Hash::make($request->new_password)]);
+        $user->tokens()->delete(); 
+
+        return response()->json(['success' => true, 'message' => 'Password berhasil diubah. User harus login ulang.']);
     }
 }

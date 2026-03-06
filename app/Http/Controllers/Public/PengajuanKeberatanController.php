@@ -73,9 +73,7 @@ class PengajuanKeberatanController extends Controller
             }
 
             // Kirim notifikasi ke user dengan role admin
-            $adminUsers = User::whereHas('roles', function ($query) {
-                $query->where('name', 'admin');
-            })->get();
+            $adminUsers = User::whereHasRole('admin')->get();
 
             foreach ($adminUsers as $admin) {
                 Notification::send([

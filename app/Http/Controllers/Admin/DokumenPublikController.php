@@ -104,7 +104,7 @@ class DokumenPublikController extends Controller
                     'type' => 'info',
                     'title' => 'Dokumen Publik Baru',
                     'message' => 'OPD ' . Auth::user()->skpd->nm_skpd . ' telah mengunggah dokumen baru.',
-                    'url' => route('admin.dokumen-publik.show', $informasi->id_informasi),
+                    'url' => env('FRONTEND_URL') . '/admin/informasi-publik/' . $informasi->id_informasi,
                     'notifiable_id' => $informasi->id_informasi,
                     'notifiable_type' => get_class($informasi),
                 ]);

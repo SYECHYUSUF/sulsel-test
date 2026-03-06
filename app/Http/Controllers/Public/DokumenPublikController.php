@@ -68,7 +68,10 @@ class DokumenPublikController extends Controller
         }
 
         // Query dokumen dengan relasi terkait
-        $query = DokumenPublik::with(['skpd', 'kategori'])
+        $query = DokumenPublik::with([
+            'skpd:id_skpd,nm_skpd',
+            'kategori:id_kat_info,nm_kat_info,slug'
+        ])
             ->where('id_kat_info', $kategori->id_kat_info)
             ->where('verify', 'y');
 
@@ -93,7 +96,6 @@ class DokumenPublikController extends Controller
         $availableYears = MasterTahun::orderBy('waktu', 'desc')->get();
 
         return response()->json([
-            'success' => true,
             'category' => [
                 'id' => $kategori->id_kat_info,
                 'name' => $kategori->nm_kat_info,
@@ -104,11 +106,47 @@ class DokumenPublikController extends Controller
     }
 
     /**
+     * Ambil data dokumen publik berdasarkan tahun.
+     */
+    public function getByYear(Request $request, $year): JsonResponse
+    {
+        $query = DokumenPublik::with([
+            'skpd:id_skpd,nm_skpd',
+            'kategori:id_kat_info,nm_kat_info,slug'
+        ])
+            ->where('verify', 'y')
+            ->whereYear('tgl_upload', $year);
+
+        // Filter pencarian opsional
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('judul', 'like', '%' . $search . '%')
+                    ->orWhere('ket', 'like', '%' . $search . '%');
+            });
+        }
+
+        $data = $query->latest('tgl_upload')->paginate(10);
+
+        $availableYears = MasterTahun::orderBy('waktu', 'desc')->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => $data,
+            'year' => $year,
+            'available_years' => $availableYears,
+        ]);
+    }
+
+    /**
      * Menampilkan detail dokumen publik berdasarkan ID.
      */
     public function show($id): JsonResponse
     {
-        $informasi = DokumenPublik::with(['kategori', 'skpd'])->find($id);
+        $informasi = DokumenPublik::with([
+            'skpd:id_skpd,nm_skpd',
+            'kategori:id_kat_info,nm_kat_info,slug'
+        ])->find($id);
 
         if (!$informasi) {
             return response()->json([
@@ -169,7 +207,7 @@ class DokumenPublikController extends Controller
     public function download($id)
     {
         // Cari data informasi publik berdasarkan ID
-        /** @var DokumenPublik $informasi */ 
+        /** @var DokumenPublik $informasi */
         $informasi = DokumenPublik::find($id);
 
         if (!$informasi) {

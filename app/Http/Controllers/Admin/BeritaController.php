@@ -87,7 +87,7 @@ class BeritaController extends Controller
                     'type' => 'info',
                     'title' => 'Berita Baru',
                     'message' => 'OPD ' . Auth::user()->skpd->nm_skpd . ' telah menambahkan berita baru: ' . $berita->judul,
-                    'url' => route('admin.berita.edit', $berita->id_berita),
+                    'url' => env('FRONTEND_URL') . '/admin/berita/' . $berita->id_berita,
                     'notifiable_id' => $berita->id_berita,
                     'notifiable_type' => get_class($berita),
                 ]);
@@ -155,6 +155,11 @@ class BeritaController extends Controller
         $data = $request->except('img_berita');
         $data['slug'] = Str::slug($request->judul) . '-' . rand(100, 999);
 
+        // Update tgl_verify jika statusnya diubah oleh admin
+        if ($request->verify !== $berita->verify) {
+            $data['tgl_verify'] = now();
+        }
+
         if ($request->hasFile('img_berita')) {
             if ($berita->img_berita && Storage::disk('public')->exists('img_berita/' . $berita->img_berita)) {
                 Storage::disk('public')->delete('img_berita/' . $berita->img_berita);
@@ -184,7 +189,7 @@ class BeritaController extends Controller
                 'type' => $type,
                 'title' => 'Status Berita: ' . $statusText,
                 'message' => 'Berita "' . $berita->judul . '" telah ' . strtolower($statusText) . ' oleh admin.',
-                'url' => route('admin.berita.edit', $berita->id_berita),
+                'url' => env('FRONTEND_URL') . '/opd/berita/' . $berita->id_berita,
                 'notifiable_id' => $berita->id_berita,
                 'notifiable_type' => get_class($berita),
             ]);
