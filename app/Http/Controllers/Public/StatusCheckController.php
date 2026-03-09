@@ -44,7 +44,7 @@ class StatusCheckController extends Controller
      */
     private function checkPermohonanStatus(string $email): JsonResponse
     {
-        $permohonan = PermohonanInformasi::with(['skpd', 'disposisi.skpd', 'disposisi.respon'])
+        $permohonan = PermohonanInformasi::with(['skpd', 'disposisi.skpd:id_skpd,nm_skpd', 'disposisi.respon'])
             ->where('email', $email)
             ->orderBy('created_at', 'desc')
             ->get();
@@ -89,9 +89,10 @@ class StatusCheckController extends Controller
             'feedbackBy:id,name', 
             'alasanPengajuan:id,id_pengajuan,alasan',
             'disposisi' => function($query) {
-                $query->select('id_disposisi', 'id_pengajuan', 'id_skpd', 'catatan_disposisi', 'status', 'created_at');
+                $query->select('id_disposisi', 'id_pengajuan', 'catatan_disposisi', 'status', 'created_at');
             },
-            'disposisi.skpd:id_skpd,nm_skpd'
+            'disposisi.skpd:id_skpd,nm_skpd',
+            'disposisi.respon:id_respon,isi_respon,file'
         ])
         ->where('email_pemohon', $email)
         ->orderBy('created_at', 'desc')

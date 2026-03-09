@@ -280,12 +280,20 @@ class PengajuanKeberatanController extends Controller
 
         if ($validator->fails()) return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
 
-        $filePath = $request->hasFile('file') ? $request->file('file')->store('respon-disposisi', 'public') : null;
+        $fileName = null;
+
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            // Mendapatkan nama file yang di-hash (misal: a1b2c3d4.pdf)
+            $fileName = $file->hashName();
+            // Simpan file ke storage 'public/respon-disposisi'
+            $file->storeAs('respon-disposisi', $fileName, 'public');
+        }
 
         PengajuanRespon::create([
             'id_disposisi' => $disposisi->id_disposisi,
             'isi_respon' => $request->respon,
-            'file' => $filePath,
+            'file' => $fileName,
             'respon_by' => Auth::id(),
         ]);
 

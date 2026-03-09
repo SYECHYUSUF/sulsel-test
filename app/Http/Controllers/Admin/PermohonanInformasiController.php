@@ -46,9 +46,9 @@ class PermohonanInformasiController extends Controller
         // Cari permohonan informasi beserta relasi skpd-nya
         $permohonan = PermohonanInformasi::with([
             'skpd', 
-            'disposisi.skpd', 
+            'disposisi.skpd:id_skpd,nm_skpd', 
             'disposisi.respon.respondedBy', 
-            'disposisi.disposisiBy'
+            'disposisi.disposisiBy:id,name'
         ])->find($id);
 
         // Jika permohonan informasi tidak ditemukan
@@ -154,12 +154,20 @@ class PermohonanInformasiController extends Controller
             'status' => 'required|in:diproses,selesai,ditolak',
         ]);
 
-        $filePath = $request->hasFile('file') ? $request->file('file')->store('respon-disposisi', 'public') : null;
+        $fileName = null;
+
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            // Mendapatkan nama file yang di-hash (misal: a1b2c3d4.pdf)
+            $fileName = $file->hashName();
+            // Simpan file ke storage 'public/respon-disposisi'
+            $file->storeAs('respon-disposisi', $fileName, 'public');
+        }
 
         PermohonanRespon::create([
             'id_disposisi' => $disposisi->id_disposisi,
             'respon' => $validated['respon'],
-            'file' => $filePath,
+            'file' => $fileName,
             'responded_by' => Auth::id(),
             'responded_at' => now(),
         ]);
@@ -168,7 +176,7 @@ class PermohonanInformasiController extends Controller
 
         $permohonan = $disposisi->permohonan;
 
-        // NEW: Sync response to parent PermohonanInformasi if status is 'selesai'
+        // Sync response to parent PermohonanInformasi if status is 'selesai'
         if ($validated['status'] === 'selesai') {
             $updateData = [
                 'status' => PermohonanInformasi::STATUS_SELESAI,
@@ -178,8 +186,8 @@ class PermohonanInformasiController extends Controller
             ];
 
             // If file exists, copy/link it to the parent record
-            if ($filePath) {
-                $updateData['file'] = $filePath;
+            if ($fileName) {
+                $updateData['file'] = $fileName;
             }
 
             $permohonan->update($updateData);

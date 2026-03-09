@@ -42,8 +42,12 @@ class PermohonanInformasiController extends Controller
             if ($request->hasFile('foto_ktp')) {
                 $file = $request->file('foto_ktp');
                 $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
-                $path = $file->storeAs('permohonan/ktp', $filename, 'public');
-                $data['foto_ktp'] = $path;
+                
+                // Tetap simpan ke folder yang rapi di storage
+                $file->storeAs('permohonan/ktp', $filename, 'public');
+                
+                // Yang masuk ke database HANYA filenamenya
+                $data['foto_ktp'] = $filename; 
             }
 
             $data['status'] = PermohonanInformasi::STATUS_PENDING;

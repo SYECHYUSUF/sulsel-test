@@ -180,4 +180,7 @@ Route::middleware('auth:sanctum')
         Route::put('notifications/{id}/read', 'NotificationController@markAsRead');
         Route::post('notifications/mark-all-read', 'NotificationController@markAllAsRead');
         Route::delete('notifications/delete-all', 'NotificationController@deleteAll');
+
+        // Log Login
+        Route::apiResource('logs/auth', 'LogLoginController');
     });
