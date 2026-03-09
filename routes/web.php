@@ -19,7 +19,7 @@ Route::get('/', function () {
 // Redirect dari URL lokal ke URL publik Supabase
 Route::get('/uploads/{path}', function ($path) {
     // Gunakan Project ID yang benar dari URL valid kamu
-    $projectId = env('SUPABASE_PROJECT_ID');
+    $projectId = "bdhhkrjvrzrreemwmcbw";
     $bucket = env('SUPABASE_STORAGE_BUCKET', 'ppid-sulselprov-bucket');
 
     // Susun URL sesuai format yang valid
