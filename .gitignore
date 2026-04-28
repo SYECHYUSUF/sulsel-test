@@ -36,3 +36,5 @@ database/seeders/file/
 **/caddy
 frankenphp
 frankenphp-worker.php
+
+.env.prod
