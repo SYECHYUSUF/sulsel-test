@@ -45,41 +45,94 @@ Route::get('/public/berita/latest', [BeritaController::class, 'latest']);
 
 Route::post('refresh-token', [TokenController::class, 'refreshToken'])->middleware(TokenMiddleware::class);
 
-Route::
-        namespace('App\Http\Controllers\Public')->prefix('public')->group(function () {
-            Route::apiResource('/slide-banner', 'SlideBannerController');
-            Route::apiResource('/berita', 'BeritaController');
-            Route::apiResource('/matriks-dip', 'MatriksDipController');
-            Route::apiResource('/skpd', 'SkpdController');
-            Route::apiResource('/faq', 'FaqController');
+Route::namespace('App\Http\Controllers\Public')->prefix('public')->group(function () {
+    Route::apiResource('/slide-banner', 'SlideBannerController')->names([
+        'index'   => 'public.slide-banner.index',
+        'store'   => 'public.slide-banner.store',
+        'show'    => 'public.slide-banner.show',
+        'update'  => 'public.slide-banner.update',
+        'destroy' => 'public.slide-banner.destroy',
+    ]);
+    Route::apiResource('/berita', 'BeritaController')->names([
+        'index'   => 'public.berita.index',
+        'store'   => 'public.berita.store',
+        'show'    => 'public.berita.show',
+        'update'  => 'public.berita.update',
+        'destroy' => 'public.berita.destroy',
+    ]);
+    Route::apiResource('/matriks-dip', 'MatriksDipController')->names([
+        'index'   => 'public.matriks-dip.index',
+        'store'   => 'public.matriks-dip.store',
+        'show'    => 'public.matriks-dip.show',
+        'update'  => 'public.matriks-dip.update',
+        'destroy' => 'public.matriks-dip.destroy',
+    ]);
+    Route::apiResource('/skpd', 'SkpdController')->names([
+        'index'   => 'public.skpd.index',
+        'store'   => 'public.skpd.store',
+        'show'    => 'public.skpd.show',
+        'update'  => 'public.skpd.update',
+        'destroy' => 'public.skpd.destroy',
+    ]);
+    Route::apiResource('/faq', 'FaqController')->names([
+        'index'   => 'public.faq.index',
+        'store'   => 'public.faq.store',
+        'show'    => 'public.faq.show',
+        'update'  => 'public.faq.update',
+        'destroy' => 'public.faq.destroy',
+    ]);
+    Route::apiResource('footer-setting', 'FooterSettingController')->names([
+        'index'   => 'public.footer-setting.index',
+        'store'   => 'public.footer-setting.store',
+        'show'    => 'public.footer-setting.show',
+        'update'  => 'public.footer-setting.update',
+        'destroy' => 'public.footer-setting.destroy',
+    ]);
 
-            Route::apiResource('footer-setting', 'FooterSettingController');
+    Route::get('/sop', [SopController::class, 'index']);
+    Route::get('/sop/download/{id}', [SopController::class, 'download']);
 
-            Route::get('/sop', [SopController::class, 'index']);
-            Route::get('/sop/download/{id}', [SopController::class, 'download']);
+    Route::apiResource('/pengajuan-keberatan', 'PengajuanKeberatanController')->names([
+        'index'   => 'public.pengajuan-keberatan.index',
+        'store'   => 'public.pengajuan-keberatan.store',
+        'show'    => 'public.pengajuan-keberatan.show',
+        'update'  => 'public.pengajuan-keberatan.update',
+        'destroy' => 'public.pengajuan-keberatan.destroy',
+    ]);
 
-            Route::apiResource('/pengajuan-keberatan', 'PengajuanKeberatanController');
+    Route::apiResource('/sosmed', 'SosmedController')->names([
+        'index'   => 'public.sosmed.index',
+        'store'   => 'public.sosmed.store',
+        'show'    => 'public.sosmed.show',
+        'update'  => 'public.sosmed.update',
+        'destroy' => 'public.sosmed.destroy',
+    ]);
 
-            Route::apiResource('/sosmed', 'SosmedController');
-            Route::get('/permohonan-informasi/search', 'PermohonanInformasiController@search');
-            Route::apiResource('/permohonan-informasi', 'PermohonanInformasiController');
+    Route::get('/permohonan-informasi/search', 'PermohonanInformasiController@search');
+    Route::apiResource('/permohonan-informasi', 'PermohonanInformasiController')->names([
+        'index'   => 'public.permohonan-informasi.index',
+        'store'   => 'public.permohonan-informasi.store',
+        'show'    => 'public.permohonan-informasi.show',
+        'update'  => 'public.permohonan-informasi.update',
+        'destroy' => 'public.permohonan-informasi.destroy',
+    ]);
 
-            Route::get('/survey/questions', 'SurveyController@create');
-            Route::post('/survey/store', 'SurveyController@store');
-            Route::get('/survey/results', 'SurveyController@showResults');
+    Route::get('/survey/questions', 'SurveyController@create');
+    Route::post('/survey/store', 'SurveyController@store');
+    Route::get('/survey/results', 'SurveyController@showResults');
 
-            Route::get('/profil-pemprov', 'ProfilPemprovController@index');
+    Route::get('/profil-pemprov', 'ProfilPemprovController@index');
 
-            Route::prefix('profil')->group(function () {
-                Route::get('ppid', 'ProfilController@ppid');
-                Route::get('pemerintah', 'ProfilController@pemprov');
-                Route::get('visi-misi', 'ProfilController@visiMisi');
-                Route::get('tupoksi', 'ProfilController@tupoksi');
-                Route::get('struktur-organisasi', 'ProfilController@strukturOrganisasi');
-                Route::get('sambutan', 'ProfilController@sambutan');
-                Route::get('maklumat', 'ProfilController@maklumat');
-            });
-        });
+    Route::prefix('profil')->group(function () {
+        Route::get('ppid', 'ProfilController@ppid');
+        Route::get('pemerintah', 'ProfilController@pemprov');
+        Route::get('visi-misi', 'ProfilController@visiMisi');
+        Route::get('tupoksi', 'ProfilController@tupoksi');
+        Route::get('struktur-organisasi', 'ProfilController@strukturOrganisasi');
+        Route::get('sambutan', 'ProfilController@sambutan');
+        Route::get('maklumat', 'ProfilController@maklumat');
+    });
+});
 
 // --- Rute Terproteksi (Sanctum) ---
 Route::middleware('auth:sanctum')
@@ -116,19 +169,11 @@ Route::middleware('auth:sanctum')
             Route::post('disposisi/{disposisiId}/respon', [PermohonanInformasiController::class, 'responStore']);
         });
 
-        // Resource route untuk index, show, update, destroy
         Route::apiResource('pengajuan-keberatan', 'PengajuanKeberatanController');
-
-        // Route tambahan untuk fungsi spesifik di PengajuanKeberatanController
         Route::prefix('pengajuan-keberatan')->group(function () {
-            // Route untuk Feedback
             Route::post('{id}/feedback', [PengajuanKeberatanController::class, 'storeFeedback'])->name('pengajuan-keberatan.storeFeedback');
             Route::get('{id}/feedback', [PengajuanKeberatanController::class, 'loadFeedback'])->name('pengajuan-keberatan.loadFeedback');
-
-            // Route untuk Disposisi (Store ke banyak SKPD)
             Route::post('{id}/disposisi', [PengajuanKeberatanController::class, 'disposisiStore'])->name('pengajuan-keberatan.disposisi.store');
-
-            // Route untuk Respon (Dari SKPD ke admin)
             Route::post('disposisi/{disposisiId}/respon', [PengajuanKeberatanController::class, 'responStore'])->name('pengajuan-keberatan.respon.store');
         });
 
@@ -158,9 +203,6 @@ Route::middleware('auth:sanctum')
         Route::apiResource('integrated-service', 'IntegratedServiceController');
         Route::apiResource('ikphn', 'IkphnController');
 
-        // Social Links Management
-        Route::apiResource('sosmed', 'SosmedController');
-
         // Master Data Groups
         Route::prefix('master-data')->group(function () {
             Route::apiResource('pekerjaan', 'MasterPekerjaanController');
@@ -172,7 +214,6 @@ Route::middleware('auth:sanctum')
 
         // Survey & Feedback
         Route::apiResource('survey-questions', 'SurveyQuestionController');
-        // Untuk index manual (non-resource)
         Route::get('survey-responses', 'SurveyResponseController@index');
 
         // Notifikasi
