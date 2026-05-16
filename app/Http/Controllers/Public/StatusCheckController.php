@@ -69,8 +69,8 @@ class StatusCheckController extends Controller
             $item->status_label_display = $labels[$item->status] ?? 'Status Tidak Diketahui';
             $item->formatted_date = $item->created_at->translatedFormat('d F Y H:i') . ' WITA';
 
-            // Build the file URL – use the field on the record itself (synced by admin or OPD response)
-            $fileUrl = $item->file ? url('/storage/' . $item->file) : null;
+            // Build the file URL – use the custom /uploads route for better accessibility
+            $fileUrl = $item->file ? url('/uploads/' . $item->file) : null;
 
             // Fallback: look for a file in completed disposition responses
             if (!$fileUrl && $item->disposisi) {
@@ -82,7 +82,7 @@ class StatusCheckController extends Controller
                     ->first();
 
                 if ($latestRespon && $latestRespon->file) {
-                    $fileUrl = url('/storage/' . $latestRespon->file);
+                    $fileUrl = url('/uploads/respon-disposisi/' . $latestRespon->file);
                 }
             }
 
@@ -108,10 +108,10 @@ class StatusCheckController extends Controller
             'feedbackBy:id,name', 
             'alasanPengajuan:id,id_pengajuan,alasan',
             'disposisi' => function($query) {
-                $query->select('id_disposisi', 'id_pengajuan', 'catatan_disposisi', 'status', 'created_at');
+                $query->select('id_disposisi', 'id_pengajuan', 'id_skpd', 'catatan_disposisi', 'status', 'created_at');
             },
             'disposisi.skpd:id_skpd,nm_skpd',
-            'disposisi.respon:id_respon,isi_respon,file'
+            'disposisi.respon:id_respon,id_disposisi,isi_respon,file'
         ])
         ->where('email_pemohon', $email)
         ->orderBy('created_at', 'desc')
@@ -144,6 +144,25 @@ class StatusCheckController extends Controller
             // Mapping kode warna/status untuk frontend
             $item->display_status_code = $item->status;
             $item->formatted_date = $item->created_at->translatedFormat('d F Y H:i') . ' WITA';
+
+            // Build the file URL
+            $fileUrl = $item->file ? url('/uploads/' . $item->file) : null;
+
+            // Fallback: look for a file in completed disposition responses
+            if (!$fileUrl && $item->disposisi) {
+                $latestRespon = $item->disposisi
+                    ->where('status', 'selesai')
+                    ->pluck('respon')
+                    ->flatten()
+                    ->sortByDesc('created_at')
+                    ->first();
+
+                if ($latestRespon && $latestRespon->file) {
+                    $fileUrl = url('/uploads/respon-disposisi/' . $latestRespon->file);
+                }
+            }
+
+            $item->file = $fileUrl;
 
             return $item;
         });
