@@ -24,6 +24,26 @@ class SosmedController extends Controller
     }
 
     /**
+     * Menampilkan detail media sosial.
+     */
+    public function show(string $id): JsonResponse
+    {
+        $sosmed = Sosmed::find($id);
+
+        if (!$sosmed) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Media sosial tidak ditemukan.'
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data'    => $sosmed
+        ], 200);
+    }
+
+    /**
      * Menambahkan akun media sosial baru.
      */
     public function store(Request $request): JsonResponse

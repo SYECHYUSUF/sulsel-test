@@ -32,7 +32,12 @@ class StrukturOrganisasiController extends Controller
     public function store(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'struktur_organisasi' => 'required|mimes:pdf|max:5120', // Max 5MB
+            'struktur_organisasi' => 'required|file|mimes:pdf|max:5120', // Max 5MB
+        ], [
+            'struktur_organisasi.required' => 'File struktur organisasi wajib diunggah.',
+            'struktur_organisasi.file'     => 'Input harus berupa file yang valid.',
+            'struktur_organisasi.mimes'    => 'Format file harus PDF.',
+            'struktur_organisasi.max'      => 'Ukuran file maksimal 5MB.',
         ]);
 
         if ($validator->fails()) {
@@ -71,7 +76,7 @@ class StrukturOrganisasiController extends Controller
 
         return response()->json([
             'success' => false,
-            'message' => 'Tidak ada file yang diunggah.'
+            'message' => 'Tidak ada file yang diunggah atau ukuran file melebihi limit PHP.'
         ], 400);
     }
 }

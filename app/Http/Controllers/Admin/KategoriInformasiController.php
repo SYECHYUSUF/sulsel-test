@@ -21,7 +21,11 @@ class KategoriInformasiController extends Controller
             $query->where('nm_kat_info', 'like', '%' . $request->search . '%');
         }
 
-        $kategoris = $query->paginate(10);
+        if ($request->has('all')) {
+            $kategoris = $query->get();
+        } else {
+            $kategoris = $query->paginate($request->get('per_page', 10));
+        }
 
         return response()->json([
             'success' => true,

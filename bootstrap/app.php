@@ -15,6 +15,10 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->statefulApi();
 
+        $middleware->validateCsrfTokens(except: [
+            'api/*',
+        ]);
+
         $middleware->alias([
             'check_skpd' => \App\Http\Middleware\CheckSkpd::class,
             'honeypot' => \App\Http\Middleware\HoneypotProtection::class,

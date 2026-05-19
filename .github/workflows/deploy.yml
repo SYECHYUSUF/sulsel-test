@@ -22,7 +22,7 @@ jobs:
       - name: Deploy via SSH
         run: |
           ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "
-            cd /path/to/project/backend &&
+            cd /var/www/ppid-sulsel/backend &&
             git pull origin main &&
             podman build -t ppid-backend:latest . &&
             cd .. &&
