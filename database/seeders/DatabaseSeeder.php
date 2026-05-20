@@ -11,25 +11,25 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Seed roles first
-        // $this->call([
-        //     SqlFileSeeder::class,
-        //     InformasiSeeder::class,
+        $this->call([
+            SqlFileSeeder::class,
+            InformasiSeeder::class,
 
-        //     RoleSeeder::class,
-        //     FaqSeeder::class,
-        //     SurveySeeder::class,
-        //     SurveyResponseSeeder::class,
-        //     TahunSeeder::class,
-        //     SlideBannerSeeder::class,
-        //     MasterPekerjaanSeeder::class,
-        //     MasterDomisiliSeeder::class,
-        //     SosmedSeeder::class,
-        //     ProfilSeeder::class,
-        //     InformationSeeder::class,
-        //     FooterSettingSeeder::class,
-        //     InformasiPublikSeeder::class,
-        //     FaqSeeder::class,
-        // ]);
+            RoleSeeder::class,
+            FaqSeeder::class,
+            SurveySeeder::class,
+            SurveyResponseSeeder::class,
+            TahunSeeder::class,
+            SlideBannerSeeder::class,
+            MasterPekerjaanSeeder::class,
+            MasterDomisiliSeeder::class,
+            SosmedSeeder::class,
+            ProfilSeeder::class,
+            InformationSeeder::class,
+            FooterSettingSeeder::class,
+            InformasiPublikSeeder::class,
+            FaqSeeder::class,
+        ]);
 
         // --- Konfigurasi User Esdm 2 ---
         $esdmData = [
