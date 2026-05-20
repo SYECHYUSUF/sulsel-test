@@ -1,8 +1,8 @@
 # Get Composer binary
-FROM composer:latest AS composer_bin
+FROM docker.io/composer:latest AS composer_bin
 
 # Build stage
-FROM dunglas/frankenphp:1.4-php8.4-alpine AS build
+FROM docker.io/dunglas/frankenphp:1.4-php8.4-alpine AS build
 
 # Install PHP extension installer
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
@@ -30,7 +30,7 @@ COPY . .
 RUN composer run-script post-autoload-dump
 
 # Final stage
-FROM dunglas/frankenphp:1.4-php8.4-alpine
+FROM docker.io/dunglas/frankenphp:1.4-php8.4-alpine
 
 # Install PHP extension installer
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
@@ -51,8 +51,6 @@ ENV APP_DEBUG=false
 
 # Permissions
 RUN chown -R www-data:www-data storage bootstrap/cache
-
-USER www-data
 
 EXPOSE 8000
 
