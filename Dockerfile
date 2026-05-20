@@ -43,6 +43,7 @@ WORKDIR /app
 
 # Copy from build stage
 COPY --from=build /app /app
+COPY Caddyfile /etc/caddy/Caddyfile
 
 # Configure FrankenPHP
 ENV FRANKENPHP_CONFIG="worker ./public/frankenphp-worker.php"
@@ -54,4 +55,4 @@ RUN chown -R www-data:www-data storage bootstrap/cache
 
 EXPOSE 8000
 
-CMD ["frankenphp", "php-server", "--listen", ":8000"]
+CMD ["frankenphp", "run", "--config", "/etc/caddy/Caddyfile"]
