@@ -25,6 +25,26 @@ class SlideBannerController extends Controller
     }
 
     /**
+     * Menampilkan detail banner slide.
+     */
+    public function show(string $id): JsonResponse
+    {
+        $slide = SlideBanner::find($id);
+
+        if (!$slide) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Banner tidak ditemukan'
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data'    => $slide
+        ], 200);
+    }
+
+    /**
      * Menambahkan banner slide baru.
      */
     public function store(Request $request): JsonResponse
@@ -43,7 +63,8 @@ class SlideBannerController extends Controller
 
         $data = [];
         if ($request->hasFile('nm_slide')) {
-            $data['nm_slide'] = $request->file('nm_slide')->store('slide-banner', 'public');
+            $path = $request->file('nm_slide')->store('slide-banner', 'public');
+            $data['nm_slide'] = basename($path);
         }
 
         $slide = SlideBanner::create($data);
@@ -82,11 +103,13 @@ class SlideBannerController extends Controller
         }
 
         if ($request->hasFile('nm_slide')) {
-            if ($slide->nm_slide && Storage::disk('public')->exists($slide->nm_slide)) {
-                Storage::disk('public')->delete($slide->nm_slide);
+            $oldFile = str_replace('slide-banner/', '', $slide->nm_slide);
+            if ($oldFile && Storage::disk('public')->exists('slide-banner/' . $oldFile)) {
+                Storage::disk('public')->delete('slide-banner/' . $oldFile);
             }
+            $path = $request->file('nm_slide')->store('slide-banner', 'public');
             $slide->update([
-                'nm_slide' => $request->file('nm_slide')->store('slide-banner', 'public')
+                'nm_slide' => basename($path)
             ]);
         }
 
@@ -111,8 +134,9 @@ class SlideBannerController extends Controller
             ], 404);
         }
 
-        if ($slide->nm_slide && Storage::disk('public')->exists($slide->nm_slide)) {
-            Storage::disk('public')->delete($slide->nm_slide);
+        $oldFile = str_replace('slide-banner/', '', $slide->nm_slide);
+        if ($oldFile && Storage::disk('public')->exists('slide-banner/' . $oldFile)) {
+            Storage::disk('public')->delete('slide-banner/' . $oldFile);
         }
 
         $slide->delete();

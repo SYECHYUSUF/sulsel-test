@@ -20,7 +20,6 @@ return [
     'allowed_methods' => ['*'],
 
     'allowed_origins' => [
-        'https://ppid-sulselprov.vercel.app',
         env('FRONTEND_URL'),
     ],
 
